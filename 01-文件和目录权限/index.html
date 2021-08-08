@@ -1,0 +1,1467 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Linux文件和目录权限," />
+
+
+
+
+  
+
+
+  <link rel="alternate" href="/atom.xml" title="" type="application/atom+xml" />
+
+
+
+
+
+
+<meta name="description" content="权限位 rwxrwrwx：左三位：定义user（owner）的权限，属主权限中三位：定义group的权限，属组权限有三位：定义other的权限，其他的权限 进程对文件的访问权限应用模型：进程的属主与文件的属主是否相同。如果相同，则应用属主权限；否则去检查是否属于文件的属组；如果是，则应用属组权限，否则，就只能引用other权限。 权限：r：readable，可读w：writable，可写x：exe">
+<meta property="og:type" content="article">
+<meta property="og:title" content="01-文件和目录权限">
+<meta property="og:url" content="http://www.ashjian.xyz/01-%E6%96%87%E4%BB%B6%E5%92%8C%E7%9B%AE%E5%BD%95%E6%9D%83%E9%99%90/index.html">
+<meta property="og:site_name">
+<meta property="og:description" content="权限位 rwxrwrwx：左三位：定义user（owner）的权限，属主权限中三位：定义group的权限，属组权限有三位：定义other的权限，其他的权限 进程对文件的访问权限应用模型：进程的属主与文件的属主是否相同。如果相同，则应用属主权限；否则去检查是否属于文件的属组；如果是，则应用属组权限，否则，就只能引用other权限。 权限：r：readable，可读w：writable，可写x：exe">
+<meta property="og:image" content="https://raw.githubusercontent.com/ashjian/picBed02/main/20210530201339.png">
+<meta property="article:published_time" content="2021-05-24T05:37:53.476Z">
+<meta property="article:modified_time" content="2021-05-30T12:13:58.123Z">
+<meta property="article:author" content="StarDustLoong">
+<meta property="article:tag" content="Linux文件和目录权限">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://raw.githubusercontent.com/ashjian/picBed02/main/20210530201339.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://www.ashjian.xyz/01-文件和目录权限/"/>
+
+
+
+
+
+  <title>01-文件和目录权限 | </title>
+  
+
+
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?d7bf52f45e24a0e6f2951901a7a97864";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+<meta name="generator" content="Hexo 4.2.1"></head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title"></span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off"
+             placeholder="搜索..." spellcheck="false"
+             type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://www.ashjian.xyz/01-%E6%96%87%E4%BB%B6%E5%92%8C%E7%9B%AE%E5%BD%95%E6%9D%83%E9%99%90/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="StarDustLoong">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/uploads/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">01-文件和目录权限</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2021-05-24T13:37:53+08:00">
+                2021-05-24
+              </time>
+            
+
+            
+              <span class="post-meta-divider">|</span>
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-check-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">更新于&#58;</span>
+              
+              <time title="更新于" itemprop="dateModified" datetime="2021-05-30T20:13:58+08:00">
+                2021-05-30
+              </time>
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/linux/" itemprop="url" rel="index">
+                    <span itemprop="name">linux</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/01-%E6%96%87%E4%BB%B6%E5%92%8C%E7%9B%AE%E5%BD%95%E6%9D%83%E9%99%90/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/01-%E6%96%87%E4%BB%B6%E5%92%8C%E7%9B%AE%E5%BD%95%E6%9D%83%E9%99%90/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  1.2k
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  5
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+      
+      
+
+      
+        <h3 id="权限位"><a href="#权限位" class="headerlink" title="权限位"></a>权限位</h3><p><img src="https://raw.githubusercontent.com/ashjian/picBed02/main/20210530201339.png" alt="image-20200819195324060"></p>
+<p><code>rwxrwrwx</code>：<br>左三位：定义user（owner）的权限，属主权限<br>中三位：定义group的权限，属组权限<br>有三位：定义other的权限，其他的权限</p>
+<p>进程对文件的访问权限应用模型：<br>进程的属主与文件的属主是否相同。如果相同，则应用属主权限；否则去检查是否属于文件的属组；如果是，则应用属组权限，否则，就只能引用other权限。</p>
+<p>权限：<br><code>r</code>：readable，可读<br><code>w</code>：writable，可写<br><code>x</code>：executble，可执行</p>
+<ul>
+<li>文件<ul>
+<li><code>r</code>：可获取文件的数据</li>
+<li><code>w</code>：可修改文件的数据</li>
+<li><code>x</code>：可将此文件运行为进程</li>
+</ul>
+</li>
+<li>目录<ul>
+<li><code>r</code>：可使用ls命令获取旗下的所有文件列表</li>
+<li><code>w</code>：可修改次目录下的文件列表，即创建或删除文件</li>
+<li><code>x</code>：可cd值此目录中，且可使用<code>ll</code>来获取到所有文件详细属性信息</li>
+</ul>
+</li>
+</ul>
+<p>权限组合机制：</p>
+<ul>
+<li><code>---</code>：二进制<code>000</code>，十进制<code>0</code></li>
+<li><code>--x</code>：二进制<code>001</code>，十进制<code>1</code></li>
+<li><code>-w-</code>：二进制<code>010</code>，十进制<code>2</code></li>
+<li><code>-wx</code>：二进制<code>011</code>，十进制<code>3</code></li>
+<li><code>r--</code>：二进制<code>100</code>，十进制<code>4</code></li>
+<li><code>r-x</code>：二进制<code>101</code>，十进制<code>5</code></li>
+<li><code>rw-</code>：二进制<code>110</code>，十进制<code>6</code></li>
+<li><code>rwx</code>：二进制<code>111</code>，十进制<code>7</code></li>
+</ul>
+<hr>
+<h3 id="文件权限管理命令"><a href="#文件权限管理命令" class="headerlink" title="文件权限管理命令"></a>文件权限管理命令</h3><p>chmod的三种用法：</p>
+<blockquote>
+<p>chmod [OPTION]… MODE[,MODE]… FILE…<br>chmod [OPTION]… OCTAL-MODE FILE…<br>chmod [OPTION]… –reference=RFILE FILE…</p>
+</blockquote>
+<p>三类用户：</p>
+<ul>
+<li><code>u</code>：属主</li>
+<li><code>g</code>：属组</li>
+<li><code>o</code>；其他</li>
+<li><code>a</code>：所有</li>
+</ul>
+<p><strong>(1)MODE表示法：<code>chmod [OPTION]... MODE[,MODE]... FILE...</code></strong></p>
+<ul>
+<li>赋值表示法：直接操作一类用户的所有权限位：<ul>
+<li><code>u=</code></li>
+<li><code>g=</code></li>
+<li><code>o=</code></li>
+<li><code>a=</code></li>
+</ul>
+</li>
+<li>授权表示法：直接操作一类用户的一个或多个权限位：<ul>
+<li><code>u+</code>、<code>u-</code></li>
+<li><code>g+</code>、<code>g-</code></li>
+<li><code>o+</code>、<code>o-</code></li>
+<li><code>a+</code>、<code>a-</code></li>
+</ul>
+</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><code class="hljs plain">touch test<br>chmod g&#x3D;rw test<br>ll<br>chmod ug&#x3D;r test<br>ll<br>chmod u&#x3D;rwx,g&#x3D;rw,o&#x3D; test<br>ll<br>chmod u-x test<br>ll<br>chmod o+r test<br>ll<br>chmod ug+x test<br>ll<br>chmod g-wx test<br>ll<br>chmod u-r test<br>ll<br>chmod +x test # +x对所有都有效<br>ll<br>chmod +w test # +w只对属主有效<br>ll<br>chmod u+x,g+w test<br>ll<br></code></pre></td></tr></table></figure>
+
+<p><strong>(2)八进制表示法：chmod [OPTION]… OCTAL-MODE FILE…</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs plain">chmod 660 test<br>ll<br>chmod 777 test<br>ll<br></code></pre></td></tr></table></figure>
+
+<p><strong>(3)参考某个文件的权限：chmod [OPTION]… –reference=RFILE FILE…</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs plain">chmod --reference&#x3D;&#x2F;etc&#x2F;fstab test<br></code></pre></td></tr></table></figure>
+
+<p><strong>(4)chmod选项</strong></p>
+<ul>
+<li><code>-R</code> ：recursive ，递归修改</li>
+</ul>
+<hr>
+<h3 id="从属关系管理命令"><a href="#从属关系管理命令" class="headerlink" title="从属关系管理命令"></a>从属关系管理命令</h3><p>主要有两个命令<code>chown</code>，<code>chgrp</code></p>
+<h4 id="chown更改文件的的属主-属组也能更改"><a href="#chown更改文件的的属主-属组也能更改" class="headerlink" title="chown更改文件的的属主(属组也能更改)"></a><code>chown</code>更改文件的的属主(属组也能更改)</h4><ul>
+<li><code>-R</code>：递归修改</li>
+</ul>
+<p>用法：<br><code>chown -R USERNAME[:FILENAME] FILENAME</code></p>
+<p>例如：<br><code>chown -R oracle:oinstall /u01</code></p>
+<h4 id="chgrp更改文件的属组"><a href="#chgrp更改文件的属组" class="headerlink" title="chgrp更改文件的属组"></a><code>chgrp</code>更改文件的属组</h4><ul>
+<li><code>-R</code>：递归修改</li>
+</ul>
+<p>用法：<br><code>chgrp -R GROUPNAME FILENAME</code><br>用到很少，chown可以修改属组，这个命令就被打入冷宫了，很少用。</p>
+<hr>
+<h3 id="新建文件和目录的默认权限（umask）"><a href="#新建文件和目录的默认权限（umask）" class="headerlink" title="新建文件和目录的默认权限（umask）"></a>新建文件和目录的默认权限（umask）</h3><p>新建的文件和文件夹都有一个默认权限，那么是如何实现的呢？就是用umask实现的。</p>
+<p>umask原理：</p>
+<ul>
+<li>针对新建文件：<code>666-umas</code>k后的权限就是新建文件的权限</li>
+<li>针对新建目录：<code>777-umask</code>后的权限就是新建目录的权限。</li>
+</ul>
+<p>我们可以看<code>/etc/bashrc</code>里面的umask规则：</p>
+<p>![]/images/1496043520606.png)</p>
+<p>看代码，即<strong>UID</strong> 大于<code>199</code>，umask为<code>002</code>，否则umask为<code>022</code></p>
+<p>普通用户UID在CentOS 6下大于500，CentOS7下大于1000，所以umask值为<code>002</code>，默认创建的<strong>文件</strong>和<strong>文件夹</strong>权限分别为<code>666-002=664</code>、<code>777-002=775</code>。</p>
+<p>而root用户，UID为0，umask值为022，默认创建的<strong>文件</strong>和<strong>文件夹</strong>权限分别为<code>666-022=644</code>、<code>777-022=755</code>。</p>
+<hr>
+<h3 id="练习题"><a href="#练习题" class="headerlink" title="练习题"></a>练习题</h3><p>1、当用户<code>docker</code>对<code>/testdir</code> 目录无执行权限时，意味着无法做哪些操作？</p>
+<blockquote>
+<p>无法cd到这个目录，无法ll查看目录下的文件元数据（能看到文件名）</p>
+</blockquote>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs bash">[ash@ashjian ~]<span class="hljs-variable">$ll</span> -d dir1/<br>dr--r--r--. 2 ash ash 4096 Aug 19 20:24 dir1/<br>[ash@ashjian ~]<span class="hljs-variable">$cd</span> dir1/<br>-bash: <span class="hljs-built_in">cd</span>: dir1/: Permission denied<br>[ash@ashjian ~]<span class="hljs-variable">$ll</span> dir1/<br>ls: cannot access dir1/f1: Permission denied<br>ls: cannot access dir1/f2: Permission denied<br>total 0<br>-????????? ? ? ? ?            ? f1<br>-????????? ? ? ? ?            ? f2<br><span class="hljs-comment">#好奇，能找到名字应该能找到节点号码，通过节点号码能在inode table中找到节点信息才对?</span><br></code></pre></td></tr></table></figure>
+
+<p>2、当用户<code>xiaoqiang</code>对<code>/testdir</code> 目录无读权限时，意味着无 法做哪些操作？</p>
+<blockquote>
+<p>无法ls查看这个目录列表。</p>
+</blockquote>
+<p>3、当用户<code>wangcai</code> 对<code>/testdir</code> 目录无写权限时，该目录下的只读文件<code>file1</code>是否可修改和删除？</p>
+<blockquote>
+<p>不可以修改和删除。</p>
+</blockquote>
+<p>4、当用户<code>wangcai</code> 对<code>/testdir</code> 目录有写和执行权限时，该目 录下的只读文件file1是否可修改和删除？</p>
+<blockquote>
+<p>可以修改和删除，但是没有读权限的话，只能盲找。</p>
+</blockquote>
+<p>5、复制<code>/etc/fstab</code>文件到/<code>var/tmp</code>下，设置文件所有者为 <code>wangcai</code>读写权限，所属组为<code>sysadmins</code>组有读写权限，其他人无权限</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs plain">cp &#x2F;etc&#x2F;fstab &#x2F;var&#x2F;tmp&#x2F;<br>chown wangcai:sysadmins &#x2F;var&#x2F;tmp&#x2F;fstab<br>chmod 660 &#x2F;var&#x2F;tmp&#x2F;fstab<br></code></pre></td></tr></table></figure>
+
+<p>6、误删除了用户<code>wangcai</code>的家目录，请重建并恢复该用户家目录及相应的权限属性</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs plain">rm -rf &#x2F;home&#x2F;wangcai<br>cp -r &#x2F;etc&#x2F;skel&#x2F; &#x2F;home&#x2F;wangcai<br>chmod 700 &#x2F;home&#x2F;wangcia<br>chown -R wangcai:wangcai &#x2F;home&#x2F;wangcai<br></code></pre></td></tr></table></figure>
+      
+    </div>
+    
+    
+    
+
+     <!-- 文章末尾统一添加“本文结束”标记 -->
+    <div>
+      
+        <div>
+    
+        <div style="text-align:center;color: #555;font-size:24px;"><-------------The End-------------></div>
+    
+</div>
+
+      
+    </div>
+    
+
+    
+      <div>
+        <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+  <div>坚持原创分享，你的支持就是我最大的动力！</div>
+  <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+    <span>打赏</span>
+  </button>
+  <div id="QR" style="display: none;">
+
+    
+      <div id="wechat" style="display: inline-block">
+        <img id="wechat_qr" src="/uploads/weixin_cash_code.png" alt="StarDustLoong 微信支付"/>
+        <p>微信支付</p>
+      </div>
+    
+
+    
+      <div id="alipay" style="display: inline-block">
+        <img id="alipay_qr" src="/uploads/alipay_cash_code.png" alt="StarDustLoong 支付宝"/>
+        <p>支付宝</p>
+      </div>
+    
+
+    
+
+  </div>
+</div>
+
+      </div>
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Linux%E6%96%87%E4%BB%B6%E5%92%8C%E7%9B%AE%E5%BD%95%E6%9D%83%E9%99%90/" rel="tag"># Linux文件和目录权限</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/01-%E5%8F%98%E9%87%8F/" rel="next" title="01-变量">
+                <i class="fa fa-chevron-left"></i> 01-变量
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/04-%E5%8D%95%E7%BD%91%E7%BB%9C%E5%8F%8C%E6%B4%BB%E6%A8%A1%E5%BC%8F%E7%9A%84Keepalived+LVS-DR%E9%85%8D%E7%BD%AE/" rel="prev" title="04-单网络双活模式的Keepalived+LVS-DR配置">
+                04-单网络双活模式的Keepalived+LVS-DR配置 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+    </div>
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/uploads/avatar.png"
+                alt="StarDustLoong" />
+            
+              <p class="site-author-name" itemprop="name">StarDustLoong</p>
+              <p class="site-description motion-element" itemprop="description">人类如风一般的自由</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">2409</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">12</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">146</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+	   
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/StarDustLoong" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:13671474528@163.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://www.zhihu.com/people/ashjian-ar15" target="_blank" title="知乎">
+                      
+                        <i class="fa fa-fw fa-globe"></i>知乎</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://me.csdn.net/ashjian" target="_blank" title="CSDN">
+                      
+                        <i class="fa fa-fw fa-codiepie"></i>CSDN</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+            <div class="links-of-blogroll motion-element links-of-blogroll-inline">
+              <div class="links-of-blogroll-title">
+                <i class="fa  fa-fw fa-link"></i>
+                Links
+              </div>
+              <ul class="links-of-blogroll-list">
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="http://mp.weixin.qq.com/user1" title="OpenInfo" target="_blank">OpenInfo</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="http://mp.weixin.qq.com/user2" title="stormzhang" target="_blank">stormzhang</a>
+                  </li>
+                
+              </ul>
+            </div>
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#权限位"><span class="nav-number">1.</span> <span class="nav-text">权限位</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#文件权限管理命令"><span class="nav-number">2.</span> <span class="nav-text">文件权限管理命令</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#从属关系管理命令"><span class="nav-number">3.</span> <span class="nav-text">从属关系管理命令</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#chown更改文件的的属主-属组也能更改"><span class="nav-number">3.1.</span> <span class="nav-text">chown更改文件的的属主(属组也能更改)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#chgrp更改文件的属组"><span class="nav-number">3.2.</span> <span class="nav-text">chgrp更改文件的属组</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#新建文件和目录的默认权限（umask）"><span class="nav-number">4.</span> <span class="nav-text">新建文件和目录的默认权限（umask）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#练习题"><span class="nav-number">5.</span> <span class="nav-text">练习题</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">StarDustLoong</span>
+
+  
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-area-chart"></i>
+    </span>
+    
+      <span class="post-meta-item-text">本站总字数&#58;</span>
+    
+    <span title="本站总字数">635.5k</span>
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Pisces</a> v5.1.4</div>
+
+
+
+
+#<!-- 百度自动推送 -->
+#<script>
+#(function(){
+#    var bp = document.createElement('script');
+#    var curProtocol = window.location.protocol.split(':')[0];
+#    if (curProtocol === 'https') {
+#        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+#    }
+#    else {
+#        bp.src = 'http://push.ashjian.baidu.com/push.js';
+#    }
+#    var s = document.getElementsByTagName("script")[0];
+#    s.parentNode.insertBefore(bp, s);
+#})();
+#</script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aplayer/dist/APlayer.min.css">
+
+<script src="https://cdn.jsdelivr.net/npm/aplayer/dist/APlayer.min.js"></script>
+<!-- require MetingJS -->
+
+<script src="https://cdn.jsdelivr.net/npm/meting@2.0.1/dist/Meting.min.js"></script>
+<div> 
+<meting-js  
+    server="netease" 
+    type="playlist"  
+    id="5281251057" 
+    fixed="true"  
+    autoplay="false" 
+    loop="all" 
+    order="random"
+    preload="auto" 
+    list-folded="ture" 
+    list-max-height="500px" 
+    lrc-type="1">
+</meting-js>	 
+</div>
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv">
+      本站访客数
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+      人次
+    </span>
+  
+
+  
+    <span class="site-pv">
+      本站总访问量
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+      次
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+  <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+  <script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+  
+  <script type="text/javascript">
+    var GUEST = ['nick','mail','link'];
+    var guest = 'nick,mail,link';
+    guest = guest.split(',').filter(item=>{
+      return GUEST.indexOf(item)>-1;
+    });
+    new Valine({
+        el: '#comments' ,
+        verify: false,
+        notify: false,
+        appId: 'Gp5xxuBGmRxC9yeJHf5wlLpN-gzGzoHsz',
+        appKey: 'wo0eDJonJrnuUrCCCU7EnH1n',
+        placeholder: '欢迎评论',
+        avatar:'mm',
+        guest_info:guest,
+        pageSize:'20' || 10,
+    });
+  </script>
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"jsonPath":"/live2dw/assets/dsr50_lifu_normal.model.json"},"display":{"position":"right","width":700,"height":800,"hOffset":-250,"vOffset":-150},"mobile":{"show":true,"scale":0.7},"log":false});</script></body>
+</html>

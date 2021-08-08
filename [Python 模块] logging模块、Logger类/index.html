@@ -1,0 +1,1542 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="python模块," />
+
+
+
+
+  
+
+
+  <link rel="alternate" href="/atom.xml" title="" type="application/atom+xml" />
+
+
+
+
+
+
+<meta name="description" content="logging模块： 标准库里面的logging模块，在前面学习线程安全时曾用来解决print被打断的问题，这里会介绍logging模块的功能。 logging模块是线程安全的，不需要客户做任何特殊的工作。它通过使用线程锁实现了这一点; 有一个锁来序列化访问模块的共享数据，每个处理程序还创建一个锁来序列化访问其底层 I&#x2F;O。 日志记录级别：    级别 数值    CRITICAL 50   ER">
+<meta property="og:type" content="article">
+<meta property="og:title" content="[Python 模块] logging模块、Logger类">
+<meta property="og:url" content="http://www.ashjian.xyz/[Python%20%E6%A8%A1%E5%9D%97]%20logging%E6%A8%A1%E5%9D%97%E3%80%81Logger%E7%B1%BB/index.html">
+<meta property="og:site_name">
+<meta property="og:description" content="logging模块： 标准库里面的logging模块，在前面学习线程安全时曾用来解决print被打断的问题，这里会介绍logging模块的功能。 logging模块是线程安全的，不需要客户做任何特殊的工作。它通过使用线程锁实现了这一点; 有一个锁来序列化访问模块的共享数据，每个处理程序还创建一个锁来序列化访问其底层 I&#x2F;O。 日志记录级别：    级别 数值    CRITICAL 50   ER">
+<meta property="og:image" content="https://gitee.com/ashjian/picBed/raw/master/20210721115828.png">
+<meta property="article:published_time" content="2021-07-21T06:36:14.010Z">
+<meta property="article:modified_time" content="2021-07-26T23:42:26.222Z">
+<meta property="article:author" content="StarDustLoong">
+<meta property="article:tag" content="python模块">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://gitee.com/ashjian/picBed/raw/master/20210721115828.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://www.ashjian.xyz/[Python 模块] logging模块、Logger类/"/>
+
+
+
+
+
+  <title>[Python 模块] logging模块、Logger类 | </title>
+  
+
+
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?d7bf52f45e24a0e6f2951901a7a97864";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+<meta name="generator" content="Hexo 4.2.1"></head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title"></span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off"
+             placeholder="搜索..." spellcheck="false"
+             type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://www.ashjian.xyz/%5BPython%20%E6%A8%A1%E5%9D%97%5D%20logging%E6%A8%A1%E5%9D%97%E3%80%81Logger%E7%B1%BB/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="StarDustLoong">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/uploads/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">[Python 模块] logging模块、Logger类</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2021-07-21T14:36:14+08:00">
+                2021-07-21
+              </time>
+            
+
+            
+              <span class="post-meta-divider">|</span>
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-check-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">更新于&#58;</span>
+              
+              <time title="更新于" itemprop="dateModified" datetime="2021-07-27T07:42:26+08:00">
+                2021-07-27
+              </time>
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/python/" itemprop="url" rel="index">
+                    <span itemprop="name">python</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/%5BPython%20%E6%A8%A1%E5%9D%97%5D%20logging%E6%A8%A1%E5%9D%97%E3%80%81Logger%E7%B1%BB/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/%5BPython%20%E6%A8%A1%E5%9D%97%5D%20logging%E6%A8%A1%E5%9D%97%E3%80%81Logger%E7%B1%BB/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  2.7k
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  12
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+      
+      
+
+      
+        <p>logging模块：</p>
+<p>标准库里面的logging模块，在前面学习线程安全时曾用来解决print被打断的问题，这里会介绍logging模块的功能。</p>
+<p>logging模块是线程安全的，不需要客户做任何特殊的工作。它通过使用线程锁实现了这一点; 有一个锁来序列化访问模块的共享数据，每个处理程序还创建一个锁来序列化访问其底层 I/O。</p>
+<p>日志记录级别：</p>
+<table>
+<thead>
+<tr>
+<th>级别</th>
+<th>数值</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>CRITICAL</code></td>
+<td>50</td>
+</tr>
+<tr>
+<td><code>ERROR</code></td>
+<td>40</td>
+</tr>
+<tr>
+<td><code>WARNING</code></td>
+<td>30,默认</td>
+</tr>
+<tr>
+<td><code>INFO</code></td>
+<td>20</td>
+</tr>
+<tr>
+<td><code>DEBUG</code></td>
+<td>10</td>
+</tr>
+<tr>
+<td><code>NOTSET</code></td>
+<td>0</td>
+</tr>
+</tbody></table>
+<p>定义的记录级别越低，信息越多，级别越高，信息越少。</p>
+<p>日志记录格式化字符串：</p>
+<table>
+<thead>
+<tr>
+<th>属性名</th>
+<th>格式</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>asctime</td>
+<td><code>%(asctime)s</code></td>
+<td>易读的时间格式： 默认情况下是’2003-07-08 16：49：45,896’的形式（逗号之后的数字是毫秒部分的时间）</td>
+</tr>
+<tr>
+<td>filename</td>
+<td><code>%(filename)s</code></td>
+<td>路径名的文件名部分。</td>
+</tr>
+<tr>
+<td>funcName</td>
+<td><code>%(funcName)s</code></td>
+<td>日志调用所在的函数名</td>
+</tr>
+<tr>
+<td>levelname</td>
+<td><code>%(levelname)s</code></td>
+<td>消息的级别名称(<code>&#39;DEBUG&#39;</code>, <code>&#39;INFO&#39;</code>, <code>&#39;WARNING&#39;</code>, <code>&#39;ERROR&#39;</code>, <code>&#39;CRITICAL&#39;</code>).</td>
+</tr>
+<tr>
+<td>levelno</td>
+<td><code>%(levelno)s</code></td>
+<td>对应数字格式的日志级别 (<code>DEBUG</code>, <code>INFO</code>, <code>WARNING</code>, <code>ERROR</code>,<code>CRITICAL</code>).</td>
+</tr>
+<tr>
+<td>lineno</td>
+<td><code>%(lineno)d</code></td>
+<td>发出日志记录调用的源码行号 (如果可用)。</td>
+</tr>
+<tr>
+<td>module</td>
+<td><code>%(module)s</code></td>
+<td>所在的模块名(如test6.py模块则记录test6)</td>
+</tr>
+<tr>
+<td>message</td>
+<td><code>%(message)s</code></td>
+<td>记录的信息</td>
+</tr>
+<tr>
+<td>name</td>
+<td><code>%(name)s</code></td>
+<td>调用的logger记录器的名称</td>
+</tr>
+<tr>
+<td>process</td>
+<td><code>%(process)d</code></td>
+<td>进程ID</td>
+</tr>
+<tr>
+<td>processName</td>
+<td><code>%(processName)s</code></td>
+<td>进程名</td>
+</tr>
+<tr>
+<td>thread</td>
+<td><code>%(thread)d</code></td>
+<td>线程ID</td>
+</tr>
+<tr>
+<td>threadName</td>
+<td><code>%(threadName)s</code></td>
+<td>线程名</td>
+</tr>
+</tbody></table>
+<p>使用basicConfig方法配置logging记录格式：</p>
+<table>
+<thead>
+<tr>
+<th>格式</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>filename</code></td>
+<td>指定使用指定的文件名而不是StreamHandler创建FileHandler。</td>
+</tr>
+<tr>
+<td><code>filemode</code></td>
+<td>指定打开文件的模式，如果指定了filename（如果文件模式未指定，则默认为’a’）。</td>
+</tr>
+<tr>
+<td><code>format</code></td>
+<td>为处理程序使用指定的格式字符串。</td>
+</tr>
+<tr>
+<td><code>datefmt</code></td>
+<td>使用指定的日期/时间格式。</td>
+</tr>
+<tr>
+<td><code>level</code></td>
+<td>将根记录器级别设置为指定的级别。</td>
+</tr>
+<tr>
+<td><code>handlers</code></td>
+<td>如果指定，这应该是一个已经创建的处理程序的迭代器添加到根记录器。任何尚未设置格式化程序的处理程序都将被分配在此函数中创建的默认格式化程序。</td>
+</tr>
+</tbody></table>
+<p>举例：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><code class="hljs plain">import threading<br>import logging<br>FORMAT &#x3D; &quot;%(asctime)s %(thread)d %(message)s&quot;<br>logging.basicConfig(level&#x3D;logging.INFO,format&#x3D;FORMAT)<br> <br>def add(x,y):<br>    logging.warning(&quot;&#123;&#125; &#123;&#125;&quot;.format(threading.enumerate(),x+y))<br> <br>t&#x3D; threading.Timer(1,add,args&#x3D;(4,5))<br>t.start()<br> <br>运行结果：<br>2017-12-17 15:40:34,226 123145367023616 [&lt;_MainThread(MainThread, stopped4320629568)&gt;, &lt;Timer(Thread-1, started123145367023616)&gt;]9<br></code></pre></td></tr></table></figure>
+
+<p>　　</p>
+<p>修改日期格式：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs plain">DATEFMT&#x3D;&quot;[%Y-%m-%d %H:%M:%S]&quot;<br>FORMAT &#x3D; &quot;%(asctime)s %(thread)d %(message)s&quot;<br>logging.basicConfig(level&#x3D;logging.INFO,format&#x3D;FORMAT,datefmt&#x3D;DATEFMT)<br></code></pre></td></tr></table></figure>
+
+<p>　　[2017-12-17 15:45:18]</p>
+<p>输出到文件：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs plain">logging.basicConfig(level&#96;&#96;&#x3D;&#96;&#96;logging.INFO,&#96;&#96;format&#96;&#96;&#x3D;&#96;&#96;FORMAT&#96;&#96;,datefmt&#96;&#96;&#x3D;&#96;&#96;DATEFMT,filename&#96;&#96;&#x3D;&#96;&#96;&#39;class_test.log&#39;&#96;&#96;)<br></code></pre></td></tr></table></figure>
+
+<p>　　文件路径不指定，默认为当前模块路径。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><code class="hljs plain">import threading<br>import logging<br>DATEFMT&#x3D;&quot;[%Y-%m-%d %H:%M:%S]&quot;<br>FORMAT &#x3D; &quot;%(asctime)s %(thread)d %(message)s&quot;<br>logging.basicConfig(level&#x3D;logging.INFO,format&#x3D;FORMAT,datefmt&#x3D;DATEFMT,filename&#x3D;&#39;class_test.log&#39;)<br> <br>def add(x,y):<br>    logging.warning(&quot;&#123;&#125; &#123;&#125;&quot;.format(threading.enumerate(),x+y))<br> <br>t&#x3D; threading.Timer(1,add,args&#x3D;(4,5))<br>t.start()<br> <br>输出结果会追加写入当前模块路径的class_test.log文件：<br>[2017-12-17 15:50:13]123145503244288 [&lt;_MainThread(MainThread, stopped4320629568)&gt;, &lt;Timer(Thread-1, started123145503244288)&gt;]9<br></code></pre></td></tr></table></figure>
+
+<p>　　</p>
+<p> Logger类：</p>
+<p>构造</p>
+<p>使用工厂方法返回一个Logger实例。</p>
+<p><code>logging.``getLogger</code>([name=None])</p>
+<p> 指定name，返回一个名称为name的Logger实例。如果再次使用相同的名字，是实例化一个对象。未指定name，返回Logger实例，名称是root，即根Logger。</p>
+<p>Logger是层次结构的，使用 ‘.’ 点号分割，如’a’、’a.b’或’a.b.c.d’，’a’是’a.b’的父parent，a.b是a的子child。对于foo来说，名字为foo.bar、foo.bar.baz、foo.bam都是foo的后代。</p>
+<p>举例：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><code class="hljs plain">import logging<br>DATEFMT&#x3D;&quot;[%Y-%m-%d %H:%M:%S]&quot;<br>FORMAT &#x3D; &quot;%(asctime)s %(thread)d %(message)s&quot;<br>logging.basicConfig(level&#x3D;logging.INFO,format&#x3D;FORMAT,datefmt&#x3D;DATEFMT,filename&#x3D;&#39;class_test.log&#39;)<br> <br>root&#x3D; logging.getLogger()<br>print(root.name,type(root),root.parent,id(root))<br> <br>logger&#x3D; logging.getLogger(__name__)<br>print(logger.name,type(logger),id(logger),id((logger.parent)))<br> <br>logger1&#x3D; logging.getLogger(__name__+ &quot;.ok&quot;)<br>print(logger1.name,type(logger1),id(logger1),id((logger1.parent)))<br> <br>print(logger1.parent,id(logger1.parent))<br> <br>运行结果：<br>root &lt;class &#39;logging.RootLogger&#39;&gt;None 4367575248<br>__main__ &lt;class &#39;logging.Logger&#39;&gt;4367575864 4367575248<br>__main__.ok &lt;class &#39;logging.Logger&#39;&gt;4367575920 4367575864<br>&lt;logging.Loggerobject at0x10453eb38&gt;4367575864<br></code></pre></td></tr></table></figure>
+
+<p>　　</p>
+<p>子child的级别设置，不影响父parent的级别：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><code class="hljs plain">import logging<br> <br>FORMAT &#x3D; &quot;%(asctime)s %(thread)d %(message)s&quot;<br>logging.basicConfig(level&#x3D;logging.WARNING,format&#x3D;FORMAT,datefmt&#x3D;&quot;[%Y-%m-%d %H:%M:%S]&quot;)<br> <br>root&#x3D; logging.getLogger()<br>print(1,root,id(root))#RootLogger,根Logger<br>root.info(&#39;my root&#39;)#低于定义的WARNING级别，所以不会记录<br> <br>loga&#x3D; logging.getLogger(__name__)#Logger继承自RootLogger<br>print(2,loga,id(loga),id(loga.parent))<br>print(3,loga.getEffectiveLevel())#数值形式的有效级别<br> <br>loga.warning(&#39;before&#39;)<br>loga.setLevel(28)#设置级别为28<br>print(4,loga.getEffectiveLevel())<br>loga.info(&#39;after&#39;)#<br>loga.warning(&#39;after1&#39;)<br> <br>运行结果：<br>[2017-12-17 16:31:20]4320629568 before<br>1 &lt;logging.RootLoggerobject at0x104534f28&gt;4367535912<br>2 &lt;logging.Loggerobject at0x1044ef630&gt;4367250992 4367535912<br>3 30<br>4 28<br>[2017-12-17 16:31:20]4320629568 after1<br></code></pre></td></tr></table></figure>
+
+<p>　　</p>
+<p>Handler:</p>
+<p>Handler控制日志信息的输出目的地，可以是控制台、文件。</p>
+<p>可以单独设置level</p>
+<p>可以单独设置格式</p>
+<p>可以设置过滤器</p>
+<p>Handler</p>
+<p>　　StreamHandler #不指定使用sys.strerr</p>
+<p>　　　　FileHandler #文件</p>
+<p>　　　　_StderrHandler #标准输出</p>
+<p>　　NullHandler #什么都不做</p>
+<p>level的继承：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><code class="hljs plain">import logging<br> <br>FORMAT &#x3D; &quot;%(asctime)s %(thread)d %(message)s&quot;<br>logging.basicConfig(level&#x3D;logging.INFO,format&#x3D;FORMAT,datefmt&#x3D;&quot;[%Y-%m-%d %H:%M:%S]&quot;)<br> <br>root&#x3D; logging.getLogger()#根Logger级别为INFO 20<br>print(&#39;root:&#39;,root.getEffectiveLevel())<br> <br>log1&#x3D; logging.getLogger(&#39;s&#39;)<br>log1.setLevel(logging.ERROR)#级别为ERROR 40<br>print(&#39;log1:&#39;,log1.getEffectiveLevel())<br>log1.error(&#39;log1 error&#39;)<br> <br>log2&#x3D; logging.getLogger(&#39;s.s1&#39;)#继承自log1 40，无法使用warning<br>log2.setLevel(logging.WARNING)#设置为WARNING 30，才可以使用warning<br>print(&#39;log2:&#39;,log2.getEffectiveLevel())<br>log2.warning(&#39;log2 warning&#39;)<br> <br>运行结果：<br>[2017-12-17 16:52:22]4320629568 log1 error<br>root:20<br>log1:40<br>[2017-12-17 16:52:22]4320629568 log2 warning<br>log2:30<br></code></pre></td></tr></table></figure>
+
+<p>　　logger实例，如果设置了level，就用它和信息的级别比较，否则，继承最近的祖先的level。</p>
+<p>handler处理：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><code class="hljs plain">import logging<br> <br>FORMAT &#x3D; &quot;%(asctime)s %(thread)d %(message)s&quot;<br>logging.basicConfig(level&#x3D;logging.INFO,format&#x3D;FORMAT,datefmt&#x3D;&quot;[%Y-%m-%d %H:%M:%S]&quot;)<br> <br>root&#x3D; logging.getLogger()<br>print(1,root.getEffectiveLevel())#RootLogger,根Logger<br> <br>log1&#x3D; logging.getLogger(&#39;s&#39;)<br>print(2,log1.getEffectiveLevel())<br> <br>h1&#x3D; logging.FileHandler(&#39;test.log&#39;)<br>h1.setLevel(logging.WARNING)<br>log1.addHandler(h1)<br>print(3,log1.getEffectiveLevel())<br> <br>log2&#x3D; logging.getLogger(&#39;s.s2&#39;)<br>print(4,log2.getEffectiveLevel())<br> <br>h2&#x3D; logging.FileHandler(&#39;test1.log&#39;)<br>h2.setLevel(logging.WARNING)<br>log1.addHandler(h2)<br>print(3,log1.getEffectiveLevel())<br> <br> <br>log2.warning(&#39;log2 info---&#39;)<br> <br> <br>运行结果：<br>1 20<br>[2017-12-17 19:02:53]7956 log2 info---<br>2 20<br>3 20<br>4 20<br>3 20<br></code></pre></td></tr></table></figure>
+
+<p>　　test.log和test1.log最终都会记录一份”log2 info—“</p>
+<p> 同样，handler也可以设置使用logging.Formatter()设置格式和Logging.Filter()设置过滤器：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><code class="hljs plain">import logging<br> <br>FORMAT &#x3D; &quot;%(asctime)s %(thread)d %(message)s&quot;<br>logging.basicConfig(level&#x3D;logging.INFO,format&#x3D;FORMAT,datefmt&#x3D;&quot;[%Y-%m-%d %H:%M:%S]&quot;)<br> <br>root&#x3D; logging.getLogger()<br>print(1,root.getEffectiveLevel())#RootLogger,根Logger<br> <br>log1&#x3D; logging.getLogger(&#39;s&#39;)#模块化用__module__，函数化用__name__作为Logger名，Logger同名内存中也只有一个<br>print(2,log1.getEffectiveLevel())<br> <br>h1&#x3D; logging.FileHandler(&#39;test.log&#39;)<br>h1.setLevel(logging.WARNING)<br>fmt1&#x3D; logging.Formatter(&#39;[%(asctime)s] %(thread)s %(threadName)s log1-handler1 %(message)s&#39;)<br>h1.setFormatter(fmt1)#重新个性化定义记录的格式化字符串<br>log1.addHandler(h1)<br>filter1&#x3D; logging.Filter(&#39;s&#39;)#过滤器 会记录s, s.s2的信息<br>log1.addFilter(filter1)<br>print(3,log1.getEffectiveLevel())<br> <br>log2&#x3D; logging.getLogger(&#39;s.s2&#39;)<br>print(4,log2.getEffectiveLevel())<br> <br>h2&#x3D; logging.FileHandler(&#39;test1.log&#39;)<br>h2.setLevel(logging.WARNING)<br>log1.addHandler(h2)<br>filter1&#x3D; logging.Filter(&#39;s.s2&#39;)#过滤器不会记录s.s2的消息，只会记录自己的消息<br>log1.addFilter(filter1)<br>print(3,log1.getEffectiveLevel())<br> <br>log1.warning(&#39;log1 warning&#x3D;&#x3D;&#x3D;&#39;)<br>log2.warning(&#39;log2 warning---&#39;)<br> <br>运行结果：<br>test.log:#handler1记录了到了log1和log2的信息<br>[2017-12-17 19:43:12,654]5872 MainThread log1-handler1 log1 warning&#x3D;&#x3D;&#x3D;<br>[2017-12-17 19:43:12,654]5872 MainThread log1-handler1 log2 warning---<br> <br> <br>test1.log:   #handler2只记录了它自己的信息<br>log2 warning---<br></code></pre></td></tr></table></figure>
+
+
+
+
+
+<p>loggerLevel –&gt; FilterConditions –&gt; HandlerLevel –&gt; 父LoggerFilter –&gt; 父LoggerHandler –&gt; RootHandler –&gt; 标准输出或记录到日志：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br></pre></td><td class="code"><pre><code class="hljs plain">import logging,datetime<br> <br>FORMAT &#x3D; &quot;%(asctime)s %(thread)d %(message)s&quot;<br>logging.basicConfig(level&#x3D;logging.WARNING,format&#x3D;FORMAT,datefmt&#x3D;&quot;[%Y-%m-%d %H:%M:%S]&quot;)<br> <br>&quot;--------------root--------------------&quot;<br>root&#x3D; logging.getLogger()<br>print(1,root.getEffectiveLevel())<br> <br>&quot;--------------log1-------------------&quot;<br>log1&#x3D; logging.getLogger(&#39;s&#39;)<br>log1.setLevel(logging.ERROR)<br>print(2,log1.getEffectiveLevel())<br> <br>h1&#x3D; logging.FileHandler(&#39;h1.log&#39;)<br>h1.setLevel(logging.INFO)<br>log1.addHandler(h1)<br> <br>&quot;--------------log2-------------------&quot;<br>log2&#x3D; logging.getLogger(&#39;s.s2&#39;)<br>log2.setLevel(logging.WARNING)<br>print(3,log2.getEffectiveLevel())<br> <br># h2 &#x3D; logging.StreamHandler()<br>h2&#x3D; logging.FileHandler(&#39;h2.log&#39;)<br>h2.setLevel(logging.WARNING)# 最低40<br>f2&#x3D; logging.Filter(&#39;s.s3&#39;)# log2 &#x3D; s.s2 ，  s, s.s2   s.s3<br>h2.addFilter(f2)<br>log2.addHandler(h2)<br> <br> <br>log2.warning(&#39;4,log2 warning -- &#123;&#125;&#39;.format(datetime.datetime.now()))<br> <br>运行结果：<br>1 30<br>2 40<br>3 30<br>[2017-12-19 14:23:43]2508 4,log2 warning-- 2017-12-19 14:23:43.364928<br> <br>#h1.log<br>4,log2 warning-- 2017-12-19 14:23:43.364928<br> <br> <br>#h2.log<br>空，没有写入<br></code></pre></td></tr></table></figure>
+
+<p>　　</p>
+<p>官网流程图：</p>
+<p><img src="https://gitee.com/ashjian/picBed/raw/master/20210721115828.png" alt="img"></p>
+<p>官网的介绍流程图中第三步，在检查Filter过滤条件不满足时就直接终止。但在上面例子中，log2 –&gt; h2 –&gt; h2Filter –&gt; h2Handler ，当log2传入的消息级别不满足h2Filter条件时，没有直接终止，而是继续向上传递给了父logger的Handler(h1)，满足h1级别，最后写入了h1.log。所以，官网上这一步不知道是不是正确的，但上面例子的实验结果却又证明官网的流程是错误的。</p>
+<p>总结：</p>
+<p>\1. 每一个Logger实例的level如同入口，让水流进来，如果这个门槛太高，信息就进不来。例如log2.info(‘log3 info’)，如果log2定义的级别高于info级别，就不会又信息通过log2</p>
+<p>\2. 如果level没有设置，就用父logger的，如果父logger的level也没有设置，继续找父的父的，最终找到root上，如果root设置了就用它的，如果root没有设置，root的默认值是WARNING</p>
+<p>3.消息传递流程：</p>
+<p>在某个logger上产生某种级别的信息，首先和logger的level检查，如果消息level低于logger的EffectiveLevl有效级别，消息丢弃，不会再向父logger传递该消息。如果通过(大于等于)检查后，则把消息交给logger所有的handler处理，每一个handler需要和自己level比较来决定是否处理。</p>
+<p>如果没有一个handler，或者消息已经被handler处理过了，则需要通过本logger的propagate属性是否为True，Ture则把这个消息会继续发给父Logger，当前Logger的父Logger称为当前Logger，新的Logger的所有Handler继续处理消息。</p>
+<p>\4. logger实例初始的propagate属性为True，即允许想父logger传递消息</p>
+<p>\5. logger.basicConfig</p>
+<p>如果root没有handler，就默认创建一个StreamHandler,如果设置了filename，就创建一个FileHandler。如果设置了format参数，就会用它生成一个formatter对象，并把这个formatter加入到刚才创建的handler上，然后把这些handler加入到root.handlers列表上。level 是设置给root.logger的。</p>
+<p>如果root.handlers列表不为空，logging.basicConfig的调用什么都不做。</p>
+
+      
+    </div>
+    
+    
+    
+
+     <!-- 文章末尾统一添加“本文结束”标记 -->
+    <div>
+      
+        <div>
+    
+        <div style="text-align:center;color: #555;font-size:24px;"><-------------The End-------------></div>
+    
+</div>
+
+      
+    </div>
+    
+
+    
+      <div>
+        <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+  <div>坚持原创分享，你的支持就是我最大的动力！</div>
+  <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+    <span>打赏</span>
+  </button>
+  <div id="QR" style="display: none;">
+
+    
+      <div id="wechat" style="display: inline-block">
+        <img id="wechat_qr" src="/uploads/weixin_cash_code.png" alt="StarDustLoong 微信支付"/>
+        <p>微信支付</p>
+      </div>
+    
+
+    
+      <div id="alipay" style="display: inline-block">
+        <img id="alipay_qr" src="/uploads/alipay_cash_code.png" alt="StarDustLoong 支付宝"/>
+        <p>支付宝</p>
+      </div>
+    
+
+    
+
+  </div>
+</div>
+
+      </div>
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/python%E6%A8%A1%E5%9D%97/" rel="tag"># python模块</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/%E7%BA%BF%E7%A8%8B%E5%90%8C%E6%AD%A5%E4%B9%8BEvent/" rel="next" title="线程同步之Event">
+                <i class="fa fa-chevron-left"></i> 线程同步之Event
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/%5B@OZ%5D%20%E7%BD%A0%E3%81%AB%E5%A2%9C%E3%81%A1%E3%81%9F%E7%AB%9C%E3%81%AE%E9%AD%94%E5%A5%B3%20%E5%AE%8C%E5%85%A8%E7%B7%8A%E7%B8%9B%20%E6%94%BE%E7%BD%AE%E3%83%BB%E6%81%A5%E8%BE%B1%E3%83%BB%E5%BF%AB%E6%A5%BD%E8%B2%AC%E3%82%81/" rel="prev" title="[@OZ] 罠に墜ちた竜の魔女 完全緊縛 放置・恥辱・快楽責め">
+                [@OZ] 罠に墜ちた竜の魔女 完全緊縛 放置・恥辱・快楽責め <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+    </div>
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+
+      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/uploads/avatar.png"
+                alt="StarDustLoong" />
+            
+              <p class="site-author-name" itemprop="name">StarDustLoong</p>
+              <p class="site-description motion-element" itemprop="description">人类如风一般的自由</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">2409</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">12</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">146</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+	   
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/StarDustLoong" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:13671474528@163.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://www.zhihu.com/people/ashjian-ar15" target="_blank" title="知乎">
+                      
+                        <i class="fa fa-fw fa-globe"></i>知乎</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://me.csdn.net/ashjian" target="_blank" title="CSDN">
+                      
+                        <i class="fa fa-fw fa-codiepie"></i>CSDN</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+            <div class="links-of-blogroll motion-element links-of-blogroll-inline">
+              <div class="links-of-blogroll-title">
+                <i class="fa  fa-fw fa-link"></i>
+                Links
+              </div>
+              <ul class="links-of-blogroll-list">
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="http://mp.weixin.qq.com/user1" title="OpenInfo" target="_blank">OpenInfo</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="http://mp.weixin.qq.com/user2" title="stormzhang" target="_blank">stormzhang</a>
+                  </li>
+                
+              </ul>
+            </div>
+          
+
+          
+
+        </div>
+      </section>
+
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">StarDustLoong</span>
+
+  
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-area-chart"></i>
+    </span>
+    
+      <span class="post-meta-item-text">本站总字数&#58;</span>
+    
+    <span title="本站总字数">635.5k</span>
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Pisces</a> v5.1.4</div>
+
+
+
+
+#<!-- 百度自动推送 -->
+#<script>
+#(function(){
+#    var bp = document.createElement('script');
+#    var curProtocol = window.location.protocol.split(':')[0];
+#    if (curProtocol === 'https') {
+#        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+#    }
+#    else {
+#        bp.src = 'http://push.ashjian.baidu.com/push.js';
+#    }
+#    var s = document.getElementsByTagName("script")[0];
+#    s.parentNode.insertBefore(bp, s);
+#})();
+#</script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aplayer/dist/APlayer.min.css">
+
+<script src="https://cdn.jsdelivr.net/npm/aplayer/dist/APlayer.min.js"></script>
+<!-- require MetingJS -->
+
+<script src="https://cdn.jsdelivr.net/npm/meting@2.0.1/dist/Meting.min.js"></script>
+<div> 
+<meting-js  
+    server="netease" 
+    type="playlist"  
+    id="5281251057" 
+    fixed="true"  
+    autoplay="false" 
+    loop="all" 
+    order="random"
+    preload="auto" 
+    list-folded="ture" 
+    list-max-height="500px" 
+    lrc-type="1">
+</meting-js>	 
+</div>
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv">
+      本站访客数
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+      人次
+    </span>
+  
+
+  
+    <span class="site-pv">
+      本站总访问量
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+      次
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+  <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+  <script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+  
+  <script type="text/javascript">
+    var GUEST = ['nick','mail','link'];
+    var guest = 'nick,mail,link';
+    guest = guest.split(',').filter(item=>{
+      return GUEST.indexOf(item)>-1;
+    });
+    new Valine({
+        el: '#comments' ,
+        verify: false,
+        notify: false,
+        appId: 'Gp5xxuBGmRxC9yeJHf5wlLpN-gzGzoHsz',
+        appKey: 'wo0eDJonJrnuUrCCCU7EnH1n',
+        placeholder: '欢迎评论',
+        avatar:'mm',
+        guest_info:guest,
+        pageSize:'20' || 10,
+    });
+  </script>
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"jsonPath":"/live2dw/assets/dsr50_lifu_normal.model.json"},"display":{"position":"right","width":700,"height":800,"hOffset":-250,"vOffset":-150},"mobile":{"show":true,"scale":0.7},"log":false});</script></body>
+</html>

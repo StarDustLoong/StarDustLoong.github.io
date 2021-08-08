@@ -1,0 +1,1617 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="python并发和线程," />
+
+
+
+
+  
+
+
+  <link rel="alternate" href="/atom.xml" title="" type="application/atom+xml" />
+
+
+
+
+
+
+<meta name="description" content="并发基本概念并发和并行区别并行parallel同时做某些事，可以互不干扰的同一个时刻做几件事 并发，concurrency也是同时做某些事，但是强调，一个时段内有事情要处理。 举例乡村公路一条车道，半幅路面出现了坑，交警指挥交通。众多车辆在这一时段要湮过路面的事件，这就是并发。交警指挥，车辆排队通过另外半幅路面，一个方向放行3分钟，停止该方向通行，换另一个方向放行。高速公路的车道，双向4车道，所有">
+<meta property="og:type" content="article">
+<meta property="og:title" content="python并发和线程">
+<meta property="og:url" content="http://www.ashjian.xyz/python%E5%B9%B6%E5%8F%91%E5%92%8C%E7%BA%BF%E7%A8%8B/index.html">
+<meta property="og:site_name">
+<meta property="og:description" content="并发基本概念并发和并行区别并行parallel同时做某些事，可以互不干扰的同一个时刻做几件事 并发，concurrency也是同时做某些事，但是强调，一个时段内有事情要处理。 举例乡村公路一条车道，半幅路面出现了坑，交警指挥交通。众多车辆在这一时段要湮过路面的事件，这就是并发。交警指挥，车辆排队通过另外半幅路面，一个方向放行3分钟，停止该方向通行，换另一个方向放行。高速公路的车道，双向4车道，所有">
+<meta property="article:published_time" content="2021-07-21T03:26:00.056Z">
+<meta property="article:modified_time" content="2021-07-15T03:57:03.486Z">
+<meta property="article:author" content="StarDustLoong">
+<meta property="article:tag" content="python并发和线程">
+<meta name="twitter:card" content="summary">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://www.ashjian.xyz/python并发和线程/"/>
+
+
+
+
+
+  <title>python并发和线程 | </title>
+  
+
+
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?d7bf52f45e24a0e6f2951901a7a97864";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+<meta name="generator" content="Hexo 4.2.1"></head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title"></span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off"
+             placeholder="搜索..." spellcheck="false"
+             type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://www.ashjian.xyz/python%E5%B9%B6%E5%8F%91%E5%92%8C%E7%BA%BF%E7%A8%8B/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="StarDustLoong">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/uploads/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">python并发和线程</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2021-07-21T11:26:00+08:00">
+                2021-07-21
+              </time>
+            
+
+            
+              <span class="post-meta-divider">|</span>
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-check-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">更新于&#58;</span>
+              
+              <time title="更新于" itemprop="dateModified" datetime="2021-07-15T11:57:03+08:00">
+                2021-07-15
+              </time>
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/python/" itemprop="url" rel="index">
+                    <span itemprop="name">python</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/python%E5%B9%B6%E5%8F%91%E5%92%8C%E7%BA%BF%E7%A8%8B/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/python%E5%B9%B6%E5%8F%91%E5%92%8C%E7%BA%BF%E7%A8%8B/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  6.2k
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  26
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+      
+      
+
+      
+        <h2 id="并发基本概念"><a href="#并发基本概念" class="headerlink" title="并发基本概念"></a>并发基本概念</h2><h3 id="并发和并行区别"><a href="#并发和并行区别" class="headerlink" title="并发和并行区别"></a>并发和并行区别</h3><p>并行parallel<br>同时做某些事，可以互不干扰的同一个时刻做几件事</p>
+<p>并发，concurrency<br>也是同时做某些事，但是强调，一个时段内有事情要处理。</p>
+<p>举例<br>乡村公路一条车道，半幅路面出现了坑，交警指挥交通。<br>众多车辆在这一时段要湮过路面的事件，这就是并发。<br>交警指挥，车辆排队通过另外半幅路面，一个方向放行3分钟，停止该方向通行，换另一个方向放行。<br>高速公路的车道，双向4车道，所有车辆（数据）可以互的在自己的车滷上奔跑（传输）。<br>在同一个时刻，每条车道上可能同时有车辆，是同时发生的概念，这是并行。</p>
+<h3 id="井发的解决"><a href="#井发的解决" class="headerlink" title="井发的解决"></a>井发的解决</h3><h4 id="“食堂打饭模型“"><a href="#“食堂打饭模型“" class="headerlink" title="“食堂打饭模型“"></a>“食堂打饭模型“</h4><p>中午12点，开饭啦，大家都涌向食堂，这就是并发。如果人很多，就是高并发。</p>
+<h4 id="1、队列、缓冲区"><a href="#1、队列、缓冲区" class="headerlink" title="1、队列、缓冲区"></a>1、队列、缓冲区</h4><p>假设只有一个窗口，陆续涌入食堂的人，排队打菜是比较好的方式。<br>所以，排队（队列）是一种天然解决并发的办法。<br>排队就是把人排成<code>队列</code>，先进先出，解决了资源使用的问题。<br>排成的队列，其实就是一个缓冲地带，就是<code>缓冲区</code>。</p>
+<p>假设女生优先，那么这个窗口就得是两队，只要有女生来就可以先打饭，男生队列等着，女生队伍就是一个<code>优先队列</code>。</p>
+<p>例如queue模块的类Queue、LifoQueue、PriorityQueueo</p>
+<h4 id="2、争抢"><a href="#2、争抢" class="headerlink" title="2、争抢"></a>2、争抢</h4><p>只开一个窗口，有可能没有秩序，也就是谁挤进去就给谁打饭。<br>挤到窗口的人占据窗口，直到打到饭菜离开。<br>其他人继续争抢，会有一个人占据着窗口，可以视为锁定窗口，窗口就不能为其他人提供服务了。这一种<code>锁机制</code>。<br>谁抢到资源就上锁，排他性的锁，其他人只能等候。<br>争抢也是一种高并发解决方案，但是，这样不好，因为有可能有人很长时间抢不到</p>
+<h4 id="3、预处理"><a href="#3、预处理" class="headerlink" title="3、预处理"></a>3、预处理</h4><p>如果排长队的原因，是由于每个人打菜等候时间长，因为要吃的菜没有，需要现做，没打着饭不走开，锁定着窗口。<br>食堂可以提前统计大多数人最爱吃的菜品，将最爱吃的80%的热门菜，提前做好，保证供应20%的冷门菜，现做。<br>这样大多数人，就算锁定窗口，也很快就是释放窗口了。<br>一种提前加载用户需要的数据的思路，<code>预处理</code>思想，缓存常用。</p>
+<h4 id="4、并行"><a href="#4、并行" class="headerlink" title="4、并行"></a>4、并行</h4><p>成百上千人同时来吃饭，二个队伍搞不定的多开打饭窗囗形成多个队列，如同开多个车道一样，并行打菜。<br>开窗口就得扩大食堂，得多雇人在每一个窗口提供服务，造成成本上升。<br>日常可以通过购买更多服务器，或多开进程、线程实现并行处理，来解决并发问题。<br>如果线程在单CPU上处理，就不是并行了。<br>但是多数服务器都是多CPU的，服务的部署往往是多机的、分布式的，这都是并行处理。</p>
+<h4 id="5、提速"><a href="#5、提速" class="headerlink" title="5、提速"></a>5、提速</h4><p>提高单个窗口的打饭速度，也是解决并发的方式。<br>打饭人员提高工作技能，或为单个窗囗配备更多的服务人员，都是提速的办法。<br>提高单个CPU性能，或单个服务器安装更多的CPU。<br>这是一种<code>垂直扩展</code>思想。</p>
+<h4 id="6、消息中间件"><a href="#6、消息中间件" class="headerlink" title="6、消息中间件"></a>6、消息中间件</h4><p>上地、西二旗地铁站外的九曲回肠的走廊缓冲人流，进去之后再多口安检进站。<br>常见的消息中间件有RabbitMQ、ActiveMQ（Apache）、RocketMQ（阿里Apache）、kafka（Apache）等。<br>当然还有其他手段解决并发问题，但是已经列举除了最常用的解决方案，一般来说不同的并发场景用不同的策略，而策略可能是多种方式的优化组合。<br>例如多开食堂（多地），也可以把食堂建设到宿舍生活区（就近），所以说，技术来源于生活。</p>
+<h2 id="进程和线程"><a href="#进程和线程" class="headerlink" title="进程和线程"></a>进程和线程</h2><p>在实现了线程的操作系统中，线程是操作系统能够进行运筒调度的最小单位。它被包含在进程之中，是进程中的实际运作单位。一个程序的执行实例就是一个进程。</p>
+<p>进程（Process）是计算机中的程序关于某数据集合上的一次运行活动，是系统进行资源分配和调度的基本单位，是操作系统结构的基础。</p>
+<p>进程和程序的关系<br>程序是源代码编译后的文件，而这些文件存放在磁盘上，当程序被操作系统加载到内存中，就是进程，进程中存放着指令和数据（资源），它也是线程的容器。<br>Linux进程有父进程、子进程，Windows的进程是平等关系。</p>
+<p>线程。有时被称为轻量级进程（LightweightProcess，LWP），是程序执行流的最小单元。<br>一个标准的线程由线程ID，当前指令指针（PC），寄存器集合和堆栈组成。<br>在许多系统中，创建一个线程比创建一个进程快10-100倍。</p>
+<p>进程、线程的理解<br>现代操作系统提出进程的概念，每一个进程都认为自己独占所有的计算机硬件资源。<br>进程就是独立的王国，进程间不可以随便的共享数据。<br>线程就是省份，同一个进程内的线程可以共享进程的资源，每一个线程拥有自己独立的堆栈。</p>
+<h2 id="线程的状态"><a href="#线程的状态" class="headerlink" title="线程的状态"></a>线程的状态</h2><table>
+<thead>
+<tr>
+<th align="left">状态</th>
+<th align="left">含义</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">就绪(Ready)</td>
+<td align="left">线程能够运行，但在等待被调度。可能线程刚刚创建启动，或刚刚从阻塞中恢复，或者被其他线程抢占</td>
+</tr>
+<tr>
+<td align="left">运行(Running)</td>
+<td align="left">线程正在运行</td>
+</tr>
+<tr>
+<td align="left">阻塞(Blocked)</td>
+<td align="left">线程等待外部事件发生而无法运行，如I/O操作</td>
+</tr>
+<tr>
+<td align="left">终止(terminated)</td>
+<td align="left">线程完成，或退出，或被取消</td>
+</tr>
+</tbody></table>
+<h2 id="Python中的进程和线程"><a href="#Python中的进程和线程" class="headerlink" title="Python中的进程和线程"></a>Python中的进程和线程</h2><p>进程会启动一个解释器进程，线程共享一个解释器进程。</p>
+<h2 id="Python的线程开发"><a href="#Python的线程开发" class="headerlink" title="Python的线程开发"></a>Python的线程开发</h2><p>Python的线程开发使用标准库threading</p>
+<h3 id="Thread类"><a href="#Thread类" class="headerlink" title="Thread类"></a>Thread类</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-comment"># 签名</span><br><span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">__init__</span><span class="hljs-params">(self, group=None, target=None, name=None, </span></span><br><span class="hljs-function"><span class="hljs-params">             args=<span class="hljs-params">()</span>, kwargs=None, *, daemon=None)</span></span><br></code></pre></td></tr></table></figure>
+
+<table>
+<thead>
+<tr>
+<th align="left">参数名</th>
+<th align="left">含义</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">target</td>
+<td align="left">线程调用的对象，就是目标函数</td>
+</tr>
+<tr>
+<td align="left">name</td>
+<td align="left">为线程起个名字</td>
+</tr>
+<tr>
+<td align="left">args</td>
+<td align="left">为目标函数传递实参，元组</td>
+</tr>
+<tr>
+<td align="left">kwargs</td>
+<td align="left">为目标函数关键字传参，字典</td>
+</tr>
+</tbody></table>
+<h3 id="线程启动"><a href="#线程启动" class="headerlink" title="线程启动"></a>线程启动</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">import</span> threading<br><br><span class="hljs-comment"># 最简单的线程程序</span><br><span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">worker</span><span class="hljs-params">()</span>:</span><br>    print(<span class="hljs-string">"I'm working"</span>)<br>    print(<span class="hljs-string">"Fineshed"</span>)<br><br><br>t = threading.Thread(target=worker, name=<span class="hljs-string">'worker'</span>)  <span class="hljs-comment"># 线程对象</span><br>t.start()  <span class="hljs-comment"># 启动</span><br>~~~~~~~~~~~~~~~~~~~~~~~~~<br>I<span class="hljs-string">'m working</span><br><span class="hljs-string">Fineshed</span><br></code></pre></td></tr></table></figure>
+
+<p>通过threading.Thread创建一个线程对象，targete目标函数，name可以指定名称。<br>但是线程没有启动，需要调用start方法。<br>线程之所以执行函数，是因为线程中就是执行代码的，而最简单的封装就是函数，所以还是函数<br>调用。<br>函数执行完，线程也就退出了。<br>那么，如果不让线程退出，或者让线程一直工作怎么办呢？</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">import</span> threading<br><span class="hljs-keyword">import</span> time<br><br><br><span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">worker</span><span class="hljs-params">()</span>:</span><br>    <span class="hljs-keyword">while</span> <span class="hljs-literal">True</span>:<br>        time.sleep(<span class="hljs-number">1</span>)<br>        print(<span class="hljs-string">"I'm working"</span>)<br>    print(<span class="hljs-string">"Fineshed"</span>)<br><br><br>t = threading.Thread(target=worker, name=<span class="hljs-string">'worker'</span>)  <span class="hljs-comment"># 线程对象</span><br>t.start()  <span class="hljs-comment"># 启动</span><br></code></pre></td></tr></table></figure>
+
+<h3 id="线程退出"><a href="#线程退出" class="headerlink" title="线程退出"></a>线程退出</h3><ul>
+<li>Python没有提供线程退出的方法，线程在下面情况时退出<ul>
+<li><ol>
+<li>线程函数内语句执行完成</li>
+</ol>
+</li>
+<li><ol>
+<li>线程函数中抛出未处理的异常</li>
+</ol>
+</li>
+</ul>
+</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">import</span> threading<br><span class="hljs-keyword">import</span> time<br><br><br><span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">worker</span><span class="hljs-params">()</span>:</span><br>    count = <span class="hljs-number">0</span><br>    <span class="hljs-keyword">while</span> <span class="hljs-literal">True</span>:<br>        <span class="hljs-keyword">if</span> (count &gt; <span class="hljs-number">5</span>):<br>            <span class="hljs-comment"># raise RuntimeError(count)</span><br>            <span class="hljs-comment"># return</span><br>            <span class="hljs-keyword">break</span><br>        time.sleep(<span class="hljs-number">1</span>)<br>        print(<span class="hljs-string">"I'm working"</span>)<br>        count += <span class="hljs-number">1</span><br><br><br><br>t = threading.Thread(target=worker, name=<span class="hljs-string">'worker'</span>)  <span class="hljs-comment"># 线程对象</span><br>t.start()  <span class="hljs-comment"># 启动</span><br><br><br>print(<span class="hljs-string">'==End=='</span>)<br>~~~~~~~~~~~~~~~~~~~~~~~~<br>==End==<br>I<span class="hljs-string">'m working</span><br><span class="hljs-string">I'</span>m working<br>I<span class="hljs-string">'m working</span><br><span class="hljs-string">I'</span>m working<br>I<span class="hljs-string">'m working</span><br><span class="hljs-string">I'</span>m working<br></code></pre></td></tr></table></figure>
+
+<h3 id="线程的传参"><a href="#线程的传参" class="headerlink" title="线程的传参"></a>线程的传参</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">import</span> threading<br><span class="hljs-keyword">import</span> time<br><br><br><span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">add</span><span class="hljs-params">(x, y)</span>:</span><br>    print(<span class="hljs-string">'&#123;&#125; + &#123;&#125; = &#123;&#125;'</span>.format(x, y, x + y, threading.current_thread().ident))<br><br><br>thread1 = threading.Thread(target=add, name=<span class="hljs-string">'add'</span>, args=(<span class="hljs-number">4</span>, <span class="hljs-number">5</span>))  <span class="hljs-comment"># 线程对象</span><br>thread1.start()  <span class="hljs-comment"># 启动</span><br>time.sleep(<span class="hljs-number">2</span>)<br><br>thread2 = threading.Thread(target=add, name=<span class="hljs-string">'add'</span>, args=(<span class="hljs-number">4</span>, ), kwargs=&#123;<br>   <span class="hljs-string">'y'</span>: <span class="hljs-number">6</span>&#125;)  <span class="hljs-comment"># 线程对象</span><br>thread2.start()  <span class="hljs-comment"># 启动</span><br>time.sleep(<span class="hljs-number">2</span>)<br><br>thread3 = threading.Thread(target=add, name=<span class="hljs-string">'add'</span>, kwargs=&#123;<br>   <span class="hljs-string">'x'</span>:<span class="hljs-number">4</span>, <span class="hljs-string">'y'</span>:<span class="hljs-number">7</span>&#125;)  <span class="hljs-comment"># 线程对象</span><br>thread3.start()  <span class="hljs-comment"># 启动</span><br>~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~<br><span class="hljs-number">4</span> + <span class="hljs-number">5</span> = <span class="hljs-number">9</span><br><span class="hljs-number">4</span> + <span class="hljs-number">6</span> = <span class="hljs-number">10</span><br><span class="hljs-number">4</span> + <span class="hljs-number">7</span> = <span class="hljs-number">11</span><br></code></pre></td></tr></table></figure>
+
+<p>线程传参和函数传参没什么区别，本质上就是函数传参。</p>
+<h3 id="threading的属性和方法"><a href="#threading的属性和方法" class="headerlink" title="threading的属性和方法"></a>threading的属性和方法</h3><table>
+<thead>
+<tr>
+<th align="left">名称</th>
+<th align="left">含义</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">current_thread()</td>
+<td align="left">返回当前线程对象</td>
+</tr>
+<tr>
+<td align="left">main_thread()</td>
+<td align="left">返回主线程对象</td>
+</tr>
+<tr>
+<td align="left">active_count()</td>
+<td align="left">当前处于alive状态的线程个数</td>
+</tr>
+<tr>
+<td align="left">enumerate()</td>
+<td align="left">返回所有活着的线程的列表，不包括已经终止的线程和未开始的线程</td>
+</tr>
+<tr>
+<td align="left">get_ident()</td>
+<td align="left">返回当前线程的ID，非0整数</td>
+</tr>
+</tbody></table>
+<p>active_count, enumerate方法返回的值还包括主线程。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">import</span> threading<br><span class="hljs-keyword">import</span> time<br><br><br><span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">showthreadinfo</span><span class="hljs-params">()</span>:</span><br>    print(<span class="hljs-string">"currentthread = &#123;&#125;"</span>.format(threading.current_thread()))<br>    print(<span class="hljs-string">"main thread = &#123;&#125;"</span>.format(threading.main_thread()))<br>    print(<span class="hljs-string">"acive count = &#123;&#125;"</span>.format(threading.active_count()))<br><br><span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">worker</span><span class="hljs-params">()</span>:</span><br>    count = <span class="hljs-number">0</span><br>    showthreadinfo()<br>    <span class="hljs-keyword">while</span> <span class="hljs-literal">True</span>:<br>        <span class="hljs-keyword">if</span> (count &gt; <span class="hljs-number">5</span>):<br>            <span class="hljs-keyword">break</span><br>        time.sleep(<span class="hljs-number">1</span>)<br>        count += <span class="hljs-number">1</span><br>        print(<span class="hljs-string">"I'm working"</span>)<br><br><br>t = threading.Thread(target=worker, name=<span class="hljs-string">'worker'</span>)  <span class="hljs-comment"># 线程对象</span><br>showthreadinfo()<br>t.start()  <span class="hljs-comment"># 启动</span><br><br>print(<span class="hljs-string">'==End=='</span>)<br>~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~<br>currentthread = &lt;_MainThread(MainThread, started <span class="hljs-number">18164</span>)&gt;<br>main thread = &lt;_MainThread(MainThread, started <span class="hljs-number">18164</span>)&gt;<br>acive count = <span class="hljs-number">1</span><br>currentthread = &lt;Thread(worker, started <span class="hljs-number">11500</span>)&gt;<br>==End==<br>main thread = &lt;_MainThread(MainThread, stopped <span class="hljs-number">18164</span>)&gt;<br>acive count = <span class="hljs-number">2</span><br>I<span class="hljs-string">'m working</span><br><span class="hljs-string">I'</span>m working<br>I<span class="hljs-string">'m working</span><br><span class="hljs-string">I'</span>m working<br>I<span class="hljs-string">'m working</span><br><span class="hljs-string">I'</span>m working<br></code></pre></td></tr></table></figure>
+
+<h2 id="Thread实例的属性和方法"><a href="#Thread实例的属性和方法" class="headerlink" title="Thread实例的属性和方法"></a>Thread实例的属性和方法</h2><table>
+<thead>
+<tr>
+<th align="left">名称</th>
+<th align="left">含义</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">name</td>
+<td align="left">只是一个名字，只是个标识，名称可以重名。getName(), setName()获取，设置这个名词</td>
+</tr>
+<tr>
+<td align="left">ident</td>
+<td align="left">线程ID，它是非0整数。线程启动后才会有ID，否则为None。线程退出，此DI依旧可以访问。此ID可以重复使用。</td>
+</tr>
+<tr>
+<td align="left">is_alive()</td>
+<td align="left">返回线程是否活着</td>
+</tr>
+</tbody></table>
+<p>注意：线程的name这是一个名称，可以重复；ID必须唯一，但可以在线程退出后再利用。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">import</span> threading<br><span class="hljs-keyword">import</span> time<br><br><br><span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">worker</span><span class="hljs-params">()</span>:</span><br>    count = <span class="hljs-number">0</span><br>    <span class="hljs-keyword">while</span> <span class="hljs-literal">True</span>:<br>        <span class="hljs-keyword">if</span> (count &gt; <span class="hljs-number">5</span>):<br>             <span class="hljs-keyword">break</span><br>        time.sleep(<span class="hljs-number">1</span>)<br>        count += <span class="hljs-number">1</span><br>        print(threading.current_thread().name)<br><br>t = threading.Thread(name=<span class="hljs-string">'worker'</span>, target=worker)<br>print(t.ident)<br>t.start()<br><br><span class="hljs-keyword">while</span> <span class="hljs-literal">True</span>:<br>    time.sleep(<span class="hljs-number">1</span>)<br>    <span class="hljs-keyword">if</span> t.is_alive():<br>        print(<span class="hljs-string">'&#123;&#125; &#123;&#125; alive'</span>.format(t.name, t.ident))<br>    <span class="hljs-keyword">else</span>:<br>        print(<span class="hljs-string">'&#123;&#125; &#123;&#125; dead'</span>.format(t.name, t.ident))<br>        t.start()  <span class="hljs-comment"># 可以吗？</span><br>~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~<br><span class="hljs-literal">None</span><br>worker<br>worker <span class="hljs-number">5060</span> alive<br>worker <span class="hljs-number">5060</span> alive<br>worker<br>worker <span class="hljs-number">5060</span> alive<br>worker<br>worker <span class="hljs-number">5060</span> alive<br>worker<br>worker <span class="hljs-number">5060</span> alive<br>worker<br>worker <span class="hljs-number">5060</span> alive<br>worker<br>Traceback (most recent call last):<br>  File <span class="hljs-string">"C:/python10/code/Python11/1101.py"</span>, line <span class="hljs-number">24</span>, <span class="hljs-keyword">in</span> &lt;module&gt;<br>    t.start()  <span class="hljs-comment"># 可以吗？</span><br>worker <span class="hljs-number">5060</span> dead<br>  File <span class="hljs-string">"C:\Users\SevenXue\AppData\Local\Programs\Python\Python35\lib\threading.py"</span>, line <span class="hljs-number">840</span>, <span class="hljs-keyword">in</span> start<br>    <span class="hljs-keyword">raise</span> RuntimeError(<span class="hljs-string">"threads can only be started once"</span>)<br>RuntimeError: threads can only be started once<br></code></pre></td></tr></table></figure>
+
+<table>
+<thead>
+<tr>
+<th align="left">名称</th>
+<th align="left">含义</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">start()</td>
+<td align="left">启动线程。每一个线程必须且智能执行该方法一次</td>
+</tr>
+<tr>
+<td align="left">run()</td>
+<td align="left">运行线程函数</td>
+</tr>
+</tbody></table>
+<p>为了演示，派生一个Thread的子类</p>
+<h3 id="start方法"><a href="#start方法" class="headerlink" title="start方法"></a>start方法</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">import</span> threading<br><span class="hljs-keyword">import</span> time<br><br><br><span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">worker</span><span class="hljs-params">()</span>:</span><br>    count = <span class="hljs-number">0</span><br>    <span class="hljs-keyword">while</span> <span class="hljs-literal">True</span>:<br>        <span class="hljs-keyword">if</span> (count &gt; <span class="hljs-number">5</span>):<br>             <span class="hljs-keyword">break</span><br>        time.sleep(<span class="hljs-number">1</span>)<br>        count += <span class="hljs-number">1</span><br>        print(<span class="hljs-string">'worker running'</span>)<br><br><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">MyThread</span><span class="hljs-params">(threading.Thread)</span>:</span><br>    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">start</span><span class="hljs-params">(self)</span>:</span><br>        print(<span class="hljs-string">'start~~~~~~~~~~'</span>)<br>        super().start()<br><br>    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">run</span><span class="hljs-params">(self)</span>:</span><br>        print(<span class="hljs-string">'run~~~~~~~~~~~~~~'</span>)<br>        super().run()<br><br>t = MyThread(name=<span class="hljs-string">'worker'</span>, target=worker)<br>t.start()<br>~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~<br>start~~~~~~~~~~<br>run~~~~~~~~~~~~~~<br>worker running<br>worker running<br>worker running<br>worker running<br>worker running<br>worker running<br></code></pre></td></tr></table></figure>
+
+<h3 id="run方法"><a href="#run方法" class="headerlink" title="run方法"></a>run方法</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">import</span> threading<br><span class="hljs-keyword">import</span> time<br><br><br><span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">worker</span><span class="hljs-params">()</span>:</span><br>    count = <span class="hljs-number">0</span><br>    <span class="hljs-keyword">while</span> <span class="hljs-literal">True</span>:<br>        <span class="hljs-keyword">if</span> (count &gt; <span class="hljs-number">5</span>):<br>             <span class="hljs-keyword">break</span><br>        time.sleep(<span class="hljs-number">1</span>)<br>        count += <span class="hljs-number">1</span><br>        print(<span class="hljs-string">'worker running'</span>)<br><br><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">MyThread</span><span class="hljs-params">(threading.Thread)</span>:</span><br>    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">start</span><span class="hljs-params">(self)</span>:</span><br>        print(<span class="hljs-string">'start~~~~~~~~~~'</span>)<br>        super().start()<br><br>    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">run</span><span class="hljs-params">(self)</span>:</span><br>        print(<span class="hljs-string">'run~~~~~~~~~~~~~~'</span>)<br>        super().run()<br><br>t = MyThread(name=<span class="hljs-string">'worker'</span>, target=worker)<br><span class="hljs-comment"># t.start()</span><br>t.run()<br>~~~~~~~~~~~~~~~~~~~~~~~~~~~<br>run~~~~~~~~~~~~~~<br>worker running<br>worker running<br>worker running<br>worker running<br>worker running<br>worker running<br></code></pre></td></tr></table></figure>
+
+<p>start()方法会调用run()方法，而run()方法可以运行函数。<br>这两个方法看似功能重复了，name看来留一个方法就可以了。是这样的吗？</p>
+<h3 id="start和run的区别"><a href="#start和run的区别" class="headerlink" title="start和run的区别"></a>start和run的区别</h3><p>在线程函数中，增加打印线程的名字的语句，看看能看到什么信息。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">import</span> threading<br><span class="hljs-keyword">import</span> time<br><br><br><span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">worker</span><span class="hljs-params">()</span>:</span><br>    count = <span class="hljs-number">0</span><br>    <span class="hljs-keyword">while</span> <span class="hljs-literal">True</span>:<br>        <span class="hljs-keyword">if</span> (count &gt; <span class="hljs-number">5</span>):<br>             <span class="hljs-keyword">break</span><br>        time.sleep(<span class="hljs-number">1</span>)<br>        count += <span class="hljs-number">1</span><br>        print(<span class="hljs-string">'worker running'</span>)<br>        print(threading.current_thread().name)<br><br><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">MyThread</span><span class="hljs-params">(threading.Thread)</span>:</span><br>    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">start</span><span class="hljs-params">(self)</span>:</span><br>        print(<span class="hljs-string">'start~~~~~~~~~~'</span>)<br>        super().start()<br><br>    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">run</span><span class="hljs-params">(self)</span>:</span><br>        print(<span class="hljs-string">'run~~~~~~~~~~~~~~'</span>)<br>        super().run()<br><br>t = MyThread(name=<span class="hljs-string">'worker'</span>, target=worker)<br><span class="hljs-comment"># t.start()</span><br>t.run()  <span class="hljs-comment"># 分别执行start或者run方法</span><br></code></pre></td></tr></table></figure>
+
+<p>使用start方法启动线程，启动了一个新的线程，名字叫做worker运行。但是使用run方法的，并没有启动新的线程，就是在主线程中调用了一个普通的函数而已。<br>因此，启动线程请使用start方法，才能启动多个线程。</p>
+<h2 id="多线程"><a href="#多线程" class="headerlink" title="多线程"></a>多线程</h2><p>顾名思义，多个线程，一个进程如果有多个线程，就是多线程，实现一种并发。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">import</span> threading<br><span class="hljs-keyword">import</span> time<br><br><br><span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">worker</span><span class="hljs-params">()</span>:</span><br>    count = <span class="hljs-number">0</span><br>    <span class="hljs-keyword">while</span> <span class="hljs-literal">True</span>:<br>        <span class="hljs-keyword">if</span> (count &gt; <span class="hljs-number">5</span>):<br>             <span class="hljs-keyword">break</span><br>        time.sleep(<span class="hljs-number">1</span>)<br>        count += <span class="hljs-number">1</span><br>        print(<span class="hljs-string">'worker running'</span>)<br>        print(threading.current_thread().name, threading.current_thread().ident)<br><br><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">MyThread</span><span class="hljs-params">(threading.Thread)</span>:</span><br>    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">start</span><span class="hljs-params">(self)</span>:</span><br>        print(<span class="hljs-string">'start~~~~~~~~~~'</span>)<br>        super().start()<br><br>    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">run</span><span class="hljs-params">(self)</span>:</span><br>        print(<span class="hljs-string">'run~~~~~~~~~~~~~~'</span>)<br>        super().run()<br><br>t1 = MyThread(name=<span class="hljs-string">'worker1'</span>, target=worker)<br>t2 = MyThread(name=<span class="hljs-string">'worker2'</span>, target=worker)<br><br>t1.start()<br>t2.start()<br></code></pre></td></tr></table></figure>
+
+<p>可以看到worker1和worker2交替执行<br>改成run方法试试看</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">import</span> threading<br><span class="hljs-keyword">import</span> time<br><br><br><span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">worker</span><span class="hljs-params">()</span>:</span><br>    count = <span class="hljs-number">0</span><br>    <span class="hljs-keyword">while</span> <span class="hljs-literal">True</span>:<br>        <span class="hljs-keyword">if</span> (count &gt; <span class="hljs-number">5</span>):<br>             <span class="hljs-keyword">break</span><br>        time.sleep(<span class="hljs-number">1</span>)<br>        count += <span class="hljs-number">1</span><br>        print(<span class="hljs-string">'worker running'</span>)<br>        print(threading.current_thread().name, threading.current_thread().ident)<br><br><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">MyThread</span><span class="hljs-params">(threading.Thread)</span>:</span><br>    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">start</span><span class="hljs-params">(self)</span>:</span><br>        print(<span class="hljs-string">'start~~~~~~~~~~'</span>)<br>        super().start()<br><br>    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">run</span><span class="hljs-params">(self)</span>:</span><br>        print(<span class="hljs-string">'run~~~~~~~~~~~~~~'</span>)<br>        super().run()<br><br>t1 = MyThread(name=<span class="hljs-string">'worker1'</span>, target=worker)<br>t2 = MyThread(name=<span class="hljs-string">'worker2'</span>, target=worker)<br><br><span class="hljs-comment"># t1.start()</span><br><span class="hljs-comment"># t2.start()</span><br>t1.run()<br>t2.run()<br></code></pre></td></tr></table></figure>
+
+<p>没有开新的线程，这就是普通函数调用，所以执行完t1.run(),然后执行t2.run()，这里就不是多线程。<br>当使用start方法启动线程后，进程内有多个活动的线程并行的工作，就是多线程。<br>一个进程中至少有一个线程，并作为程序的入口，这个线程就是<code>主线程</code>。一个进程至少有一个主线程。<br>其他线程称为工作线程。</p>
+<h2 id="线程安全"><a href="#线程安全" class="headerlink" title="线程安全"></a>线程安全</h2><p>IPython中演示，python命令行，pycharm都不能演示出效果</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">import</span> threading<br><br><span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">worker</span><span class="hljs-params">()</span>:</span><br>    <span class="hljs-keyword">for</span> x <span class="hljs-keyword">in</span> range(<span class="hljs-number">100</span>):<br>        print(<span class="hljs-string">"&#123;&#125; is running."</span>.format(threading.current_thread().name))<br><br><br><span class="hljs-keyword">for</span> x <span class="hljs-keyword">in</span> range(<span class="hljs-number">1</span>, <span class="hljs-number">5</span>):<br>    name = <span class="hljs-string">"worker&#123;&#125;"</span>.format(x)<br>    t = threading.Thread(name=name, target=worker)<br>    t.start()<br>~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~<br>worker1 <span class="hljs-keyword">is</span> running.<br>worker1 <span class="hljs-keyword">is</span> running.worker2 <span class="hljs-keyword">is</span> running.<br>worker1 <span class="hljs-keyword">is</span> running.<br>worker1 <span class="hljs-keyword">is</span> running.worker2 <span class="hljs-keyword">is</span> running.worker3 <span class="hljs-keyword">is</span> running.<br>worker3 <span class="hljs-keyword">is</span> running.<br>worker1 <span class="hljs-keyword">is</span> running.<br>worker1 <span class="hljs-keyword">is</span> running.worker2 <span class="hljs-keyword">is</span> running.<br>worker2 <span class="hljs-keyword">is</span> running.<br>worker2 <span class="hljs-keyword">is</span> running.worker1 <span class="hljs-keyword">is</span> running.<br>worker2 <span class="hljs-keyword">is</span> running.<br>worker2 <span class="hljs-keyword">is</span> running.<br>worker1 <span class="hljs-keyword">is</span> running.worker3 <span class="hljs-keyword">is</span> running.worker2 <span class="hljs-keyword">is</span> running.<br>worker2 <span class="hljs-keyword">is</span> running.<br>worker2 <span class="hljs-keyword">is</span> running.worker1 <span class="hljs-keyword">is</span> running.<br>worker1 <span class="hljs-keyword">is</span> running.worker3 <span class="hljs-keyword">is</span> running.<br>worker3 <span class="hljs-keyword">is</span> running.<br></code></pre></td></tr></table></figure>
+
+<p>看代码，应该是一行行打印，但是很多字符串打在了一起，为什么？<br>说明，print函数被打断了，被线程切换打断了。print函数分两步，第一步打印字符串，第二步换行，就在这之间，发生了线程的切换。<br>这说明print函数是线程不安全的。<br>- 线程安全<br>- 线程执行一段代码，不会产生不确定的结果，那这段代码就是线程安全的<br>上例中，本以为print应该是打印文本之后紧跟着一个换行的，但是有时候确实好几个文本在起，后面跟上换行，而且发生这种情况的时机不确定，所以，print函数不是线程安全函数。<br>如果是这样多线程编程的时候，print输出日志，不能保证一个输出一定后面立即换行了，怎么办？</p>
+<h3 id="不让print打印换行"><a href="#不让print打印换行" class="headerlink" title="不让print打印换行"></a>不让print打印换行</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">import</span> threading<br><br><span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">worker</span><span class="hljs-params">()</span>:</span><br>    <span class="hljs-keyword">for</span> x <span class="hljs-keyword">in</span> range(<span class="hljs-number">100</span>):<br>        print(<span class="hljs-string">"&#123;&#125; is running.\n"</span>.format(threading.current_thread().name), end=<span class="hljs-string">''</span>)<br><br><br><span class="hljs-keyword">for</span> x <span class="hljs-keyword">in</span> range(<span class="hljs-number">1</span>, <span class="hljs-number">5</span>):<br>    name = <span class="hljs-string">"worker&#123;&#125;"</span>.format(x)<br>    t = threading.Thread(name=name, target=worker)<br>    t.start()<br></code></pre></td></tr></table></figure>
+
+<p>字符串是不可变的类型，它可以作为一个整体不可分割输出。end=”就不再让print输出换行了。</p>
+<h3 id="使用logging"><a href="#使用logging" class="headerlink" title="使用logging"></a>使用logging</h3><p>标准库里面的logging模块，日志处理模块，线程安全的，生成环境代码都使用logging。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">import</span> threading<br><span class="hljs-keyword">import</span> logging<br><br><span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">worker</span><span class="hljs-params">()</span>:</span><br>    <span class="hljs-keyword">for</span> x <span class="hljs-keyword">in</span> range(<span class="hljs-number">100</span>):<br>        <span class="hljs-comment"># print("&#123;&#125; is running.\n".format(threading.current_thread().name), end='')</span><br>        logging.warning(<span class="hljs-string">"&#123;&#125; is running."</span>.format(threading.current_thread().name))<br><br><span class="hljs-keyword">for</span> x <span class="hljs-keyword">in</span> range(<span class="hljs-number">1</span>, <span class="hljs-number">5</span>):<br>    name = <span class="hljs-string">"worker&#123;&#125;"</span>.format(x)<br>    t = threading.Thread(name=name, target=worker)<br>    t.start()<br>~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~<br>WARNING:root:worker1 <span class="hljs-keyword">is</span> running.<br>WARNING:root:worker3 <span class="hljs-keyword">is</span> running.<br>WARNING:root:worker4 <span class="hljs-keyword">is</span> running.<br>WARNING:root:worker2 <span class="hljs-keyword">is</span> running.<br></code></pre></td></tr></table></figure>
+
+<h2 id="daemon线程和non-daemon线程"><a href="#daemon线程和non-daemon线程" class="headerlink" title="daemon线程和non-daemon线程"></a>daemon线程和non-daemon线程</h2><h3 id="daemon线程和non-daemon线程举例"><a href="#daemon线程和non-daemon线程举例" class="headerlink" title="daemon线程和non-daemon线程举例"></a>daemon线程和non-daemon线程举例</h3><p>注意：这里的daemon不是Linux中守护进程<br>进程靠线程执行代码，至少有一个主线程，其他线程是工作线程。<br>主线程是第一个启动的线程。<br>父线程：如果线程A中启动了一个线程B，A就是B的父线程。<br>子线程：B就是A的子线程。</p>
+<p>Python中，构造线程的时候，可以设置daemon属性，这个属性必须在start方法前设置好。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-comment"># 原码Thread的__init__方法中</span><br><span class="hljs-keyword">if</span> daemon <span class="hljs-keyword">is</span> <span class="hljs-keyword">not</span> <span class="hljs-literal">None</span>:<br>    self._daemonic = daemon  <span class="hljs-comment"># 用户设定bool值</span><br><span class="hljs-keyword">else</span>:<br>    self._daemonic + current_thread().daemon<br>self._ident = <span class="hljs-literal">None</span><br></code></pre></td></tr></table></figure>
+
+<p>线程daemon属性，如果设定就是用户的设置，否则就取当前线程的daemon值。<br>主线程是non-daemon线程，即daemon = False</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">import</span> time<br><span class="hljs-keyword">import</span> threading<br><br><br><span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">foo</span><span class="hljs-params">()</span>:</span><br>    time.sleep(<span class="hljs-number">5</span>)<br>    <span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> range(<span class="hljs-number">20</span>):<br>        print(i)<br><br><br><span class="hljs-comment"># 主线程是non-daemon线程</span><br>t = threading.Thread(target=foo, daemon=<span class="hljs-literal">False</span>)<br>t.start()<br><br>print(<span class="hljs-string">'Main Thread Exiting'</span>)<br></code></pre></td></tr></table></figure>
+
+<p>发现线程t依旧执行，主线程已经执行完，但是一直等着线程t。<br>修改为<code>t = threading.Thread(target=foo, daemon=Ture</code>试一试<br>程序立即结束了，根本没有等线程t。</p>
+<h3 id="daemon总结"><a href="#daemon总结" class="headerlink" title="daemon总结"></a>daemon总结</h3><table>
+<thead>
+<tr>
+<th align="left">名称</th>
+<th align="left">含义</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">daemon</td>
+<td align="left">表示线程是否是daemon线程，这个值必须在start()之前设置，否则引发RuntimeError异常</td>
+</tr>
+<tr>
+<td align="left">isDaemon()</td>
+<td align="left">是否是daemon线程</td>
+</tr>
+<tr>
+<td align="left">setDaemon</td>
+<td align="left">设置为daemon线程，必须在start方法之前设置</td>
+</tr>
+</tbody></table>
+<p>线程具有一个daemon属性，可以显设置为True或False，也可以不设置，则取默认值None。<br>如果不设置daemon，就取当前线程的daemon来设置它。<br>主线程是non-daemon线程，即daemon=False.<br>从主线程创建的所有线程的不设置daemon属性，则默认都是daemon=False，也就是non-daemon线程。<br>Python程序在没有活着的non-daemon线程运行时退出，也就是剩下的只能是daemon线程，主线程<br>才能退出，否则主线程就只能等待。<br>思考下面的程序的输出是什么？</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">import</span> time<br><span class="hljs-keyword">import</span> threading<br><br><br><span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">bar</span><span class="hljs-params">()</span>:</span><br>    time.sleep(<span class="hljs-number">10</span>)<br>    print(<span class="hljs-string">'bar'</span>)<br><br><span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">foo</span><span class="hljs-params">()</span>:</span><br>    <span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> range(<span class="hljs-number">20</span>):<br>        print(i)<br>    t = threading.Thread(target=bar, daemon=<span class="hljs-literal">False</span>)<br>    t.start()<br><br><br><span class="hljs-comment"># 主程序是non-daemon线程</span><br>t = threading.Thread(target=foo, daemon=<span class="hljs-literal">True</span>)<br>t.start()<br><br>print(<span class="hljs-string">'Main Thread Exiting'</span>)<br></code></pre></td></tr></table></figure>
+
+<p>上例中，会不会输出bar这个字符串，如果没有，如何修改才能刚打印出来？</p>
+<p>因为主线程运行结束后，在foo还没启动non-daemon时，发现其他全是daemon线程，所以停止了foo的线程，还来来得及启动bar函数的线程</p>
+<p>将t = threading.Thread(target=foo, daemon=True)，修改为t = threading.Thread(target=foo, daemon=False)</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs python"><br><br></code></pre></td></tr></table></figure>
+
+<p>再看一个例子，看看主线程合适结束daemon线程</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">import</span> time<br><span class="hljs-keyword">import</span> threading<br><br><br><span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">foo</span><span class="hljs-params">(n)</span>:</span><br>    <span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> range(n):<br>        print(i)<br>        time.sleep(<span class="hljs-number">1</span>)<br><br><br>t1 = threading.Thread(target=foo, args=(<span class="hljs-number">10</span>, ), daemon=<span class="hljs-literal">True</span>)  <span class="hljs-comment"># 调换10和20看看效果</span><br>t1.start()<br><br>t2 = threading.Thread(target=foo, args=(<span class="hljs-number">20</span>, ), daemon=<span class="hljs-literal">False</span>)  <span class="hljs-comment">#</span><br>t2.start()<br><br>time.sleep(<span class="hljs-number">2</span>)<br>print(<span class="hljs-string">'Main Thread Exiting'</span>)<br></code></pre></td></tr></table></figure>
+
+<p>上例说明，如果有non-daemon线程的时候，主线程退出时，也不会杀掉所有daemon线程，直到所有non-daemon线程全部结束，如果还有daemon线程，主线程需要退出，会结束所有daemon线程。</p>
+<h3 id="join方法"><a href="#join方法" class="headerlink" title="join方法"></a>join方法</h3><p>先看一个简单的例子，看看效果</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">import</span> time<br><span class="hljs-keyword">import</span> threading<br><br><br><span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">foo</span><span class="hljs-params">(n)</span>:</span><br>    <span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> range(n):<br>        print(i)<br>        time.sleep(<span class="hljs-number">1</span>)<br><br><br>t1 = threading.Thread(target=foo, args=(<span class="hljs-number">20</span>, ), daemon=<span class="hljs-literal">True</span>)  <span class="hljs-comment"># 调换10和20看看效果</span><br>t1.start()<br>t1.join()  <span class="hljs-comment"># 设置join，取消join对比一下</span><br><br><br>print(<span class="hljs-string">'Main Thread Exiting'</span>)<br></code></pre></td></tr></table></figure>
+
+<p>使用了join之后，daemon线程执行完了，主线程才退出。</p>
+<p>join(timeout=None)，是线程的标准方法之一。<br>一个线程中嗲用另一个线程的join方法，调用者将被阻塞，直到被调用线程终止。<br>一个线程可以被join多次。<br>timeout参数指定调用者的等待多久，没有设置超时时，就一直等到被调用线程结束。<br>调用谁的join方法，就是join谁，就要等谁。</p>
+<h3 id="daemon线程应用场景"><a href="#daemon线程应用场景" class="headerlink" title="daemon线程应用场景"></a>daemon线程应用场景</h3><p>简单来说就是，本来并没有daemon thread，为了简化程序员的工作，让他们不用去记录和管理那<br>些后台线程，创造了一个daemon thread的概念。这个概念唯一的作用就是，当你把一个线程设<br>置为daemon，它会随主线程的退出而退出。<br>- 主要应用场景有<br>- 1、后台任务。如发送心跳包、监控，这种场景最多。<br>- 2、主线程工作才有用的线程。如主线程中维护这公共的资源，主线程已经清理了，准备退出，而工作线程使用这些资源工作也没有意义了，一起退出最合适。<br>- 3、随时可以被终止的线程</p>
+<p>如果主线程退出，想所有其它工作线程一起退出，就使用daemon=True来创建工作线程。<br>比如，开启一、线程定时判断WEB服务是否正常工作，主线程退出，工作线程也没有必须存在了，应该随着主线程退出一起退出。这种daemon线程一旦创建，就可以忘记它了，只用关系主线程什么时候退出就行了。<br>daemon线程，简化了程序员手动关闭线程的工作。</p>
+<p>如果在non-daemon线程A中，对另一个daemon线程B使用了join方法，这个线程B设置成daemon就没有什么意义了，因为non-daemon线程A总是要等待B。<br>如果在一个daemon线程C中，对另一个daemon线程D使用了join方法，只能说明C要等待D，主线程<br>退出，c和D不管是否结束，也不管它们谁等谁，都要被杀掉。</p>
+<p>举例</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">import</span> time<br><span class="hljs-keyword">import</span> threading<br><br><br><span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">bar</span><span class="hljs-params">()</span>:</span><br>    <span class="hljs-keyword">while</span> <span class="hljs-literal">True</span>:<br>        time.sleep(<span class="hljs-number">1</span>)<br>        print(<span class="hljs-string">'bar'</span>)<br><br><span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">foo</span><span class="hljs-params">()</span>:</span><br>    print(<span class="hljs-string">"t1's daemon = &#123;&#125;"</span>.format(threading.current_thread().isDaemon()))<br>    t2 = threading.Thread(target=bar)<br>    t2.start()<br>    print(<span class="hljs-string">"t2's daemon = &#123;&#125;"</span>.format(t2.isDaemon()))<br><br>t1 = threading.Thread(target=foo, daemon=<span class="hljs-literal">True</span>)<br>t1.start()<br><br>time.sleep(<span class="hljs-number">3</span>)<br>print(<span class="hljs-string">'Main Thread Exiting'</span>)<br>~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~<br>t1<span class="hljs-string">'s daemon = True</span><br><span class="hljs-string">t2'</span>s daemon = <span class="hljs-literal">True</span><br>bar<br>bar<br>Main Thread Exiting<br></code></pre></td></tr></table></figure>
+
+<p>上例，只要主线程要退出，2个工作线程都要结束。<br>可以使用join，让线程结束不了，怎么做？</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">import</span> time<br><span class="hljs-keyword">import</span> threading<br><br><br><span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">bar</span><span class="hljs-params">()</span>:</span><br>    <span class="hljs-keyword">while</span> <span class="hljs-literal">True</span>:<br>        time.sleep(<span class="hljs-number">1</span>)<br>        print(<span class="hljs-string">'bar'</span>)<br><br><span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">foo</span><span class="hljs-params">()</span>:</span><br>    print(<span class="hljs-string">"t1's daemon = &#123;&#125;"</span>.format(threading.current_thread().isDaemon()))<br>    t2 = threading.Thread(target=bar)<br>    t2.start()<br>    print(<span class="hljs-string">"t2's daemon = &#123;&#125;"</span>.format(t2.isDaemon()))<br>    t2.join()<br><br>t1 = threading.Thread(target=foo, daemon=<span class="hljs-literal">True</span>)<br>t1.start()<br><br>t1.join()<br>time.sleep(<span class="hljs-number">3</span>)<br>print(<span class="hljs-string">'Main Thread Exiting'</span>)<br></code></pre></td></tr></table></figure>
+
+<h2 id="threading-local类"><a href="#threading-local类" class="headerlink" title="threading.local类"></a>threading.local类</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">import</span> threading<br><span class="hljs-keyword">import</span> time<br><br><span class="hljs-comment"># 局部变量实现</span><br><span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">worker</span><span class="hljs-params">()</span>:</span><br>    x = <span class="hljs-number">0</span><br>    <span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> range(<span class="hljs-number">100</span>):<br>        time.sleep(<span class="hljs-number">0.0001</span>)<br>        x += <span class="hljs-number">1</span><br>    print(threading.current_thread(), x)<br><br><span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> range(<span class="hljs-number">10</span>):<br>    threading.Thread(target=worker).start()<br></code></pre></td></tr></table></figure>
+
+<p>上例使用多线程，每个线程完成不同的计算任务。x是局部变量。<br>能否改造成使用全局变量完成。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">import</span> threading<br><span class="hljs-keyword">import</span> time<br><br><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">A</span>:</span><br>    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">__init__</span><span class="hljs-params">(self)</span>:</span><br>        self.x = <span class="hljs-number">0</span><br><br><br><span class="hljs-comment"># 全局变量</span><br>global_data = A()<br><br><br><span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">worker</span><span class="hljs-params">()</span>:</span><br>    global_data.x = <span class="hljs-number">0</span><br>    <span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> range(<span class="hljs-number">100</span>):<br>        time.sleep(<span class="hljs-number">0.0001</span>)<br>        global_data.x += <span class="hljs-number">1</span><br>    print(threading.current_thread(), global_data.x)<br><br><span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> range(<span class="hljs-number">10</span>):<br>    threading.Thread(target=worker).start()<br></code></pre></td></tr></table></figure>
+
+<p>上例虽然使用了全局对象，但是线程之间相互干扰，导致了错误的结果。<br>能不能使用全局对象，还能保持每个线程使用不同的数据呢？</p>
+<p>Python提供<code>threading.local</code>类，将这个类实例化得到一个全局对象，但是不同的线程使用这个对象存储的数据其他线程看不见。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">import</span> threading<br><span class="hljs-keyword">import</span> time<br><br><span class="hljs-comment"># 全局变量</span><br>global_data = threading.local()<br><br><br><span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">worker</span><span class="hljs-params">()</span>:</span><br>    global_data.x = <span class="hljs-number">0</span><br>    <span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> range(<span class="hljs-number">100</span>):<br>        time.sleep(<span class="hljs-number">0.0001</span>)<br>        global_data.x += <span class="hljs-number">1</span><br>    print(threading.current_thread(), global_data.x)<br><br><span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> range(<span class="hljs-number">10</span>):<br>    threading.Thread(target=worker).start()<br></code></pre></td></tr></table></figure>
+
+<p>结果显示和使用局部变量的效果一样。<br>再看threading.local的例子</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">import</span> threading<br><br>X = <span class="hljs-string">'abc'</span><br>ctx = threading.local()  <span class="hljs-comment"># 注意这个对象所处的线程</span><br>ctx.x = <span class="hljs-number">123</span><br><br>print(ctx, type(ctx), ctx.x)<br><br><span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">worker</span><span class="hljs-params">()</span>:</span><br>    print(X)<br>    print(ctx)<br>    print(ctx.x)<br>    print(<span class="hljs-string">'working'</span>)<br><br>worker()  <span class="hljs-comment"># 普通函数调用</span><br>print()<br>threading.Thread(target=worker).start()<br></code></pre></td></tr></table></figure>
+
+<p>从运行结果来看，另起一个线程打印ctx.x出错了。<br><code>AttributeError: &#39;_thread._local&#39; object has no attribute &#39;x&#39;</code><br>但是，ctx打印没有出错，说明看到了ctx，但是ctx中的x看不到，这个x不能跨越线程。</p>
+<p>threading.local类构建了一个大字典，其元素是每一线程实例的地址为key和线程对象引用线程单独的字典的映射，如下：<br><code>{ id(Thread) -&gt; (ref(Thread), thread-local dict) }</code><br>通过threading.local实例就可在不同的线程中，安全的使用线程独有的数据，做到了线程间数据隔离，如同本地变量一样安全。</p>
+<h2 id="定时器-Timer-延时执行"><a href="#定时器-Timer-延时执行" class="headerlink" title="定时器 Timer/延时执行"></a>定时器 Timer/延时执行</h2><p>threading.Timer继承自Thread，这个类用来定义多久执行一个函数。<br>class threading.Timer(interval, function, args=None, kwargs=None)<br>start方法执行之后，Timer对象会处于等待状态，等待了interval之后，开始执行function函数的。<br>如果在执行函数之前的等待阶段，使用了cancel方法，就会跳过执行函数结束。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">import</span> threading<br><span class="hljs-keyword">import</span> logging<br><span class="hljs-keyword">import</span> time<br><br>FROMAT = <span class="hljs-string">'%(asctime)s %(threadName)s %(thread)d %(message)s'</span><br>logging.basicConfig(format=FROMAT, level=logging.INFO)<br><br><span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">worker</span><span class="hljs-params">()</span>:</span><br>    logging.info(<span class="hljs-string">'in worker'</span>)<br>    time.sleep(<span class="hljs-number">2</span>)<br><br>t = threading.Timer(<span class="hljs-number">5</span>, worker)<br>t.setName(<span class="hljs-string">'w1'</span>)<br>t.start()  <span class="hljs-comment"># 启动线程</span><br>print(threading.enumerate())<br><span class="hljs-comment"># t.cancel()  # 取消，可以注释这一句看看如何定时执行</span><br>time.sleep(<span class="hljs-number">1</span>)<br>print(threading.enumerate())<br>~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~<br>[&lt;Timer(w1, started <span class="hljs-number">14864</span>)&gt;, &lt;_MainThread(MainThread, started <span class="hljs-number">17020</span>)&gt;]<br>[&lt;Timer(w1, started <span class="hljs-number">14864</span>)&gt;, &lt;_MainThread(MainThread, started <span class="hljs-number">17020</span>)&gt;]<br><span class="hljs-number">2018</span><span class="hljs-number">-05</span><span class="hljs-number">-24</span> <span class="hljs-number">19</span>:<span class="hljs-number">50</span>:<span class="hljs-number">40</span>,<span class="hljs-number">299</span> w1 <span class="hljs-number">14864</span> <span class="hljs-keyword">in</span> worker<br></code></pre></td></tr></table></figure>
+
+<p>如果线程中worker函数已经开始执行，cancel就没有任何效果了。</p>
+<ul>
+<li>总结<ul>
+<li>Timer是线程Thread的子类，就是线程类，具有线程的能力和特征。</li>
+<li>它的实例是能够延时执行目标函数的线程，在真正执行目标函数之前，都可以cancel它<br>提前cancal</li>
+</ul>
+</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">import</span> threading<br><span class="hljs-keyword">import</span> logging<br><span class="hljs-keyword">import</span> time<br><br>FROMAT = <span class="hljs-string">'%(asctime)s %(threadName)s %(thread)d %(message)s'</span><br>logging.basicConfig(format=FROMAT, level=logging.INFO)<br><br><span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">worker</span><span class="hljs-params">()</span>:</span><br>    logging.info(<span class="hljs-string">'in worker'</span>)<br>    time.sleep(<span class="hljs-number">2</span>)<br><br>t = threading.Timer(<span class="hljs-number">5</span>, worker)<br>t.setName(<span class="hljs-string">'w1'</span>)<br>t.cancel()  <span class="hljs-comment"># 取消，可以注释这一句看看如何定时执行</span><br>t.start()  <span class="hljs-comment"># 启动线程</span><br>print(threading.enumerate())<br>time.sleep(<span class="hljs-number">1</span>)<br>print(threading.enumerate())<br>~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~<br>[&lt;_MainThread(MainThread, started <span class="hljs-number">11160</span>)&gt;]<br>[&lt;_MainThread(MainThread, started <span class="hljs-number">11160</span>)&gt;]<br></code></pre></td></tr></table></figure>
+      
+    </div>
+    
+    
+    
+
+     <!-- 文章末尾统一添加“本文结束”标记 -->
+    <div>
+      
+        <div>
+    
+        <div style="text-align:center;color: #555;font-size:24px;"><-------------The End-------------></div>
+    
+</div>
+
+      
+    </div>
+    
+
+    
+      <div>
+        <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+  <div>坚持原创分享，你的支持就是我最大的动力！</div>
+  <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+    <span>打赏</span>
+  </button>
+  <div id="QR" style="display: none;">
+
+    
+      <div id="wechat" style="display: inline-block">
+        <img id="wechat_qr" src="/uploads/weixin_cash_code.png" alt="StarDustLoong 微信支付"/>
+        <p>微信支付</p>
+      </div>
+    
+
+    
+      <div id="alipay" style="display: inline-block">
+        <img id="alipay_qr" src="/uploads/alipay_cash_code.png" alt="StarDustLoong 支付宝"/>
+        <p>支付宝</p>
+      </div>
+    
+
+    
+
+  </div>
+</div>
+
+      </div>
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/python%E5%B9%B6%E5%8F%91%E5%92%8C%E7%BA%BF%E7%A8%8B/" rel="tag"># python并发和线程</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/Python%20%E5%A4%9A%E7%BA%BF%E7%A8%8B%20%E7%BA%BF%E7%A8%8B%E5%AE%89%E5%85%A8%E3%80%81daemon%E7%AE%80%E4%BB%8B%20(%E5%9B%9B)/" rel="next" title="Python 多线程 线程安全、daemon简介 (四)">
+                <i class="fa fa-chevron-left"></i> Python 多线程 线程安全、daemon简介 (四)
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/Python%E7%BA%BF%E7%A8%8B%E5%90%8C%E6%AD%A5/" rel="prev" title="Python线程同步">
+                Python线程同步 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+    </div>
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/uploads/avatar.png"
+                alt="StarDustLoong" />
+            
+              <p class="site-author-name" itemprop="name">StarDustLoong</p>
+              <p class="site-description motion-element" itemprop="description">人类如风一般的自由</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">2409</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">12</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">146</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+	   
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/StarDustLoong" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:13671474528@163.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://www.zhihu.com/people/ashjian-ar15" target="_blank" title="知乎">
+                      
+                        <i class="fa fa-fw fa-globe"></i>知乎</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://me.csdn.net/ashjian" target="_blank" title="CSDN">
+                      
+                        <i class="fa fa-fw fa-codiepie"></i>CSDN</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+            <div class="links-of-blogroll motion-element links-of-blogroll-inline">
+              <div class="links-of-blogroll-title">
+                <i class="fa  fa-fw fa-link"></i>
+                Links
+              </div>
+              <ul class="links-of-blogroll-list">
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="http://mp.weixin.qq.com/user1" title="OpenInfo" target="_blank">OpenInfo</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="http://mp.weixin.qq.com/user2" title="stormzhang" target="_blank">stormzhang</a>
+                  </li>
+                
+              </ul>
+            </div>
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#并发基本概念"><span class="nav-number">1.</span> <span class="nav-text">并发基本概念</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#并发和并行区别"><span class="nav-number">1.1.</span> <span class="nav-text">并发和并行区别</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#井发的解决"><span class="nav-number">1.2.</span> <span class="nav-text">井发的解决</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#“食堂打饭模型“"><span class="nav-number">1.2.1.</span> <span class="nav-text">“食堂打饭模型“</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#1、队列、缓冲区"><span class="nav-number">1.2.2.</span> <span class="nav-text">1、队列、缓冲区</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2、争抢"><span class="nav-number">1.2.3.</span> <span class="nav-text">2、争抢</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3、预处理"><span class="nav-number">1.2.4.</span> <span class="nav-text">3、预处理</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4、并行"><span class="nav-number">1.2.5.</span> <span class="nav-text">4、并行</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#5、提速"><span class="nav-number">1.2.6.</span> <span class="nav-text">5、提速</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#6、消息中间件"><span class="nav-number">1.2.7.</span> <span class="nav-text">6、消息中间件</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#进程和线程"><span class="nav-number">2.</span> <span class="nav-text">进程和线程</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#线程的状态"><span class="nav-number">3.</span> <span class="nav-text">线程的状态</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Python中的进程和线程"><span class="nav-number">4.</span> <span class="nav-text">Python中的进程和线程</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Python的线程开发"><span class="nav-number">5.</span> <span class="nav-text">Python的线程开发</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Thread类"><span class="nav-number">5.1.</span> <span class="nav-text">Thread类</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#线程启动"><span class="nav-number">5.2.</span> <span class="nav-text">线程启动</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#线程退出"><span class="nav-number">5.3.</span> <span class="nav-text">线程退出</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#线程的传参"><span class="nav-number">5.4.</span> <span class="nav-text">线程的传参</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#threading的属性和方法"><span class="nav-number">5.5.</span> <span class="nav-text">threading的属性和方法</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Thread实例的属性和方法"><span class="nav-number">6.</span> <span class="nav-text">Thread实例的属性和方法</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#start方法"><span class="nav-number">6.1.</span> <span class="nav-text">start方法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#run方法"><span class="nav-number">6.2.</span> <span class="nav-text">run方法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#start和run的区别"><span class="nav-number">6.3.</span> <span class="nav-text">start和run的区别</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#多线程"><span class="nav-number">7.</span> <span class="nav-text">多线程</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#线程安全"><span class="nav-number">8.</span> <span class="nav-text">线程安全</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#不让print打印换行"><span class="nav-number">8.1.</span> <span class="nav-text">不让print打印换行</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#使用logging"><span class="nav-number">8.2.</span> <span class="nav-text">使用logging</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#daemon线程和non-daemon线程"><span class="nav-number">9.</span> <span class="nav-text">daemon线程和non-daemon线程</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#daemon线程和non-daemon线程举例"><span class="nav-number">9.1.</span> <span class="nav-text">daemon线程和non-daemon线程举例</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#daemon总结"><span class="nav-number">9.2.</span> <span class="nav-text">daemon总结</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#join方法"><span class="nav-number">9.3.</span> <span class="nav-text">join方法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#daemon线程应用场景"><span class="nav-number">9.4.</span> <span class="nav-text">daemon线程应用场景</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#threading-local类"><span class="nav-number">10.</span> <span class="nav-text">threading.local类</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#定时器-Timer-延时执行"><span class="nav-number">11.</span> <span class="nav-text">定时器 Timer&#x2F;延时执行</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">StarDustLoong</span>
+
+  
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-area-chart"></i>
+    </span>
+    
+      <span class="post-meta-item-text">本站总字数&#58;</span>
+    
+    <span title="本站总字数">635.5k</span>
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Pisces</a> v5.1.4</div>
+
+
+
+
+#<!-- 百度自动推送 -->
+#<script>
+#(function(){
+#    var bp = document.createElement('script');
+#    var curProtocol = window.location.protocol.split(':')[0];
+#    if (curProtocol === 'https') {
+#        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+#    }
+#    else {
+#        bp.src = 'http://push.ashjian.baidu.com/push.js';
+#    }
+#    var s = document.getElementsByTagName("script")[0];
+#    s.parentNode.insertBefore(bp, s);
+#})();
+#</script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aplayer/dist/APlayer.min.css">
+
+<script src="https://cdn.jsdelivr.net/npm/aplayer/dist/APlayer.min.js"></script>
+<!-- require MetingJS -->
+
+<script src="https://cdn.jsdelivr.net/npm/meting@2.0.1/dist/Meting.min.js"></script>
+<div> 
+<meting-js  
+    server="netease" 
+    type="playlist"  
+    id="5281251057" 
+    fixed="true"  
+    autoplay="false" 
+    loop="all" 
+    order="random"
+    preload="auto" 
+    list-folded="ture" 
+    list-max-height="500px" 
+    lrc-type="1">
+</meting-js>	 
+</div>
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv">
+      本站访客数
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+      人次
+    </span>
+  
+
+  
+    <span class="site-pv">
+      本站总访问量
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+      次
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+  <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+  <script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+  
+  <script type="text/javascript">
+    var GUEST = ['nick','mail','link'];
+    var guest = 'nick,mail,link';
+    guest = guest.split(',').filter(item=>{
+      return GUEST.indexOf(item)>-1;
+    });
+    new Valine({
+        el: '#comments' ,
+        verify: false,
+        notify: false,
+        appId: 'Gp5xxuBGmRxC9yeJHf5wlLpN-gzGzoHsz',
+        appKey: 'wo0eDJonJrnuUrCCCU7EnH1n',
+        placeholder: '欢迎评论',
+        avatar:'mm',
+        guest_info:guest,
+        pageSize:'20' || 10,
+    });
+  </script>
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"jsonPath":"/live2dw/assets/dsr50_lifu_normal.model.json"},"display":{"position":"right","width":700,"height":800,"hOffset":-250,"vOffset":-150},"mobile":{"show":true,"scale":0.7},"log":false});</script></body>
+</html>

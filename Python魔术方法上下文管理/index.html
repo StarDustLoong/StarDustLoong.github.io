@@ -1,0 +1,1462 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="python魔术方法," />
+
+
+
+
+  
+
+
+  <link rel="alternate" href="/atom.xml" title="" type="application/atom+xml" />
+
+
+
+
+
+
+<meta name="description" content="上下文管理文件IO操作可以对文件对象使用上下文管理，使用with … as 语法。 12with open(&#39;test&#39;) as f:    pass  仿照上例写一个自己的类，实现上下文管理 123456class Point:    passwith Point() as f:  # AttributeError: __exit__    pass  提示属性错误， 没有exit，看了需要这个">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Python魔术方法上下文管理">
+<meta property="og:url" content="http://www.ashjian.xyz/Python%E9%AD%94%E6%9C%AF%E6%96%B9%E6%B3%95%E4%B8%8A%E4%B8%8B%E6%96%87%E7%AE%A1%E7%90%86/index.html">
+<meta property="og:site_name">
+<meta property="og:description" content="上下文管理文件IO操作可以对文件对象使用上下文管理，使用with … as 语法。 12with open(&#39;test&#39;) as f:    pass  仿照上例写一个自己的类，实现上下文管理 123456class Point:    passwith Point() as f:  # AttributeError: __exit__    pass  提示属性错误， 没有exit，看了需要这个">
+<meta property="article:published_time" content="2021-07-05T15:50:51.818Z">
+<meta property="article:modified_time" content="2021-06-29T08:29:32.447Z">
+<meta property="article:author" content="StarDustLoong">
+<meta property="article:tag" content="python魔术方法">
+<meta name="twitter:card" content="summary">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://www.ashjian.xyz/Python魔术方法上下文管理/"/>
+
+
+
+
+
+  <title>Python魔术方法上下文管理 | </title>
+  
+
+
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?d7bf52f45e24a0e6f2951901a7a97864";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+<meta name="generator" content="Hexo 4.2.1"></head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title"></span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off"
+             placeholder="搜索..." spellcheck="false"
+             type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://www.ashjian.xyz/Python%E9%AD%94%E6%9C%AF%E6%96%B9%E6%B3%95%E4%B8%8A%E4%B8%8B%E6%96%87%E7%AE%A1%E7%90%86/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="StarDustLoong">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/uploads/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Python魔术方法上下文管理</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2021-07-05T23:50:51+08:00">
+                2021-07-05
+              </time>
+            
+
+            
+              <span class="post-meta-divider">|</span>
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-check-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">更新于&#58;</span>
+              
+              <time title="更新于" itemprop="dateModified" datetime="2021-06-29T16:29:32+08:00">
+                2021-06-29
+              </time>
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/python/" itemprop="url" rel="index">
+                    <span itemprop="name">python</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/Python%E9%AD%94%E6%9C%AF%E6%96%B9%E6%B3%95%E4%B8%8A%E4%B8%8B%E6%96%87%E7%AE%A1%E7%90%86/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/Python%E9%AD%94%E6%9C%AF%E6%96%B9%E6%B3%95%E4%B8%8A%E4%B8%8B%E6%96%87%E7%AE%A1%E7%90%86/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  2.3k
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  11
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+      
+      
+
+      
+        <h2 id="上下文管理"><a href="#上下文管理" class="headerlink" title="上下文管理"></a>上下文管理</h2><p>文件IO操作可以对文件对象使用上下文管理，使用with … as 语法。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">with</span> open(<span class="hljs-string">'test'</span>) <span class="hljs-keyword">as</span> f:<br>    <span class="hljs-keyword">pass</span><br></code></pre></td></tr></table></figure>
+
+<p>仿照上例写一个自己的类，实现上下文管理</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Point</span>:</span><br>    <span class="hljs-keyword">pass</span><br><br><br><span class="hljs-keyword">with</span> Point() <span class="hljs-keyword">as</span> f:  <span class="hljs-comment"># AttributeError: __exit__</span><br>    <span class="hljs-keyword">pass</span><br></code></pre></td></tr></table></figure>
+
+<p>提示属性错误， 没有<strong>exit</strong>，看了需要这个属性</p>
+<h2 id="上下文管理对象"><a href="#上下文管理对象" class="headerlink" title="上下文管理对象"></a>上下文管理对象</h2><p>当一个对象同时实现了<strong>enter</strong>()和<strong>exit</strong>()方法，它就属于上下文管理的对象</p>
+<table>
+<thead>
+<tr>
+<th align="left">方法</th>
+<th align="left">意义</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left"><strong>enter</strong></td>
+<td align="left">进入与此对象相关的上下文。如果存在该方法，with语法会把该方法的返回值作为绑定到as子句中指定的变量上</td>
+</tr>
+<tr>
+<td align="left"><strong>exit</strong></td>
+<td align="left">退出与此对象相关的上下文</td>
+</tr>
+</tbody></table>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Point</span>:</span><br>    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">__init__</span><span class="hljs-params">(self)</span>:</span><br>        print(<span class="hljs-string">'init'</span>)<br><br><br>    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">__enter__</span><span class="hljs-params">(self)</span>:</span><br>        print(<span class="hljs-string">'enter'</span>)<br><br><br>    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">__exit__</span><span class="hljs-params">(self, exc_type, exc_val, exc_tb)</span>:</span><br>        print(<span class="hljs-string">'exit'</span>)<br><br><br><span class="hljs-keyword">with</span> Point() <span class="hljs-keyword">as</span> f:<br>    print(<span class="hljs-string">'do sth.'</span>)<br>~~~~~~~~~~~~~~~~~~~~~~~~~~~<br>init<br>enter<br>do sth.<br>exit<br></code></pre></td></tr></table></figure>
+
+<p>实例化对象的时候，并不会调用enter，进入with语句块调用<strong>enter</strong>方法，然后执行语句体，最后离开with语句块的时候，调用<strong>exit</strong>方法。<br>with可以开启一个上下文运行环境，在执行前做一些准备工作，执行后做一些收尾工作。</p>
+<h2 id="上下文管理的安全性"><a href="#上下文管理的安全性" class="headerlink" title="上下文管理的安全性"></a>上下文管理的安全性</h2><p>看看异常对上下文的影响。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Point</span>:</span><br>    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">__init__</span><span class="hljs-params">(self)</span>:</span><br>        print(<span class="hljs-string">'init'</span>)<br><br><br>    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">__enter__</span><span class="hljs-params">(self)</span>:</span><br>        print(<span class="hljs-string">'enter'</span>)<br><br><br>    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">__exit__</span><span class="hljs-params">(self, exc_type, exc_val, exc_tb)</span>:</span><br>        print(<span class="hljs-string">'exit'</span>)<br><br><br><span class="hljs-keyword">with</span> Point() <span class="hljs-keyword">as</span> f:<br>    <span class="hljs-keyword">raise</span> Exception(<span class="hljs-string">'error'</span>)<br>    print(<span class="hljs-string">'do sth.'</span>)<br>~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~<br>init<br>enter<br>exit<br><br><span class="hljs-keyword">raise</span> Exception(<span class="hljs-string">'error'</span>)<br></code></pre></td></tr></table></figure>
+
+<p>可以看出在enter和exit照样执行，<code>上下文管理是安全的</code></p>
+<p>极端的例子<br>调用sys.exit()， 它会推出当前解释器。<br>打开Python解释器，在里面敲入sys.exit()，窗口直接关闭了。也就是说碰到这一句，Python运行环境直接退出了。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">import</span> sys<br><br><br><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Point</span>:</span><br>    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">__init__</span><span class="hljs-params">(self)</span>:</span><br>        print(<span class="hljs-string">'init'</span>)<br><br><br>    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">__enter__</span><span class="hljs-params">(self)</span>:</span><br>        print(<span class="hljs-string">'enter'</span>)<br><br><br>    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">__exit__</span><span class="hljs-params">(self, exc_type, exc_val, exc_tb)</span>:</span><br>        print(<span class="hljs-string">'exit'</span>)<br><br><br><span class="hljs-keyword">with</span> Point() <span class="hljs-keyword">as</span> f:<br>    sys.exit(<span class="hljs-number">-100</span>)<br>    print(<span class="hljs-string">'do sth.'</span>)<br><br><br>print(<span class="hljs-string">'outer'</span>)<br>~~~~~~~~~~~~~~~~~~~~~~~~~~~~<br>init<br>enter<br>exit<br><br>Process finished <span class="hljs-keyword">with</span> exit code <span class="hljs-number">-100</span><br></code></pre></td></tr></table></figure>
+
+<p>从执行结果来看，依然执行了<strong>exit</strong>函数，哪怕是退出Python运行环境。<br>说明<code>上下文管理很安全</code>。</p>
+<h2 id="with语句"><a href="#with语句" class="headerlink" title="with语句"></a>with语句</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Point</span>:</span><br>    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">__init__</span><span class="hljs-params">(self)</span>:</span><br>        print(<span class="hljs-string">'init'</span>)<br><br><br>    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">__enter__</span><span class="hljs-params">(self)</span>:</span><br>        print(<span class="hljs-string">'enter'</span>)<br><br><br>    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">__exit__</span><span class="hljs-params">(self, exc_type, exc_val, exc_tb)</span>:</span><br>        print(<span class="hljs-string">'exit'</span>)<br><br><br>p = Point()<br><span class="hljs-keyword">with</span> Point() <span class="hljs-keyword">as</span> f:<br>    print(p == f)  <span class="hljs-comment"># 为什么不相等</span><br>    print(<span class="hljs-string">'do sth.'</span>)<br>~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~<br>init<br>init<br>enter<br><span class="hljs-literal">False</span><br>do sth.<br>exit<br></code></pre></td></tr></table></figure>
+
+<p>问题在于<strong>enter</strong>方法上，它将自己的返回值赋给f。修改上例</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Point</span>:</span><br>    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">__init__</span><span class="hljs-params">(self)</span>:</span><br>        print(<span class="hljs-string">'init'</span>)<br><br><br>    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">__enter__</span><span class="hljs-params">(self)</span>:</span><br>        print(<span class="hljs-string">'enter'</span>)<br>        <span class="hljs-keyword">return</span> self<br><br><br>    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">__exit__</span><span class="hljs-params">(self, exc_type, exc_val, exc_tb)</span>:</span><br>        print(<span class="hljs-string">'exit'</span>)<br><br><br>p = Point()<br><span class="hljs-keyword">with</span> p <span class="hljs-keyword">as</span> f:<br>    print(p == f)<br>    print(<span class="hljs-string">'do sth.'</span>)<br>~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~<br>init<br>enter<br><span class="hljs-literal">True</span><br>do sth.<br>exit<br></code></pre></td></tr></table></figure>
+
+<h2 id="enter方法和exit方法的参数"><a href="#enter方法和exit方法的参数" class="headerlink" title="enter方法和exit方法的参数"></a><strong>enter</strong>方法和<strong>exit</strong>方法的参数</h2><p><strong>enter</strong>方法，没有其他参数。<br><strong>exit</strong>方法有3个参数：<br><strong>exit</strong>(self, exc_type, exc_val, exc_tb):<br>这三个参数都与异常有关。<br>如果该上下文退出时没有异常，这3个参数都为None。<br>如果有异常，参数意义如下：</p>
+<table>
+<thead>
+<tr>
+<th align="left">参数</th>
+<th align="left">意义</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">exc_type</td>
+<td align="left">异常类型</td>
+</tr>
+<tr>
+<td align="left">exc_value</td>
+<td align="left">异常的值</td>
+</tr>
+<tr>
+<td align="left">exc_tb</td>
+<td align="left">异常的追踪信息</td>
+</tr>
+</tbody></table>
+<p><strong>exit</strong>方法返回一个等效True的值，则压制异常；否则抛出异常</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Point</span>:</span><br>    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">__init__</span><span class="hljs-params">(self)</span>:</span><br>        print(<span class="hljs-string">'init'</span>)<br><br><br>    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">__enter__</span><span class="hljs-params">(self)</span>:</span><br>        print(<span class="hljs-string">'enter'</span>)<br>        <span class="hljs-keyword">return</span> self<br><br><br>    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">__exit__</span><span class="hljs-params">(self, exc_type, exc_val, exc_tb)</span>:</span><br>        print(exc_type)<br>        print(exc_val)<br>        print(exc_tb)<br>        print(<span class="hljs-string">'exit'</span>)<br>        <span class="hljs-keyword">return</span> <span class="hljs-string">"abc"</span><br><br><br>p = Point()<br><span class="hljs-keyword">with</span> p <span class="hljs-keyword">as</span> f:<br>    <span class="hljs-keyword">raise</span> Exception(<span class="hljs-string">'New Error'</span>)<br>    print(<span class="hljs-string">'do sth.'</span>)<br>~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~<br>init<br>enter<br>&lt;<span class="hljs-class"><span class="hljs-keyword">class</span> '<span class="hljs-title">Exception</span>'&gt;</span><br><span class="hljs-class"><span class="hljs-title">New</span> <span class="hljs-title">Error</span></span><br><span class="hljs-class">&lt;<span class="hljs-title">traceback</span> <span class="hljs-title">object</span> <span class="hljs-title">at</span> 0<span class="hljs-title">x00000145D258F808</span>&gt;</span><br><span class="hljs-class"><span class="hljs-title">exit</span></span><br></code></pre></td></tr></table></figure>
+
+<h2 id="练习"><a href="#练习" class="headerlink" title="练习"></a>练习</h2><ul>
+<li>为加法函数计时<ul>
+<li>方法1：使用装饰器显示该函数的执行时长</li>
+<li>方法2：使用上下文管理方法来显示该函数的执行时长</li>
+</ul>
+</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">import</span> time<br><br><span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">add</span><span class="hljs-params">(x, y)</span>:</span><br>    time.sleep(<span class="hljs-number">2</span>)<br>    <span class="hljs-keyword">return</span> x + y<br></code></pre></td></tr></table></figure>
+
+<h3 id="装饰器实现1"><a href="#装饰器实现1" class="headerlink" title="装饰器实现1"></a>装饰器实现1</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">import</span> time<br><span class="hljs-keyword">import</span> datetime<br><span class="hljs-keyword">from</span> functools <span class="hljs-keyword">import</span> wraps<br><br><br><span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">timeit</span><span class="hljs-params">(fn)</span>:</span><br><span class="hljs-meta">    @wraps(fn)</span><br>    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">wrapper</span><span class="hljs-params">(*args, **kwargs)</span>:</span><br>        start = datetime.datetime.now()<br>        ret = fn(*args, **kwargs)<br>        delta = (datetime.datetime.now() - start).total_seconds()<br>        print(<span class="hljs-string">"&#123;&#125; took &#123;&#125;s"</span>.format(fn.__name__, delta))<br>        <span class="hljs-keyword">return</span> ret<br>    <span class="hljs-keyword">return</span> wrapper<br><br><br><span class="hljs-meta">@timeit</span><br><span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">add</span><span class="hljs-params">(x, y)</span>:</span><br>    time.sleep(<span class="hljs-number">2</span>)<br>    <span class="hljs-keyword">return</span> x + y<br><br>print(add(<span class="hljs-number">4</span>, <span class="hljs-number">5</span>))<br>~~~~~~~~~~~~~~~~~~~~~~~~~~<br>add took <span class="hljs-number">2.000429</span>s<br><span class="hljs-number">9</span><br></code></pre></td></tr></table></figure>
+
+<h3 id="装饰器实现2"><a href="#装饰器实现2" class="headerlink" title="装饰器实现2"></a>装饰器实现2</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">import</span> time<br><span class="hljs-keyword">import</span> datetime<br><br><br><span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">timeit</span><span class="hljs-params">(output=lambda fn, delta: print<span class="hljs-params">(<span class="hljs-string">"&#123;&#125; took &#123;&#125;s"</span>.format<span class="hljs-params">(fn.__name__, delta)</span>)</span>)</span>:</span><br>    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">timeit</span><span class="hljs-params">(fn)</span>:</span><br>        <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">wrapper</span><span class="hljs-params">(*args, **kwargs)</span>:</span><br>            start = datetime.datetime.now()<br>            ret = fn(*args, **kwargs)<br>            delta = (datetime.datetime.now() - start).total_seconds()<br>            output(fn, delta)<br>            <span class="hljs-keyword">return</span> ret<br>        <span class="hljs-keyword">return</span> wrapper<br>    <span class="hljs-keyword">return</span> timeit<br><br><span class="hljs-meta">@timeit()  # add = timeit(add)</span><br><span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">add</span><span class="hljs-params">(x, y)</span>:</span><br>    time.sleep(<span class="hljs-number">2</span>)<br>    <span class="hljs-keyword">return</span> x + y<br><br><br>add(<span class="hljs-number">4</span>, <span class="hljs-number">5</span>)  <span class="hljs-comment"># wrapper</span><br>~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~<br>add took <span class="hljs-number">2.016718</span>s<br></code></pre></td></tr></table></figure>
+
+<h3 id="上下文管理-1"><a href="#上下文管理-1" class="headerlink" title="上下文管理"></a>上下文管理</h3><h4 id="基本实现"><a href="#基本实现" class="headerlink" title="基本实现"></a>基本实现</h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">import</span> time<br><span class="hljs-keyword">import</span> datetime<br><span class="hljs-keyword">from</span> functools <span class="hljs-keyword">import</span> wraps<br><br><br><span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">timeit</span><span class="hljs-params">(fn)</span>:</span><br><span class="hljs-meta">    @wraps(fn)</span><br>    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">wrapper</span><span class="hljs-params">(*args, **kwargs)</span>:</span><br>        start = datetime.datetime.now()<br>        ret = fn(*args, **kwargs)<br>        delta = (datetime.datetime.now() - start).total_seconds()<br>        print(<span class="hljs-string">"&#123;&#125; took &#123;&#125;s"</span>.format(fn.__name__, delta))<br>        <span class="hljs-keyword">return</span> ret<br>    <span class="hljs-keyword">return</span> wrapper<br><br><br><span class="hljs-meta">@timeit</span><br><span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">add</span><span class="hljs-params">(x, y)</span>:</span><br>    time.sleep(<span class="hljs-number">2</span>)<br>    <span class="hljs-keyword">return</span> x + y<br><br><br><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">TimeIt</span>:</span><br>    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">__init__</span><span class="hljs-params">(self, fn)</span>:</span><br>        self.fn = fn<br><br>    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">__enter__</span><span class="hljs-params">(self)</span>:</span><br>        self.start = datetime.datetime.now()<br>        <span class="hljs-keyword">return</span> self.fn<br><br>    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">__exit__</span><span class="hljs-params">(self, exc_type, exc_val, exc_tb)</span>:</span><br>        delta = (datetime.datetime.now() - self.start).total_seconds()<br>        print(<span class="hljs-string">"&#123;&#125; took &#123;&#125;s"</span>.format(self.fn.__name__, delta))<br><br><br><span class="hljs-keyword">with</span> TimeIt(add) <span class="hljs-keyword">as</span> fn:<br>    print(fn(<span class="hljs-number">4</span>, <span class="hljs-number">6</span>))<br>    print(add(<span class="hljs-number">4</span>, <span class="hljs-number">5</span>))<br>~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~<br>add took <span class="hljs-number">2.000976</span>s<br><span class="hljs-number">10</span><br>add took <span class="hljs-number">2.000243</span>s<br><span class="hljs-number">9</span><br>add took <span class="hljs-number">4.001219</span>s<br></code></pre></td></tr></table></figure>
+
+<h4 id="另一种实现，使用可调用对象实现"><a href="#另一种实现，使用可调用对象实现" class="headerlink" title="另一种实现，使用可调用对象实现"></a>另一种实现，使用可调用对象实现</h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">import</span> time<br><span class="hljs-keyword">import</span> datetime<br><span class="hljs-keyword">from</span> functools <span class="hljs-keyword">import</span> wraps<br><br><br><span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">timeit</span><span class="hljs-params">(fn)</span>:</span><br><span class="hljs-meta">    @wraps(fn)</span><br>    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">wrapper</span><span class="hljs-params">(*args, **kwargs)</span>:</span><br>        start = datetime.datetime.now()<br>        ret = fn(*args, **kwargs)<br>        delta = (datetime.datetime.now() - start).total_seconds()<br>        print(<span class="hljs-string">"&#123;&#125; took &#123;&#125;s"</span>.format(fn.__name__, delta))<br>        <span class="hljs-keyword">return</span> ret<br>    <span class="hljs-keyword">return</span> wrapper<br><br><br><span class="hljs-meta">@timeit</span><br><span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">add</span><span class="hljs-params">(x, y)</span>:</span><br>    time.sleep(<span class="hljs-number">2</span>)<br>    <span class="hljs-keyword">return</span> x + y<br><br><br><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">TimeIt</span>:</span><br>    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">__init__</span><span class="hljs-params">(self, fn)</span>:</span><br>        self.fn = fn<br><br>    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">__enter__</span><span class="hljs-params">(self)</span>:</span><br>        self.start = datetime.datetime.now()<br>        <span class="hljs-keyword">return</span> self.fn<br><br>    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">__exit__</span><span class="hljs-params">(self, exc_type, exc_val, exc_tb)</span>:</span><br>        delta = (datetime.datetime.now() - self.start).total_seconds()<br>        print(<span class="hljs-string">"&#123;&#125; took &#123;&#125;s"</span>.format(self.fn.__name__, delta))<br><br><br>    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">__call__</span><span class="hljs-params">(self, x, y)</span>:</span><br>        print(x, y)<br>        <span class="hljs-keyword">return</span> self.fn(x, y)<br><br><span class="hljs-keyword">with</span> TimeIt(add) <span class="hljs-keyword">as</span> timeitobj:<br>    print(timeitobj(<span class="hljs-number">4</span>, <span class="hljs-number">6</span>))<br>~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~<br>add took <span class="hljs-number">2.000261</span>s<br><span class="hljs-number">10</span><br>add took <span class="hljs-number">2.000261</span>s<br></code></pre></td></tr></table></figure>
+
+<h4 id="根据上面的代码，能不能把类当做装饰器用？"><a href="#根据上面的代码，能不能把类当做装饰器用？" class="headerlink" title="根据上面的代码，能不能把类当做装饰器用？"></a>根据上面的代码，能不能把类当做装饰器用？</h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">import</span> time<br><span class="hljs-keyword">import</span> datetime<br><span class="hljs-keyword">from</span> functools <span class="hljs-keyword">import</span> wraps<br><br><br><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">TimeIt</span>:</span><br>    <span class="hljs-string">"""This is TimeIt function."""</span><br>    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">__init__</span><span class="hljs-params">(self, fn)</span>:</span><br>        self.fn = fn<br><br>    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">__enter__</span><span class="hljs-params">(self)</span>:</span><br>        self.start = datetime.datetime.now()<br>        <span class="hljs-keyword">return</span> self.fn<br><br>    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">__exit__</span><span class="hljs-params">(self, exc_type, exc_val, exc_tb)</span>:</span><br>        delta = (datetime.datetime.now() - self.start).total_seconds()<br>        print(<span class="hljs-string">"&#123;&#125; took &#123;&#125;s"</span>.format(self.fn.__name__, delta))<br><br><br>    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">__call__</span><span class="hljs-params">(self, *args, **kwargs)</span>:</span><br>        self.start = datetime.datetime.now()<br>        ret = self.fn(*args, **kwargs)<br>        self.delta = (datetime.datetime.now() - self.start).total_seconds()<br>        print(<span class="hljs-string">"&#123;&#125; took &#123;&#125;s. call"</span>.format(self.fn.__name__, self.delta))<br>        <span class="hljs-keyword">return</span> ret<br><br><br><span class="hljs-meta">@TimeIt</span><br><span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">add</span><span class="hljs-params">(x, y)</span>:</span><br>    <span class="hljs-string">"""This is add function."""</span><br>    time.sleep(<span class="hljs-number">2</span>)<br>    <span class="hljs-keyword">return</span> x + y<br><br><br>add(<span class="hljs-number">4</span>, <span class="hljs-number">5</span>)<br>print(add.__doc__)<br>~~~~~~~~~~~~~~~~~~~~~~~~~~~~~<br>add took <span class="hljs-number">2.000246</span>s. call<br>This <span class="hljs-keyword">is</span> TimeIt function.<br></code></pre></td></tr></table></figure>
+
+<h4 id="思考：如何解决文档字符串问题？"><a href="#思考：如何解决文档字符串问题？" class="headerlink" title="思考：如何解决文档字符串问题？"></a>思考：如何解决文档字符串问题？</h4><h5 id="方法一：直接修改doc"><a href="#方法一：直接修改doc" class="headerlink" title="方法一：直接修改doc"></a>方法一：直接修改<strong>doc</strong></h5><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">TimeIt</span>:</span><br>    <span class="hljs-string">"""This is TimeIt function."""</span><br>    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">__init__</span><span class="hljs-params">(self, fn)</span>:</span><br>        self.fn = fn<br>        <span class="hljs-comment"># 把函数对象的文档字符串赋给类</span><br>        self.__doc__ = fn.__doc__<br></code></pre></td></tr></table></figure>
+
+<h5 id="方法二：使用functools-wraps函数"><a href="#方法二：使用functools-wraps函数" class="headerlink" title="方法二：使用functools.wraps函数"></a>方法二：使用functools.wraps函数</h5><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">import</span> time<br><span class="hljs-keyword">import</span> datetime<br><span class="hljs-keyword">from</span> functools <span class="hljs-keyword">import</span> wraps, update_wrapper<br><br><br><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">TimeIt</span>:</span><br>    <span class="hljs-string">"""This is TimeIt function."""</span><br>    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">__init__</span><span class="hljs-params">(self, fn)</span>:</span><br>        self.fn = fn<br>        <span class="hljs-comment"># 把函数对象的文档字符串赋给类</span><br>        <span class="hljs-comment"># self.__doc__ = fn.__doc__</span><br>        <span class="hljs-comment"># update_wrapper(self, fn)</span><br>        wraps(fn)(self)<br><br>    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">__enter__</span><span class="hljs-params">(self)</span>:</span><br>        self.start = datetime.datetime.now()<br>        <span class="hljs-keyword">return</span> self.fn<br><br>    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">__exit__</span><span class="hljs-params">(self, exc_type, exc_val, exc_tb)</span>:</span><br>        delta = (datetime.datetime.now() - self.start).total_seconds()<br>        print(<span class="hljs-string">"&#123;&#125; took &#123;&#125;s"</span>.format(self.fn.__name__, delta))<br><br><br>    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">__call__</span><span class="hljs-params">(self, *args, **kwargs)</span>:</span><br>        self.start = datetime.datetime.now()<br>        ret = self.fn(*args, **kwargs)<br>        self.delta = (datetime.datetime.now() - self.start).total_seconds()<br>        print(<span class="hljs-string">"&#123;&#125; took &#123;&#125;s. call"</span>.format(self.fn.__name__, self.delta))<br>        <span class="hljs-keyword">return</span> ret<br><br><br><span class="hljs-meta">@TimeIt</span><br><span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">add</span><span class="hljs-params">(x, y)</span>:</span><br>    <span class="hljs-string">"""This is add function."""</span><br>    time.sleep(<span class="hljs-number">2</span>)<br>    <span class="hljs-keyword">return</span> x + y<br><br><br>print(add(<span class="hljs-number">10</span>, <span class="hljs-number">5</span>))<br>print(add.__doc__)<br><br><br>print(TimeIt(add).__doc__)<br>~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~<br>add took <span class="hljs-number">2.000424</span>s. call<br><span class="hljs-number">15</span><br>This <span class="hljs-keyword">is</span> add function.<br>This <span class="hljs-keyword">is</span> add function.<br></code></pre></td></tr></table></figure>
+
+<p>上面的类既可以用在上下文管理，有可以用作装饰器</p>
+<h2 id="上下文应用场景"><a href="#上下文应用场景" class="headerlink" title="上下文应用场景"></a>上下文应用场景</h2><ul>
+<li>增强功能<ul>
+<li>在代码执行的前后增加代码，以增强其功能。类似装饰器的功能。</li>
+</ul>
+</li>
+<li>资源管理<ul>
+<li>打开了资源需要关闭，例如文件对象、网络连接、数据库连接等</li>
+</ul>
+</li>
+<li>权限验证<ul>
+<li>在执行代码之前，做权限的验证，在<strong>enter</strong>中处理</li>
+</ul>
+</li>
+</ul>
+<h2 id="contextlib-contextmanger"><a href="#contextlib-contextmanger" class="headerlink" title="contextlib.contextmanger"></a>contextlib.contextmanger</h2><p>contextlib.contextmanger<br>它是一个装饰器实现上下文管理，装饰一个函数，而不用像类一样实现<strong>enter</strong>和<strong>exit</strong>方法。<br>对下面的函数有要求，必须有yield，也就是这个函数必须返回一个生成器，且只有yield一个值。也就是这个装饰器接受一个生成器对象作为参数。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">import</span> contextlib<br><br><span class="hljs-meta">@contextlib.contextmanager</span><br><span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">foo</span><span class="hljs-params">()</span>:</span><br>    print(<span class="hljs-string">'enter'</span>)  <span class="hljs-comment"># 相当于__enter__()</span><br>    <span class="hljs-keyword">yield</span> <span class="hljs-comment"># yield 5, yield的值只能有一个，作为__enter__方法的返回值</span><br>    print(<span class="hljs-string">'exit'</span>)  <span class="hljs-comment"># 相当于__exit__()</span><br><br><br><span class="hljs-keyword">with</span> foo() <span class="hljs-keyword">as</span> f:<br>    <span class="hljs-comment"># raise Exception()</span><br>    print(f)<br>~~~~~~~~~~~~~~~~~~~~~<br>enter<br><span class="hljs-literal">None</span><br>exit<br></code></pre></td></tr></table></figure>
+
+<p>f接收yield语句的返回值。</p>
+<p>上面的额程序看似不错，但是，增加一个异常试试，发现不能保证exit的执行，怎么办？增加try finally</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">import</span> contextlib<br><br><span class="hljs-meta">@contextlib.contextmanager</span><br><span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">foo</span><span class="hljs-params">()</span>:</span><br>    print(<span class="hljs-string">'enter'</span>)  <span class="hljs-comment"># 相当于__enter__()</span><br>    <span class="hljs-keyword">try</span>:<br>        <span class="hljs-keyword">yield</span> <span class="hljs-comment"># yield 5, yield的值只能有一个，作为__enter__方法的返回值</span><br>    <span class="hljs-keyword">finally</span>:<br>        print(<span class="hljs-string">'exit'</span>)  <span class="hljs-comment"># 相当于__exit__()</span><br><br><br><span class="hljs-keyword">with</span> foo() <span class="hljs-keyword">as</span> f:<br>    <span class="hljs-keyword">raise</span> Exception()<br>    print(f)<br>~~~~~~~~~~~~~~~~~~~~~~~~~~~~~<br>enter<br><span class="hljs-literal">None</span><br>exit<br><br>Exception<br></code></pre></td></tr></table></figure>
+
+<p>上例这么做有什么意义呢？<br>- 当yield发生处为生成器函数增加了上下文管理。这是为函数增加上下文机制的方法。<br>- 把yield之前的当做<strong>enter</strong>方法执行<br>- 把yield之后的当做<strong>exit</strong>方法执行<br>- 把yield的值作为<strong>enter</strong>的返回值</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">import</span> contextlib<br><span class="hljs-keyword">import</span> datetime<br><span class="hljs-keyword">import</span> time<br><br><span class="hljs-meta">@contextlib.contextmanager</span><br><span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">add</span><span class="hljs-params">(x, y)</span>:</span>  <span class="hljs-comment"># 为生成器函数增加了上下文管理</span><br>    start = datetime.datetime.now()<br>    <span class="hljs-keyword">try</span>:<br>        <span class="hljs-keyword">yield</span> x + y<span class="hljs-comment"># yield 5, yield的值只能有一个，作为__enter__方法的返回值</span><br>    <span class="hljs-keyword">finally</span>:<br>        delta = (datetime.datetime.now() - start).total_seconds()<br>        print(<span class="hljs-string">"&#123;&#125;s"</span>.format(delta))<br><br><br><span class="hljs-keyword">with</span> add(<span class="hljs-number">4</span>, <span class="hljs-number">5</span>) <span class="hljs-keyword">as</span> f:<br>    <span class="hljs-comment"># raise Exception()</span><br>    time.sleep(<span class="hljs-number">2</span>)<br>    print(f)<br>~~~~~~~~~~~~~~~~~~~~<br><span class="hljs-number">9</span><br><span class="hljs-number">2.000861</span>s<br></code></pre></td></tr></table></figure>
+
+<h3 id="contextlib-contextmangager总结"><a href="#contextlib-contextmangager总结" class="headerlink" title="contextlib.contextmangager总结"></a>contextlib.contextmangager总结</h3><p>如果业务逻辑简单可以使用函数加contextlib.contextmanager装饰器方法，如果业务复杂，用类的方式加<strong>enter</strong>和<strong>exit</strong>方法方便。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-comment"># 使用装饰器显示该函数的执行时长</span><br><br><span class="hljs-keyword">import</span> time<br><span class="hljs-keyword">import</span> datetime<br><br><span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">logger</span><span class="hljs-params">(fn)</span>:</span><br>    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">wrapper</span><span class="hljs-params">(*args, **kwargs)</span>:</span><br>        start = datetime.datetime.now()<br>        x = fn(*args, **kwargs)<br>        end = datetime.datetime.now()<br>        interval = (end - start).total_seconds()<br>        print(<span class="hljs-string">"function time = &#123;&#125;"</span>.format(interval))<br>        <span class="hljs-keyword">return</span> x<br>    <span class="hljs-keyword">return</span> wrapper<br><br><span class="hljs-meta">@logger</span><br><span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">add</span><span class="hljs-params">(x, y)</span>:</span><br>    time.sleep(<span class="hljs-number">2</span>)<br>    <span class="hljs-keyword">return</span> x + y<br><br>print(add(<span class="hljs-number">3</span>, <span class="hljs-number">4</span>))<br><span class="hljs-comment"># 使用装饰器显示该函数的执行时长</span><br><br><span class="hljs-keyword">import</span> time<br><span class="hljs-keyword">import</span> datetime<br><br><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Add</span>:</span><br>    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">__init__</span><span class="hljs-params">(self, *args, **kwargs)</span>:</span><br>        self.args = args<br>        self.kwargs = kwargs<br>        args, kwargs = self.args, self.kwargs<br><br>    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">logger</span><span class="hljs-params">(fn)</span>:</span><br>        <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">wrapper</span><span class="hljs-params">(*args, **kwargs)</span>:</span><br>            start = datetime.datetime.now()<br>            x = fn(*args, **kwargs)<br>            end = datetime.datetime.now()<br>            interval = (end - start).total_seconds()<br>            print(<span class="hljs-string">"function time = &#123;&#125;"</span>.format(interval))<br>            <span class="hljs-keyword">return</span> x<br>        <span class="hljs-keyword">return</span> wrapper<br><br><span class="hljs-meta">    @logger</span><br>    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">add</span><span class="hljs-params">(x, y)</span>:</span><br>        time.sleep(<span class="hljs-number">2</span>)<br>        <span class="hljs-keyword">return</span> x + y<br><br>addtest = Add()<br>print(addtest.add(<span class="hljs-number">3</span>, <span class="hljs-number">4</span>))<br><span class="hljs-comment"># 使用装饰器显示该函数的执行时长</span><br><br><span class="hljs-keyword">import</span> time<br><span class="hljs-keyword">import</span> datetime<br><br><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Add</span>:</span><br>    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">__init__</span><span class="hljs-params">(self, x, y)</span>:</span><br>        self.x = x<br>        self.y = y<br><br><br>    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">__enter__</span><span class="hljs-params">(self)</span>:</span><br>        start = datetime.datetime.now()<br>        <span class="hljs-keyword">return</span> start<br><br><br><br>    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">__exit__</span><span class="hljs-params">(self, exc_type, exc_val, exc_tb)</span>:</span><br>        end = datetime.datetime.now()<br>        interval = (end - start).total_seconds()<br>        <span class="hljs-keyword">return</span> interval<br><br><br>addtest = Add()<br><span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">add</span><span class="hljs-params">(x, y)</span>:</span><br>    time.sleep(<span class="hljs-number">2</span>)<br>    <span class="hljs-keyword">return</span> x + y<br></code></pre></td></tr></table></figure>
+      
+    </div>
+    
+    
+    
+
+     <!-- 文章末尾统一添加“本文结束”标记 -->
+    <div>
+      
+        <div>
+    
+        <div style="text-align:center;color: #555;font-size:24px;"><-------------The End-------------></div>
+    
+</div>
+
+      
+    </div>
+    
+
+    
+      <div>
+        <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+  <div>坚持原创分享，你的支持就是我最大的动力！</div>
+  <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+    <span>打赏</span>
+  </button>
+  <div id="QR" style="display: none;">
+
+    
+      <div id="wechat" style="display: inline-block">
+        <img id="wechat_qr" src="/uploads/weixin_cash_code.png" alt="StarDustLoong 微信支付"/>
+        <p>微信支付</p>
+      </div>
+    
+
+    
+      <div id="alipay" style="display: inline-block">
+        <img id="alipay_qr" src="/uploads/alipay_cash_code.png" alt="StarDustLoong 支付宝"/>
+        <p>支付宝</p>
+      </div>
+    
+
+    
+
+  </div>
+</div>
+
+      </div>
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/python%E9%AD%94%E6%9C%AF%E6%96%B9%E6%B3%95/" rel="tag"># python魔术方法</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/Python%E9%AD%94%E6%9C%AF%E6%96%B9%E6%B3%95%E5%8F%8D%E5%B0%84/" rel="next" title="Python魔术方法反射">
+                <i class="fa fa-chevron-left"></i> Python魔术方法反射
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/python%E4%B8%AD%E5%87%BD%E6%95%B0%E5%92%8C%E6%96%B9%E6%B3%95%E7%9A%84%E5%8C%BA%E5%88%AB/" rel="prev" title="python中函数和方法的区别">
+                python中函数和方法的区别 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+    </div>
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/uploads/avatar.png"
+                alt="StarDustLoong" />
+            
+              <p class="site-author-name" itemprop="name">StarDustLoong</p>
+              <p class="site-description motion-element" itemprop="description">人类如风一般的自由</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">2409</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">12</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">146</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+	   
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/StarDustLoong" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:13671474528@163.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://www.zhihu.com/people/ashjian-ar15" target="_blank" title="知乎">
+                      
+                        <i class="fa fa-fw fa-globe"></i>知乎</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://me.csdn.net/ashjian" target="_blank" title="CSDN">
+                      
+                        <i class="fa fa-fw fa-codiepie"></i>CSDN</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+            <div class="links-of-blogroll motion-element links-of-blogroll-inline">
+              <div class="links-of-blogroll-title">
+                <i class="fa  fa-fw fa-link"></i>
+                Links
+              </div>
+              <ul class="links-of-blogroll-list">
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="http://mp.weixin.qq.com/user1" title="OpenInfo" target="_blank">OpenInfo</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="http://mp.weixin.qq.com/user2" title="stormzhang" target="_blank">stormzhang</a>
+                  </li>
+                
+              </ul>
+            </div>
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#上下文管理"><span class="nav-number">1.</span> <span class="nav-text">上下文管理</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#上下文管理对象"><span class="nav-number">2.</span> <span class="nav-text">上下文管理对象</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#上下文管理的安全性"><span class="nav-number">3.</span> <span class="nav-text">上下文管理的安全性</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#with语句"><span class="nav-number">4.</span> <span class="nav-text">with语句</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#enter方法和exit方法的参数"><span class="nav-number">5.</span> <span class="nav-text">enter方法和exit方法的参数</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#练习"><span class="nav-number">6.</span> <span class="nav-text">练习</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#装饰器实现1"><span class="nav-number">6.1.</span> <span class="nav-text">装饰器实现1</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#装饰器实现2"><span class="nav-number">6.2.</span> <span class="nav-text">装饰器实现2</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#上下文管理-1"><span class="nav-number">6.3.</span> <span class="nav-text">上下文管理</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#基本实现"><span class="nav-number">6.3.1.</span> <span class="nav-text">基本实现</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#另一种实现，使用可调用对象实现"><span class="nav-number">6.3.2.</span> <span class="nav-text">另一种实现，使用可调用对象实现</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#根据上面的代码，能不能把类当做装饰器用？"><span class="nav-number">6.3.3.</span> <span class="nav-text">根据上面的代码，能不能把类当做装饰器用？</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#思考：如何解决文档字符串问题？"><span class="nav-number">6.3.4.</span> <span class="nav-text">思考：如何解决文档字符串问题？</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#方法一：直接修改doc"><span class="nav-number">6.3.4.1.</span> <span class="nav-text">方法一：直接修改doc</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#方法二：使用functools-wraps函数"><span class="nav-number">6.3.4.2.</span> <span class="nav-text">方法二：使用functools.wraps函数</span></a></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#上下文应用场景"><span class="nav-number">7.</span> <span class="nav-text">上下文应用场景</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#contextlib-contextmanger"><span class="nav-number">8.</span> <span class="nav-text">contextlib.contextmanger</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#contextlib-contextmangager总结"><span class="nav-number">8.1.</span> <span class="nav-text">contextlib.contextmangager总结</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">StarDustLoong</span>
+
+  
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-area-chart"></i>
+    </span>
+    
+      <span class="post-meta-item-text">本站总字数&#58;</span>
+    
+    <span title="本站总字数">635.5k</span>
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Pisces</a> v5.1.4</div>
+
+
+
+
+#<!-- 百度自动推送 -->
+#<script>
+#(function(){
+#    var bp = document.createElement('script');
+#    var curProtocol = window.location.protocol.split(':')[0];
+#    if (curProtocol === 'https') {
+#        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+#    }
+#    else {
+#        bp.src = 'http://push.ashjian.baidu.com/push.js';
+#    }
+#    var s = document.getElementsByTagName("script")[0];
+#    s.parentNode.insertBefore(bp, s);
+#})();
+#</script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aplayer/dist/APlayer.min.css">
+
+<script src="https://cdn.jsdelivr.net/npm/aplayer/dist/APlayer.min.js"></script>
+<!-- require MetingJS -->
+
+<script src="https://cdn.jsdelivr.net/npm/meting@2.0.1/dist/Meting.min.js"></script>
+<div> 
+<meting-js  
+    server="netease" 
+    type="playlist"  
+    id="5281251057" 
+    fixed="true"  
+    autoplay="false" 
+    loop="all" 
+    order="random"
+    preload="auto" 
+    list-folded="ture" 
+    list-max-height="500px" 
+    lrc-type="1">
+</meting-js>	 
+</div>
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv">
+      本站访客数
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+      人次
+    </span>
+  
+
+  
+    <span class="site-pv">
+      本站总访问量
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+      次
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+  <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+  <script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+  
+  <script type="text/javascript">
+    var GUEST = ['nick','mail','link'];
+    var guest = 'nick,mail,link';
+    guest = guest.split(',').filter(item=>{
+      return GUEST.indexOf(item)>-1;
+    });
+    new Valine({
+        el: '#comments' ,
+        verify: false,
+        notify: false,
+        appId: 'Gp5xxuBGmRxC9yeJHf5wlLpN-gzGzoHsz',
+        appKey: 'wo0eDJonJrnuUrCCCU7EnH1n',
+        placeholder: '欢迎评论',
+        avatar:'mm',
+        guest_info:guest,
+        pageSize:'20' || 10,
+    });
+  </script>
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"jsonPath":"/live2dw/assets/dsr50_lifu_normal.model.json"},"display":{"position":"right","width":700,"height":800,"hOffset":-250,"vOffset":-150},"mobile":{"show":true,"scale":0.7},"log":false});</script></body>
+</html>

@@ -1,0 +1,1722 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="python数据结构," />
+
+
+
+
+  
+
+
+  <link rel="alternate" href="/atom.xml" title="" type="application/atom+xml" />
+
+
+
+
+
+
+<meta name="description" content="字符串 一个个字符（其实还是str字符串，只不过单个字符更容易理解）组成的有序的序列，是字符的集合  使用单引号、双引号、三引号引住的字符序列  字符串是不可变对象 12345678&gt;&gt;&gt; a &#x3D; &#39;ab&#39;&gt;&gt;&gt; id(a)644401869040&gt;&gt;&gt; a &#x3D; &#39;ab&#39; + &#39;c&#39;&gt;&gt;&gt; a&#39;abc&#39;&gt;&gt;&gt;">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Python内置数据结构-字符串string">
+<meta property="og:url" content="http://www.ashjian.xyz/Python%E5%86%85%E7%BD%AE%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84-%E5%AD%97%E7%AC%A6%E4%B8%B2string/index.html">
+<meta property="og:site_name">
+<meta property="og:description" content="字符串 一个个字符（其实还是str字符串，只不过单个字符更容易理解）组成的有序的序列，是字符的集合  使用单引号、双引号、三引号引住的字符序列  字符串是不可变对象 12345678&gt;&gt;&gt; a &#x3D; &#39;ab&#39;&gt;&gt;&gt; id(a)644401869040&gt;&gt;&gt; a &#x3D; &#39;ab&#39; + &#39;c&#39;&gt;&gt;&gt; a&#39;abc&#39;&gt;&gt;&gt;">
+<meta property="article:published_time" content="2021-05-24T05:37:56.827Z">
+<meta property="article:modified_time" content="2021-03-26T10:02:12.681Z">
+<meta property="article:author" content="StarDustLoong">
+<meta property="article:tag" content="python数据结构">
+<meta name="twitter:card" content="summary">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://www.ashjian.xyz/Python内置数据结构-字符串string/"/>
+
+
+
+
+
+  <title>Python内置数据结构-字符串string | </title>
+  
+
+
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?d7bf52f45e24a0e6f2951901a7a97864";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+<meta name="generator" content="Hexo 4.2.1"></head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title"></span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off"
+             placeholder="搜索..." spellcheck="false"
+             type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://www.ashjian.xyz/Python%E5%86%85%E7%BD%AE%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84-%E5%AD%97%E7%AC%A6%E4%B8%B2string/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="StarDustLoong">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/uploads/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Python内置数据结构-字符串string</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2021-05-24T13:37:56+08:00">
+                2021-05-24
+              </time>
+            
+
+            
+              <span class="post-meta-divider">|</span>
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-check-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">更新于&#58;</span>
+              
+              <time title="更新于" itemprop="dateModified" datetime="2021-03-26T18:02:12+08:00">
+                2021-03-26
+              </time>
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/python/" itemprop="url" rel="index">
+                    <span itemprop="name">python</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/Python%E5%86%85%E7%BD%AE%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84-%E5%AD%97%E7%AC%A6%E4%B8%B2string/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/Python%E5%86%85%E7%BD%AE%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84-%E5%AD%97%E7%AC%A6%E4%B8%B2string/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  4k
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  19
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+      
+      
+
+      
+        <h2 id="字符串"><a href="#字符串" class="headerlink" title="字符串"></a>字符串</h2><ul>
+<li><p>一个个字符（其实还是str字符串，只不过单个字符更容易理解）组成的有序的序列，是字符的集合</p>
+</li>
+<li><p>使用单引号、双引号、三引号引住的字符序列</p>
+</li>
+<li><p>字符串是不可变对象</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-meta">&gt;&gt;&gt; </span>a = <span class="hljs-string">'ab'</span><br><span class="hljs-meta">&gt;&gt;&gt; </span>id(a)<br><span class="hljs-number">644401869040</span><br><span class="hljs-meta">&gt;&gt;&gt; </span>a = <span class="hljs-string">'ab'</span> + <span class="hljs-string">'c'</span><br><span class="hljs-meta">&gt;&gt;&gt; </span>a<br><span class="hljs-string">'abc'</span><br><span class="hljs-meta">&gt;&gt;&gt; </span>id(a)<br><span class="hljs-number">644401445680</span><br></code></pre></td></tr></table></figure>
+
+
+
+</li>
+</ul>
+<ul>
+<li><p>Python3起，字符串就是Unicode类型</p>
+<p>python3中，所有函数，包括字符串都是utf-8编码解码，适合网络传输</p>
+<p>而python2中，要告知编码格式</p>
+</li>
+</ul>
+<h3 id="字符串定义初始化"><a href="#字符串定义初始化" class="headerlink" title="字符串定义初始化"></a>字符串定义初始化</h3><p>举例</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs python">s1 = <span class="hljs-string">'string'</span><br>s2 = <span class="hljs-string">"string2"</span><br>s3 = <span class="hljs-string">'''this's a "String" '''</span><br>s4 = <span class="hljs-string">'hello \n magedu.com'</span><br>s5 = <span class="hljs-string">r"hello \n magedu.com"</span> <span class="hljs-comment">#前缀r，则不转义字符串</span><br>s6 = <span class="hljs-string">'c:\windows\nt'</span><br>s7 = R<span class="hljs-string">"c:\windows\nt"</span> <span class="hljs-comment">#和r一样，不转义</span><br>s8 = <span class="hljs-string">'c:\windows\\nt'</span><br>sql = <span class="hljs-string">"""select * from user where name='tom' """</span><br></code></pre></td></tr></table></figure>
+
+
+
+<h3 id="字符串元素访问——下标"><a href="#字符串元素访问——下标" class="headerlink" title="字符串元素访问——下标"></a>字符串元素访问——下标</h3><ul>
+<li><p>字符串支持使用索引访问</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs plain">sql &#x3D; &quot;select * from user where name&#x3D;&#39;tom&#39;&quot;<br>sql[4] # 字符串&#39;c&#39;<br>sql[4] &#x3D; &#39;o&#39;<br>TypeError: &#39;str&#39; object does not support item assignment #字符串是只读类型，是不允许赋值的<br></code></pre></td></tr></table></figure>
+
+
+
+</li>
+</ul>
+<ul>
+<li><p>有序的字符集合，字符序列</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs plain">for c in sql:<br>	print(c)<br>	print(type(c)) # 什么类型？<br></code></pre></td></tr></table></figure>
+
+
+
+</li>
+</ul>
+<ul>
+<li><p>可迭代</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs plain">lst &#x3D; list(sql)<br></code></pre></td></tr></table></figure>
+
+
+
+</li>
+</ul>
+<h3 id="字符串join连接"><a href="#字符串join连接" class="headerlink" title="字符串join连接*"></a>字符串join连接*</h3><ul>
+<li><p>“string”.join(iterable) -&gt; str</p>
+<ul>
+<li><p>将可迭代对象连接起来，使用string作为分隔符</p>
+</li>
+<li><p>可迭代对象本身元素都是字符串</p>
+</li>
+<li><p>返回一个新字符串</p>
+</li>
+</ul>
+</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><code class="hljs python">lst = [<span class="hljs-string">'1'</span>,<span class="hljs-string">'2'</span>,<span class="hljs-string">'3'</span>]<br>print(<span class="hljs-string">"/"</span>.join(lst)) <span class="hljs-comment"># 分隔符是双引号</span><br>print(<span class="hljs-string">" "</span>.join(lst))<br>print(<span class="hljs-string">"\n"</span>.join(lst))<br>lst = [<span class="hljs-string">'1'</span>,[<span class="hljs-string">'a'</span>,<span class="hljs-string">'b'</span>],<span class="hljs-string">'3'</span>]<br>print(<span class="hljs-string">" "</span>.join(lst))<br><span class="hljs-number">1</span>/<span class="hljs-number">2</span>/<span class="hljs-number">3</span><br><span class="hljs-number">1</span> <span class="hljs-number">2</span> <span class="hljs-number">3</span><br><span class="hljs-number">1</span><br><span class="hljs-number">2</span><br><span class="hljs-number">3</span><br>TypeError: sequence item <span class="hljs-number">1</span>: expected str instance, list found <span class="hljs-comment">#列表中有引用对象则无法连接join</span><br></code></pre></td></tr></table></figure>
+
+
+<h3 id="字符串-连接和-重复"><a href="#字符串-连接和-重复" class="headerlink" title="字符串+连接和*重复"></a>字符串+连接和*重复</h3><ul>
+<li><p>+ -&gt; str<br>将2个字符串连接在一起<br>返回一个新字符串</p>
+</li>
+<li><p>*有序的序列（列表，字符串等）可以用乘号</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs plain">&gt;&gt;&gt; a<br>&#39;abc&#39;<br>&gt;&gt;&gt; a*3<br>&#39;abcabcabc&#39;<br>&gt;&gt;&gt; a<br>&#39;abc&#39;<br></code></pre></td></tr></table></figure>
+
+
+
+</li>
+</ul>
+<h3 id="字符串分割"><a href="#字符串分割" class="headerlink" title="字符串分割"></a>字符串分割</h3><ul>
+<li>分割字符串的方法分为2类<ul>
+<li>split系（其他语言也带有的）<br>将字符串按照分隔符分割成若干字符串，并返回列表</li>
+<li>partition系<br>将字符串按照分隔符分割成2段，返回这2段和分隔符的元组</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li><p>split(sep=None, maxsplit=-1) -&gt; list of strings</p>
+<ul>
+<li>从左至右</li>
+<li>se指定分割字符串，缺省的情况下空白字符串作为分隔符</li>
+<li>maxsplit 指定分割的最大次数，-1 表示遍历整个字符串</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><code class="hljs python">s1 = <span class="hljs-string">"I'm \ta super student."</span><br>s1.split()<br>s1.split(<span class="hljs-string">'s'</span>)<br>s1.split(<span class="hljs-string">'super'</span>)<br>s1.split(<span class="hljs-string">'super '</span>)<br>s1.split(<span class="hljs-string">' '</span>)<br>s1.split(<span class="hljs-string">' '</span>,maxsplit=<span class="hljs-number">2</span>)<br>s1.split(<span class="hljs-string">'\t'</span>,maxsplit=<span class="hljs-number">2</span>)<br><span class="hljs-meta">&gt;&gt;&gt; </span>s1 = <span class="hljs-string">"I'm \ta super student."</span><br><span class="hljs-meta">&gt;&gt;&gt; </span>s1.split()<br>[<span class="hljs-string">"I'm"</span>, <span class="hljs-string">'a'</span>, <span class="hljs-string">'super'</span>, <span class="hljs-string">'student.'</span>]<br><span class="hljs-meta">&gt;&gt;&gt; </span>s1.split(<span class="hljs-string">'s'</span>)<br>[<span class="hljs-string">"I'm \ta "</span>, <span class="hljs-string">'uper '</span>, <span class="hljs-string">'tudent.'</span>]<br><span class="hljs-meta">&gt;&gt;&gt; </span>s1.split(<span class="hljs-string">'super'</span>)<br>[<span class="hljs-string">"I'm \ta "</span>, <span class="hljs-string">' student.'</span>]<br><span class="hljs-meta">&gt;&gt;&gt; </span>s1.split(<span class="hljs-string">'super '</span>)<br>[<span class="hljs-string">"I'm \ta "</span>, <span class="hljs-string">'student.'</span>]<br><span class="hljs-meta">&gt;&gt;&gt; </span>s1.split(<span class="hljs-string">' '</span>)<br>[<span class="hljs-string">"I'm"</span>, <span class="hljs-string">'\ta'</span>, <span class="hljs-string">'super'</span>, <span class="hljs-string">'student.'</span>]<br><span class="hljs-meta">&gt;&gt;&gt; </span>s1.split(<span class="hljs-string">' '</span>,maxsplit=<span class="hljs-number">2</span>)<br>[<span class="hljs-string">"I'm"</span>, <span class="hljs-string">'\ta'</span>, <span class="hljs-string">'super student.'</span>]<br><span class="hljs-meta">&gt;&gt;&gt; </span>s1.split(<span class="hljs-string">'\t'</span>,maxsplit=<span class="hljs-number">2</span>)<br>[<span class="hljs-string">"I'm "</span>, <span class="hljs-string">'a super student.'</span>]<br></code></pre></td></tr></table></figure>
+
+
+
+
+</li>
+</ul>
+<ul>
+<li><p>rsplit(sep=None, maxsplit=-1) -&gt; list of strings</p>
+<ul>
+<li>从右向左</li>
+<li>se指定分割字符串，缺省的情况下空白字符串作为分隔符</li>
+<li>maxsplit 指定分割的次数，-1 表示遍历整个字符串</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs python">s1 = <span class="hljs-string">"I'm \ta super student."</span><br>s1.rsplit()<br>s1.rsplit(<span class="hljs-string">'s'</span>)<br>s1.rsplit(<span class="hljs-string">'super'</span>)<br>s1.rsplit(<span class="hljs-string">'super '</span>)<br>s1.rsplit(<span class="hljs-string">' '</span>)<br>s1.rsplit(<span class="hljs-string">' '</span>,maxsplit=<span class="hljs-number">2</span>)<br>s1.rsplit(<span class="hljs-string">'\t'</span>,maxsplit=<span class="hljs-number">2</span>)<br></code></pre></td></tr></table></figure>
+
+
+
+
+</li>
+</ul>
+<ul>
+<li><p>splitlines([keepends]) -&gt; list of strings</p>
+<ul>
+<li>按照行来切分字符串</li>
+<li>keepends 指的是是否保留行分隔符</li>
+<li>行分隔符包括\n、\r\n、\r等</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><code class="hljs plain">&#39;ab c\n\nde fg\rkl\r\n&#39;.splitlines()<br>&#39;ab c\n\nde fg\rkl\r\n&#39;.splitlines(True)<br>s1 &#x3D; &#39;&#39;&#39;I&#39;m a super student.<br>You&#39;re a super teacher.&#39;&#39;&#39;<br>print(s1)<br>print(s1.splitlines())<br>print(s1.splitlines(True))<br>&gt;&gt;&gt; &#39;ab c\n\nde fg\rkl\r\n&#39;.splitlines()<br>[&#39;ab c&#39;, &#39;&#39;, &#39;de fg&#39;, &#39;kl&#39;]<br>&gt;&gt;&gt; &#39;ab c\n\nde fg\rkl\r\n&#39;.splitlines(True)<br>[&#39;ab c\n&#39;, &#39;\n&#39;, &#39;de fg\r&#39;, &#39;kl\r\n&#39;]<br>&gt;&gt;&gt; s1 &#x3D; &#39;&#39;&#39;I&#39;m a super student.<br>... You&#39;re a super teacher.&#39;&#39;&#39;<br>&gt;&gt;&gt; print(s1)<br>I&#39;m a super student.<br>You&#39;re a super teacher.<br>&gt;&gt;&gt; print(s1.splitlines())<br>[&quot;I&#39;m a super student.&quot;, &quot;You&#39;re a super teacher.&quot;]<br>&gt;&gt;&gt; print(s1.splitlines(True))<br>[&quot;I&#39;m a super student.\n&quot;, &quot;You&#39;re a super teacher.&quot;]<br></code></pre></td></tr></table></figure>
+
+
+
+
+</li>
+</ul>
+<ul>
+<li><p>partition(sep) -&gt; (head, sep, tail)</p>
+<ul>
+<li>从左至右，遇到分隔符就把字符串分割成两部分，返回头、分隔符、尾三部分的三元组；如果没有找到分隔符，就返回头、2个空元素的三元组</li>
+<li>se分割字符串，必须指定</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><code class="hljs plain">s1 &#x3D; &quot;I&#39;m a super student.&quot;<br>s1.partition(&#39;s&#39;)<br>s1.partition(&#39;stu&#39;)<br>s1.partition(&#39;&#39;)<br>s1.partition(&#39;abc&#39;)<br>&gt;&gt;&gt; s1 &#x3D; &quot;I&#39;m a super student.&quot;<br>&gt;&gt;&gt; s1.partition(&#39;s&#39;)<br>(&quot;I&#39;m a &quot;, &#39;s&#39;, &#39;uper student.&#39;)<br>&gt;&gt;&gt; s1.partition(&#39;stu&#39;)<br>(&quot;I&#39;m a super &quot;, &#39;stu&#39;, &#39;dent.&#39;)<br>&gt;&gt;&gt; s1.partition(&#39;&#39;)<br>Traceback (most recent call last):<br>  File &quot;&lt;stdin&gt;&quot;, line 1, in &lt;module&gt;<br>ValueError: empty separator #空值分隔符违反规范<br>&gt;&gt;&gt; s1.partition(&#39;abc&#39;)<br>(&quot;I&#39;m a super student.&quot;, &#39;&#39;, &#39;&#39;)<br></code></pre></td></tr></table></figure>
+
+<ul>
+<li><p>rpartition(sep) -&gt; (head, sep, tail)</p>
+<p>从右至左，遇到分隔符就把字符串分割成两部分，返回头、分隔符、尾三部分的三元组；如果<br>没有找到分隔符，就返回2个空元素和尾的三元组</p>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="字符串大小写"><a href="#字符串大小写" class="headerlink" title="字符串大小写"></a>字符串大小写</h3><ul>
+<li>upper()<ul>
+<li>全大写</li>
+</ul>
+</li>
+<li>lower()<ul>
+<li>全小写</li>
+</ul>
+</li>
+<li>大小写，做判断的时候用</li>
+<li>swapcase()<ul>
+<li>交互大小写</li>
+</ul>
+</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs plain">&gt;&gt;&gt; a<br>&#39;abc&#39;<br>&gt;&gt;&gt; a.upper()<br>&#39;ABC&#39;<br>&gt;&gt;&gt; a.lower()<br>&#39;abc&#39;<br>&gt;&gt;&gt; a.swapcase()<br>&#39;ABC&#39;<br></code></pre></td></tr></table></figure>
+
+<h3 id="字符串排版"><a href="#字符串排版" class="headerlink" title="字符串排版"></a>字符串排版</h3><ul>
+<li>title() -&gt; str<ul>
+<li>标题的每个单词都大写</li>
+</ul>
+</li>
+<li>capitalize() -&gt; str<ul>
+<li>首个单词大写</li>
+</ul>
+</li>
+<li>center(width[, fillchar]) -&gt; str<ul>
+<li>width 打印宽度</li>
+<li>fillchar 填充的字符</li>
+</ul>
+</li>
+<li>zfill(width) -&gt; str<ul>
+<li>width 打印宽度，居右，左边用0填充</li>
+</ul>
+</li>
+<li>ljust(width[, fillchar]) -&gt; str 左对齐</li>
+<li>rjust(width[, fillchar]) -&gt; str 右对齐</li>
+<li>中文用的少，了解一下</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><code class="hljs plain">&gt;&gt;&gt; a<br>&#39;abc&#39;<br>&gt;&gt;&gt; a.title()<br>&#39;Abc&#39;<br>&gt;&gt;&gt; a.capitalize()<br>&#39;Abc&#39;<br>&gt;&gt;&gt; a.center(50,&quot;*&quot;)<br>&#39;***********************abc************************&#39;<br>&gt;&gt;&gt; a.zfill(50)<br>&#39;00000000000000000000000000000000000000000000000abc&#39;<br>&gt;&gt;&gt; a.rjust(50,&#39;&amp;&#39;)<br>&#39;&amp;&amp;&amp;&amp;&amp;&amp;&amp;&amp;&amp;&amp;&amp;&amp;&amp;&amp;&amp;&amp;&amp;&amp;&amp;&amp;&amp;&amp;&amp;&amp;&amp;&amp;&amp;&amp;&amp;&amp;&amp;&amp;&amp;&amp;&amp;&amp;&amp;&amp;&amp;&amp;&amp;&amp;&amp;&amp;&amp;&amp;&amp;abc&#39;<br>&gt;&gt;&gt; a.ljust(50,&#39;$&#39;)<br>&#39;abc$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$&#39;<br></code></pre></td></tr></table></figure>
+
+<h3 id="字符串修改"><a href="#字符串修改" class="headerlink" title="字符串修改"></a>字符串修改</h3><ul>
+<li>replace(old, new[, count]) -&gt; str<ul>
+<li>字符串中找到匹配替换为新子串，返回新字符串</li>
+<li>count表示替换几次，不指定就是全部替换</li>
+</ul>
+</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-string">'www.magedu.com'</span>.replace(<span class="hljs-string">'w'</span>,<span class="hljs-string">'p'</span>)<br><span class="hljs-string">'www.magedu.com'</span>.replace(<span class="hljs-string">'w'</span>,<span class="hljs-string">'p'</span>,<span class="hljs-number">2</span>)<br><span class="hljs-string">'www.magedu.com'</span>.replace(<span class="hljs-string">'w'</span>,<span class="hljs-string">'p'</span>,<span class="hljs-number">3</span>)<br><span class="hljs-string">'www.magedu.com'</span>.replace(<span class="hljs-string">'ww'</span>,<span class="hljs-string">'p'</span>,<span class="hljs-number">2</span>)<br><span class="hljs-string">'www.magedu.com'</span>.replace(<span class="hljs-string">'www'</span>,<span class="hljs-string">'python'</span>,<span class="hljs-number">2</span>)<br><span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-string">'www.magedu.com'</span>.replace(<span class="hljs-string">'w'</span>,<span class="hljs-string">'p'</span>)<br><span class="hljs-string">'ppp.magedu.com'</span><br><span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-string">'www.magedu.com'</span>.replace(<span class="hljs-string">'w'</span>,<span class="hljs-string">'p'</span>,<span class="hljs-number">2</span>)<br><span class="hljs-string">'ppw.magedu.com'</span><br><span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-string">'www.magedu.com'</span>.replace(<span class="hljs-string">'w'</span>,<span class="hljs-string">'p'</span>,<span class="hljs-number">3</span>)<br><span class="hljs-string">'ppp.magedu.com'</span><br><span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-string">'www.magedu.com'</span>.replace(<span class="hljs-string">'ww'</span>,<span class="hljs-string">'p'</span>,<span class="hljs-number">2</span>)<br><span class="hljs-string">'pw.magedu.com'</span><br><span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-string">'www.magedu.com'</span>.replace(<span class="hljs-string">'www'</span>,<span class="hljs-string">'python'</span>,<span class="hljs-number">2</span>)<br><span class="hljs-string">'python.magedu.com'</span><br></code></pre></td></tr></table></figure>
+
+<ul>
+<li><p>strip([chars]) -&gt; str</p>
+<ul>
+<li>从字符串两端去除指定的字符集chars中的所有字符</li>
+<li>如果chars没有指定，去除两端的空白字符</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><code class="hljs python">s = <span class="hljs-string">"\r \n \t Hello Python \n \t"</span><br>s.strip()<br>s = <span class="hljs-string">" I am very very very sorry "</span><br>s.strip(<span class="hljs-string">'Iy'</span>)<br>s.strip(<span class="hljs-string">'Iy '</span>)<br><br><span class="hljs-meta">&gt;&gt;&gt; </span>s = <span class="hljs-string">"\r \n \t Hello Python \n \t"</span><br><span class="hljs-meta">&gt;&gt;&gt; </span>s.strip()<br><span class="hljs-string">'Hello Python'</span><br><span class="hljs-meta">&gt;&gt;&gt; </span>s = <span class="hljs-string">" I am very very very sorry "</span><br><span class="hljs-meta">&gt;&gt;&gt; </span>s.strip(<span class="hljs-string">'Iy'</span>)<br><span class="hljs-string">' I am very very very sorry '</span><br><span class="hljs-meta">&gt;&gt;&gt; </span>s.strip(<span class="hljs-string">'Iy '</span>)<br><span class="hljs-string">'am very very very sorr'</span><br></code></pre></td></tr></table></figure>
+
+
+
+</li>
+</ul>
+<ul>
+<li><p>lstrip([chars]) -&gt; str</p>
+<ul>
+<li>从左开始</li>
+</ul>
+</li>
+<li><p>rstrip([chars]) -&gt; str</p>
+<ul>
+<li>从右开始</li>
+</ul>
+</li>
+</ul>
+<h3 id="字符串查找"><a href="#字符串查找" class="headerlink" title="字符串查找"></a>字符串查找</h3><ul>
+<li>find(sub[, start[, end]]) -&gt; int<ul>
+<li>在指定的区间[start, end)，从左至右，查找子串sub。找到返回索引，没找到返回-1</li>
+</ul>
+</li>
+<li>rfind(sub[, start[, end]]) -&gt; int<ul>
+<li>在指定的区间[start, end)，从右至左，查找子串sub。找到返回索引，没找到返回-1</li>
+</ul>
+</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><code class="hljs python">s = <span class="hljs-string">"I am very very very sorry"</span><br>s.find(<span class="hljs-string">'very'</span>)<br>s.find(<span class="hljs-string">'very'</span>, <span class="hljs-number">5</span>)<br>s.find(<span class="hljs-string">'very'</span>, <span class="hljs-number">6</span>, <span class="hljs-number">13</span>)<br>s.rfind(<span class="hljs-string">'very'</span>, <span class="hljs-number">10</span>)<br>s.rfind(<span class="hljs-string">'very'</span>, <span class="hljs-number">10</span>, <span class="hljs-number">15</span>)<br>s.rfind(<span class="hljs-string">'very'</span>,<span class="hljs-number">-10</span>,<span class="hljs-number">-1</span>)<br><span class="hljs-meta">&gt;&gt;&gt; </span>s = <span class="hljs-string">"I am very very very sorry"</span><br><span class="hljs-meta">&gt;&gt;&gt; </span>s.find(<span class="hljs-string">'very'</span>)<br><span class="hljs-number">5</span><br><span class="hljs-meta">&gt;&gt;&gt; </span>s.find(<span class="hljs-string">'very'</span>, <span class="hljs-number">5</span>)<br><span class="hljs-number">5</span><br><span class="hljs-meta">&gt;&gt;&gt; </span>s.find(<span class="hljs-string">'very'</span>, <span class="hljs-number">6</span>, <span class="hljs-number">13</span>)<br><span class="hljs-number">-1</span><br><span class="hljs-meta">&gt;&gt;&gt; </span>s.rfind(<span class="hljs-string">'very'</span>, <span class="hljs-number">10</span>)<br><span class="hljs-number">15</span><br><span class="hljs-meta">&gt;&gt;&gt; </span>s.rfind(<span class="hljs-string">'very'</span>, <span class="hljs-number">10</span>, <span class="hljs-number">15</span>)<br><span class="hljs-number">10</span><br><span class="hljs-meta">&gt;&gt;&gt; </span>s.rfind(<span class="hljs-string">'very'</span>,<span class="hljs-number">-10</span>,<span class="hljs-number">-1</span>)<br></code></pre></td></tr></table></figure>
+
+<ul>
+<li>index(sub[, start[, end]]) -&gt; int<br>在指定的区间[start, end)，从左至右，查找子串sub。找到返回索引，没找到抛出异常ValueError</li>
+<li>rindex(sub[, start[, end]]) -&gt; int<br>在指定的区间[start, end)，从左至右，查找子串sub。找到返回索引，没找到抛出异常ValueError</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs python">s = <span class="hljs-string">"I am very very very sorry"</span><br>s.index(<span class="hljs-string">'very'</span>)<br>s.index(<span class="hljs-string">'very'</span>, <span class="hljs-number">5</span>)<br>s.index(<span class="hljs-string">'very'</span>, <span class="hljs-number">6</span>, <span class="hljs-number">13</span>)<br>s.rindex(<span class="hljs-string">'very'</span>, <span class="hljs-number">10</span>)<br>s.rindex(<span class="hljs-string">'very'</span>, <span class="hljs-number">10</span>, <span class="hljs-number">15</span>)<br>s.rindex(<span class="hljs-string">'very'</span>,<span class="hljs-number">-10</span>,<span class="hljs-number">-1</span>)<br></code></pre></td></tr></table></figure>
+
+<ul>
+<li><p>时间复杂度</p>
+<ul>
+<li>index和count方法都是O(n)</li>
+<li>随着列表数据规模的增大，而效率下降</li>
+</ul>
+</li>
+<li><p>len(string)</p>
+</li>
+<li><p>返回字符串的长度，即字符的个数</p>
+</li>
+<li><p>count(sub[, start[, end]]) -&gt; int</p>
+<ul>
+<li>在指定的区间[start, end)，从左至右，统计子串sub出现的次数</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs python">s = <span class="hljs-string">"I am very very very sorry"</span><br>s.count(<span class="hljs-string">'very'</span>)<br>s.count(<span class="hljs-string">'very'</span>, <span class="hljs-number">5</span>)<br>s.count(<span class="hljs-string">'very'</span>, <span class="hljs-number">10</span>, <span class="hljs-number">14</span>)<br></code></pre></td></tr></table></figure>
+
+
+
+
+</li>
+</ul>
+<ul>
+<li>endswith(suffix[, start[, end]]) -&gt; bool<ul>
+<li>在指定的区间[start, end)，字符串是否是suffix结尾</li>
+</ul>
+</li>
+<li>startswith(prefix[, start[, end]]) -&gt; bool<ul>
+<li>在指定的区间[start, end)，字符串是否是prefix开头</li>
+</ul>
+</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><code class="hljs python">s = <span class="hljs-string">"I am very very very sorry"</span><br>s.startswith(<span class="hljs-string">'very'</span>)<br>s.startswith(<span class="hljs-string">'very'</span>, <span class="hljs-number">5</span>)<br>s.startswith(<span class="hljs-string">'very'</span>, <span class="hljs-number">5</span>, <span class="hljs-number">9</span>)<br>s.endswith(<span class="hljs-string">'very'</span>, <span class="hljs-number">5</span>, <span class="hljs-number">9</span>) <span class="hljs-comment">#结尾为闭区间[5,9)</span><br>s.endswith(<span class="hljs-string">'sorry'</span>, <span class="hljs-number">5</span>)<br>s.endswith(<span class="hljs-string">'sorry'</span>, <span class="hljs-number">5</span>, <span class="hljs-number">-1</span>)<br>s.endswith(<span class="hljs-string">'sorry'</span>, <span class="hljs-number">5</span>, <span class="hljs-number">100</span>)<br><span class="hljs-meta">&gt;&gt;&gt; </span>s = <span class="hljs-string">"I am very very very sorry"</span><br><span class="hljs-meta">&gt;&gt;&gt; </span>s.startswith(<span class="hljs-string">'very'</span>)<br><span class="hljs-literal">False</span><br><span class="hljs-meta">&gt;&gt;&gt; </span>s.startswith(<span class="hljs-string">'very'</span>, <span class="hljs-number">5</span>)<br><span class="hljs-literal">True</span><br><span class="hljs-meta">&gt;&gt;&gt; </span>s.startswith(<span class="hljs-string">'very'</span>, <span class="hljs-number">5</span>, <span class="hljs-number">9</span>)<br><span class="hljs-literal">True</span><br><span class="hljs-meta">&gt;&gt;&gt; </span>s.endswith(<span class="hljs-string">'very'</span>, <span class="hljs-number">5</span>, <span class="hljs-number">9</span>)<br><span class="hljs-literal">True</span><br><span class="hljs-meta">&gt;&gt;&gt; </span>s.endswith(<span class="hljs-string">'sorry'</span>, <span class="hljs-number">5</span>)<br><span class="hljs-literal">True</span><br><span class="hljs-meta">&gt;&gt;&gt; </span>s.endswith(<span class="hljs-string">'sorry'</span>, <span class="hljs-number">5</span>, <span class="hljs-number">-1</span>)<br><span class="hljs-literal">False</span><br><span class="hljs-meta">&gt;&gt;&gt; </span>s.endswith(<span class="hljs-string">'sorry'</span>, <span class="hljs-number">5</span>, <span class="hljs-number">100</span>) <span class="hljs-comment">#超限既是到尾部</span><br><span class="hljs-literal">True</span><br></code></pre></td></tr></table></figure>
+
+
+
+<h3 id="字符串判断is系列"><a href="#字符串判断is系列" class="headerlink" title="字符串判断is系列"></a>字符串判断is系列</h3><ul>
+<li>isalnum() -&gt; bool 是否是字母和数字组成</li>
+<li>isalpha() 是否是字母</li>
+<li>isdecimal() 是否只包含十进制数字</li>
+<li>isdigit() 是否全部数字(0~9)</li>
+<li>isidentifier() 是不是字母和下划线开头，其他都是字母、数字、下划线</li>
+<li>islower() 是否都是小写</li>
+<li>isupper() 是否全部大写</li>
+<li>isspace() 是否只包含空白字符</li>
+</ul>
+<h3 id="字符串格式化"><a href="#字符串格式化" class="headerlink" title="字符串格式化"></a>字符串格式化</h3><ul>
+<li><p>字符串的格式化是一种拼接字符串输出样式的手段，更灵活方便</p>
+<ul>
+<li>join拼接只能使用分隔符，且要求被拼接的是可迭代对象</li>
+<li>拼接字符串还算方便，但是非字符串需要先转换为字符串才能拼接</li>
+</ul>
+</li>
+<li><p>在2.5版本之前，只能使用printf style风格的print输出</p>
+<ul>
+<li>printf-style formatting，来自于C语言的printf函数</li>
+<li>格式要求<ul>
+<li>占位符：使用%和格式字符组成，例如%s、%d等<ul>
+<li>s调用str()，r会调用repr()。所有对象都可以被这两个转换。</li>
+</ul>
+</li>
+<li>占位符中还可以插入修饰字符，例如%03d表示打印3个位置，不够前面补零</li>
+<li>format % values，格式字符串和被格式的值之间使用%分隔</li>
+<li>values只能是一个对象，或是一个和格式字符串占位符数目相等的元组，或一个字典</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>printf-style formatting 举例</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs plain">&quot;I am %03d&quot; % (20,)<br>&#39;I like %s.&#39; % &#39;Python&#39;<br>&#39;%3.2f%% , 0x%x, 0X%02X&#39; % (89.7654, 10, 15)<br>&quot;I am %-5d&quot; % (20,)<br></code></pre></td></tr></table></figure>
+
+<ul>
+<li><p>format函数格式字符串语法——Python鼓励使用</p>
+<ul>
+<li>“{} {xxx}”.format(*args,*kwargs) -&gt; str</li>
+<li>args是位置参数，是一个元组</li>
+<li>kwargs是关键字参数，是一个字典</li>
+<li>花括号表示占位符</li>
+<li>{}表示按照顺序匹配位置参数，{n}表示取位置参数索引为n的值</li>
+<li>{xxx}表示在关键字参数中搜索名称一致的</li>
+</ul>
+</li>
+<li><p>位置参数<br>“{}:{}“.format(‘192.168.1.100’,8888)，这就是按照位置顺序用位置参数替换前面的格式字符串的占位符中</p>
+</li>
+<li><p>关键字参数或命名参数<br>“{server} {1}:{0}”.format(8888, ‘192.168.1.100’, server=’Web Server Info : ‘) ，位置参数按照序号匹配，<br>关键字参数按照名词匹配</p>
+</li>
+<li><p>访问元素</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs plain">&quot;&#123;0[0]&#125;.&#123;0[1]&#125;&quot;.format((&#39;magedu&#39;,&#39;com&#39;))<br>&gt;&gt;&gt; &quot;&#123;0[0]&#125;.&#123;0[1]&#125;&quot;.format((&#39;magedu&#39;,&#39;com&#39;))<br>&#39;magedu.com&#39;<br></code></pre></td></tr></table></figure>
+
+
+
+</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li><p>对象属性访问</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs plain">from collections import namedtuple<br>Point &#x3D; namedtuple(&#39;Point&#39;,&#39;x y&#39;)<br>p &#x3D; Point(4,5)<br>&quot;&#123;&#123;&#123;0.x&#125;,&#123;0.y&#125;&#125;&#125;&quot;.format(p)<br><br>&gt;&gt;&gt; &quot;&#123;0.x&#125;,&#123;0.y&#125;&quot;.format(p)<br>&#39;4,5&#39;<br></code></pre></td></tr></table></figure>
+
+
+
+</li>
+</ul>
+<ul>
+<li><p>对齐</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><code class="hljs plain">&#39;&#123;0&#125;*&#123;1&#125;&#x3D;&#123;2:&lt;2&#125;&#39;.format(3,2,2*3)<br>&#39;&#123;0&#125;*&#123;1&#125;&#x3D;&#123;2:&lt;02&#125;&#39;.format(3,2,2*3)<br>&#39;&#123;0&#125;*&#123;1&#125;&#x3D;&#123;2:&gt;02&#125;&#39;.format(3,2,2*3)<br>&#39;&#123;:^30&#125;&#39;.format(&#39;centered&#39;)<br>&#39;&#123;:*^30&#125;&#39;.format(&#39;centered&#39;)<br>&gt;&gt;&gt; &#39;&#123;0&#125;*&#123;1&#125;&#x3D;&#123;2:&lt;2&#125;&#39;.format(3,2,2*3)<br>&#39;3*2&#x3D;6 &#39;<br>&gt;&gt;&gt; &#39;&#123;0&#125;*&#123;1&#125;&#x3D;&#123;2:&lt;02&#125;&#39;.format(3,2,2*3)<br>&#39;3*2&#x3D;60&#39;<br>&gt;&gt;&gt; &#39;&#123;0&#125;*&#123;1&#125;&#x3D;&#123;2:&gt;02&#125;&#39;.format(3,2,2*3)<br>&#39;3*2&#x3D;06&#39;<br>&gt;&gt;&gt; &#39;&#123;:^30&#125;&#39;.format(&#39;centered&#39;)<br>&#39;           centered           &#39;<br>&gt;&gt;&gt; &#39;&#123;:*^30&#125;&#39;.format(&#39;centered&#39;)<br>&#39;***********centered***********&#39;<br></code></pre></td></tr></table></figure>
+
+
+
+</li>
+</ul>
+<ul>
+<li><p>*进制</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs plain">&quot;int: &#123;0:d&#125;; hex: &#123;0:x&#125;; oct: &#123;0:o&#125;; bin: &#123;0:b&#125;&quot;.format(42)<br>&quot;int: &#123;0:d&#125;; hex: &#123;0:#x&#125;; oct: &#123;0:#o&#125;; bin: &#123;0:#b&#125;&quot;.format(42)<br>octets &#x3D; [192, 168, 0, 1]<br>&#39;&#123;:02X&#125;&#123;:02X&#125;&#123;:02X&#125;&#123;:02X&#125;&#39;.format(*octets)<br>&gt;&gt;&gt; &quot;int: &#123;0:d&#125;; hex: &#123;0:x&#125;; oct: &#123;0:o&#125;; bin: &#123;0:b&#125;&quot;.format(42)<br>&#39;int: 42; hex: 2a; oct: 52; bin: 101010&#39;<br>&gt;&gt;&gt; &quot;int: &#123;0:d&#125;; hex: &#123;0:#x&#125;; oct: &#123;0:#o&#125;; bin: &#123;0:#b&#125;&quot;.format(42)<br>&#39;int: 42; hex: 0x2a; oct: 0o52; bin: 0b101010&#39;<br>&gt;&gt;&gt; octets &#x3D; [192, 168, 0, 1]<br>&gt;&gt;&gt; &#39;&#123;:02X&#125;&#123;:02X&#125;&#123;:02X&#125;&#123;:02X&#125;&#39;.format(*octets)<br>&#39;C0A80001&#39;<br></code></pre></td></tr></table></figure>
+
+
+
+</li>
+</ul>
+<h3 id="字符串特性"><a href="#字符串特性" class="headerlink" title="字符串特性"></a>字符串特性</h3>  <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><code class="hljs plain">&gt;&gt;&gt; a &#x3D; &quot;abcd&quot;<br>&gt;&gt;&gt; a<br>&#39;abcd&#39;<br>&gt;&gt;&gt; a[::-1]<br>&#39;dcba&#39;<br>&gt;&gt;&gt; a[2:2:1]<br>&#39;&#39;<br>&gt;&gt;&gt; a[2:3:1]<br>&#39;c&#39;<br>&gt;&gt;&gt; a[1:3:1]<br>&#39;bc&#39;<br>&gt;&gt;&gt; a[1:3:2]<br>&#39;b&#39;<br>&gt;&gt;&gt; a[::]<br>&#39;abcd&#39;<br>&gt;&gt;&gt; a[::2]<br>&#39;ac&#39;<br></code></pre></td></tr></table></figure>
+
+
+
+<h3 id="字符串练习"><a href="#字符串练习" class="headerlink" title="字符串练习"></a>字符串练习</h3><ul>
+<li><p>用户输入一个数字</p>
+<ul>
+<li>判断是几位数</li>
+<li>打印每一位数字及其重复的次数</li>
+<li>依次打印每一位数字，顺序个、十、百、千、万…位</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs python">str = input(<span class="hljs-string">"&gt;&gt;&gt;"</span>).strip().lstrip(<span class="hljs-string">'0'</span>)<br><br><span class="hljs-keyword">while</span> <span class="hljs-literal">True</span>:<br>    <span class="hljs-keyword">if</span> str.isdigit():<br>        <span class="hljs-keyword">break</span><br>    str = input(<span class="hljs-string">"请输入数字"</span>)<br>    <br>print(<span class="hljs-string">"是&#123;&#125;位数"</span>.format(len(str)))<br>lst = list(str)<br><span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> str[::<span class="hljs-number">-1</span>]:<br>    print(<span class="hljs-string">"&#123;&#125;的重复次数是&#123;&#125;"</span>.format(i,str.count(i)))<br></code></pre></td></tr></table></figure>
+
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-comment">#重新思考优化</span><br>num = <span class="hljs-string">""</span><br><br><span class="hljs-keyword">while</span> <span class="hljs-literal">True</span>:<br>    num = input(<span class="hljs-string">"请输入数字"</span>).strip().lstrip(<span class="hljs-string">'0'</span>)<br>    <span class="hljs-keyword">if</span> num.isdigit():<br>        <span class="hljs-keyword">break</span><br>    <span class="hljs-keyword">else</span>:<br>        print(<span class="hljs-string">"bad number!!!"</span>)<br><br>print(<span class="hljs-string">"是&#123;&#125;位数"</span>.format(len(num)))<br><br>count = [<span class="hljs-number">0</span>] * <span class="hljs-number">10</span><br><span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> range(<span class="hljs-number">10</span>): <span class="hljs-comment">#将计算次数添加到列表中，单独计算每一个数字的出现次数，避免每个数字重复显示出现次数</span><br>    count[i] = num.count(str(i)) <span class="hljs-comment">#每个数字使用count（）函数需要每次都从字符串的行首遍历到到尾部，如果不使用count（），单独从字符串遍历到尾部，用计数器记录每个数字的出现次数，效率似乎更好</span><br>    <span class="hljs-keyword">if</span> count[i]:<br>        print(<span class="hljs-string">"&#123;&#125;的重复出现次数是&#123;&#125;"</span>.format(i,count[i]))<br></code></pre></td></tr></table></figure>
+
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-comment">#再改进</span><br>num = <span class="hljs-string">""</span><br><br><span class="hljs-keyword">while</span> <span class="hljs-literal">True</span>:<br>    num = input(<span class="hljs-string">"请输入数字"</span>).strip().lstrip(<span class="hljs-string">'0'</span>)<br>    <span class="hljs-keyword">if</span> num.isdigit():<br>        <span class="hljs-keyword">break</span><br>    <span class="hljs-keyword">else</span>:<br>        print(<span class="hljs-string">"bad number!!!"</span>)<br><br>print(<span class="hljs-string">"是&#123;&#125;位数"</span>.format(len(num)))<br><br>count = [<span class="hljs-number">0</span>] * <span class="hljs-number">10</span><br><span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> num:<br>    i = int(i)<br>    count[i] += <span class="hljs-number">1</span>     <span class="hljs-comment">#通过count[i]索引访问时间复杂度是o(1),而count()是o(n)</span><br>print(num)<br>print(count)<br><span class="hljs-keyword">for</span> x <span class="hljs-keyword">in</span>  range(<span class="hljs-number">10</span>):<br>    <span class="hljs-keyword">if</span> count[x]:<br>        print(<span class="hljs-string">"&#123;&#125;的出现次数是&#123;&#125;"</span>.format(x,count[x]))<br></code></pre></td></tr></table></figure>
+
+
+
+</li>
+</ul>
+<ul>
+<li><p>输入5个数字，打印每个数字的位数，将这些数字排序打印，要求升序打印</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><code class="hljs python">lst = [<span class="hljs-number">1</span>] * <span class="hljs-number">5</span><br>print(lst)<br><br><span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> range(len(lst)):<br>    flag = <span class="hljs-literal">True</span><br>    <span class="hljs-keyword">while</span> flag:<br>        lst[i] = input(<span class="hljs-string">"&gt;&gt;&gt;"</span>).strip().lstrip(<span class="hljs-string">'0'</span>)<br>        <span class="hljs-keyword">if</span> lst[i].isdigit():<br>            flag = <span class="hljs-literal">False</span><br>            print(<span class="hljs-string">"输入正确"</span>)<br>            <br>print(lst)<br>lst.sort(key=int)<br>print(lst)<br><span class="hljs-keyword">for</span> x <span class="hljs-keyword">in</span> lst:<br>    print(<span class="hljs-string">"&#123;&#125;的位数是&#123;&#125;"</span>.format(x,len(x)))<br></code></pre></td></tr></table></figure>
+</li>
+</ul>
+
+      
+    </div>
+    
+    
+    
+
+     <!-- 文章末尾统一添加“本文结束”标记 -->
+    <div>
+      
+        <div>
+    
+        <div style="text-align:center;color: #555;font-size:24px;"><-------------The End-------------></div>
+    
+</div>
+
+      
+    </div>
+    
+
+    
+      <div>
+        <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+  <div>坚持原创分享，你的支持就是我最大的动力！</div>
+  <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+    <span>打赏</span>
+  </button>
+  <div id="QR" style="display: none;">
+
+    
+      <div id="wechat" style="display: inline-block">
+        <img id="wechat_qr" src="/uploads/weixin_cash_code.png" alt="StarDustLoong 微信支付"/>
+        <p>微信支付</p>
+      </div>
+    
+
+    
+      <div id="alipay" style="display: inline-block">
+        <img id="alipay_qr" src="/uploads/alipay_cash_code.png" alt="StarDustLoong 支付宝"/>
+        <p>支付宝</p>
+      </div>
+    
+
+    
+
+  </div>
+</div>
+
+      </div>
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/python%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/" rel="tag"># python数据结构</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/Python%E5%86%85%E7%BD%AE%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84-%E5%AD%97%E5%85%B8dict/" rel="next" title="Python内置数据结构-字典dict">
+                <i class="fa fa-chevron-left"></i> Python内置数据结构-字典dict
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/Python%E5%86%85%E7%BD%AE%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84-%E5%AD%97%E8%8A%82bytes%E5%92%8C%E5%AD%97%E8%8A%82%E6%95%B0%E7%BB%84bytearray/" rel="prev" title="Python内置数据结构-字节bytes和字节数组bytearray">
+                Python内置数据结构-字节bytes和字节数组bytearray <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+    </div>
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/uploads/avatar.png"
+                alt="StarDustLoong" />
+            
+              <p class="site-author-name" itemprop="name">StarDustLoong</p>
+              <p class="site-description motion-element" itemprop="description">人类如风一般的自由</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">2409</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">12</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">146</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+	   
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/StarDustLoong" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:13671474528@163.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://www.zhihu.com/people/ashjian-ar15" target="_blank" title="知乎">
+                      
+                        <i class="fa fa-fw fa-globe"></i>知乎</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://me.csdn.net/ashjian" target="_blank" title="CSDN">
+                      
+                        <i class="fa fa-fw fa-codiepie"></i>CSDN</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+            <div class="links-of-blogroll motion-element links-of-blogroll-inline">
+              <div class="links-of-blogroll-title">
+                <i class="fa  fa-fw fa-link"></i>
+                Links
+              </div>
+              <ul class="links-of-blogroll-list">
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="http://mp.weixin.qq.com/user1" title="OpenInfo" target="_blank">OpenInfo</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="http://mp.weixin.qq.com/user2" title="stormzhang" target="_blank">stormzhang</a>
+                  </li>
+                
+              </ul>
+            </div>
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#字符串"><span class="nav-number">1.</span> <span class="nav-text">字符串</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#字符串定义初始化"><span class="nav-number">1.1.</span> <span class="nav-text">字符串定义初始化</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#字符串元素访问——下标"><span class="nav-number">1.2.</span> <span class="nav-text">字符串元素访问——下标</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#字符串join连接"><span class="nav-number">1.3.</span> <span class="nav-text">字符串join连接*</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#字符串-连接和-重复"><span class="nav-number">1.4.</span> <span class="nav-text">字符串+连接和*重复</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#字符串分割"><span class="nav-number">1.5.</span> <span class="nav-text">字符串分割</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#字符串大小写"><span class="nav-number">1.6.</span> <span class="nav-text">字符串大小写</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#字符串排版"><span class="nav-number">1.7.</span> <span class="nav-text">字符串排版</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#字符串修改"><span class="nav-number">1.8.</span> <span class="nav-text">字符串修改</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#字符串查找"><span class="nav-number">1.9.</span> <span class="nav-text">字符串查找</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#字符串判断is系列"><span class="nav-number">1.10.</span> <span class="nav-text">字符串判断is系列</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#字符串格式化"><span class="nav-number">1.11.</span> <span class="nav-text">字符串格式化</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#字符串特性"><span class="nav-number">1.12.</span> <span class="nav-text">字符串特性</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#字符串练习"><span class="nav-number">1.13.</span> <span class="nav-text">字符串练习</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">StarDustLoong</span>
+
+  
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-area-chart"></i>
+    </span>
+    
+      <span class="post-meta-item-text">本站总字数&#58;</span>
+    
+    <span title="本站总字数">635.5k</span>
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Pisces</a> v5.1.4</div>
+
+
+
+
+#<!-- 百度自动推送 -->
+#<script>
+#(function(){
+#    var bp = document.createElement('script');
+#    var curProtocol = window.location.protocol.split(':')[0];
+#    if (curProtocol === 'https') {
+#        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+#    }
+#    else {
+#        bp.src = 'http://push.ashjian.baidu.com/push.js';
+#    }
+#    var s = document.getElementsByTagName("script")[0];
+#    s.parentNode.insertBefore(bp, s);
+#})();
+#</script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aplayer/dist/APlayer.min.css">
+
+<script src="https://cdn.jsdelivr.net/npm/aplayer/dist/APlayer.min.js"></script>
+<!-- require MetingJS -->
+
+<script src="https://cdn.jsdelivr.net/npm/meting@2.0.1/dist/Meting.min.js"></script>
+<div> 
+<meting-js  
+    server="netease" 
+    type="playlist"  
+    id="5281251057" 
+    fixed="true"  
+    autoplay="false" 
+    loop="all" 
+    order="random"
+    preload="auto" 
+    list-folded="ture" 
+    list-max-height="500px" 
+    lrc-type="1">
+</meting-js>	 
+</div>
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv">
+      本站访客数
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+      人次
+    </span>
+  
+
+  
+    <span class="site-pv">
+      本站总访问量
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+      次
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+  <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+  <script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+  
+  <script type="text/javascript">
+    var GUEST = ['nick','mail','link'];
+    var guest = 'nick,mail,link';
+    guest = guest.split(',').filter(item=>{
+      return GUEST.indexOf(item)>-1;
+    });
+    new Valine({
+        el: '#comments' ,
+        verify: false,
+        notify: false,
+        appId: 'Gp5xxuBGmRxC9yeJHf5wlLpN-gzGzoHsz',
+        appKey: 'wo0eDJonJrnuUrCCCU7EnH1n',
+        placeholder: '欢迎评论',
+        avatar:'mm',
+        guest_info:guest,
+        pageSize:'20' || 10,
+    });
+  </script>
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"jsonPath":"/live2dw/assets/dsr50_lifu_normal.model.json"},"display":{"position":"right","width":700,"height":800,"hOffset":-250,"vOffset":-150},"mobile":{"show":true,"scale":0.7},"log":false});</script></body>
+</html>

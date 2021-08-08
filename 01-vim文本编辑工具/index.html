@@ -1,0 +1,1529 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="vim,文本编辑," />
+
+
+
+
+  
+
+
+  <link rel="alternate" href="/atom.xml" title="" type="application/atom+xml" />
+
+
+
+
+
+
+<meta name="description" content="文本编辑工具 打开方式+# 打开文件后，让光标处于第#行的行首，+默认行尾  +&#x2F;PATTERN 让光标处于第一个被PATTERN匹配到的行的行首 –    b file 二进制方式打开文件–    d file1 file2…  比较多个文件件 -m file  只读打开文件  vim -e file 或 ex  file 直接进入ex模式 如果该文件存在，文件被打开并显示内容如果该文件不存在，">
+<meta property="og:type" content="article">
+<meta property="og:title" content="01-vim文本编辑工具">
+<meta property="og:url" content="http://www.ashjian.xyz/01-vim%E6%96%87%E6%9C%AC%E7%BC%96%E8%BE%91%E5%B7%A5%E5%85%B7/index.html">
+<meta property="og:site_name">
+<meta property="og:description" content="文本编辑工具 打开方式+# 打开文件后，让光标处于第#行的行首，+默认行尾  +&#x2F;PATTERN 让光标处于第一个被PATTERN匹配到的行的行首 –    b file 二进制方式打开文件–    d file1 file2…  比较多个文件件 -m file  只读打开文件  vim -e file 或 ex  file 直接进入ex模式 如果该文件存在，文件被打开并显示内容如果该文件不存在，">
+<meta property="og:image" content="https://raw.githubusercontent.com/ashjian/picBed/master/20200819105030.png">
+<meta property="og:image" content="http://www.ashjian.xyz/01-vim%E6%96%87%E6%9C%AC%E7%BC%96%E8%BE%91%E5%B7%A5%E5%85%B7/01-vim%E6%96%87%E6%9C%AC%E7%BC%96%E8%BE%91%E5%B7%A5%E5%85%B7.assets/image-20200819093109089.png">
+<meta property="article:published_time" content="2020-08-19T02:53:34.000Z">
+<meta property="article:modified_time" content="2021-03-26T10:02:17.370Z">
+<meta property="article:author" content="StarDustLoong">
+<meta property="article:tag" content="vim">
+<meta property="article:tag" content="文本编辑">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://raw.githubusercontent.com/ashjian/picBed/master/20200819105030.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://www.ashjian.xyz/01-vim文本编辑工具/"/>
+
+
+
+
+
+  <title>01-vim文本编辑工具 | </title>
+  
+
+
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?d7bf52f45e24a0e6f2951901a7a97864";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+<meta name="generator" content="Hexo 4.2.1"></head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title"></span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off"
+             placeholder="搜索..." spellcheck="false"
+             type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://www.ashjian.xyz/01-vim%E6%96%87%E6%9C%AC%E7%BC%96%E8%BE%91%E5%B7%A5%E5%85%B7/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="StarDustLoong">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/uploads/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">01-vim文本编辑工具</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-08-19T10:53:34+08:00">
+                2020-08-19
+              </time>
+            
+
+            
+              <span class="post-meta-divider">|</span>
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-check-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">更新于&#58;</span>
+              
+              <time title="更新于" itemprop="dateModified" datetime="2021-03-26T18:02:17+08:00">
+                2021-03-26
+              </time>
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/linux/" itemprop="url" rel="index">
+                    <span itemprop="name">linux</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/01-vim%E6%96%87%E6%9C%AC%E7%BC%96%E8%BE%91%E5%B7%A5%E5%85%B7/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/01-vim%E6%96%87%E6%9C%AC%E7%BC%96%E8%BE%91%E5%B7%A5%E5%85%B7/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  2.1k
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  7
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+      
+      
+
+      
+        <h2 id="文本编辑工具"><a href="#文本编辑工具" class="headerlink" title="文本编辑工具"></a>文本编辑工具</h2><p><img src="https://raw.githubusercontent.com/ashjian/picBed/master/20200819105030.png" alt=""></p>
+<h3 id="打开方式"><a href="#打开方式" class="headerlink" title="打开方式"></a>打开方式</h3><p>+# 打开文件后，让光标处于第#行的行首，+默认行尾 </p>
+<p>+/PATTERN 让光标处于第一个被PATTERN匹配到的行的行首</p>
+<p>–    b file 二进制方式打开文件<br>–    d file1 file2…  比较多个文件件</p>
+<p>-m file  只读打开文件</p>
+<ul>
+<li>vim -e file 或 ex  file 直接进入ex模式</li>
+<li>如果该文件存在，文件被打开并显示内容如果该文件不存在，当编辑后第一次存盘时创建它</li>
+</ul>
+<h3 id="模式"><a href="#模式" class="headerlink" title="模式"></a>模式</h3><p>三种主要模式：<br>    命令(Normal)模式：默认模式，移动光标，剪切/粘贴文本<br>    插入(Insert)或编辑模式：修改文本<br>    扩展命令(extended command )模式：保存，退出等<br>Esc键 退出当前模式，返回到命令模式</p>
+<p><img src="01-vim%E6%96%87%E6%9C%AC%E7%BC%96%E8%BE%91%E5%B7%A5%E5%85%B7.assets/image-20200819093109089.png" alt="image-20200819093109089"></p>
+<h3 id="模式转换"><a href="#模式转换" class="headerlink" title="模式转换"></a>模式转换</h3><p>命令模式 –&gt; 插入模式</p>
+<p>i    insert, 在光标所在处输入<br>I    在当前光标所在行的行首输入 </p>
+<p>a    append, 在光标所在处后面输入 </p>
+<p>A    在当前光标所在行的行尾输入</p>
+<p>o    在当前光标所在行的下方打开一个新行</p>
+<p>O     在当前光标所在行的上方打开一个新行</p>
+<p>插入模式 ——–&gt; 命令模式</p>
+<p>​    <strong>ESC</strong></p>
+<p>命令模式 ——–&gt; 扩展命令模式</p>
+<p>​    <strong>:</strong></p>
+<p>扩展命令模式 ——–&gt; 命令模式</p>
+<p>​    <strong>ESC,enter</strong></p>
+<h3 id="关闭文件"><a href="#关闭文件" class="headerlink" title="关闭文件"></a>关闭文件</h3><p>扩展命令模式：</p>
+<p>:q    退出</p>
+<p>:q!    强制退出，放弃修改</p>
+<p>:wq    保存退出</p>
+<p>:x    保存退出 （不推荐）</p>
+<p>命令模式：</p>
+<p>ZZ    保存退出</p>
+<p>ZQ    不保存退出</p>
+<h3 id="命令模式翻屏操作"><a href="#命令模式翻屏操作" class="headerlink" title="命令模式翻屏操作"></a>命令模式翻屏操作</h3><p>Ctrl+f     向文件尾部翻一屏<br>Ctrl+b     向文件首部翻一屏<br>Ctrl+d     向文件尾部翻半屏<br>Ctrl+u     向文件首部翻半屏</p>
+<h3 id="命令模式操作"><a href="#命令模式操作" class="headerlink" title="命令模式操作"></a>命令模式操作</h3><h4 id="字符编辑："><a href="#字符编辑：" class="headerlink" title="字符编辑："></a>字符编辑：</h4><p>x    删除光标处的字符<br>#x    删除光标处起始的#个字符<br>xp    交换光标所在处的字符及其后面字符的位置 </p>
+<p>~    转换大小写<br>J    删除当前行后的换行符 </p>
+<p>替换命令(r, replace)</p>
+<p>r    替换光标所在处的字符 </p>
+<p>R    切换成REPLACE模式 </p>
+<h4 id="删除命令"><a href="#删除命令" class="headerlink" title="删除命令"></a>删除命令</h4><p>d    删除命令：删除命令，可结合光标跳转字符，实现范围删除 </p>
+<p>d$    删除到行尾<br>删除到非空行首<br>删除到行首 </p>
+<p>dw<br>d3e<br>d4l</p>
+<p>#COMMAND</p>
+<p>dd    删除光标所在的行</p>
+<p>#dd    多行删除</p>
+<p>D：从当前光标位置一直删除到行尾，等同于d$</p>
+<h4 id="复制命令-y-yank"><a href="#复制命令-y-yank" class="headerlink" title="复制命令(y, yank)"></a>复制命令(y, yank)</h4><p>y    复制，行为相似于d命令</p>
+<p>y$<br>y0<br>y^<br>ye<br>yw<br>yb<br>#COMMAND</p>
+<p>yy：复制行</p>
+<p>#yy 复制多行</p>
+<p>Y：复制整行</p>
+<h4 id="粘贴命令-p-paste"><a href="#粘贴命令-p-paste" class="headerlink" title="粘贴命令(p, paste)"></a>粘贴命令(p, paste)</h4><p>p    缓冲区存的如果为整行，则粘贴当前光标所在行的下方；否则，则粘贴至当前光标所在处的后面</p>
+<p>P    缓冲区存的如果为整行，则粘贴当前光标所在行的上方；否则，则粘贴至当前光标所在处的前面</p>
+<h4 id="改变命令-c-change"><a href="#改变命令-c-change" class="headerlink" title="改变命令(c, change)"></a>改变命令(c, change)</h4><p>c: 修改后切换成插入模式，类似进入插入模式的d命令</p>
+<p>c$ </p>
+<p>c^</p>
+<p>c0 </p>
+<p>cb </p>
+<p>ce</p>
+<p>cc：删除当前行并输入新内容，相当于S</p>
+<p>#cc</p>
+<p>C：删除当前光标到行尾，并切换成插入模式</p>
+<h3 id="命令模式"><a href="#命令模式" class="headerlink" title="命令模式"></a>命令模式</h3><p>100iwang [ESC] 粘贴“wang”100次<br><start position><command><end position><br>常见Command：</p>
+<p>y 复制、d 删除、gU 变大写、gu 变小写 </p>
+<p>例如： 0y$ 命令 </p>
+<p>0 → 先到行头<br>y → 从这里开始拷贝<br>$ → 拷贝到本行最后一个字符</p>
+<p>di”   光标在”“之间，则删除”“之间的内容<br>yi(   光标在()之间，则复制()之间的内容<br>vi[   光标在[]之间，则选中[]之间的内容<br>dtx  删除字符直到遇见光标之后的第一个 x 字符</p>
+<p>ytx  复制字符直到遇见光标之后的第一个x字符</p>
+<h3 id="扩展命令模式：地址定界"><a href="#扩展命令模式：地址定界" class="headerlink" title="扩展命令模式：地址定界"></a>扩展命令模式：地址定界</h3><p>地址定界</p>
+<p>:start_pos,end_pos<br>/# 具体第#行，例如2表示第2行<br>#,# 从左侧#表示起始行，到右侧#表示结尾行  #,+#  从左侧#表示的起始行，加上右侧#表示的行数<br>示例：2,+3  表示2到5行<br>.   当前行<br>$  最后一行<br>.,$-1 当前行到倒数第二行<br>%  全文, 相当于1,$ </p>
+<p>/pattern/   匹配pattern的行<br>/pat1/,/pat2/</p>
+<p>​    从第一次被pat1模式匹配到的行开始，一直到第一次被pat2匹配到的行结束 </p>
+<p>​    #,/pat/<br>​    /pat/,$ </p>
+<p>使用方式：后跟一个编辑命令:</p>
+<p>d<br>y<br>w file: 将范围内的行另存至指定文件中<br>r  file：在指定位置插入指定文件中的所有内容</p>
+<h3 id="命令模式：查找"><a href="#命令模式：查找" class="headerlink" title="命令模式：查找"></a>命令模式：查找</h3><p>/PATTERN：从当前光标所在处向文件尾部查找 </p>
+<p>?PATTERN：从当前光标所在处向文件首部查找 </p>
+<p>n：与命令同方向<br>N：与命令反方向 </p>
+<h3 id="命令模式：撤消更改"><a href="#命令模式：撤消更改" class="headerlink" title="命令模式：撤消更改"></a>命令模式：撤消更改</h3><p>    u 撤销最近的更改<br>    #u 撤销之前多次更改<br>    U  撤消光标落在这行后所有此行的更改</p>
+<p>Ctrl - r    重做最后的“撤消”更改</p>
+<p>. 重复前一个操作</p>
+<p>#. 重复前一个操作#次</p>
+<h3 id="vim的寄存器"><a href="#vim的寄存器" class="headerlink" title="vim的寄存器"></a>vim的寄存器</h3><ul>
+<li><p>有26个命名寄存器和1个无命名寄存器，常存放不同的剪贴版内容，可以不同会话间共享</p>
+</li>
+<li><p>寄存器名称a，b,…,z,格式：“寄存器   放在数字和命令之间</p>
+<p>如：3”tyy 表示复制3行到t寄存器中</p>
+<p> “tp  表示将t寄存器内容粘贴 </p>
+</li>
+<li><p>未指定，将使用无命名寄存器</p>
+</li>
+<li><p>有10个数字寄存器，用0，1，…，9表示，0存放最近复制内容，1存放最近删除内容。当新的文本变更和删除时，1转存到2，2转存到3，以此类推。数字寄存器不能在不同会话间共享</p>
+</li>
+</ul>
+<h3 id="标记和宏-macro"><a href="#标记和宏-macro" class="headerlink" title="标记和宏(macro)"></a>标记和宏(macro)</h3><p>ma   将当前位置标记为a，26个字母均可做标记， mb 、 mc 等等</p>
+<p>‘a    跳转到a标记的位置，实用的文档内标记方法，文档中跳跃编辑时很有用</p>
+<p>qa    录制宏 a，a为宏的名称</p>
+<p>q    停止录制宏</p>
+<p>@a    执行宏 a<br>@@   重新执行上次执行的宏</p>
+<h3 id="扩展命令模式：查找并替换"><a href="#扩展命令模式：查找并替换" class="headerlink" title="扩展命令模式：查找并替换"></a>扩展命令模式：查找并替换</h3><p>在扩展命令模式下完成查找替换操作</p>
+<p>格式：s/要查找的内容/替换为的内容/修饰符<br>要查找的内容：可使用模式<br>替换为的内容：不能使用模式，但可以使用\1, \2, …等后向引用符号；还可</p>
+<p>以使用“&amp;”引用前面查找时查找到的整个内容</p>
+<p>​    修饰符：</p>
+<p>​    i    忽略大小写 </p>
+<p>​    g    全局替换，默认情况下，每一行只替换第一次出现<br>​    gc    全局替换，每次替换前询问 </p>
+<p>查找替换中的分隔符/可替换为其它字符</p>
+<p>s@/etc@/var@g </p>
+<p>s#/boot#/#i </p>
+<h3 id="编辑二进制文件"><a href="#编辑二进制文件" class="headerlink" title="编辑二进制文件"></a>编辑二进制文件</h3><ul>
+<li>以二进制方式打开文件</li>
+</ul>
+<p>vim –b binaryfile</p>
+<ul>
+<li><p>扩展命令模式下，利用xxd命令转换为可读的十六进制</p>
+<p>:%!xxd</p>
+</li>
+<li><p>插入模式下，编辑二进制文件</p>
+</li>
+<li><p>扩展命令模式下，利用xxd命令转换回二进制</p>
+<p>%!xxd  -r</p>
+</li>
+</ul>
+<h3 id="可视化模式"><a href="#可视化模式" class="headerlink" title="可视化模式"></a>可视化模式</h3><ul>
+<li><p>允许选择的文本块</p>
+<p>v 面向字符 </p>
+<p>V 面向行 </p>
+<p>ctrl-v 面向块 </p>
+</li>
+<li><p>可视化键可用于与移动键结合使用<br>w  )   }   箭头等 </p>
+</li>
+<li><p>突出显示的文字可被删除，复制，变更，过滤，搜索，替换等</p>
+</li>
+</ul>
+<h3 id="使用多个“窗口”"><a href="#使用多个“窗口”" class="headerlink" title="使用多个“窗口”"></a>使用多个“窗口”</h3><ul>
+<li><p>多文件分割</p>
+<p>vim -o|-O FILE1 FILE2 …</p>
+<p>-o: 水平分割</p>
+<p>-O: 垂直分割<br>在窗口间切换：Ctrl+w, Arrow</p>
+</li>
+<li><p>单文件窗口分割</p>
+<p>Ctrl+w,s：split, 水平分割</p>
+<p> Ctrl+w,v：vertical, 垂直分割 </p>
+<p>ctrl+w,q：取消相邻窗口 </p>
+<p>ctrl+w,o：取消全部窗口<br>：wqall 退出 </p>
+</li>
+</ul>
+<h3 id="定制vim的工作特性"><a href="#定制vim的工作特性" class="headerlink" title="定制vim的工作特性"></a>定制vim的工作特性</h3><p>配置文件：永久有效</p>
+<p>全局：/etc/vimrc </p>
+<p>个人：~/.vimrc </p>
+<p>扩展命令模式：当前vim进程有效<br>(1) 行号</p>
+<p>显示：set number，简写 set nu<br>取消显示：set nonumber, 简写 set nonu</p>
+<p>2) 忽略字符的大小写</p>
+<p>启用：set ignorecase，简写 set ic 不</p>
+<p>忽略：set noic </p>
+<p>3) 自动缩进</p>
+<p>启用：set autoindent，简写 set ai </p>
+<p>禁用：set noai </p>
+<p>4) 复制保留格式</p>
+<p>启用：set paste</p>
+<p>禁用：set nopaste</p>
+<p>(5) 显示Tab和换行符 ^I 和$显示</p>
+<p>启用：set list 禁用：set nolist</p>
+<p>6) 高亮搜索</p>
+<p>启用：set hlsearch 禁用：set nohlsearch</p>
+<p>(7) 语法高亮</p>
+<p>启用：syntax on </p>
+<p>禁用：syntax off</p>
+<p>(8) 文件格式</p>
+<p>启用windows格式：set  fileformat=dos </p>
+<p>启用unix格式：set fileformat=unix<br>简写 set ff=dos|unix </p>
+<p>(9) 设置文本宽度</p>
+<p>set textwidth=65 (vim only) </p>
+<p>set wrapmargin=15 </p>
+<p>(10) 设置光标所在行的标识线</p>
+<p>启用：set cursorline，简写 set cul</p>
+<p>禁用：set nocursorline</p>
+<h5 id=""><a href="#" class="headerlink" title=""></a></h5>
+      
+    </div>
+    
+    
+    
+
+     <!-- 文章末尾统一添加“本文结束”标记 -->
+    <div>
+      
+        <div>
+    
+        <div style="text-align:center;color: #555;font-size:24px;"><-------------The End-------------></div>
+    
+</div>
+
+      
+    </div>
+    
+
+    
+      <div>
+        <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+  <div>坚持原创分享，你的支持就是我最大的动力！</div>
+  <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+    <span>打赏</span>
+  </button>
+  <div id="QR" style="display: none;">
+
+    
+      <div id="wechat" style="display: inline-block">
+        <img id="wechat_qr" src="/uploads/weixin_cash_code.png" alt="StarDustLoong 微信支付"/>
+        <p>微信支付</p>
+      </div>
+    
+
+    
+      <div id="alipay" style="display: inline-block">
+        <img id="alipay_qr" src="/uploads/alipay_cash_code.png" alt="StarDustLoong 支付宝"/>
+        <p>支付宝</p>
+      </div>
+    
+
+    
+
+  </div>
+</div>
+
+      </div>
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/vim/" rel="tag"># vim</a>
+          
+            <a href="/tags/%E6%96%87%E6%9C%AC%E7%BC%96%E8%BE%91/" rel="tag"># 文本编辑</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/04-inode%E5%92%8C%E8%BD%AF%E7%A1%AC%E9%93%BE%E6%8E%A5/" rel="next" title="04-inode和软硬链接">
+                <i class="fa fa-chevron-left"></i> 04-inode和软硬链接
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/01-%E6%A0%87%E5%87%86IO%E9%87%8D%E5%AE%9A%E5%90%91/" rel="prev" title="01-标准IO重定向">
+                01-标准IO重定向 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+    </div>
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/uploads/avatar.png"
+                alt="StarDustLoong" />
+            
+              <p class="site-author-name" itemprop="name">StarDustLoong</p>
+              <p class="site-description motion-element" itemprop="description">人类如风一般的自由</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">2409</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">12</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">146</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+	   
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/StarDustLoong" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:13671474528@163.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://www.zhihu.com/people/ashjian-ar15" target="_blank" title="知乎">
+                      
+                        <i class="fa fa-fw fa-globe"></i>知乎</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://me.csdn.net/ashjian" target="_blank" title="CSDN">
+                      
+                        <i class="fa fa-fw fa-codiepie"></i>CSDN</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+            <div class="links-of-blogroll motion-element links-of-blogroll-inline">
+              <div class="links-of-blogroll-title">
+                <i class="fa  fa-fw fa-link"></i>
+                Links
+              </div>
+              <ul class="links-of-blogroll-list">
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="http://mp.weixin.qq.com/user1" title="OpenInfo" target="_blank">OpenInfo</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="http://mp.weixin.qq.com/user2" title="stormzhang" target="_blank">stormzhang</a>
+                  </li>
+                
+              </ul>
+            </div>
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#文本编辑工具"><span class="nav-number">1.</span> <span class="nav-text">文本编辑工具</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#打开方式"><span class="nav-number">1.1.</span> <span class="nav-text">打开方式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#模式"><span class="nav-number">1.2.</span> <span class="nav-text">模式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#模式转换"><span class="nav-number">1.3.</span> <span class="nav-text">模式转换</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#关闭文件"><span class="nav-number">1.4.</span> <span class="nav-text">关闭文件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#命令模式翻屏操作"><span class="nav-number">1.5.</span> <span class="nav-text">命令模式翻屏操作</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#命令模式操作"><span class="nav-number">1.6.</span> <span class="nav-text">命令模式操作</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#字符编辑："><span class="nav-number">1.6.1.</span> <span class="nav-text">字符编辑：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#删除命令"><span class="nav-number">1.6.2.</span> <span class="nav-text">删除命令</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#复制命令-y-yank"><span class="nav-number">1.6.3.</span> <span class="nav-text">复制命令(y, yank)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#粘贴命令-p-paste"><span class="nav-number">1.6.4.</span> <span class="nav-text">粘贴命令(p, paste)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#改变命令-c-change"><span class="nav-number">1.6.5.</span> <span class="nav-text">改变命令(c, change)</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#命令模式"><span class="nav-number">1.7.</span> <span class="nav-text">命令模式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#扩展命令模式：地址定界"><span class="nav-number">1.8.</span> <span class="nav-text">扩展命令模式：地址定界</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#命令模式：查找"><span class="nav-number">1.9.</span> <span class="nav-text">命令模式：查找</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#命令模式：撤消更改"><span class="nav-number">1.10.</span> <span class="nav-text">命令模式：撤消更改</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#vim的寄存器"><span class="nav-number">1.11.</span> <span class="nav-text">vim的寄存器</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#标记和宏-macro"><span class="nav-number">1.12.</span> <span class="nav-text">标记和宏(macro)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#扩展命令模式：查找并替换"><span class="nav-number">1.13.</span> <span class="nav-text">扩展命令模式：查找并替换</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#编辑二进制文件"><span class="nav-number">1.14.</span> <span class="nav-text">编辑二进制文件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#可视化模式"><span class="nav-number">1.15.</span> <span class="nav-text">可视化模式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#使用多个“窗口”"><span class="nav-number">1.16.</span> <span class="nav-text">使用多个“窗口”</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#定制vim的工作特性"><span class="nav-number">1.17.</span> <span class="nav-text">定制vim的工作特性</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#"><span class="nav-number">1.17.0.1.</span> <span class="nav-text"></span></a></li></ol></li></ol></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">StarDustLoong</span>
+
+  
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-area-chart"></i>
+    </span>
+    
+      <span class="post-meta-item-text">本站总字数&#58;</span>
+    
+    <span title="本站总字数">635.5k</span>
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Pisces</a> v5.1.4</div>
+
+
+
+
+#<!-- 百度自动推送 -->
+#<script>
+#(function(){
+#    var bp = document.createElement('script');
+#    var curProtocol = window.location.protocol.split(':')[0];
+#    if (curProtocol === 'https') {
+#        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+#    }
+#    else {
+#        bp.src = 'http://push.ashjian.baidu.com/push.js';
+#    }
+#    var s = document.getElementsByTagName("script")[0];
+#    s.parentNode.insertBefore(bp, s);
+#})();
+#</script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aplayer/dist/APlayer.min.css">
+
+<script src="https://cdn.jsdelivr.net/npm/aplayer/dist/APlayer.min.js"></script>
+<!-- require MetingJS -->
+
+<script src="https://cdn.jsdelivr.net/npm/meting@2.0.1/dist/Meting.min.js"></script>
+<div> 
+<meting-js  
+    server="netease" 
+    type="playlist"  
+    id="5281251057" 
+    fixed="true"  
+    autoplay="false" 
+    loop="all" 
+    order="random"
+    preload="auto" 
+    list-folded="ture" 
+    list-max-height="500px" 
+    lrc-type="1">
+</meting-js>	 
+</div>
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv">
+      本站访客数
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+      人次
+    </span>
+  
+
+  
+    <span class="site-pv">
+      本站总访问量
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+      次
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+  <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+  <script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+  
+  <script type="text/javascript">
+    var GUEST = ['nick','mail','link'];
+    var guest = 'nick,mail,link';
+    guest = guest.split(',').filter(item=>{
+      return GUEST.indexOf(item)>-1;
+    });
+    new Valine({
+        el: '#comments' ,
+        verify: false,
+        notify: false,
+        appId: 'Gp5xxuBGmRxC9yeJHf5wlLpN-gzGzoHsz',
+        appKey: 'wo0eDJonJrnuUrCCCU7EnH1n',
+        placeholder: '欢迎评论',
+        avatar:'mm',
+        guest_info:guest,
+        pageSize:'20' || 10,
+    });
+  </script>
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"jsonPath":"/live2dw/assets/dsr50_lifu_normal.model.json"},"display":{"position":"right","width":700,"height":800,"hOffset":-250,"vOffset":-150},"mobile":{"show":true,"scale":0.7},"log":false});</script></body>
+</html>

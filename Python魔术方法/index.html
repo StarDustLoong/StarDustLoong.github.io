@@ -1,0 +1,1706 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="python魔术方法," />
+
+
+
+
+  
+
+
+  <link rel="alternate" href="/atom.xml" title="" type="application/atom+xml" />
+
+
+
+
+
+
+<meta name="description" content="特殊属性   属性 含义    __name__ 类、函数、方法等的名字   __module__ 类定义所在的模块名   __class__ 对象或类所属的类   __bases__ 类的基类的元组，顺序为它们在基类列表中出现的顺序   __doc__ 类、函数的文档字符串， 如果没有定义则为None   __mro__ 类的mro ,  class.mro()返回的结果的保存  在_mro__">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Python魔术方法">
+<meta property="og:url" content="http://www.ashjian.xyz/Python%E9%AD%94%E6%9C%AF%E6%96%B9%E6%B3%95/index.html">
+<meta property="og:site_name">
+<meta property="og:description" content="特殊属性   属性 含义    __name__ 类、函数、方法等的名字   __module__ 类定义所在的模块名   __class__ 对象或类所属的类   __bases__ 类的基类的元组，顺序为它们在基类列表中出现的顺序   __doc__ 类、函数的文档字符串， 如果没有定义则为None   __mro__ 类的mro ,  class.mro()返回的结果的保存  在_mro__">
+<meta property="og:image" content="https://gitee.com/ashjian/picBed/raw/master/20210628214024.png">
+<meta property="og:image" content="https://gitee.com/ashjian/picBed/raw/master/20210628214025.png">
+<meta property="og:image" content="https://gitee.com/ashjian/picBed/raw/master/20210628214026.png">
+<meta property="og:image" content="https://gitee.com/ashjian/picBed/raw/master/20210628214027.png">
+<meta property="og:image" content="https://gitee.com/ashjian/picBed/raw/master/20210628214028.png">
+<meta property="og:image" content="https://gitee.com/ashjian/picBed/raw/master/20210628214029.png">
+<meta property="og:image" content="https://gitee.com/ashjian/picBed/raw/master/20210628214030.png">
+<meta property="og:image" content="https://gitee.com/ashjian/picBed/raw/master/20210628214031.png">
+<meta property="og:image" content="https://gitee.com/ashjian/picBed/raw/master/20210628214032.png">
+<meta property="og:image" content="https://gitee.com/ashjian/picBed/raw/master/20210628214033.png">
+<meta property="og:image" content="https://gitee.com/ashjian/picBed/raw/master/20210628214034.png">
+<meta property="og:image" content="https://gitee.com/ashjian/picBed/raw/master/20210628214035.png">
+<meta property="og:image" content="https://gitee.com/ashjian/picBed/raw/master/20210628214036.png">
+<meta property="og:image" content="https://gitee.com/ashjian/picBed/raw/master/20210628214037.png">
+<meta property="og:image" content="https://gitee.com/ashjian/picBed/raw/master/20210628214038.png">
+<meta property="og:image" content="https://gitee.com/ashjian/picBed/raw/master/20210628214039.png">
+<meta property="og:image" content="https://gitee.com/ashjian/picBed/raw/master/20210628214040.png">
+<meta property="og:image" content="https://gitee.com/ashjian/picBed/raw/master/20210628214041.png">
+<meta property="og:image" content="https://gitee.com/ashjian/picBed/raw/master/20210628214042.png">
+<meta property="article:published_time" content="2021-07-05T15:50:51.826Z">
+<meta property="article:modified_time" content="2021-07-05T15:50:01.619Z">
+<meta property="article:author" content="StarDustLoong">
+<meta property="article:tag" content="python魔术方法">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://gitee.com/ashjian/picBed/raw/master/20210628214024.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://www.ashjian.xyz/Python魔术方法/"/>
+
+
+
+
+
+  <title>Python魔术方法 | </title>
+  
+
+
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?d7bf52f45e24a0e6f2951901a7a97864";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+<meta name="generator" content="Hexo 4.2.1"></head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title"></span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off"
+             placeholder="搜索..." spellcheck="false"
+             type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://www.ashjian.xyz/Python%E9%AD%94%E6%9C%AF%E6%96%B9%E6%B3%95/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="StarDustLoong">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/uploads/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Python魔术方法</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2021-07-05T23:50:51+08:00">
+                2021-07-05
+              </time>
+            
+
+            
+              <span class="post-meta-divider">|</span>
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-check-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">更新于&#58;</span>
+              
+              <time title="更新于" itemprop="dateModified" datetime="2021-07-05T23:50:01+08:00">
+                2021-07-05
+              </time>
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/python/" itemprop="url" rel="index">
+                    <span itemprop="name">python</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/Python%E9%AD%94%E6%9C%AF%E6%96%B9%E6%B3%95/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/Python%E9%AD%94%E6%9C%AF%E6%96%B9%E6%B3%95/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  9.1k
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  44
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+      
+      
+
+      
+        <h2 id="特殊属性"><a href="#特殊属性" class="headerlink" title="特殊属性"></a>特殊属性</h2><table>
+<thead>
+<tr>
+<th>属性</th>
+<th>含义</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>__name__</td>
+<td>类、函数、方法等的名字</td>
+</tr>
+<tr>
+<td>__module__</td>
+<td>类定义所在的模块名</td>
+</tr>
+<tr>
+<td>__class__</td>
+<td>对象或类所属的类</td>
+</tr>
+<tr>
+<td>__bases__</td>
+<td>类的基类的元组，顺序为它们在基类列表中出现的顺序</td>
+</tr>
+<tr>
+<td>__doc__</td>
+<td>类、函数的文档字符串， 如果没有定义则为None</td>
+</tr>
+<tr>
+<td>__mro__</td>
+<td>类的mro ,  class.mro()返回的结果的保存  在_mro__中</td>
+</tr>
+<tr>
+<td>__dict__</td>
+<td>类或实例的属性，可写的字典</td>
+</tr>
+</tbody></table>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br></pre></td><td class="code"><pre><code class="hljs plain">class A:pass<br><br>class B(A):<br>    def bb(self):pass<br><br>class C(B, A):<br>    def cc(self):pass<br><br>a &#x3D; A()<br>b &#x3D; B()<br>c &#x3D; C()<br>print(A.__name__)<br>print(B.__name__)<br>print(C.__name__)<br>print(b.bb.__name__)<br>print(&#39;-&#39;*40)<br># 因为是在当前类中调用，所以是返回值 __main__<br># 如果该模块 a.py 被导入到其他地方，那么打印 就是模块名 a<br>print(A.__module__)<br>print(B.__module__)<br>print(C.__module__)<br>print(&#39;-&#39;*40)<br>print(A.__bases__)<br>print(A.__base__)<br>print(B.__bases__)<br>print(B.__base__)<br>print(C.__bases__)<br>print(C.__base__)<br>print(&#39;-&#39;*40)<br>print(A.__doc__)<br>print(a.__doc__)<br>print(b.bb.__doc__)<br>print(&#39;-&#39;*40)<br>print(A.mro())<br>print(A.__mro__)<br>print(B.mro())<br>print(B.__mro__)<br>print(C.mro())<br>print(C.__mro__)<br>print(&#39;-&#39;*40)<br>print(A.__dict__)<br>print(a.__dict__)<br>print(B.__dict__)<br>print(b.__dict__)<br>print(C.__dict__)<br>print(c.__dict__)<br></code></pre></td></tr></table></figure>
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><code class="hljs plain">A<br>B<br>C<br>bb<br>----------------------------------------<br>__main__<br>__main__<br>__main__<br>----------------------------------------<br>(&lt;class &#39;object&#39;&gt;,)<br>&lt;class &#39;object&#39;&gt;<br>(&lt;class &#39;__main__.A&#39;&gt;,)<br>&lt;class &#39;__main__.A&#39;&gt;<br>(&lt;class &#39;__main__.B&#39;&gt;, &lt;class &#39;__main__.A&#39;&gt;)<br>&lt;class &#39;__main__.B&#39;&gt;<br>----------------------------------------<br>None<br>None<br>None<br>----------------------------------------<br>[&lt;class &#39;__main__.A&#39;&gt;, &lt;class &#39;object&#39;&gt;]<br>(&lt;class &#39;__main__.A&#39;&gt;, &lt;class &#39;object&#39;&gt;)<br>[&lt;class &#39;__main__.B&#39;&gt;, &lt;class &#39;__main__.A&#39;&gt;, &lt;class &#39;object&#39;&gt;]<br>(&lt;class &#39;__main__.B&#39;&gt;, &lt;class &#39;__main__.A&#39;&gt;, &lt;class &#39;object&#39;&gt;)<br>[&lt;class &#39;__main__.C&#39;&gt;, &lt;class &#39;__main__.B&#39;&gt;, &lt;class &#39;__main__.A&#39;&gt;, &lt;class &#39;object&#39;&gt;]<br>(&lt;class &#39;__main__.C&#39;&gt;, &lt;class &#39;__main__.B&#39;&gt;, &lt;class &#39;__main__.A&#39;&gt;, &lt;class &#39;object&#39;&gt;)<br>----------------------------------------<br>&#123;&#39;__module__&#39;: &#39;__main__&#39;, &#39;__dict__&#39;: &lt;attribute &#39;__dict__&#39; of &#39;A&#39; objects&gt;, &#39;__weakref__&#39;: &lt;attribute &#39;__weakref__&#39; of &#39;A&#39; objects&gt;, &#39;__doc__&#39;: None&#125;<br>&#123;&#125;<br>&#123;&#39;__module__&#39;: &#39;__main__&#39;, &#39;bb&#39;: &lt;function B.bb at 0x0000005DCA539940&gt;, &#39;__doc__&#39;: None&#125;<br>&#123;&#125;<br>&#123;&#39;__module__&#39;: &#39;__main__&#39;, &#39;cc&#39;: &lt;function C.cc at 0x0000005DCA5398B0&gt;, &#39;__doc__&#39;: None&#125;<br>&#123;&#125;<br></code></pre></td></tr></table></figure>
+
+
+
+<h2 id="查看属性"><a href="#查看属性" class="headerlink" title="查看属性"></a>查看属性</h2><table>
+<thead>
+<tr>
+<th>方法</th>
+<th>意义</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>__dir__</td>
+<td>返回类或者对象的所有成员名称列表。dir()函数就是调用__dir__()。如果提供__dir__()，则返回属性的列表，否则会尽量从__dict__属性中收集信息</td>
+</tr>
+</tbody></table>
+<p>如果dir([obj])参数obj包含方法方法意义__dir__() ，该方法将被调用，如果参数obj不含方法意义__dir__ ，该方法将最大限度的收集属性信息<br>dir(obj) 对于不同类型的对象obj具有不同的行为。</p>
+<ul>
+<li>如果对象是模块对象，返回的列表包含模块的属性名和变量名</li>
+<li>如果对象是类型或者类对象，返回的列表包含类的属性名，及它的基类属性名</li>
+<li>如果obj 不写，返回列表包含内容不同<ul>
+<li>在模块中，返回模块的属性和变量名</li>
+<li>在函数中，返回本地作用域的变量名</li>
+<li>在方法中，返回本地作用域的变量名</li>
+</ul>
+</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br></pre></td><td class="code"><pre><code class="hljs plain">class A:pass<br><br>class B(A):<br>    def bb(self):pass<br><br>class C(B, A):<br>    def __init__(self):<br>        self.x &#x3D; 10<br>    # def __dir__(self):<br>    #     pass # return None<br>    pass<br><br>#  类只收集类的属性<br>print(C.__dict__)<br>print(dir(C)) # 尽可能收集属性key，dict中的也收集过来，还会收集跟当前对象继承的类的属性也会收集过来<br>###############################################<br>print(&#39;-&#39; * 40)<br># 注意self，只影响实例，不影响 类！<br># 收集实例的属性，包括类，继承的类的属性<br># 没有提供 __dir__(self)<br>c &#x3D; C()<br>print(c.__dict__)<br>print(dir(c)) # 等价 c.__dir__()<br># 提供 __dir__(self)<br># def __dir__(self):<br>    #     pass # return None --------&gt; 报错,要一个可迭代对象<br>    #     return (&#39;a&#39;,&#39;b&#39;,&#39;c&#39;) -----&gt; [&#39;a&#39;,&#39;b&#39;,&#39;c&#39;]<br>###############################################<br>print(&#39;-&#39; * 40)<br># 收集当前作用域的标识符，如果在函数中，就是形参的名称，不管是函数还是方法，一般用在模块上<br>print(dir()) #而且，只会打印之前的，之后的不会收集到<br>def foo():<br>    print(dir())<br>foo()<br><br>def foo(a):<br>    print(dir())<br>foo(1)<br># 如果a.py被导入，在被导入的地方，a.py中的内容会重载一次，该运行的云行一次，该打印的也会打印<br># 在被导入的地方，执行dir(a) 把模块a中的属性（标识符）都打印<br># 如果被导入的地方执行dir()， 模块名a 也会被收集<br># 如果 from a import C 执行dir()，C也会被收集到，这样就可以用这个类C，否则无法使用<br>###############################################<br>print(&#39;-&#39; * 40)<br>c &#x3D; C()<br>print(c.__dir__())<br># 因为字典的key是类set，所以可以 并集<br>print(object.__dict__.keys() | c.__class__.__dict__.keys() | c.__dict__.keys())<br># 可以看到，两者结果差不多，所以实例收集到的就是这些东西的并集<br></code></pre></td></tr></table></figure>
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><code class="hljs plain">&#123;&#39;__module__&#39;: &#39;__main__&#39;, &#39;__init__&#39;: &lt;function C.__init__ at 0x000000DF78E39AF0&gt;, &#39;__doc__&#39;: None&#125;<br>[&#39;__class__&#39;, &#39;__delattr__&#39;, &#39;__dict__&#39;, &#39;__dir__&#39;, &#39;__doc__&#39;, &#39;__eq__&#39;, &#39;__format__&#39;, &#39;__ge__&#39;, &#39;__getattribute__&#39;, &#39;__gt__&#39;, &#39;__hash__&#39;, &#39;__init__&#39;, &#39;__init_subclass__&#39;, &#39;__le__&#39;, &#39;__lt__&#39;, &#39;__module__&#39;, &#39;__ne__&#39;, &#39;__new__&#39;, &#39;__reduce__&#39;, &#39;__reduce_ex__&#39;, &#39;__repr__&#39;, &#39;__setattr__&#39;, &#39;__sizeof__&#39;, &#39;__str__&#39;, &#39;__subclasshook__&#39;, &#39;__weakref__&#39;, &#39;bb&#39;]<br>----------------------------------------<br>&#123;&#39;x&#39;: 10&#125;<br>[&#39;__class__&#39;, &#39;__delattr__&#39;, &#39;__dict__&#39;, &#39;__dir__&#39;, &#39;__doc__&#39;, &#39;__eq__&#39;, &#39;__format__&#39;, &#39;__ge__&#39;, &#39;__getattribute__&#39;, &#39;__gt__&#39;, &#39;__hash__&#39;, &#39;__init__&#39;, &#39;__init_subclass__&#39;, &#39;__le__&#39;, &#39;__lt__&#39;, &#39;__module__&#39;, &#39;__ne__&#39;, &#39;__new__&#39;, &#39;__reduce__&#39;, &#39;__reduce_ex__&#39;, &#39;__repr__&#39;, &#39;__setattr__&#39;, &#39;__sizeof__&#39;, &#39;__str__&#39;, &#39;__subclasshook__&#39;, &#39;__weakref__&#39;, &#39;bb&#39;, &#39;x&#39;]<br>----------------------------------------<br>[&#39;A&#39;, &#39;B&#39;, &#39;C&#39;, &#39;__annotations__&#39;, &#39;__builtins__&#39;, &#39;__cached__&#39;, &#39;__doc__&#39;, &#39;__file__&#39;, &#39;__loader__&#39;, &#39;__name__&#39;, &#39;__package__&#39;, &#39;__spec__&#39;, &#39;c&#39;]<br>[]<br>[&#39;a&#39;]<br>----------------------------------------<br>[&#39;x&#39;, &#39;__module__&#39;, &#39;__init__&#39;, &#39;__doc__&#39;, &#39;bb&#39;, &#39;__dict__&#39;, &#39;__weakref__&#39;, &#39;__repr__&#39;, &#39;__hash__&#39;, &#39;__str__&#39;, &#39;__getattribute__&#39;, &#39;__setattr__&#39;, &#39;__delattr__&#39;, &#39;__lt__&#39;, &#39;__le__&#39;, &#39;__eq__&#39;, &#39;__ne__&#39;, &#39;__gt__&#39;, &#39;__ge__&#39;, &#39;__new__&#39;, &#39;__reduce_ex__&#39;, &#39;__reduce__&#39;, &#39;__subclasshook__&#39;, &#39;__init_subclass__&#39;, &#39;__format__&#39;, &#39;__sizeof__&#39;, &#39;__dir__&#39;, &#39;__class__&#39;]<br>&#123;&#39;x&#39;, &#39;__sizeof__&#39;, &#39;__getattribute__&#39;, &#39;__repr__&#39;, &#39;__module__&#39;, &#39;__reduce__&#39;, &#39;__str__&#39;, &#39;__reduce_ex__&#39;, &#39;__lt__&#39;, &#39;__delattr__&#39;, &#39;__ne__&#39;, &#39;__dir__&#39;, &#39;__class__&#39;, &#39;__eq__&#39;, &#39;__ge__&#39;, &#39;__format__&#39;, &#39;__doc__&#39;, &#39;__le__&#39;, &#39;__init__&#39;, &#39;__setattr__&#39;, &#39;__new__&#39;, &#39;__subclasshook__&#39;, &#39;__init_subclass__&#39;, &#39;__hash__&#39;, &#39;__gt__&#39;&#125;<br><br>Process finished with exit code 0<br></code></pre></td></tr></table></figure>
+
+
+
+<h2 id="魔术方法：-除了new是与cls有关，其他的都是属于实例的方法"><a href="#魔术方法：-除了new是与cls有关，其他的都是属于实例的方法" class="headerlink" title="魔术方法： 除了new是与cls有关，其他的都是属于实例的方法"></a>魔术方法： 除了new是与cls有关，其他的都是属于实例的方法</h2><p>　　分类：</p>
+<ol>
+<li><p>创建，初始化，销毁 （__new__,__init__, __del__）</p>
+</li>
+<li><p>hash</p>
+</li>
+<li><p>bool</p>
+</li>
+<li><p>可视化</p>
+</li>
+<li><p>运算符重载</p>
+</li>
+<li><p>可调用对象</p>
+</li>
+<li><p>上下文管理</p>
+</li>
+<li><p>反射</p>
+</li>
+<li><p>描述器</p>
+</li>
+<li><p>其他杂项</p>
+<p>①、创建，初始化，销毁：</p>
+<pre><code>\_\_new\_\_:目前写法固定，一般不用自定义,是staticmethod，元类编程时用       </code></pre></li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs plain">def __new__(cls, *args, **kwargs):<br>     return super().__new__(cls)<br></code></pre></td></tr></table></figure>
+
+<p><img src="https://gitee.com/ashjian/picBed/raw/master/20210628214024.png" alt="img"></p>
+<p>　<strong>②、  hash：</strong></p>
+<p><img src="https://gitee.com/ashjian/picBed/raw/master/20210628214025.png" alt="img"></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><code class="hljs plain">class A:pass<br><br>class B(A):pass<br><br>class C(B):<br>    def __hash__(self):<br>        # return &#39;abc&#39; # 这种是抛异常的，因为hash 返回的是一个数字<br>        return  hash(&#39;abc&#39;)<br>    def __init__(self, name):<br>        self.name &#x3D; name<br>        print(&quot;__________________&quot;)<br><br>c &#x3D; C(&#39;tom&#39;)<br>print(hash(c))<br></code></pre></td></tr></table></figure>
+
+<p>总结：<br>　　　　　　hash(z) ，z 都一样，求得hash应该不变的，幂等性，一般来说，z 不一样，hash应该不一样<br>                    不同的hash算法，都有hash冲突（因为只有一个hash空间)，不同的z求得同样的hash值。<br>                    hash空间满了，就会出现hash冲突。<br>                    出现冲突后，要考虑去重了，如果出现冲突，判断是否eq，如果eq是相等，返回True就会去重。<br>                    先说hash，再说eq  （先hash，再is，最后eq） </p>
+<p>​                    如果不提供hash 和 eq 就用object的hash，但是使用的是内存地址求hash的<br>​                    如果提供eq，不提供hash，默认是hash返回值是None，也就是 不可hash，这个时候提供一个hash方法就可以<br>​                    提供一个<strong>hash</strong> = None ，就不可hash，list就是这样实现不可hash的</p>
+<p>​                    如果只提供hash，冲突就用到eq处理，是否相等，再去重</p>
+<p>​                    先比较is， 在比较== ，is相等，内存地址都一样，就没必要再看==了</p>
+<p>​         　因此，一般来说，提供<strong>hash</strong>方法是为了作为set或者dict的key，所以去重要同时提供EQ方法<br>　　　　　　　不可hash对象  isinstance(p1, collections,Hashable) 一定是False<br>　　　　　　　去重 需要提供<strong>eq</strong>方法</p>
+<p> ③、bool:<br>　　　　　　　<strong>bool</strong>内建函数bool()，或者对象放在逻辑表达式的位置，调用这个函数返回布尔值<br>　　　　　　　　　　　　如果没有定义<strong>bool</strong>（self），就找len()返回长度，非 0 为真，<br>　　　　　　　　　　　　如果<strong>len</strong>（self）也没有定义，那么所有实例都返回真<br>            　　　　　如果有，<strong>bool</strong>(self)  类 真， 实例，看里边返回什么（True 还是False，只能返回布尔值)<br>                     <strong>len</strong>（self）return 整数&gt;=0或者布尔值<br>                     有了bool 就不看len！，全没有，都是真。<br>　　　　　　　　　　　　如果len都是等价True，那就看bool返回什么</p>
+<p>​       ④、可视化：<br>​                <strong>repr</strong>（self）必须是字符串<br>　　　　　　　　　　　　内建函数repr（）对一个对象获取字符串表达<br>　　　　　　　　　　　　调用<strong>repr</strong>方法返回字符串表达式，如果<strong>repr</strong>也没有定义，就直接返回object的定义就显示内存地址信息<br>　　　　　　　　　　　　如果只提供repr，都转为repr<br>​                <strong>str</strong>(self)<br>　　　　　　　　　　　　str() 函数，format() 函数，print()函数调用，需要返回对象的字符串表达，如果没有定义，就去调用<strong>repr</strong>方法，<br>　　　　　　　　　　　　返回字符串表达，如果<strong>repr</strong>没有定义，返回内存地址信息<br>​                    直接作用到实例上，用str ，如果没有str，都是repr，如果没有repr，该找str的找str，找repr的如果找不到就去找object，打印内存地址<br>​                    如果都没有，找到的都是内存地址，去父类，或object找的。</p>
+<p>​                <strong>bytes</strong>(self) return  bytes类型<br>　　　　　　　　　　　　bytes() 函数调用，返回一个对象的bytes表达，即返回bytes对象</p>
+<p>测试：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><code class="hljs plain">class A:<br>    def __init__(self, name):<br>        self.name &#x3D; name<br><br>    def __repr__(self):<br>        return &#39;repr name&#x3D;&#123;&#125;&#39;.format(self.name)<br><br>    def __str__(self):<br>        return &#39;str name&#x3D;&#123;&#125;&#39;.format(self.name)<br><br>    def __bytes__(self):<br>        return self.name.encode()<br><br>print(A)<br>print(A(&#39;tom&#39;))<br>print(str(A(&#39;tom&#39;)))<br>print(&quot;&#123;&#125;&quot;.format(A(&#39;jerry&#39;)))<br><br>print(1,repr(A(&#39;tom&#39;)))<br>print(2,repr(&#39;&#123;&#125;&#39;.format(A(&#39;jerry&#39;)))) # 因为先format的,所以先调用str<br><br>a &#x3D; A(&#39;tom&#39;)<br>print([a,a]) # print，没有直接作用到实例上<br>print(str(&#123;a, a&#125;)) # print，没有直接作用到实例上<br>print(&#39;&#123;&#125;&#39;.format(*&#123;a, a&#125;)) # *&#123;a, a&#125; 参数解析 先去重，*&#123;a&#125; 还是a，format直接作用上去<br><br>print(bytes(a))<br></code></pre></td></tr></table></figure>
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs plain">&lt;class &#39;__main__.A&#39;&gt;<br>str name&#x3D;tom<br>str name&#x3D;tom<br>str name&#x3D;jerry<br>1 repr name&#x3D;tom<br>2 &#39;str name&#x3D;jerry&#39;<br>[repr name&#x3D;tom, repr name&#x3D;tom]<br>&#123;repr name&#x3D;tom&#125;<br>str name&#x3D;tom<br>b&#39;tom&#39;<br></code></pre></td></tr></table></figure>
+
+<p>　注：不能通过print输出，来判断类型，类型判断要用 type 或isinstance</p>
+<p>​     ⑤、运算符重载：</p>
+<p>　　</p>
+<table>
+<thead>
+<tr>
+<th>运算符</th>
+<th>特殊方法</th>
+<th>含义</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>&lt;,&lt;=,==,&gt;,&gt;=,!=</td>
+<td>__lt__,__le__,__eq__,__gt__,__ge__,__ne__</td>
+<td>比较运算符</td>
+</tr>
+<tr>
+<td>+,-,,<em>,/,%,//,*</em>,divmod</td>
+<td>__add__,__sub__,__mul__,__truediv__,__mod__,<br>__floordiv__,__pow__,__divmod__,</td>
+<td>算术运算符，移位、位运算也有对应的方法</td>
+</tr>
+<tr>
+<td>+=,-=,*=,/=,%=,//=</td>
+<td>__iadd__,__isub__,__imul__,__itruediv__,<br>__imod__,__ifloordiv__,__ipow__</td>
+<td></td>
+</tr>
+</tbody></table>
+<p>　　　　　　 <strong>iadd</strong> 这里的i  就地修改，其他 i也是该意思</p>
+<p>​            不同类型之间是可以==比较的。</p>
+<p>​            没有定义的话，是不可以比较大小的，报错</p>
+<p>　　　　　　 虽然可以返回其他类型，但是一般返回本类型<br>　　测试1：减法实现</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><code class="hljs plain">class A:<br>    def __init__(self, name, age&#x3D;18):<br>        self.name &#x3D; name<br>        self.age  &#x3D; age<br><br>    def __sub__(self, other):<br>        return self.age - other.age<br><br>tom &#x3D; A(&#39;tom&#39;)<br>jerry &#x3D; A(&#39;jerry&#39;, 20)<br><br># 实现了实例减法<br>print(tom - jerry)<br><br># 这相当于 tom被重新赋值了，因为没有提供isub<br>tom -&#x3D; jerry<br>print(tom) # -2<br><br>###################################################3<br><br>class A:<br>    def __init__(self, name, age&#x3D;18):<br>        self.name &#x3D; name<br>        self.age  &#x3D; age<br><br>    def __sub__(self, other):<br>        return self.age - other.age # 这里可以使用-号 是因为作用到age上，而不是self本身上，所以不会出现自己调自己<br><br>    def __isub__(self, other):<br>        return A(self.name,self- other) # 这里调用了sub<br><br>tom &#x3D; A(&#39;tom&#39;)<br>jerry &#x3D; A(&#39;jerry&#39;, 20)<br><br># 实现了实例减法<br>print(tom - jerry)<br><br># 这调用了isub 返回一个新的A 实例赋值给tom<br># 当然直接使用sub 也可以返回一个A 实例，活学活用<br>tom -&#x3D; jerry<br>print(tom) # -2<br></code></pre></td></tr></table></figure>
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs plain">-2<br>-2<br>-2<br>&lt;__main__.A object at 0x000000C4D3C2D910&gt;<br></code></pre></td></tr></table></figure>
+
+<p>测试2：比较大小，使用装饰器，只需要提供两个 比较符号</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br></pre></td><td class="code"><pre><code class="hljs plain">from functools import total_ordering<br><br>@total_ordering<br>class Point:<br>    def __init__(self, x, y):<br>        self.x &#x3D; x<br>        self.y &#x3D; y<br><br>    def __hash__(self):<br>        return hash((self.x , self.y))<br><br><br><br>    def __add__(self, other):<br>        x &#x3D; self.x + other.x<br>        y &#x3D; self.y + other.y<br>        return Point(x, y)<br><br>    def __sub__(self, other):<br>        x &#x3D; self.x - other.x<br>        y &#x3D; self.y - other.y<br>        return Point(x, y)<br><br>    def distance(self):<br>        pass<br><br>    def __eq__(self, other):<br>        return True<br>        # if self.x &#x3D;&#x3D; other.x and self.y &#x3D;&#x3D; other.y:<br>        #     return  True<br>        # else:<br>        #     return False<br>    def __gt__(self, other):#这里只是为了测试，数学上比较大小是不对的<br>        return self.x &gt; other.x<br><br>p1 &#x3D; Point(1,2)<br>p2 &#x3D; Point(3,4)<br>p3 &#x3D; Point(1,2)<br><br># z调用eq,只能解决等 或 不等，不能解决 谁大谁小<br>print(p1 &#x3D;&#x3D; p2)<br>print(p1 !&#x3D; p2)<br>print(p1 &gt;&#x3D; p2)<br>print(p1 &lt;&#x3D; p2)<br>print(p1 &gt; p2)<br>print(p1 &lt; p2)<br></code></pre></td></tr></table></figure>
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs plain">True<br>False<br>True<br>True<br>False<br>False<br></code></pre></td></tr></table></figure>
+
+<p>测试2：比较大小，使用装饰器，只需要提供两个 比较符号</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br></pre></td><td class="code"><pre><code class="hljs plain">from functools import total_ordering<br><br>@total_ordering<br>class Point:<br>    def __init__(self, x, y):<br>        self.x &#x3D; x<br>        self.y &#x3D; y<br><br>    def __hash__(self):<br>        return hash((self.x , self.y))<br><br><br><br>    def __add__(self, other):<br>        x &#x3D; self.x + other.x<br>        y &#x3D; self.y + other.y<br>        return Point(x, y)<br><br>    def __sub__(self, other):<br>        x &#x3D; self.x - other.x<br>        y &#x3D; self.y - other.y<br>        return Point(x, y)<br><br>    def distance(self):<br>        pass<br><br>    def __eq__(self, other):<br>        return True<br>        # if self.x &#x3D;&#x3D; other.x and self.y &#x3D;&#x3D; other.y:<br>        #     return  True<br>        # else:<br>        #     return False<br>    def __gt__(self, other):#这里只是为了测试，数学上比较大小是不对的<br>        return self.x &gt; other.x<br><br>p1 &#x3D; Point(1,2)<br>p2 &#x3D; Point(3,4)<br>p3 &#x3D; Point(1,2)<br><br># z调用eq,只能解决等 或 不等，不能解决 谁大谁小<br>print(p1 &#x3D;&#x3D; p2)<br>print(p1 !&#x3D; p2)<br>print(p1 &gt;&#x3D; p2)<br>print(p1 &lt;&#x3D; p2)<br>print(p1 &gt; p2)<br>print(p1 &lt; p2)<br></code></pre></td></tr></table></figure>
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs plain">True<br>False<br>True<br>True<br>False<br>False<br></code></pre></td></tr></table></figure>
+
+<p>测试3：不是用装饰器，只需要三个比较符</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br></pre></td><td class="code"><pre><code class="hljs plain">class Point:<br>    def __init__(self, x, y):<br>        self.x &#x3D; x<br>        self.y &#x3D; y<br><br>    def __hash__(self):<br>        return hash((self.x , self.y))<br><br><br><br>    def __add__(self, other):<br>        x &#x3D; self.x + other.x<br>        y &#x3D; self.y + other.y<br>        return Point(x, y)<br><br>    def __sub__(self, other):<br>        x &#x3D; self.x - other.x<br>        y &#x3D; self.y - other.y<br>        return Point(x, y)<br><br>    def distance(self):<br>        pass<br><br>    def __eq__(self, other):<br>        return True<br>        # if self.x &#x3D;&#x3D; other.x and self.y &#x3D;&#x3D; other.y:<br>        #     return  True<br>        # else:<br>        #     return False<br>    def __gt__(self, other):#这里只是为了测试，数学上比较大小是不对的<br>        return self.x &gt; other.x<br><br>    def __ge__(self, other):<br>        return self.x &gt;&#x3D; other.x<br><br>p1 &#x3D; Point(1,2)<br>p2 &#x3D; Point(3,4)<br>p3 &#x3D; Point(1,2)<br><br># z调用eq,只能解决等 或 不等，不能解决 谁大谁小<br>print(p1 &#x3D;&#x3D; p2)<br>print(p1 !&#x3D; p2)<br>print(p1 &gt;&#x3D; p2)<br>print(p1 &lt;&#x3D; p2)<br>print(p1 &gt; p2)<br>print(p1 &lt; p2)<br></code></pre></td></tr></table></figure>
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs plain">True<br>False<br>False<br>True<br>False<br>True<br></code></pre></td></tr></table></figure>
+
+<p>总结：<br>　　　　　　　　往往是用面向对象实现类的，需要做大量的运算，而运算符是这种运算在数学上最常见的表达方式<br>　　　　　　　　通过重载，重新定义 Point + Point<br>　　　　　　　　提供运算符重载，比直接提供加法方法更加合适该领域内使用者的习惯<br>　　　　　　　　int类 几乎实现了所有操作符，可以参看<br>　　　　　　　　只需要三个，是因为，大于可以推断小于等于，以此类推。。。。。。</p>
+<p>⑥容器相关方法：</p>
+<p>　</p>
+<table>
+<thead>
+<tr>
+<th>方法</th>
+<th>意义</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>len</strong></td>
+<td>内建函数len()，返回对象的长度 &gt;= 0，如果把对象当做容器类型看，就如同list或者dict，bool()函数调用的时候，如果没有<strong>bool</strong>（）方法，则会看<strong>len</strong>（）方法是否存在，存在返回非0 为真</td>
+</tr>
+<tr>
+<td><strong>iter</strong></td>
+<td>迭代容器，调用，返回一个新的迭代器对象</td>
+</tr>
+<tr>
+<td><strong>contains</strong></td>
+<td>in成员运算符，没有实现，就调用<strong>iter</strong>方法遍历，所以，可以不实现</td>
+</tr>
+<tr>
+<td><strong>getitem</strong></td>
+<td>实现self[key] 访问，序列对象，key接受整数位索引，或者切片，对于set 和dict，key为hashbale，key不存在引发 KeyError异常</td>
+</tr>
+<tr>
+<td><strong>setitem</strong></td>
+<td>和<strong>getitem</strong>的访问类似，是设置的方法</td>
+</tr>
+<tr>
+<td><strong>missing</strong></td>
+<td>字典或其子类使用<strong>getitem</strong>（）调用时，key不存在执行该方法</td>
+</tr>
+</tbody></table>
+<p>　　测试：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs plain">class A(dict):<br>    def __missing__(self, key):<br>        print(&#39;missing key&#39;, key)<br>        return 0<br><br>a &#x3D; A()<br>print(a[&#39;k&#39;]) # 如果没有missing方法，报KeyError<br>print(a.get(&#39;k&#39;))<br></code></pre></td></tr></table></figure>
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs plain">missing key k<br>0<br>None<br></code></pre></td></tr></table></figure>
+
+<p>空list，set，dict，str等效False：<br>　　　　　　因为为空，不实现bool（），往往实现len()返回为0 等效False</p>
+<p>　　举例：购物车作为容器：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br></pre></td><td class="code"><pre><code class="hljs plain">class Cart:<br>    def __init__(self):<br>        self.item &#x3D; []<br><br>    def additem(self, item):<br>        self.item.append(item)<br><br>    def getallitem(self):<br>        return self.item<br><br>    def __getitem__(self, index):<br>        return self.item[index]<br><br>    def __iter__(self):<br>        yield from self.item<br>        #return iter(self.item)<br><br>    def __setitem__(self, key, value):<br>        self.item[key] &#x3D; value<br><br>    def __str__(self):<br>        return &#39;&#123;&#125;&#39;.format(self.item)<br><br>    def __len__(self):<br>        return len(self.item)<br><br>    def __bool__(self):<br>        return True<br><br>    def __add__(self, other): # car + 5<br>        self.item.append(other)<br>        return self<br><br><br><br>c &#x3D; Cart()<br>c.additem(1)<br>c.additem(2)<br>c.additem(3)<br>c.additem(4)<br><br><br>print(&#39;----&#39;,len(c))<br>print(&#39;++++&#39;,bool(Cart))<br>print(bool(c))<br><br>for x in c:<br>    print(x)<br><br>print(3 in c) #  __iter__  不需要contaions<br><br><br>print(c[1]) # getitem<br><br>c[2] &#x3D; &#39;sdasda&#39; # setitem<br>print(c)<br><br># 链式加法<br>print(c + 6)<br>print(c + 7 + 8 + 9)<br>print(c.__add__(20).__add__(22))<br></code></pre></td></tr></table></figure>
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><code class="hljs plain">++++ True<br>True<br>1<br>2<br>3<br>4<br>True<br>2<br>[1, 2, &#39;sdasda&#39;, 4]<br>[1, 2, &#39;sdasda&#39;, 4, 6]<br>[1, 2, &#39;sdasda&#39;, 4, 6, 7, 8, 9]<br>[1, 2, &#39;sdasda&#39;, 4, 6, 7, 8, 9, 20, 22]<br></code></pre></td></tr></table></figure>
+
+<p><strong>⑦ 、可调用对象：</strong></p>
+<p>　　　　Python中一切皆对象，函数也不例外。　　</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs plain">def foo():<br>    print(foo.__module__, foo.__name__)<br><br>foo()<br><br>#等价于<br><br>foo.__call__()<br></code></pre></td></tr></table></figure>
+
+<p>函数即对象，对象foo加上（），就是调用此函数对象的<strong>call</strong>（）方法<br>　　　　可调用对象：
+　　　　　　</p>
+<table>
+<thead>
+<tr>
+<th>方法</th>
+<th>意义</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>call</strong></td>
+<td>类中定义一个该方法，实例就可以向函数一样调用</td>
+</tr>
+</tbody></table>
+<p>　　可调用对象：定义一个类，并实例化得到其实例，将实例像函数一样调用。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs plain">举例：<br></code></pre></td></tr></table></figure>
+
+<p><img src="https://gitee.com/ashjian/picBed/raw/master/20210628214026.png" alt="img"></p>
+<p>　　举例：定义一个斐波那契数列，方便调用，计算第n项，并实现了长度，迭代，支持索引</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><code class="hljs plain">class Fib:<br>    def __init__(self):<br>        self.items &#x3D; [0, 1, 1] # 而且使用了缓存<br><br>    def __call__(self, index):<br>        if index &gt;&#x3D; len(self.items):#但是注意长度，否则f(10)之后再f(4) 还会执行append<br>            for i in range(3, index + 1):<br>                self.items.append(self.items[i-1] + self.items[i-2])<br>        return self.items[index]<br><br>    def __iter__(self):<br>        yield  from self.items<br><br>    def __len__(self):<br>        return len(self.items)<br><br>    def __getitem__(self, item):<br>        return self.items[item]<br><br>    def __str__(self):<br>        return str(self.items)<br><br><br><br>f &#x3D; Fib()<br>print(f(10))<br>print(f.items)<br>print(f(4))注意这两项，一个是可调用， 一个是支持索引<br>print(f[4])<br>print(f.items)<br>print(len(f))<br></code></pre></td></tr></table></figure>
+
+<p>⑧、上下文管理：<br>    　　class A:<br>        　　pass<br>    　　with A() as f:<br>        　　print(f)</p>
+<p>​    　　　　　　　　3.6 提示少 <strong>enter</strong>， 之前的提示 <strong>exit</strong>，正常情况下，两个一起用<br>　　<br>　　<br>​    pt = Point()<br>​    with pt as f:<br>​        print(pt == f)<br>​    如果使用as， 则f 其值为enter的返回值</p>
+<p>　</p>
+<p><img src="https://gitee.com/ashjian/picBed/raw/master/20210628214027.png" alt="img"></p>
+<p>​    参数问题：<br>​        enter方法不可添加参数，因为传不进去，传进去给谁啊？？？，所以。。。。</p>
+<p>​        exit的参数：excption<br>​               exc_type<br>​               exc_val<br>​               exc_tb<br>​               做一些清理工作</p>
+<p>​               retrun一个等效True，就可以压制异常，<br>看图：</p>
+<p><img src="https://gitee.com/ashjian/picBed/raw/master/20210628214028.png" alt="img"></p>
+<p>​        有没有as，都会调 enter  exit，但是里边没法引用，只有with知道，所以给了一个as<br>​        但是这个as，要看enter的返回值怎么写，如果是self，就是实力本身。</p>
+<p>​        enter做资源申请，exit 做一些清理工作   （区别<strong>del</strong>做资源清零工作）</p>
+<p>​        实例化，和 实力消亡是一次性的，分别创建和消亡是调用，而with语法可以对一个实例操作很多次。</p>
+<p>​        使用exit ，保证资源的释放，下次很久之后，再次使用这个对象，在这段长时间中，也不会占用这个资源，比如，文件<br>　　　　　　但是del，直接消亡了，必须重新实例化。</p>
+<p>　　　　上下文管理对象：<br>　　　　　　当一个对象同时实现了 <strong>enter</strong>  和 <strong>exit</strong> 方法，它就属于上下文管理的对象<br>　　　　　　<br>　　　　　　　enter 和 exit 都是在执行with语句的时候才会执行。<br>　　　　　　　　<br>　　　　　　　with可以开启一个上下文运行环境，在执行前做一些准备工作，执行后做一些首尾工作、<br>　　　　　　<br>　　　　　　　　注：with 并不开启一个新的作用域。
+　　　　</p>
+<p><img src="https://gitee.com/ashjian/picBed/raw/master/20210628214029.png" alt="img"></p>
+<p>　　　　　　即便调用 sys.exit(100)   0-256,它会退出当前解释器，直接敲，窗口会关闭，但是<br>　　　　　　遇到with，依然还是会执行 exit语句</p>
+<p>　　举例： 类做装饰器，类装饰器和函数装饰器同时使用顺序问题！！！！</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br></pre></td><td class="code"><pre><code class="hljs plain">####################################################################<br><br>import  time<br>import datetime<br>from  functools import wraps, update_wrapper<br><br>def timeit(fn):<br>    @wraps(fn)#  update_wrapper(wapper)(fn)<br>    def wrapper(*args, **kwargs):<br>        start &#x3D; datetime.datetime.now()<br>        ret &#x3D; fn(*args, **kwargs)<br>        delta &#x3D; (datetime.datetime.now() - start).total_seconds()<br>        print(delta)<br>        return ret<br>    return wrapper<br><br>@timeit<br>def add(x, y):<br>    time.sleep(1)<br>    return x + y<br><br>#####################################################################<br>class TimeIt:<br>    def __init__(self):<br>        pass<br><br>    def __enter__(self):<br>        self.start &#x3D; datetime.datetime.now()<br>        return  self<br><br>    def __exit__(self, exc_type, exc_val, exc_tb):<br>        delta &#x3D; (datetime.datetime.now() - self.start).total_seconds()<br>        print(delta)<br><br>with TimeIt() as f:<br>    print(&#39;*&#39;, add(4, 5))<br>    # 此 add 非彼 add，这里只看print(&#39;*&#39;, add(4, 5))执行了多少秒，<br>    # 也就是with开始后，进入enter到退出exit执行了多少秒<br>######################################实现对象的可调用################################<br>class TimeIt:<br>    def __init__(self, fn):<br>        self.fn &#x3D; fn<br><br>    def __enter__(self):<br>        self.start &#x3D; datetime.datetime.now()<br>        return  self<br><br>    def __exit__(self, exc_type, exc_val, exc_tb):<br>        delta &#x3D; (datetime.datetime.now() - self.start).total_seconds()<br>        print(delta)<br><br>    def __call__(self, *args, **kwargs):<br>        return self.fn(*args, **kwargs)<br><br>f &#x3D; TimeIt(add)<br>print(&#39;*&#39;, f(4, 5))<br><br>######################################类作为装饰器################################<br><br>class TimeIt:<br>    def __init__(self, fn):<br>        self.fn &#x3D; fn<br><br>    def __enter__(self):<br>        self.start &#x3D; datetime.datetime.now()<br>        return  self<br><br>    def __exit__(self, exc_type, exc_val, exc_tb):<br>        delta &#x3D; (datetime.datetime.now() - self.start).total_seconds()<br>        print(delta)<br><br>    def __call__(self, *args, **kwargs):<br>        start &#x3D; datetime.datetime.now()<br>        ret &#x3D; self.fn(*args, **kwargs)<br>        delta &#x3D; (datetime.datetime.now() - start).total_seconds()<br>        print(delta)<br>        return ret<br><br>@TimeIt # add&#x3D;TimeIt(add) 一看发现 是 实例化<br>def add(x, y):<br>    time.sleep(1)<br>    return x + y<br><br>add(4, 5) # 相当于实例 调用，如果作为一个计时器的还，进调用开始计时，退出调用，结束计时<br><br>##################  处理字符串文档  ################################<br>class TimeIt:<br>    &#39;&#39;&#39; this is class&#39;&#39;&#39;<br>    def __init__(self, fn):<br>        # 方法 1<br>        # self.__doc__ &#x3D; fn.__doc__<br>        # self.__name__ &#x3D; fn.__doc__<br>        # 方法 2<br>        # update_wrapper(self, fn)<br>        # 方法 3 这里并不是装饰器，使用的是等价方式。<br>        wraps(fn)(self)<br>        self.fn &#x3D; fn<br><br>    def __enter__(self):<br>        self.start &#x3D; datetime.datetime.now()<br>        return  self<br><br>    def __exit__(self, exc_type, exc_val, exc_tb):<br>        delta &#x3D; (datetime.datetime.now() - self.start).total_seconds()<br>        print(delta)<br><br>    def __call__(self, *args, **kwargs):<br>        start &#x3D; datetime.datetime.now()<br>        ret &#x3D; self.fn(*args, **kwargs)<br>        delta &#x3D; (datetime.datetime.now() - start).total_seconds()<br>        print(delta)<br>        return ret<br><br>@TimeIt # add&#x3D;TimeIt(add) 一看发现 是 实例化<br>def add(x, y):<br>    &#39;&#39;&#39;this is add function&#39;&#39;&#39;<br>    time.sleep(1)<br>    return x + y<br><br>print(add.__doc__)<br><br><br># 此时，上面这个例子的类，可以做装饰器，又可以用在上下文管理。都实现了同样的功能<br><br><br><br><br>############# 两个装饰器同时使用 ############################<br>import  time<br>import datetime<br>from  functools import wraps, update_wrapper<br><br>def timeit(fn):<br>    @wraps(fn)#  update_wrapper(wapper)(fn)<br>    def wrapper(*args, **kwargs):<br>        start &#x3D; datetime.datetime.now()<br>        ret &#x3D; fn(*args, **kwargs)<br>        delta &#x3D; (datetime.datetime.now() - start).total_seconds()<br>        print(&#39;&#123;&#125;  tooks &#123;&#125;&#39;.format(fn.__name__, delta), &#39;&#x3D;&#x3D;+++++++&#x3D;&#39;)<br>        return ret<br>    return wrapper<br><br>class TimeIt:<br>    def __init__(self, fn):<br>        self.__fn &#x3D; fn<br><br>    def __call__(self, *args, **kwargs):<br>        start &#x3D; datetime.datetime.now()<br>        ret &#x3D; self.__fn(*args, **kwargs)<br>        delta &#x3D; (datetime.datetime.now() - start).total_seconds()<br>        print(&#39;&#123;&#125;  tooks &#123;&#125;&#39;.format(self.__fn.__name__, delta), &#39;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#39;)<br>        return ret<br><br>@timeit #  add&#x3D;timeit(add)&#x3D;wrapper<br>@TimeIt # add&#x3D;TimeIt(add)<br>def add(x, y):<br>    &#39;&#39;&#39;this is add function&#39;&#39;&#39;<br>    time.sleep(1)<br>    return x + y<br><br>add(4, 5)<br></code></pre></td></tr></table></figure>
+
+<p><img src="https://gitee.com/ashjian/picBed/raw/master/20210628214030.png" alt="img"></p>
+<p>如下是正确的：因为通过wraps装饰器，给self提供了一个<strong>name</strong>属性</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><code class="hljs plain">import  time<br>import datetime<br>from  functools import wraps, update_wrapper<br><br>def timeit(fn):<br>    @wraps(fn)#  update_wrapper(wapper)(fn)<br>    def wrapper(*args, **kwargs):<br>        start &#x3D; datetime.datetime.now()<br>        ret &#x3D; fn(*args, **kwargs)<br>        delta &#x3D; (datetime.datetime.now() - start).total_seconds()<br>        print(&#39;&#123;&#125;  tooks &#123;&#125;&#39;.format(fn.__name__, delta), &#39;&#x3D;&#x3D;+++++++&#x3D;&#39;)<br>        return ret<br>    return wrapper<br><br>class TimeIt:<br>    def __init__(self, fn):<br>        wraps(fn)(self) # self.__name__ &#x3D; fn.__name__   这是 给了实例一个__name__属性<br>        self.__fn &#x3D; fn<br><br>    def __call__(self, *args, **kwargs):<br>        start &#x3D; datetime.datetime.now()<br>        ret &#x3D; self.__fn(*args, **kwargs)<br>        delta &#x3D; (datetime.datetime.now() - start).total_seconds()<br>        print(&#39;&#123;&#125;  tooks &#123;&#125;&#39;.format(self.__fn.__name__, delta), &#39;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#39;)<br>        return ret<br><br>@timeit #  add&#x3D;timeit(add) # 此时， add是一个实例<br>@TimeIt # add&#x3D;TimeIt(add) 一看发现 是 实例化<br>def add(x, y):<br>    &#39;&#39;&#39;this is add function&#39;&#39;&#39;<br>    time.sleep(1)<br>    return x + y<br><br>add(4, 5)<br></code></pre></td></tr></table></figure>
+
+<p>　上下文应用场景：</p>
+<ol>
+<li>增强功能：在代码执行的前后增加代码，以增强其功能，类似装饰器的功能</li>
+<li>资源管理：打开了资源管理需要关闭，例如文件对象，网络连接，数据库连接</li>
+<li>权限验证：在执行代码之前，做权限的验证，在<strong>enter</strong>中处理　</li>
+</ol>
+<p>　　　　　** contextlib.contextmanager　　　<br>　　　　　　　　它是一个装饰器实现上下文管理，装饰一个函数，而不用像类一样实现<strong>enter</strong>和<strong>exit</strong>方法<br>　　　　　　　　对下面的函数要求，必须有yield，也就是这个函数必须返回一个生成器，且只有yield一个值<br>　　　　　　　　也就是这个装饰器接受一个生成器对象作为参数。</p>
+<p>　　　　　　举例：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><code class="hljs plain">import contextlib<br><br>@contextlib.contextmanager<br>def foo():<br>    print(&#39;enter&#39;)<br>    yield<br>    print(&#39;exit&#39;)<br><br>with foo() as f:<br>    print(f)<br>print(&#39;-----------------------------&#39;)<br>@contextlib.contextmanager<br>def foo():<br>    print(&#39;enter&#39;)<br>    yield 5<br>    print(&#39;exit&#39;)<br><br>with foo() as f:<br>    print(f)<br></code></pre></td></tr></table></figure>
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs plain">enter<br>None<br>exit<br>-----------------------------<br>enter<br>5<br>exit<br></code></pre></td></tr></table></figure>
+
+
+
+<p><img src="https://gitee.com/ashjian/picBed/raw/master/20210628214031.png" alt="img"></p>
+<p><img src="https://gitee.com/ashjian/picBed/raw/master/20210628214032.png" alt="img"></p>
+<p>​        只要后面能加括号就能调用！！！！！！</p>
+<p>​        inspect他看一下类的签名，可调用对象才有签名<br>　　⑨、反射：<br>　　　　概念：<br>　　　　　　运行时区别于编译时，指的是程序被加载到内存中执行的时候。<br>　　　　　　反射，reflection，指的是运行时获取类型定义信息。<br>　　　　　　一个对象能够在运行时，能够像照镜子一样，反射出其类型信息。<br>　　　　　　简单说在Python中，能够通过一个对象，找出其type，class，attribute，或method的能力<br>　　　　　　称为反射或者自省<br>　　　　　　具有反射能力的函数有，type(), isinstance(),callable(),dir(),getattr()<br>　　    编译时：</p>
+<p>   　　 运行时：<br>        解释器直接运行，或者 转换为.exe 文件直接运行。</p>
+<p>　　　　反射相关的函数和方法：<br>　　　　　　需求：有一个Point类，查看他的属性，并修改它，动态为实例增加属性<br>　　　　　　测试：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><code class="hljs plain">########################################### 简单的使用内建函数 ####################################<br>class Point:<br>    def __init__(self, x, y):<br>        self.x &#x3D; x<br>        self.y &#x3D; y<br><br>    def __str__(self):<br>        return &#39;Point &#123;&#125;, &#123;&#125;&#39;.format(self.x, self.y)<br><br>p &#x3D; Point(4, 5)<br>print(p)<br>print(p.__dict__)<br>p.__dict__[&#39;y&#39;] &#x3D; 16<br>print(p.__dict__)<br>print(dir(p)) #  拿到的都是字符串<br>print(p.__dir__())<br><br>print(&#39;-&#39; * 40)<br>for n in dir(p):<br>    print(getattr(p, n)) # p.n的意思，但是n是字符串，只不过通过点调用不用加引号<br>    print()<br><br>print(&#39;-&#39; * 40)<br>if hasattr(p, &#39;x&#39;):<br>    print(getattr(p, &#39;y&#39;))<br><br>print(getattr(p, &#39;o&#39;, 100000))# 如果没有可以提供一个默认值<br><br>setattr(p, &#39;b&#39;, 1000)<br>print(p.__dict__)<br></code></pre></td></tr></table></figure>
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br></pre></td><td class="code"><pre><code class="hljs plain">Point 4, 5<br>&#123;&#39;x&#39;: 4, &#39;y&#39;: 5&#125;<br>&#123;&#39;x&#39;: 4, &#39;y&#39;: 16&#125;<br>[&#39;__class__&#39;, &#39;__delattr__&#39;, &#39;__dict__&#39;, &#39;__dir__&#39;, &#39;__doc__&#39;, &#39;__eq__&#39;, &#39;__format__&#39;, &#39;__ge__&#39;, &#39;__getattribute__&#39;, &#39;__gt__&#39;, &#39;__hash__&#39;, &#39;__init__&#39;, &#39;__init_subclass__&#39;, &#39;__le__&#39;, &#39;__lt__&#39;, &#39;__module__&#39;, &#39;__ne__&#39;, &#39;__new__&#39;, &#39;__reduce__&#39;, &#39;__reduce_ex__&#39;, &#39;__repr__&#39;, &#39;__setattr__&#39;, &#39;__sizeof__&#39;, &#39;__str__&#39;, &#39;__subclasshook__&#39;, &#39;__weakref__&#39;, &#39;x&#39;, &#39;y&#39;]<br>[&#39;x&#39;, &#39;y&#39;, &#39;__module__&#39;, &#39;__init__&#39;, &#39;__str__&#39;, &#39;__dict__&#39;, &#39;__weakref__&#39;, &#39;__doc__&#39;, &#39;__repr__&#39;, &#39;__hash__&#39;, &#39;__getattribute__&#39;, &#39;__setattr__&#39;, &#39;__delattr__&#39;, &#39;__lt__&#39;, &#39;__le__&#39;, &#39;__eq__&#39;, &#39;__ne__&#39;, &#39;__gt__&#39;, &#39;__ge__&#39;, &#39;__new__&#39;, &#39;__reduce_ex__&#39;, &#39;__reduce__&#39;, &#39;__subclasshook__&#39;, &#39;__init_subclass__&#39;, &#39;__format__&#39;, &#39;__sizeof__&#39;, &#39;__dir__&#39;, &#39;__class__&#39;]<br>----------------------------------------<br>&lt;class &#39;__main__.Point&#39;&gt;<br><br>&lt;method-wrapper &#39;__delattr__&#39; of Point object at 0x000000EFFA1DD850&gt;<br><br>&#123;&#39;x&#39;: 4, &#39;y&#39;: 16&#125;<br><br>&lt;built-in method __dir__ of Point object at 0x000000EFFA1DD850&gt;<br><br>None<br><br>&lt;method-wrapper &#39;__eq__&#39; of Point object at 0x000000EFFA1DD850&gt;<br><br>&lt;built-in method __format__ of Point object at 0x000000EFFA1DD850&gt;<br><br>&lt;method-wrapper &#39;__ge__&#39; of Point object at 0x000000EFFA1DD850&gt;<br><br>&lt;method-wrapper &#39;__getattribute__&#39; of Point object at 0x000000EFFA1DD850&gt;<br><br>&lt;method-wrapper &#39;__gt__&#39; of Point object at 0x000000EFFA1DD850&gt;<br><br>&lt;method-wrapper &#39;__hash__&#39; of Point object at 0x000000EFFA1DD850&gt;<br><br>&lt;bound method Point.__init__ of &lt;__main__.Point object at 0x000000EFFA1DD850&gt;&gt;<br><br>&lt;built-in method __init_subclass__ of type object at 0x000000EFF9D19940&gt;<br><br>&lt;method-wrapper &#39;__le__&#39; of Point object at 0x000000EFFA1DD850&gt;<br><br>&lt;method-wrapper &#39;__lt__&#39; of Point object at 0x000000EFFA1DD850&gt;<br><br>__main__<br><br>&lt;method-wrapper &#39;__ne__&#39; of Point object at 0x000000EFFA1DD850&gt;<br><br>&lt;built-in method __new__ of type object at 0x00007FFE51CC3E00&gt;<br><br>&lt;built-in method __reduce__ of Point object at 0x000000EFFA1DD850&gt;<br><br>&lt;built-in method __reduce_ex__ of Point object at 0x000000EFFA1DD850&gt;<br><br>&lt;method-wrapper &#39;__repr__&#39; of Point object at 0x000000EFFA1DD850&gt;<br><br>&lt;method-wrapper &#39;__setattr__&#39; of Point object at 0x000000EFFA1DD850&gt;<br><br>&lt;built-in method __sizeof__ of Point object at 0x000000EFFA1DD850&gt;<br><br>&lt;bound method Point.__str__ of &lt;__main__.Point object at 0x000000EFFA1DD850&gt;&gt;<br><br>&lt;built-in method __subclasshook__ of type object at 0x000000EFF9D19940&gt;<br><br>None<br><br>4<br><br>16<br><br>----------------------------------------<br>16<br>100000<br>&#123;&#39;x&#39;: 4, &#39;y&#39;: 16, &#39;b&#39;: 1000&#125;<br></code></pre></td></tr></table></figure>
+
+<p>测试2：给实例，类分别动态添加属性</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><code class="hljs plain">class Point:<br>    def __init__(self, x, y):<br>        self.x &#x3D; x<br>        self.y &#x3D; y<br><br>setattr(Point, &#39;show&#39;, lambda self:print(self.x, self.y)) # 定义一个类属性<br><br>p &#x3D; Point(4, 5)<br><br>p.show() # 或者<br>getattr(p, &#39;show&#39;)()<br><br>setattr(p, &#39;show&#39;, lambda self:print(self, &#39;---------&#39;))# 在实例上定义了一个方法<br>getattr(p, &#39;show&#39;)(p) # p.show(p) # 可以看出，定义在实例上，没有绑定实例需要手动传入<br></code></pre></td></tr></table></figure>
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs plain">4 5<br>4 5<br>&lt;__main__.Point object at 0x0000004407CD6220&gt; ---------<br></code></pre></td></tr></table></figure>
+
+<p><strong>这种动态增加属性的方式 和装饰器修饰一个类，Mixin方式的差异</strong></p>
+<p>　　　　　装饰器和Mixin 定义时决定，而且不能修改实例属性而反射，可以运行时定义，修改类 或 实例的属性。</p>
+<p>　　　　　装饰器在定义时，加载到内存中的时候，就已经将原函数修饰了</p>
+<p>　　　　　Mixin类，是一种继承类，需要之前就定义好。对一些方法增强或者覆盖掉了。</p>
+<p>　　　　　这种动态增删属性的方式，是运行时改变类或者实例的方式。<br>　　<br>　　　　　　因此，反射能力具有更大的灵活性。<br>　　<br>　　　　　　在 if <strong>name</strong> == ‘<strong>main</strong>‘: 下面可以对类进行属性的增删，但是添加装饰器？？Mixin类？？肯定不行啊！！！！</p>
+<p>　　　　举例：使用类封装实现一个命令分发器：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br></pre></td><td class="code"><pre><code class="hljs plain">########################### 命令分发器#################################<br># 简单实现 函数注册，并且传入参数<br>class Dispatcher:<br>    def __init__(self):<br>        pass<br><br>    def reg(self, cmd, fn):<br>        setattr(self, cmd, fn)<br><br>    def run(self, *args, **kwargs):<br>        while True:<br>            cmd &#x3D; input(&#39;&gt;&gt;&gt;&#39;).strip()<br>            if cmd &#x3D;&#x3D; &#39;&#39;:<br>                break<br>            else:<br>                getattr(self, cmd, lambda :print(&#39;unkonw&#39;))(*args, **kwargs)<br><br>def add(x, y):<br>    print(x + y)<br><br>def sub(x, y):<br>    print(x - y)<br><br>dis &#x3D; Dispatcher()<br>dis.reg(&#39;add&#39;, add)<br>dis.reg(&#39;sub&#39;, sub)<br>dis.run(4, y &#x3D; 5)<br><br># # 实现函数注册，并且传入参数<br>class Dispatcher:<br>    def __init__(self):<br>        # self.commands &#x3D; &#123;&#125;<br>        pass<br><br>    def reg(self, cmd):# 风险，万一人家实例本身有相同的属性名，这样就会冲突，覆盖，最好的方式是使用一个字典存<br>        def wrapper(fn):<br>            setattr(self, cmd, fn)<br>            return fn<br>        return wrapper<br><br>    def run(self, *args, **kwargs):<br>        while True:<br>            cmd &#x3D; input(&#39;&gt;&gt;&gt;&#39;).strip()<br>            if cmd &#x3D;&#x3D; &#39;&#39;:<br>                break<br>            else:<br>                getattr(self, cmd, lambda :print(&#39;unkonw&#39;))(*args, **kwargs)<br><br>dis &#x3D; Dispatcher()<br><br># 这样的话，加载的时候，函数已经被注册进去了，运行的时候，根据cmd直接调用<br>@dis.reg(&#39;add&#39;) # add &#x3D; dis.reg(&#39;add&#39;)(add)<br>def add(x, y):<br>    print(x + y)<br><br>@dis.reg(&#39;sub&#39;) # add &#x3D; dis.reg(&#39;add&#39;)(add)<br>def sub(x, y):<br>    print(x - y)<br><br>dis.run(4, y &#x3D; 5)<br></code></pre></td></tr></table></figure>
+
+<p>反射相关的魔术方：都是实例相关的与类没有关系 self<br>　　　　　　　<strong>getattr</strong>, <strong>setattr</strong>, <strong>delattr</strong></p>
+<p>　　　　　　单独使用<strong>getattr</strong>:</p>
+<p><img src="https://gitee.com/ashjian/picBed/raw/master/20210628214033.png" alt="img"></p>
+<p>测试 ：<strong>setattr</strong></p>
+<p><img src="https://gitee.com/ashjian/picBed/raw/master/20210628214034.png" alt="img"></p>
+<p>正常使用：只要是 点 属性的方式，都会到<strong>setattr</strong>设置，包括等价方式setattr(self, ‘y’, y) #self.y = y</p>
+<p><img src="https://gitee.com/ashjian/picBed/raw/master/20210628214035.png" alt="img"></p>
+<p><img src="https://gitee.com/ashjian/picBed/raw/master/20210628214036.png" alt="img"></p>
+<p><img src="https://gitee.com/ashjian/picBed/raw/master/20210628214037.png" alt="img"></p>
+<p>测试：<strong>getattribute</strong></p>
+<p><img src="https://gitee.com/ashjian/picBed/raw/master/20210628214038.png" alt="img"></p>
+<p>总结：</p>
+<p><img src="https://gitee.com/ashjian/picBed/raw/master/20210628214039.png" alt="img"></p>
+<p>​            属性查找顺序：（没有描述器）<br>　　　　　　　　　实例调用<strong>getattribute</strong>() —&gt; instance.<strong>dict</strong> —&gt; instance.<strong>class</strong>.<strong>dict</strong><br>　　　　　　　　　—&gt; 继承的祖先类(直到object)的<strong>dict</strong> ——&gt; 最后调用<strong>getattr</strong>()</p>
+<p>　　　　　　　　　　当找不到属性后，没有<strong>getattr</strong>就抛异常，有，就先不抛，进入，处理之后，如果不需要抛，那就不会再抛异常，如果没处理了，异常抛出去，结束属性查找</p>
+<p>　　　　***   前后都有下划线，解释器管的</p>
+<p>   ⑩、描述器：Descriptors<br>　　　　　　描述器的表现：<br>　　　　用到三个方法：<strong>get</strong>()  <strong>set</strong>(), <strong>delete</strong>()<br>　　　　　　 测试： 只测get，而且x都是作为类属性来测试</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><code class="hljs plain">class A:<br>    def __init__(self):<br>        print(&#39;A() init&#39;)<br>        self.a1 &#x3D; 100<br><br>    def __get__(self, instance, owner):<br>        print(&#39;****************************&#39;)<br>        print(1, self)<br>        print(1, instance)<br>        print(1, owner)<br>        print(&#39;****************************&#39;)<br><br>        return self<br><br>    def __set__(self, instance, value):<br>        print(&#39;****************************&#39;)<br>        print(2, self)<br>        print(2, instance)<br>        print(2, value)<br>        print(&#39;****************************&#39;)<br><br>    def __delete__(self, instance):<br>        print(3, self)<br>        print(3, instance)<br><br>    def __repr__(self):<br>        return &#39;&lt;A 实例 &#123;&#125;&gt;&#39;.format(self.a1)<br><br>class B:<br>    x &#x3D; A()<br>    def __int__(self):<br>        print(&#39;B() init&#39;)<br><br>print(B.x) # 就会触发__get__<br>print(B.x.a1)<br><br>print(&#39;---&#39; * 50)<br>b &#x3D; B()<br>print(b.x)<br>print(b.x.a1)<br></code></pre></td></tr></table></figure>
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><code class="hljs plain">A() init<br>****************************<br>1 &lt;A 实例 100&gt;<br>1 None<br>1 &lt;class &#39;__main__.B&#39;&gt;<br>****************************<br>&lt;A 实例 100&gt;<br>****************************<br>1 &lt;A 实例 100&gt;<br>1 None<br>1 &lt;class &#39;__main__.B&#39;&gt;<br>****************************<br>100<br>------------------------------------------------------------------------------------------------------------------------------------------------------<br>****************************<br>1 &lt;A 实例 100&gt;<br>1 &lt;__main__.B object at 0x000000138FCBDBB0&gt;<br>1 &lt;class &#39;__main__.B&#39;&gt;<br>****************************<br>&lt;A 实例 100&gt;<br>****************************<br>1 &lt;A 实例 100&gt;<br>1 &lt;__main__.B object at 0x000000138FCBDBB0&gt;<br>1 &lt;class &#39;__main__.B&#39;&gt;<br>****************************<br>100<br></code></pre></td></tr></table></figure>
+
+<p><img src="https://gitee.com/ashjian/picBed/raw/master/20210628214040.png" alt="img"></p>
+<p>测试：　非数据描述器</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><code class="hljs plain">###非数据描述器<br>class A:<br>    x &#x3D; 1000000000<br>    def __init__(self):<br>        print(&#39;A() init&#39;)<br>        self.a1 &#x3D; 100<br><br>    def __get__(self, instance, owner):<br>        print(&#39;****************************&#39;)<br>        print(1, self)<br>        print(1, instance)<br>        print(1, owner)<br>        print(&#39;****************************&#39;)<br>        # return self<br><br>    # def __set__(self, instance, value):<br>    #     print(&#39;\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\&#39;)<br>    #     print(2, self)<br>    #     print(2, instance) # B的实例<br>    #     print(2, value)<br>    #     print(&#39;\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\&#39;)<br><br>    def __repr__(self):<br>        return &#39;&lt;A 实例 &#123;&#125;&gt;&#39;.format(self.a1)<br><br>class B:<br>    x &#x3D; A()<br>    def __init__(self):<br>        print(&#39;B() init&#39;)<br>        self.x &#x3D; 1000<br><br>b &#x3D; B()<br>print(b.__dict__)<br>print(B.__dict__)<br><br>print(b.x) # 实例的x<br><br>print(B.x) # 类的x<br><br># 非数据描述器，如果类访问 类属性，直接跳到 描述器的get<br># 如果实例调用 ，先找自己有没有，没有在找 类的， 再跳到描述器的get<br></code></pre></td></tr></table></figure>
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs plain">A() init<br>B() init<br>&#123;&#39;x&#39;: 1000&#125;<br>&#123;&#39;__module__&#39;: &#39;__main__&#39;, &#39;x&#39;: &lt;A 实例 100&gt;, &#39;__init__&#39;: &lt;function B.__init__ at 0x000000D98C249A60&gt;, &#39;__dict__&#39;: &lt;attribute &#39;__dict__&#39; of &#39;B&#39; objects&gt;, &#39;__weakref__&#39;: &lt;attribute &#39;__weakref__&#39; of &#39;B&#39; objects&gt;, &#39;__doc__&#39;: None&#125;<br>1000<br>****************************<br>1 &lt;A 实例 100&gt;<br>1 None<br>1 &lt;class &#39;__main__.B&#39;&gt;<br>****************************<br>None<br></code></pre></td></tr></table></figure>
+
+<p>测试：数据描述器</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><code class="hljs plain">###################数据描述器<br><br>class A:<br>    x &#x3D; 1000000000<br>    def __init__(self):<br>        print(&#39;A() init&#39;)<br>        self.a1 &#x3D; 100<br><br>    def __get__(self, instance, owner):<br>        print(&#39;****************************&#39;)<br>        print(1, self)<br>        print(1, instance)<br>        print(1, owner)<br>        print(&#39;****************************&#39;)<br>        return self<br><br>    def __set__(self, instance, value):<br>        print(&#39;\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\&#39;)<br>        print(2, self)<br>        print(2, instance) # B的实例<br>        print(2, value)<br>        print(&#39;\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\&#39;)<br><br>    def __repr__(self):<br>        return &#39;&lt;A 实例 &#123;&#125;&gt;&#39;.format(self.a1)<br><br>class B:<br>    x &#x3D; A()<br>    def __init__(self):<br>        print(&#39;B() init&#39;)<br>        self.x &#x3D; 1000<br>        self.__dict__[&#39;y&#39;] &#x3D; 20000<br><br>b &#x3D; B()<br>print(b.__dict__)<br>print(B.__dict__)<br><br><br># 实例：<br>print(b.x ) # 数据描述器，优先使用描述器的 数据<br>print(b.y) #不同命，正常访问<br></code></pre></td></tr></table></figure>
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><code class="hljs plain">A() init<br>B() init<br>\\\\\\\\\\\\\\\<br>2 &lt;A 实例 100&gt;<br>2 &lt;__main__.B object at 0x0000001CEF0DDB20&gt;<br>2 1000<br>\\\\\\\\\\\\\\\<br>&#123;&#39;y&#39;: 20000&#125;<br>&#123;&#39;__module__&#39;: &#39;__main__&#39;, &#39;x&#39;: &lt;A 实例 100&gt;, &#39;__init__&#39;: &lt;function B.__init__ at 0x0000001CEF0C9AF0&gt;, &#39;__dict__&#39;: &lt;attribute &#39;__dict__&#39; of &#39;B&#39; objects&gt;, &#39;__weakref__&#39;: &lt;attribute &#39;__weakref__&#39; of &#39;B&#39; objects&gt;, &#39;__doc__&#39;: None&#125;<br>****************************<br>1 &lt;A 实例 100&gt;<br>1 &lt;__main__.B object at 0x0000001CEF0DDB20&gt;<br>1 &lt;class &#39;__main__.B&#39;&gt;<br>****************************<br>&lt;A 实例 100&gt;<br>20000<br></code></pre></td></tr></table></figure>
+
+<p>　总结：</p>
+<p>描述器的定义： 只实现了get，就是非数据描述器，实现了，get 和 set 或 delete 就是数据描述器</p>
+<p><img src="https://gitee.com/ashjian/picBed/raw/master/20210628214041.png" alt="img"></p>
+<p><img src="https://gitee.com/ashjian/picBed/raw/master/20210628214042.png" alt="img"></p>
+<p>　　　　　　Python中的描述器：<br>　　　　　　<br>　　　　　　　　描述器在 Python中应用非常广泛，Python的方法（包括staticmethod() 和classmethod都实现为非数据描述器，<br>　　　　　　　　因此，实例可以重新定义和覆盖方法。这允许单个实例获取与同一类的其他实例不同的行为<br>　　　　　　　　<br>　　　　　　　　property() 函数实现为一个数据描述器，因此，实例不能覆盖属性的行为，</p>
+<p>　　　　实现了：classmethod()， staticmethod()</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br></pre></td><td class="code"><pre><code class="hljs plain">class Point:<br>    def __init__(self, x, y):<br>        self.x &#x3D; x<br>        self.y &#x3D; y<br><br>    def __str__(self):<br>        return &quot;Point(&#123;&#125;, &#123;&#125;)&quot;.format(self.x, self.y)<br><br>    def show(self):<br>        print(self.x, self.y)<br><br>p1 &#x3D; Point(4, 5)<br>p2 &#x3D; Point(10, 10)<br>print(repr(p1), repr(p2), sep&#x3D;&#39;\n&#39;)<br>print(p1.__dict__)<br>setattr(p1, &#39;y&#39;, 16)<br>setattr(p1, &#39;z&#39;, 10)<br>print(getattr(p1, &#39;__dict__&#39;))<br><br>#动态调用方法<br>if hasattr(p1, &#39;show&#39;):<br>    p1.show()<br><br>#动态增加方法<br>if not hasattr(p1, &#39;add&#39;):<br>    setattr(p1, &#39;add&#39;, lambda self, other:Point(self.x + other.x, self.y + other.y))<br><br>print(Point.add)<br>print(p1,add)<br>print(p1.add(p2))  #绑定<br><br>#为实例增加方法，未绑定<br>if not hasattr(p1, &#39;sub&#39;):<br>    setattr(p1, &#39;sub&#39;, lambda self, other:Point(self.x - other.x, self.y - other.y))<br><br>print(p1.sub(p1, p1))<br>print(p1.sub)<br><br>#add在谁里面，sub在谁里面<br>print(p1.__dict__)<br>print(Point.__dict__)<br>#输出<br>&lt;__main__.Point object at 0x00000031D3AE4DF0&gt;<br>&lt;__main__.Point object at 0x00000031D3AE4D90&gt;<br>&#123;&#39;x&#39;: 4, &#39;y&#39;: 5&#125;<br>&#123;&#39;x&#39;: 4, &#39;y&#39;: 16, &#39;z&#39;: 10&#125;<br>4 16<br>&lt;function &lt;lambda&gt; at 0x00000031D36B7F70&gt;<br>&lt;bound method &lt;lambda&gt; of &lt;__main__.Point object at 0x00000031D3AE4DF0&gt;&gt;<br>Point(14, 26)<br>Point(0, 0)<br>&lt;function &lt;lambda&gt; at 0x00000031D3AB9AF0&gt;<br>&#123;&#39;x&#39;: 4, &#39;y&#39;: 16, &#39;z&#39;: 10, &#39;sub&#39;: &lt;function &lt;lambda&gt; at 0x00000031D3AB9AF0&gt;&#125;<br>&#123;&#39;__module__&#39;: &#39;__main__&#39;, &#39;__init__&#39;: &lt;function Point.__init__ at 0x00000031D3AB98B0&gt;, &#39;__str__&#39;: &lt;function Point.__str__ at 0x00000031D3AB99D0&gt;, &#39;show&#39;: &lt;function Point.show at 0x00000031D3AB9A60&gt;, &#39;__dict__&#39;: &lt;attribute &#39;__dict__&#39; of &#39;Point&#39; objects&gt;, &#39;__weakref__&#39;: &lt;attribute &#39;__weakref__&#39; of &#39;Point&#39; objects&gt;, &#39;__doc__&#39;: None, &#39;add&#39;: &lt;function &lt;lambda&gt; at 0x00000031D36B7F70&gt;&#125;<br></code></pre></td></tr></table></figure>
+
+<p>如果是保护变量，或者 私有变量，直接加到属性列表中</p>
+
+      
+    </div>
+    
+    
+    
+
+     <!-- 文章末尾统一添加“本文结束”标记 -->
+    <div>
+      
+        <div>
+    
+        <div style="text-align:center;color: #555;font-size:24px;"><-------------The End-------------></div>
+    
+</div>
+
+      
+    </div>
+    
+
+    
+      <div>
+        <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+  <div>坚持原创分享，你的支持就是我最大的动力！</div>
+  <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+    <span>打赏</span>
+  </button>
+  <div id="QR" style="display: none;">
+
+    
+      <div id="wechat" style="display: inline-block">
+        <img id="wechat_qr" src="/uploads/weixin_cash_code.png" alt="StarDustLoong 微信支付"/>
+        <p>微信支付</p>
+      </div>
+    
+
+    
+      <div id="alipay" style="display: inline-block">
+        <img id="alipay_qr" src="/uploads/alipay_cash_code.png" alt="StarDustLoong 支付宝"/>
+        <p>支付宝</p>
+      </div>
+    
+
+    
+
+  </div>
+</div>
+
+      </div>
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/python%E9%AD%94%E6%9C%AF%E6%96%B9%E6%B3%95/" rel="tag"># python魔术方法</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/python%E4%B8%AD%E5%87%BD%E6%95%B0%E5%92%8C%E6%96%B9%E6%B3%95%E7%9A%84%E5%8C%BA%E5%88%AB/" rel="next" title="python中函数和方法的区别">
+                <i class="fa fa-chevron-left"></i> python中函数和方法的区别
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/Python%E6%8F%8F%E8%BF%B0%E5%99%A8%E7%BB%83%E4%B9%A0/" rel="prev" title="Python描述器练习">
+                Python描述器练习 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+    </div>
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/uploads/avatar.png"
+                alt="StarDustLoong" />
+            
+              <p class="site-author-name" itemprop="name">StarDustLoong</p>
+              <p class="site-description motion-element" itemprop="description">人类如风一般的自由</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">2409</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">12</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">146</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+	   
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/StarDustLoong" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:13671474528@163.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://www.zhihu.com/people/ashjian-ar15" target="_blank" title="知乎">
+                      
+                        <i class="fa fa-fw fa-globe"></i>知乎</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://me.csdn.net/ashjian" target="_blank" title="CSDN">
+                      
+                        <i class="fa fa-fw fa-codiepie"></i>CSDN</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+            <div class="links-of-blogroll motion-element links-of-blogroll-inline">
+              <div class="links-of-blogroll-title">
+                <i class="fa  fa-fw fa-link"></i>
+                Links
+              </div>
+              <ul class="links-of-blogroll-list">
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="http://mp.weixin.qq.com/user1" title="OpenInfo" target="_blank">OpenInfo</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="http://mp.weixin.qq.com/user2" title="stormzhang" target="_blank">stormzhang</a>
+                  </li>
+                
+              </ul>
+            </div>
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#特殊属性"><span class="nav-number">1.</span> <span class="nav-text">特殊属性</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#查看属性"><span class="nav-number">2.</span> <span class="nav-text">查看属性</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#魔术方法：-除了new是与cls有关，其他的都是属于实例的方法"><span class="nav-number">3.</span> <span class="nav-text">魔术方法： 除了new是与cls有关，其他的都是属于实例的方法</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">StarDustLoong</span>
+
+  
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-area-chart"></i>
+    </span>
+    
+      <span class="post-meta-item-text">本站总字数&#58;</span>
+    
+    <span title="本站总字数">635.5k</span>
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Pisces</a> v5.1.4</div>
+
+
+
+
+#<!-- 百度自动推送 -->
+#<script>
+#(function(){
+#    var bp = document.createElement('script');
+#    var curProtocol = window.location.protocol.split(':')[0];
+#    if (curProtocol === 'https') {
+#        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+#    }
+#    else {
+#        bp.src = 'http://push.ashjian.baidu.com/push.js';
+#    }
+#    var s = document.getElementsByTagName("script")[0];
+#    s.parentNode.insertBefore(bp, s);
+#})();
+#</script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aplayer/dist/APlayer.min.css">
+
+<script src="https://cdn.jsdelivr.net/npm/aplayer/dist/APlayer.min.js"></script>
+<!-- require MetingJS -->
+
+<script src="https://cdn.jsdelivr.net/npm/meting@2.0.1/dist/Meting.min.js"></script>
+<div> 
+<meting-js  
+    server="netease" 
+    type="playlist"  
+    id="5281251057" 
+    fixed="true"  
+    autoplay="false" 
+    loop="all" 
+    order="random"
+    preload="auto" 
+    list-folded="ture" 
+    list-max-height="500px" 
+    lrc-type="1">
+</meting-js>	 
+</div>
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv">
+      本站访客数
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+      人次
+    </span>
+  
+
+  
+    <span class="site-pv">
+      本站总访问量
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+      次
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+  <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+  <script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+  
+  <script type="text/javascript">
+    var GUEST = ['nick','mail','link'];
+    var guest = 'nick,mail,link';
+    guest = guest.split(',').filter(item=>{
+      return GUEST.indexOf(item)>-1;
+    });
+    new Valine({
+        el: '#comments' ,
+        verify: false,
+        notify: false,
+        appId: 'Gp5xxuBGmRxC9yeJHf5wlLpN-gzGzoHsz',
+        appKey: 'wo0eDJonJrnuUrCCCU7EnH1n',
+        placeholder: '欢迎评论',
+        avatar:'mm',
+        guest_info:guest,
+        pageSize:'20' || 10,
+    });
+  </script>
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"jsonPath":"/live2dw/assets/dsr50_lifu_normal.model.json"},"display":{"position":"right","width":700,"height":800,"hOffset":-250,"vOffset":-150},"mobile":{"show":true,"scale":0.7},"log":false});</script></body>
+</html>

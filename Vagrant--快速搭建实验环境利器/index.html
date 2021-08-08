@@ -1,0 +1,1580 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="vagrant," />
+
+
+
+
+  
+
+
+  <link rel="alternate" href="/atom.xml" title="" type="application/atom+xml" />
+
+
+
+
+
+
+<meta name="description" content="转载:https:&#x2F;&#x2F;www.jianshu.com&#x2F;p&#x2F;d56d42b8d97f  Vagrant是一个虚拟机管理软件，需要结合虚拟机软件来使用。使用Vagrant能迅速创建批量虚拟机环境。对于做实验的同学来说，可以说是利器。 官网地址：www.vagrantup.com 一、下载与安装 Vagrant不能单独使用，需要依赖虚拟机软件如Virtualbox和Vmware，这里推荐Virtualb">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Vagrant--快速搭建实验环境利器">
+<meta property="og:url" content="http://www.ashjian.xyz/Vagrant--%E5%BF%AB%E9%80%9F%E6%90%AD%E5%BB%BA%E5%AE%9E%E9%AA%8C%E7%8E%AF%E5%A2%83%E5%88%A9%E5%99%A8/index.html">
+<meta property="og:site_name">
+<meta property="og:description" content="转载:https:&#x2F;&#x2F;www.jianshu.com&#x2F;p&#x2F;d56d42b8d97f  Vagrant是一个虚拟机管理软件，需要结合虚拟机软件来使用。使用Vagrant能迅速创建批量虚拟机环境。对于做实验的同学来说，可以说是利器。 官网地址：www.vagrantup.com 一、下载与安装 Vagrant不能单独使用，需要依赖虚拟机软件如Virtualbox和Vmware，这里推荐Virtualb">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/1626574-f74acef339894bdf.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1200/format/webp">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/1626574-c73973c9dde0bde2.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1200/format/webp">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/1626574-804b808fe70797c7.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1200/format/webp">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/1626574-dd0733283057c11c.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1200/format/webp">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/1626574-290e6f731f842dcd.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1200/format/webp">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/1626574-f8f51408df6cdcbf.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1200/format/webp">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/1626574-a5d44238759b5a3a.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1200/format/webp">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/1626574-cb1f1c617b8df0e6.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1200/format/webp">
+<meta property="article:published_time" content="2021-05-24T05:37:58.047Z">
+<meta property="article:modified_time" content="2021-03-26T10:02:02.223Z">
+<meta property="article:author" content="StarDustLoong">
+<meta property="article:tag" content="vagrant">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://upload-images.jianshu.io/upload_images/1626574-f74acef339894bdf.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1200/format/webp">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://www.ashjian.xyz/Vagrant--快速搭建实验环境利器/"/>
+
+
+
+
+
+  <title>Vagrant--快速搭建实验环境利器 | </title>
+  
+
+
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?d7bf52f45e24a0e6f2951901a7a97864";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+<meta name="generator" content="Hexo 4.2.1"></head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title"></span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off"
+             placeholder="搜索..." spellcheck="false"
+             type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://www.ashjian.xyz/Vagrant--%E5%BF%AB%E9%80%9F%E6%90%AD%E5%BB%BA%E5%AE%9E%E9%AA%8C%E7%8E%AF%E5%A2%83%E5%88%A9%E5%99%A8/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="StarDustLoong">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/uploads/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Vagrant--快速搭建实验环境利器</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2021-05-24T13:37:58+08:00">
+                2021-05-24
+              </time>
+            
+
+            
+              <span class="post-meta-divider">|</span>
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-check-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">更新于&#58;</span>
+              
+              <time title="更新于" itemprop="dateModified" datetime="2021-03-26T18:02:02+08:00">
+                2021-03-26
+              </time>
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/linux/" itemprop="url" rel="index">
+                    <span itemprop="name">linux</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/Vagrant--%E5%BF%AB%E9%80%9F%E6%90%AD%E5%BB%BA%E5%AE%9E%E9%AA%8C%E7%8E%AF%E5%A2%83%E5%88%A9%E5%99%A8/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/Vagrant--%E5%BF%AB%E9%80%9F%E6%90%AD%E5%BB%BA%E5%AE%9E%E9%AA%8C%E7%8E%AF%E5%A2%83%E5%88%A9%E5%99%A8/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  4.1k
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  17
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+      
+      
+
+      
+        <p>转载:<a href="https://www.jianshu.com/p/d56d42b8d97f" target="_blank" rel="noopener">https://www.jianshu.com/p/d56d42b8d97f</a></p>
+<p><img src="https:////upload-images.jianshu.io/upload_images/1626574-f74acef339894bdf.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1200/format/webp" alt="img"></p>
+<p>Vagrant是一个虚拟机管理软件，需要结合虚拟机软件来使用。使用Vagrant能迅速创建批量虚拟机环境。对于做实验的同学来说，可以说是利器。</p>
+<p>官网地址：<a href="https://link.jianshu.com?t=www.vagrantup.com" target="_blank" rel="noopener">www.vagrantup.com</a></p>
+<h2 id="一、下载与安装"><a href="#一、下载与安装" class="headerlink" title="一、下载与安装"></a>一、下载与安装</h2><ul>
+<li>Vagrant不能单独使用，需要依赖虚拟机软件如Virtualbox和Vmware，这里推荐<strong>Virtualbox</strong>，Vmware是需要收费的才能使用（序列号破解的不能用的）。</li>
+<li><strong>box</strong>镜像是网上别人做好的模板，CentOS官方、Ubuntu官方、Debian官方都有专门去制作做好了的模板（而且一直更新迭代），直接安装就可以用（可以使用命令安装，也可以离线下载安装。）</li>
+</ul>
+<blockquote>
+<p>VirtualBox下载地址：<a href="https://link.jianshu.com?t=https://www.virtualbox.org/wiki/Downloads" target="_blank" rel="noopener">https://www.virtualbox.org/wiki/Downloads</a></p>
+</blockquote>
+<p>Vagrant支持四大主流操作系统，可以根据自己的操作系统进行下载安装，安装过程不赘述。</p>
+<p><img src="https:////upload-images.jianshu.io/upload_images/1626574-c73973c9dde0bde2.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1200/format/webp" alt="img"></p>
+<blockquote>
+<p>Vagrant下载地址：<a href="https://link.jianshu.com?t=https://www.vagrantup.com/downloads.html" target="_blank" rel="noopener">https://www.vagrantup.com/downloads.html</a></p>
+</blockquote>
+<blockquote>
+<p>Vagrant Boxes镜像名称和介绍：<a href="https://link.jianshu.com?t=https://app.vagrantup.com/boxes/search" target="_blank" rel="noopener">https://app.vagrantup.com/boxes/search</a></p>
+</blockquote>
+<hr>
+<h2 id="二、基础命令"><a href="#二、基础命令" class="headerlink" title="二、基础命令"></a>二、基础命令</h2><p>查看vagrant帮助命令：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">vagrant --<span class="hljs-built_in">help</span><br></code></pre></td></tr></table></figure>
+
+<p>比较常用的一些命令：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment">#  模板（box）相关命令</span><br>vagrant box list  <span class="hljs-comment"># 列出虚机模板</span><br>vagrant box add USERNAME/BOX_NAME  <span class="hljs-comment"># 添加别人做好的虚机，在线下载。</span><br>vagrant box add PATH/TO/BOX  <span class="hljs-comment"># 添加本地离线下载好的box</span><br>vagrant box remove  <span class="hljs-comment"># 移除虚机</span><br><br><span class="hljs-comment"># 虚机（vm）相关命令</span><br>vagrant init  BOX  <span class="hljs-comment"># 初始化一个Vagrantfile文件。BOX为虚机模板名</span><br>vagrant status  [VM_NAME]  <span class="hljs-comment"># 虚拟机状态。不跟参数默认查看所有虚机，指定虚机名字（VM_NAME）查看指定的虚机状态</span><br>vagrant destroy [VM_NAME]  <span class="hljs-comment"># 删除虚机。不跟参数默认删除所有，指定虚机名字（VM_NAME）删除指定的虚机</span><br>vagrant up [VM_NAME]  <span class="hljs-comment"># 启动虚机。不跟参数默认启动所有，指定虚机名字（VM_NAME）启动指定的虚机</span><br>vagrant down [VM_NAME]  <span class="hljs-comment"># 关闭虚机。不跟参数默认关闭所有，指定虚机名字（VM_NAME）关闭指定的虚机</span><br>vagrant <span class="hljs-built_in">suspend</span> [VM_NAME]  <span class="hljs-comment"># 挂起虚机。不跟参数默认关闭所有，指定虚机名字（VM_NAME）挂起指定的虚机</span><br>vagrant resume [VM_NAME]  <span class="hljs-comment"># 从挂起状态恢复运行。不跟参数默认恢复所有，指定虚机名字（VM_NAME）恢复指定的虚机</span><br>vagrant reload [VM_NAME]  <span class="hljs-comment"># 从挂起状态恢复运行。不跟参数默认恢复所有，指定虚机名字（VM_NAME）恢复指定的虚机</span><br></code></pre></td></tr></table></figure>
+
+<p>下面详细讲解box的命令使用，还有虚机相关命令的使用。</p>
+<hr>
+<h2 id="三、下载安装box模板"><a href="#三、下载安装box模板" class="headerlink" title="三、下载安装box模板"></a>三、下载安装box模板</h2><p>安装box模板有两种途径。一种是在线下载安装；一种是离线下载，然后添加进去。</p>
+<h3 id="1-在线下载安装"><a href="#1-在线下载安装" class="headerlink" title="1. 在线下载安装"></a>1. 在线下载安装</h3><ul>
+<li><code>vagrant box add username/boxname</code> 添加vagrant云仓库里别人做好的box<strong>模板</strong>。<a href="https://link.jianshu.com?t=https://app.vagrantup.com/boxes/search" target="_blank" rel="noopener">https://app.vagrantup.com/boxes/search</a>在这里可以搜索到，还可以看到详情信息。</li>
+</ul>
+<p>例如CentOS官方的两个：</p>
+<figure class="highlight csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs csharp">vagrant box <span class="hljs-keyword">add</span> centos/<span class="hljs-number">7</span><br>vagrant box <span class="hljs-keyword">add</span> centos/<span class="hljs-number">6</span><br></code></pre></td></tr></table></figure>
+
+<blockquote>
+<p><code>vagrant box remove xxx/yyy</code>可以移除你安装的box模板。</p>
+</blockquote>
+<p>在线下载安装的时候，会让你选择下哪种虚拟机软件的box模板，我们选择virtualbox版本的。</p>
+<p><img src="https:////upload-images.jianshu.io/upload_images/1626574-804b808fe70797c7.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1200/format/webp" alt="img"></p>
+<p>用vagrant命令在线下载完成后，会有一行绿色的Sucessfully显示成功：</p>
+<p><img src="https:////upload-images.jianshu.io/upload_images/1626574-dd0733283057c11c.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1200/format/webp" alt="img"></p>
+<h3 id="2-离线下载安装"><a href="#2-离线下载安装" class="headerlink" title="2. 离线下载安装"></a>2. 离线下载安装</h3><p>因为主机在国外，有时候网络环境不是，下载慢。那么就可以复制上上个图那里圈起来的链接。复制链接到浏览器下载。（其实我发现，那个地址有的是地址转换，如下图，我们可以看到是从cloud.centos.org下载的，文件名都变成CentOS-x-Vagrant-xxxx.Virtualbox.box这种长格式。而且地址是centos.org的地址说明这个景象是CentOS官方提供的）：</p>
+<p><img src="https:////upload-images.jianshu.io/upload_images/1626574-290e6f731f842dcd.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1200/format/webp" alt="img"></p>
+<p>这里贴出目前最新的，你可以自己去用上述方法找到最新的：</p>
+<p><a href="https://link.jianshu.com?t=https://cloud.centos.org/centos/7/vagrant/x86_64/images/CentOS-7-x86_64-Vagrant-1707_01.VirtualBox.box" target="_blank" rel="noopener">CentOS 7 :1707_01</a><br> <a href="https://link.jianshu.com?t=https://cloud.centos.org/centos/6/vagrant/x86_64/images/CentOS-6-x86_64-Vagrant-1707_01.VirtualBox.box" target="_blank" rel="noopener">CentOS 6 :1707_01</a></p>
+<p>我在百度云也存了一份（不更新，如果你看这篇文章的时候在之后的很长时间的话，还是用上述方法离线自行下载最新版）：</p>
+<p>链接: <a href="https://link.jianshu.com?t=https://pan.baidu.com/s/1i5oqW5n" target="_blank" rel="noopener">https://pan.baidu.com/s/1i5oqW5n</a><br> 密码: <strong>7grf</strong></p>
+<p>离线下载完成后，就可以用命令添加下载好的box模板，例如：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">vagrant box add ~/Downloads/CentOS-6-x86_64-Vagrant-1707_01.VirtualBox.box --name centos/6<br></code></pre></td></tr></table></figure>
+
+<blockquote>
+<p>–name 参数，是指定本地离线添加的文件导入vagrant程序后的名字。</p>
+</blockquote>
+<h3 id="3-关于版本"><a href="#3-关于版本" class="headerlink" title="3. 关于版本"></a>3. 关于版本</h3><p>列出添加的box模板：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs cpp">vagrant box <span class="hljs-built_in">list</span><br></code></pre></td></tr></table></figure>
+
+<p><img src="https:////upload-images.jianshu.io/upload_images/1626574-f8f51408df6cdcbf.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1200/format/webp" alt="img"></p>
+<p>我们可以看到括号里有版本号。</p>
+<blockquote>
+<p>在线下载安装的，括号里会跟其他人制作时所定义版本号。<br> 离线下载然后本地添加的，括号里默认版本号是0。</p>
+</blockquote>
+<h3 id="4-常用的几个模板"><a href="#4-常用的几个模板" class="headerlink" title="4. 常用的几个模板"></a>4. 常用的几个模板</h3><p>几个常用的官方在线box模板：</p>
+<ul>
+<li><code>centos/7</code> CentOS 7 x64</li>
+<li><code>centos/6</code> CentOS 6 x64</li>
+<li><code>ubuntu/xenial64</code> Ubuntu 16.04 LTS x64</li>
+<li><code>ubuntu/trusty64</code> Ubuntu 14.04 LTS x64</li>
+</ul>
+<hr>
+<h2 id="四、安装和使用单台虚机"><a href="#四、安装和使用单台虚机" class="headerlink" title="四、安装和使用单台虚机"></a>四、安装和使用单台虚机</h2><blockquote>
+<p>我们先以一台为例，介绍常用的几个命令的使用方法。</p>
+</blockquote>
+<h3 id="1-用指定模板来初始化配置文件Vagrantfile（init）"><a href="#1-用指定模板来初始化配置文件Vagrantfile（init）" class="headerlink" title="1. 用指定模板来初始化配置文件Vagrantfile（init）"></a>1. 用指定模板来初始化配置文件Vagrantfile（init）</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs bash">mkdir <span class="hljs-built_in">test</span>  <span class="hljs-comment"># 创建一个test项目目录</span><br><span class="hljs-built_in">cd</span> <span class="hljs-built_in">test</span>  <span class="hljs-comment"># 进入test目录</span><br>vagrant init centos/7 <span class="hljs-comment"># 用centos/7这个box模板进行初始化</span><br></code></pre></td></tr></table></figure>
+
+<p>我们可以看到在项目目录test下面，创建了一个VagrantFile的文件，这个就是虚拟机的配置文件。后续配置复杂多台虚机的时候我们会讲到这个文件的使用。我们先用默认的配置启动虚拟机，默认配置只启动一台。通通过一台的命令，我们来熟悉一些命令的使用。</p>
+<h3 id="2-启动-up-、关闭-halt-、暂停-suspend-、恢复-resume-、重载-reload-虚机"><a href="#2-启动-up-、关闭-halt-、暂停-suspend-、恢复-resume-、重载-reload-虚机" class="headerlink" title="2. 启动(up)、关闭(halt)、暂停(suspend)、恢复(resume)、重载(reload)虚机"></a>2. 启动(up)、关闭(halt)、暂停(suspend)、恢复(resume)、重载(reload)虚机</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs undefined">vagrant up<br></code></pre></td></tr></table></figure>
+
+<p>第一次启动会从模板复制一份虚机到当前目录，然后进行一系列配置工作。</p>
+<p><img src="https:////upload-images.jianshu.io/upload_images/1626574-a5d44238759b5a3a.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1200/format/webp" alt="img"></p>
+<p><code>vagrant status</code> 可以查看虚拟机状态：</p>
+<p><img src="https:////upload-images.jianshu.io/upload_images/1626574-cb1f1c617b8df0e6.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1200/format/webp" alt="img"></p>
+<p>我们可以看到下面有一行提示几个命令的作用：</p>
+<ul>
+<li><code>vagrant halt</code> <strong>关闭</strong>(halt)虚机</li>
+<li><code>vagrant up</code> <strong>启动</strong>(up)虚机</li>
+<li><code>vagrant suspend</code> <strong>暂停</strong>(suspend)虚机</li>
+</ul>
+<p>还有两条用的也很多：</p>
+<ul>
+<li><code>vagrant resume</code> 从暂停中<strong>恢复</strong>（resume）虚机</li>
+<li><code>vagrant reload</code> <strong>重载</strong>(reload)虚拟机，也就是<strong>重启</strong>虚拟机(在Vmware类的软件里也叫做<strong>重置</strong>，都是一个意思）。如果修改了配置文件，reload会按照配置文件来更改虚拟机的一些配置。</li>
+</ul>
+<h3 id="3-登录虚机"><a href="#3-登录虚机" class="headerlink" title="3. 登录虚机"></a>3. 登录虚机</h3><p><code>vagrant ssh</code>可以登录虚拟机，是以vagrant用户登录的，我们可以看vagrant init那张图，可以看到有生成秘钥对并上传公钥到虚拟机了，所以<code>vagrant ssh</code>可以无秘钥登录。</p>
+<h3 id="4-销毁-destory-虚机"><a href="#4-销毁-destory-虚机" class="headerlink" title="4. 销毁(destory)虚机"></a>4. 销毁(destory)虚机</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs plain">vagrant destory<br></code></pre></td></tr></table></figure>
+
+<blockquote>
+<p>tips: 上述的命令都是基于一台虚拟机的操作，所以相对比较简单，多台是在上述命令基础上加一些参数而已。</p>
+</blockquote>
+<hr>
+<h2 id="五、制作自己习惯用的模板"><a href="#五、制作自己习惯用的模板" class="headerlink" title="五、制作自己习惯用的模板"></a>五、制作自己习惯用的模板</h2><p>通常我们会自定义一个虚机，配置成自己习惯用的状态，然后打包，打包命令是：</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs go">vagrant <span class="hljs-keyword">package</span><br></code></pre></td></tr></table></figure>
+
+<p>下面通过一个例子来说明如何打包：（下文中直接用了官方镜像，然后安装了一些自己需要的包，关闭了selinux策略。记得要删除网卡的信息。）</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs bash">vagrant ssh <span class="hljs-comment">#</span><br>sudo su -<br>setenforce 0 <span class="hljs-comment"># 关闭selinux</span><br>sed -i <span class="hljs-string">'s/SELINUX=enforcing/SELINUX=disabled/g'</span> /etc/selinux/config <span class="hljs-comment"># 永久禁止selinux</span><br>yum install vim tree bash-completion <span class="hljs-comment"># 安装一些需要的包。</span><br>rm -rf /etc/udev/rules.d/70-persistent-net.rules  <span class="hljs-comment"># 删除网卡的信息，否则在其他地方启动会有问题</span><br><br>vagrant package  <span class="hljs-comment"># 关机并打包虚机，会在项目目录生成一个package.box模板文件</span><br>vagrant box add longdream/centos7 package.box  <span class="hljs-comment"># 打包的虚机模板可以作为模板进行创建虚机。</span><br></code></pre></td></tr></table></figure>
+
+<hr>
+<h2 id="六、Vagrantfile参数详解"><a href="#六、Vagrantfile参数详解" class="headerlink" title="六、Vagrantfile参数详解"></a>六、Vagrantfile参数详解</h2><p>我们可以看到在项目目录下面有一个Vagrantfile文件，这个就是这个项目的配置文件，通过修改这个配置文件，我们可以来<strong>批量创建多个虚机</strong>并且<strong>有不同的配置</strong>，只要写好配置就可以实现。</p>
+<p><code>config.xx.yyy</code>指的是项目全局配置。<br> <code>NODE_NAME.xx.yyy</code>指的是单独的节点的配置，<strong>需要比全局配置缩进一层。</strong></p>
+<p>下面来详解里面的配置选项，然后下一小节我们就实战来通过这个文件来搭一套测试环境。</p>
+<h3 id="1-config-vm-define定义多台主机"><a href="#1-config-vm-define定义多台主机" class="headerlink" title="1. config.vm.define定义多台主机"></a>1. <code>config.vm.define</code>定义多台主机</h3><figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs ruby">config.vm.define <span class="hljs-string">"node1"</span> <span class="hljs-keyword">do</span> <span class="hljs-params">|node1|</span><br><span class="hljs-keyword">end</span><br>config.vm.define <span class="hljs-string">"node1"</span> <span class="hljs-keyword">do</span> <span class="hljs-params">|node2|</span><br><span class="hljs-keyword">end</span><br>config.vm.define <span class="hljs-string">"node1"</span> <span class="hljs-keyword">do</span> <span class="hljs-params">|node3|</span><br><span class="hljs-keyword">end</span><br></code></pre></td></tr></table></figure>
+
+<h3 id="2-vm-network-虚拟机网络"><a href="#2-vm-network-虚拟机网络" class="headerlink" title="2. *.vm.network 虚拟机网络"></a>2. <code>*.vm.network</code> 虚拟机网络</h3><p><code>nat</code>默认方式<br> <code>forwarded_port</code> 端口转发<br> <code>private network</code> 私有网络（仅主机模式）<br> <code>public network</code> 公有网络（桥接模式）</p>
+<p>Vagrantfile自带的几个示例：</p>
+<figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs ruby">config.vm.network <span class="hljs-string">"forwarded_port"</span>, <span class="hljs-symbol">guest:</span> <span class="hljs-number">80</span>, <span class="hljs-symbol">host:</span> <span class="hljs-number">8080</span><br>config.vm.network <span class="hljs-string">"forwarded_port"</span>, <span class="hljs-symbol">guest:</span> <span class="hljs-number">80</span>, <span class="hljs-symbol">host:</span> <span class="hljs-number">8080</span>, <span class="hljs-symbol">host_ip:</span> <span class="hljs-string">"127.0.0.1"</span><br>config.vm.network <span class="hljs-string">"private_network"</span>, <span class="hljs-symbol">ip:</span> <span class="hljs-string">"192.168.33.10"</span><br>config.vm.network <span class="hljs-string">"public_network"</span><br></code></pre></td></tr></table></figure>
+
+<ul>
+<li>默认所有主机都会创建一个NAT网络作为eth0的网络，ip地址是自动分配的。</li>
+<li>写了ip就是静态ip地址，没写ip就会dhcp自动分配一个地址。</li>
+<li>如果写了多条网络配置，那么就是配置多个网络，服务器会自动多几个网卡。当然，默认的NAT网络的eth0还在（作为vagrant ssh命令登录使用的网络，还有yum更新的网络），自己写的配置文件，从上到下依次匹配eth1,eth2等。</li>
+</ul>
+<p>例子：</p>
+<figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><code class="hljs ruby">config.vm.define <span class="hljs-string">"node1"</span> <span class="hljs-keyword">do</span> <span class="hljs-params">|node1|</span><br>    node1.vm.network <span class="hljs-string">"private_network"</span>, <span class="hljs-symbol">ip:</span> <span class="hljs-string">"192.168.33.11"</span><br>    node1.vm.network <span class="hljs-string">"public_network"</span><br>  <span class="hljs-keyword">end</span><br><br>  config.vm.define <span class="hljs-string">"node2"</span> <span class="hljs-keyword">do</span> <span class="hljs-params">|node2|</span><br>    node2.vm.network <span class="hljs-string">"private_network"</span>, <span class="hljs-symbol">ip:</span> <span class="hljs-string">"192.168.33.12"</span><br>  <span class="hljs-keyword">end</span><br><br>  config.vm.define <span class="hljs-string">"node3"</span> <span class="hljs-keyword">do</span> <span class="hljs-params">|node3|</span><br>    node3.vm.network <span class="hljs-string">"private_network"</span>, <span class="hljs-symbol">ip:</span> <span class="hljs-string">"192.168.33.13"</span><br>  <span class="hljs-keyword">end</span><br></code></pre></td></tr></table></figure>
+
+<h3 id="3-vm-hostname-定义虚机主机名"><a href="#3-vm-hostname-定义虚机主机名" class="headerlink" title="3. *.vm.hostname 定义虚机主机名"></a>3. <code>*.vm.hostname</code> 定义虚机主机名</h3><p><code>NODE_NAME.vm.hostname = HOSTNAME</code>定义主机名，NODE_NAME为节点名，HOSTNAME为定义的主机名。</p>
+<p>例子：</p>
+<figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><code class="hljs ruby">config.vm.define <span class="hljs-string">"node1"</span> <span class="hljs-keyword">do</span> <span class="hljs-params">|node1|</span><br>    node1.vm.network <span class="hljs-string">"private_network"</span>, <span class="hljs-symbol">ip:</span> <span class="hljs-string">"192.168.33.11"</span><br>    node1.vm.network <span class="hljs-string">"public_network"</span><br>    node1.vm.hostname = <span class="hljs-string">"node1.yulongjun.com"</span><br>  <span class="hljs-keyword">end</span><br><br>  config.vm.define <span class="hljs-string">"node2"</span> <span class="hljs-keyword">do</span> <span class="hljs-params">|node2|</span><br>    node2.vm.network <span class="hljs-string">"private_network"</span>, <span class="hljs-symbol">ip:</span> <span class="hljs-string">"192.168.33.12"</span><br>    node2.vm.hostname = <span class="hljs-string">"node2.yulongjun.com"</span><br>  <span class="hljs-keyword">end</span><br><br>  config.vm.define <span class="hljs-string">"node3"</span> <span class="hljs-keyword">do</span> <span class="hljs-params">|node3|</span><br>    node3.vm.network <span class="hljs-string">"private_network"</span>, <span class="hljs-symbol">ip:</span> <span class="hljs-string">"192.168.33.13"</span><br>    node3.vm.hostname = <span class="hljs-string">"node3.yulongjun.com"</span><br>  <span class="hljs-keyword">end</span><br></code></pre></td></tr></table></figure>
+
+<h3 id="4-vm-synced-folder-宿主机与虚机共享同步目录"><a href="#4-vm-synced-folder-宿主机与虚机共享同步目录" class="headerlink" title="4. *.vm.synced_folder 宿主机与虚机共享同步目录"></a>4. <code>*.vm.synced_folder</code> 宿主机与虚机共享同步目录</h3><p>默认宿主机<strong>项目目录</strong>和虚拟机下的<strong><code>/vagrant</code></strong>目录同步。</p>
+<p>如果还想自定义共享目录，可以参照下面用法：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs bash">config.vm.synced_folder <span class="hljs-string">"宿主机目录"</span>, <span class="hljs-string">"虚机机目录"</span><br>    create: <span class="hljs-literal">true</span>|<span class="hljs-literal">false</span>, owner: <span class="hljs-string">"用户"</span>, group: <span class="hljs-string">"用户组"</span><br></code></pre></td></tr></table></figure>
+
+<ul>
+<li><strong>宿主机目录</strong>一般是写的相对路径。相对的路径是相对的<strong>项目根目录</strong>。例如项目目录为test，那么宿主机目录写<code>&quot;www/&quot;</code>指的就是就是<code>test/www</code>目录。</li>
+<li><strong>虚拟目录</strong>是虚拟机上目录，一般写绝对路径。</li>
+<li><strong><code>create: true|false</code></strong>指的是是否在虚拟机<strong>创建</strong>此目录。</li>
+<li><strong><code>owner: &quot;用户&quot;, group: &quot;用户组&quot;</code></strong>指的是指定目录的拥有者和拥有组。</li>
+</ul>
+<figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs ruby">config.vm.synced_folder <span class="hljs-string">"www/"</span>, <span class="hljs-string">"/var/www/"</span>,<br>  <span class="hljs-symbol">create:</span> <span class="hljs-literal">true</span>, <span class="hljs-symbol">owner:</span> <span class="hljs-string">"root"</span>, <span class="hljs-symbol">group:</span> <span class="hljs-string">"root"</span><br></code></pre></td></tr></table></figure>
+
+<hr>
+<h2 id="七、插件"><a href="#七、插件" class="headerlink" title="七、插件"></a>七、插件</h2><p>插件安装方法：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs undefined">vagrant plugin install xxxx<br></code></pre></td></tr></table></figure>
+
+<h3 id="1-插件vagrant-hostmanager：用主机名访问（建议安装）"><a href="#1-插件vagrant-hostmanager：用主机名访问（建议安装）" class="headerlink" title="1. 插件vagrant-hostmanager：用主机名访问（建议安装）"></a>1. 插件vagrant-hostmanager：用主机名访问（建议安装）</h3><p>可以实现虚机之间用主机名互相访问，也可以实现宿主机用主机名访问虚机。</p>
+<p>安装：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">vagrant plugin install vagrant-hostmanager<br></code></pre></td></tr></table></figure>
+
+<p>修改Vagrantfile文件</p>
+<figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><code class="hljs ruby">Vagrant.configure(<span class="hljs-string">"2"</span>) <span class="hljs-keyword">do</span> <span class="hljs-params">|config|</span><br><br>  config.vm.box = <span class="hljs-string">"centos/7"</span><br>  config.hostmanager.enabled = <span class="hljs-literal">true</span>       <span class="hljs-comment"># 启用hostmanager</span><br>  config.hostmanager.manage_guest = <span class="hljs-literal">true</span>  <span class="hljs-comment"># 允许更新虚拟机上的文件</span><br>  config.hostmanager.manage_host = <span class="hljs-literal">true</span>   <span class="hljs-comment"># 允许更新主机上的文件</span><br><br>  config.vm.define <span class="hljs-string">"node1"</span> <span class="hljs-keyword">do</span> <span class="hljs-params">|node1|</span><br>    node1.vm.network <span class="hljs-string">"private_network"</span>, <span class="hljs-symbol">ip:</span> <span class="hljs-string">"192.168.33.11"</span><br>    node1.vm.network <span class="hljs-string">"public_network"</span><br>    node1.vm.hostname = <span class="hljs-string">"node1.yulongjun.com"</span><br>  <span class="hljs-keyword">end</span><br><br>  config.vm.define <span class="hljs-string">"node2"</span> <span class="hljs-keyword">do</span> <span class="hljs-params">|node2|</span><br>    node2.vm.network <span class="hljs-string">"private_network"</span>, <span class="hljs-symbol">ip:</span> <span class="hljs-string">"192.168.33.12"</span><br>    node2.vm.hostname = <span class="hljs-string">"node2.yulongjun.com"</span><br>  <span class="hljs-keyword">end</span><br><br>  config.vm.define <span class="hljs-string">"node1=3"</span> <span class="hljs-keyword">do</span> <span class="hljs-params">|node3|</span><br>    node3.vm.network <span class="hljs-string">"private_network"</span>, <span class="hljs-symbol">ip:</span> <span class="hljs-string">"192.168.33.13"</span><br>    node3.vm.hostname = <span class="hljs-string">"node3.yulongjun.com"</span><br>  <span class="hljs-keyword">end</span><br><br><span class="hljs-keyword">end</span><br></code></pre></td></tr></table></figure>
+
+<h3 id="2-插件vagrant-vbguest：自定义共享目录（建议安装）"><a href="#2-插件vagrant-vbguest：自定义共享目录（建议安装）" class="headerlink" title="2. 插件vagrant-vbguest：自定义共享目录（建议安装）"></a>2. 插件vagrant-vbguest：自定义共享目录（建议安装）</h3><p>有时候我们发现有些virtualbox无法使用自定义的共享目录，这时候就需要安装vbguest客户端（类似于VMware的client）</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs bash">vagrant vbguest --status<br>vagrant vbguest --<span class="hljs-keyword">do</span> install node1<br>vagrant vbguest --<span class="hljs-keyword">do</span> install node2<br>vagrant vbguest --<span class="hljs-keyword">do</span> install node3<br>vagrant vbguest --status<br></code></pre></td></tr></table></figure>
+
+<p>每次启动虚机都会检查vbguest插件的更新，如果不想更新，修改Vgrantfilew文件，加上这样一条：</p>
+<figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs ruby">config.vbguest.auto_update = <span class="hljs-literal">false</span><br></code></pre></td></tr></table></figure>
+
+<h3 id="3-插件vagrant-bindfs-支持多种共享模式（可选）"><a href="#3-插件vagrant-bindfs-支持多种共享模式（可选）" class="headerlink" title="3. 插件vagrant-bindfs 支持多种共享模式（可选）"></a>3. 插件vagrant-bindfs 支持多种共享模式（可选）</h3><p>插件bindfs可以支持多种共享模式，如nfs，samba</p>
+<p>命令行下输入：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs undefined">vagrant plugin install vagrant-bindfs<br></code></pre></td></tr></table></figure>
+
+<p>修改Vgrantfile文件：</p>
+<figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs ruby">config.vm.define <span class="hljs-string">"node1"</span> <span class="hljs-keyword">do</span> <span class="hljs-params">|node1|</span><br>  node1.vm.network <span class="hljs-string">"private_network"</span>, <span class="hljs-symbol">ip:</span> <span class="hljs-string">"192.168.33.11"</span><br>  node1.vm.hostname=<span class="hljs-string">"node1.yulongjun.com"</span><br>  node1.vm.synced_folder <span class="hljs-string">"./app"</span> <span class="hljs-string">"/mnt/app-data"</span>, <span class="hljs-symbol">type:</span> <span class="hljs-string">"nfs"</span><br>  node1.bindfs.bind_folder <span class="hljs-string">"/mnt/app-data"</span> <span class="hljs-string">"/app"</span><br>    <span class="hljs-symbol">force_user:</span> <span class="hljs-string">"root"</span>, <span class="hljs-symbol">force_group:</span> <span class="hljs-string">"root"</span>, <span class="hljs-symbol">o:</span> <span class="hljs-string">"noempty"</span><br></code></pre></td></tr></table></figure>
+
+<hr>
+<h2 id="八、实验例子"><a href="#八、实验例子" class="headerlink" title="八、实验例子"></a>八、实验例子</h2><h3 id="1-搭建一个每台机器不同配置的实验环境。"><a href="#1-搭建一个每台机器不同配置的实验环境。" class="headerlink" title="1. 搭建一个每台机器不同配置的实验环境。"></a>1. 搭建一个每台机器不同配置的实验环境。</h3><p>用自己做的镜像最好，首先是已经安装了一些常用的包，二是如果是初始镜像，一开始需要安装几个包，比较耽误时间，自己打包的镜像已经安装好了。</p>
+<figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br></pre></td><td class="code"><pre><code class="hljs ruby"><span class="hljs-comment"># -*- mode: ruby -*-</span><br><span class="hljs-comment"># vi: set ft=ruby :</span><br><br>Vagrant.configure(<span class="hljs-string">"2"</span>) <span class="hljs-keyword">do</span> <span class="hljs-params">|config|</span><br>  <span class="hljs-comment"># Vagrant Global Config</span><br>  <span class="hljs-comment"># `longdream/centos7` is a custom centos7 box made by YuLongjun.</span><br>  config.vm.box = <span class="hljs-string">"longdream/centos7"</span><br>  <span class="hljs-comment"># If this box is add online, set true will check update.</span><br>  <span class="hljs-comment"># Also set `false` will not update it.</span><br>  <span class="hljs-comment"># If this box is added locally, this setting is invalid.</span><br>  config.vm.box_check_update = <span class="hljs-literal">false</span><br>  <span class="hljs-comment"># you need `vagrant plugin install vagrant-vbguest`</span><br>  <span class="hljs-comment"># You also need `vagrant plugin install vagrant-hostmanager`</span><br>  config.hostmanager.enabled = <span class="hljs-literal">true</span><br>  <span class="hljs-comment"># Allow update `/etc/hosts` file in VMs.</span><br>  config.hostmanager.manage_guest = <span class="hljs-literal">true</span><br>  <span class="hljs-comment"># Allow update `/etc/hosts` file in Hosts.</span><br>  config.hostmanager.manage_host = <span class="hljs-literal">true</span><br>  <br>  <span class="hljs-comment"># Define VM `client`</span><br>  config.vm.define <span class="hljs-string">"client"</span> <span class="hljs-keyword">do</span> <span class="hljs-params">|client|</span><br>    client.vm.network <span class="hljs-string">"private_network"</span>, <span class="hljs-symbol">ip:</span> <span class="hljs-string">"172.16.111.123"</span><br>    client.vm.hostname = <span class="hljs-string">"client"</span><br>  <span class="hljs-keyword">end</span><br><br>  <span class="hljs-comment"># Define VM `vs`</span><br>  config.vm.define <span class="hljs-string">"vs"</span> <span class="hljs-keyword">do</span> <span class="hljs-params">|vs|</span><br>    vs.vm.network <span class="hljs-string">"private_network"</span>, <span class="hljs-symbol">ip:</span> <span class="hljs-string">"172.16.111.200"</span><br>    vs.vm.network <span class="hljs-string">"private_network"</span>, <span class="hljs-symbol">ip:</span> <span class="hljs-string">"192.168.111.200"</span><br>    vs.vm.hostname = <span class="hljs-string">"vs"</span><br>  <span class="hljs-keyword">end</span><br><br>  <span class="hljs-comment"># Define VM `rs1`</span><br>  config.vm.define <span class="hljs-string">"rs1"</span> <span class="hljs-keyword">do</span> <span class="hljs-params">|rs1|</span><br>    rs1.vm.network <span class="hljs-string">"private_network"</span>, <span class="hljs-symbol">ip:</span> <span class="hljs-string">"192.168.111.101"</span><br>    rs1.vm.hostname = <span class="hljs-string">"rs1"</span><br>    rs1.vm.provision <span class="hljs-string">"shell"</span>, <span class="hljs-symbol">inline:</span> <span class="hljs-string">" sudo echo 'GATEWAY=192.168.111.200' &gt;&gt; /etc/sysconfig/network-scripts/ifcfg-eth1"</span><br>  <span class="hljs-keyword">end</span><br><br>  <span class="hljs-comment"># Define VM `rs2`</span><br>  config.vm.define <span class="hljs-string">"rs2"</span> <span class="hljs-keyword">do</span> <span class="hljs-params">|rs2|</span><br>    rs2.vm.network <span class="hljs-string">"private_network"</span>, <span class="hljs-symbol">ip:</span> <span class="hljs-string">"192.168.111.102"</span><br>    rs2.vm.hostname = <span class="hljs-string">"rs2"</span><br>    rs2.vm.provision <span class="hljs-string">"shell"</span>, <span class="hljs-symbol">inline:</span> <span class="hljs-string">"sudo echo 'GATEWAY=192.168.111.200' &gt;&gt; /etc/sysconfig/network-scripts/ifcfg-eth1"</span><br>  <span class="hljs-keyword">end</span><br><br><span class="hljs-keyword">end</span><br></code></pre></td></tr></table></figure>
+
+<h3 id="2-批量搭建一组服务器（20170829补充）"><a href="#2-批量搭建一组服务器（20170829补充）" class="headerlink" title="2. 批量搭建一组服务器（20170829补充）"></a>2. 批量搭建一组服务器（20170829补充）</h3><figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><code class="hljs ruby"><span class="hljs-comment"># -*- mode: ruby -*-</span><br><span class="hljs-comment"># vi: set ft=ruby :</span><br><br>Vagrant.configure(<span class="hljs-string">"2"</span>) <span class="hljs-keyword">do</span> <span class="hljs-params">|config|</span><br>  <span class="hljs-comment"># Vagrant Global Config</span><br>  <span class="hljs-comment"># `longdream/centos7` is a custom centos7 box made by YuLongjun.</span><br>  config.vm.box = <span class="hljs-string">"longdream/centos7"</span><br>  <span class="hljs-comment"># If this box is add online, set true will check update.</span><br>  <span class="hljs-comment"># Also set `false` will not update it.</span><br>  <span class="hljs-comment"># If this box is added locally, this setting is invalid.</span><br>  config.vm.box_check_update = <span class="hljs-literal">false</span><br>  <span class="hljs-comment"># you need `vagrant plugin install vagrant-vbguest`</span><br>  <span class="hljs-comment"># You also need `vagrant plugin install vagrant-hostmanager`</span><br>  config.hostmanager.enabled = <span class="hljs-literal">true</span><br>  <span class="hljs-comment"># Allow update `/etc/hosts` file in VMs.</span><br>  config.hostmanager.manage_guest = <span class="hljs-literal">true</span><br>  <span class="hljs-comment"># Allow update `/etc/hosts` file in Hosts.</span><br>  config.hostmanager.manage_host = <span class="hljs-literal">true</span><br><br>  <span class="hljs-comment"># define 10 VMs in batch.</span><br>  <span class="hljs-comment"># you can up a VM:`vagrant up node1`</span><br>  <span class="hljs-comment"># you can up all VMs:`vagrant up`</span><br>  <span class="hljs-comment"># you can up some VMs:`vagrant up `node[1-4]`</span><br>  (<span class="hljs-number">1</span>..<span class="hljs-number">9</span>).each <span class="hljs-keyword">do</span> <span class="hljs-params">|i|</span><br>    config.vm.define <span class="hljs-string">"node<span class="hljs-subst">#&#123;i&#125;</span>"</span> <span class="hljs-keyword">do</span> <span class="hljs-params">|node|</span><br>      node.vm.network <span class="hljs-string">"private_network"</span>, <span class="hljs-symbol">ip:</span> <span class="hljs-string">"192.168.111.<span class="hljs-subst">#&#123;i&#125;</span>0"</span><br>      node.vm.hostname = <span class="hljs-string">"node<span class="hljs-subst">#&#123;i&#125;</span>"</span><br>    <span class="hljs-keyword">end</span><br>  <span class="hljs-keyword">end</span><br><br>  <span class="hljs-comment"># Create a single VM.</span><br>  <span class="hljs-comment">#config.vm.define "client" do |client|</span><br>  <span class="hljs-comment">#  client.vm.network "private_network", ip "192.168.0.123"</span><br>  <span class="hljs-comment">#  client.vm.hostname "client"</span><br>  <span class="hljs-comment">#  client.vm.provision "shell", inline: &lt;&lt;-SHELL</span><br>  <span class="hljs-comment">#    sudo yum install tcpdump ab</span><br>  <span class="hljs-comment">#  SHELL</span><br><span class="hljs-keyword">end</span><br></code></pre></td></tr></table></figure>
+
+<hr>
+<h2 id="自制的Vagrant镜像（20170830补充）"><a href="#自制的Vagrant镜像（20170830补充）" class="headerlink" title="自制的Vagrant镜像（20170830补充）"></a>自制的Vagrant镜像（20170830补充）</h2><p>自己做了一个Vagrant镜像，上传到Vagrant官方的Vagrant Cloud上，方便自己和读者使用。</p>
+<p>目前为1.0.0版本。</p>
+<p>项目地址：<a href="https://link.jianshu.com?t=https://app.vagrantup.com/longdream/boxes/centos7/versions/1.0.0" target="_blank" rel="noopener">longdream/centos7</a></p>
+<p>Vagrant可以使用下面命令安装：</p>
+<figure class="highlight csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs csharp">vagrant box <span class="hljs-keyword">add</span> longdream/centos7<br></code></pre></td></tr></table></figure>
+
+<p>自己做了一个Vagrant镜像，上传到Vagrant官方的Vagrant Cloud上，方便自己和读者使用。</p>
+<p>目前为1.0.0版本。</p>
+<p>项目地址：<a href="https://link.jianshu.com?t=https://app.vagrantup.com/longdream/boxes/centos7/versions/1.0.0" target="_blank" rel="noopener">longdream/centos7</a></p>
+<p>Vagrant可以使用下面命令安装：</p>
+<figure class="highlight csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs csharp">vagrant box <span class="hljs-keyword">add</span> longdream/centos7<br></code></pre></td></tr></table></figure>
+
+<blockquote>
+<p>关于Vagrant使用，可参考：<a href="https://link.jianshu.com?t=http://www.yulongjun.com/cloud/20170813-vagrant/" target="_blank" rel="noopener"><strong>Vagrant–快速搭建实验环境利器</strong></a>。</p>
+</blockquote>
+<hr>
+<h2 id="Introduction"><a href="#Introduction" class="headerlink" title="Introduction"></a>Introduction</h2><h3 id="In-English"><a href="#In-English" class="headerlink" title="In English:"></a>In English:</h3><p>Base on CentOS official box <a href="https://link.jianshu.com?t=https://app.vagrantup.com/centos/boxes/7" target="_blank" rel="noopener"><strong>centos/7</strong></a>. the following changes have been made:</p>
+<ul>
+<li><code>yum update</code><strong>update</strong> to the latest version.</li>
+<li><code>CentOS-Base.repo</code> and <code>epel.repo</code> change to <strong>aliyun’s repos</strong>(which more fast in China).</li>
+<li>Some <strong>useful tools</strong>: <code>vim</code>, <code>tree</code>, <code>wget</code> ,<code>bash-completion</code>, <code>net-tools</code> ,<code>tcpdump</code> ,<code>ab</code>.</li>
+<li>Disabled  <strong>SELinux</strong>.</li>
+<li>Add <strong>VirtualBox Guest</strong> in box. (Need plugin <em>vagrant-vbguest</em> in Host：<code>vagrant plugin install vagrant-vbguest</code>.)</li>
+</ul>
+<h3 id="中文："><a href="#中文：" class="headerlink" title="中文："></a>中文：</h3><p>基于CentOS官方box <a href="https://link.jianshu.com?t=https://app.vagrantup.com/centos/boxes/7" target="_blank" rel="noopener"><strong>centos/7</strong></a>。做了如下的更改：</p>
+<ul>
+<li><code>yum update</code><strong>更新</strong>到最新版。</li>
+<li><code>CentOS-Base.repo</code> 和 <code>epel.repo</code> 更换为 <strong>阿里云的 repo</strong> （国内更快）</li>
+<li>加了一些<strong>有用的工具</strong>：<code>vim</code>、 <code>tree</code>、 <code>wget</code> 、<code>bash-completion</code>、 <code>net-tools</code> 、<code>tcpdump</code> 、<code>ab</code>。</li>
+<li>禁用了<strong>SElinux</strong>。</li>
+<li>在box里添加了<strong>VirtualBox的虚机客户端</strong>。（需要在宿主机上安装插件<em>vagrant-vbguest</em>：<code>vagrant plugin install vagrant-vbguest</code>。）</li>
+</ul>
+<p><strong>介绍</strong>：</p>
+<p>** In English**:</p>
+<p>Base on CentOS official box <a href="https://link.jianshu.com?t=https://app.vagrantup.com/centos/boxes/7" target="_blank" rel="noopener"><strong>centos/7</strong></a>. the following changes have been made:</p>
+<ul>
+<li><code>yum update</code><strong>update</strong> to the latest version.</li>
+<li><code>CentOS-Base.repo</code> and <code>epel.repo</code> change to <strong>aliyun’s repos</strong>(which more fast in China).</li>
+<li>Some <strong>useful tools</strong>: <code>vim</code>, <code>tree</code>, <code>wget</code> ,<code>bash-completion</code>, <code>net-tools</code> ,<code>tcpdump</code> ,<code>ab</code>.</li>
+<li>Disabled  <strong>SELinux</strong>.</li>
+<li>Add <strong>VirtualBox Guest</strong> in box. (Need plugin <em>vagrant-vbguest</em> in Host：<code>vagrant plugin install vagrant-vbguest</code>.)</li>
+</ul>
+<p><strong>中文</strong>：</p>
+<p>基于CentOS官方box <a href="https://link.jianshu.com?t=https://app.vagrantup.com/centos/boxes/7" target="_blank" rel="noopener"><strong>centos/7</strong></a>。做了如下的更改：</p>
+<ul>
+<li><code>yum update</code><strong>更新</strong>到最新版。</li>
+<li><code>CentOS-Base.repo</code> 和 <code>epel.repo</code> 更换为 <strong>阿里云的 repo</strong> （国内更快）</li>
+<li>加了一些<strong>有用的工具</strong>：<code>vim</code>、 <code>tree</code>、 <code>wget</code> 、<code>bash-completion</code>、 <code>net-tools</code> 、<code>tcpdump</code> 、<code>ab</code>。</li>
+<li>禁用了<strong>SElinux</strong>。</li>
+<li>在box里添加了<strong>VirtualBox的虚机客户端</strong>。（需要在宿主机上安装插件<em>vagrant-vbguest</em>：<code>vagrant plugin install vagrant-vbguest</code>。）</li>
+</ul>
+
+      
+    </div>
+    
+    
+    
+
+     <!-- 文章末尾统一添加“本文结束”标记 -->
+    <div>
+      
+        <div>
+    
+        <div style="text-align:center;color: #555;font-size:24px;"><-------------The End-------------></div>
+    
+</div>
+
+      
+    </div>
+    
+
+    
+      <div>
+        <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+  <div>坚持原创分享，你的支持就是我最大的动力！</div>
+  <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+    <span>打赏</span>
+  </button>
+  <div id="QR" style="display: none;">
+
+    
+      <div id="wechat" style="display: inline-block">
+        <img id="wechat_qr" src="/uploads/weixin_cash_code.png" alt="StarDustLoong 微信支付"/>
+        <p>微信支付</p>
+      </div>
+    
+
+    
+      <div id="alipay" style="display: inline-block">
+        <img id="alipay_qr" src="/uploads/alipay_cash_code.png" alt="StarDustLoong 支付宝"/>
+        <p>支付宝</p>
+      </div>
+    
+
+    
+
+  </div>
+</div>
+
+      </div>
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/vagrant/" rel="tag"># vagrant</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/UNCENSORED_HENTAI/" rel="next" title="UNCENSORED_HENTAI">
+                <i class="fa fa-chevron-left"></i> UNCENSORED_HENTAI
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/vagrant%E6%93%8D%E4%BD%9C%E8%AE%B0%E5%BD%95/" rel="prev" title="vagrant操作记录">
+                vagrant操作记录 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+    </div>
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/uploads/avatar.png"
+                alt="StarDustLoong" />
+            
+              <p class="site-author-name" itemprop="name">StarDustLoong</p>
+              <p class="site-description motion-element" itemprop="description">人类如风一般的自由</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">2409</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">12</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">146</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+	   
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/StarDustLoong" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:13671474528@163.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://www.zhihu.com/people/ashjian-ar15" target="_blank" title="知乎">
+                      
+                        <i class="fa fa-fw fa-globe"></i>知乎</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://me.csdn.net/ashjian" target="_blank" title="CSDN">
+                      
+                        <i class="fa fa-fw fa-codiepie"></i>CSDN</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+            <div class="links-of-blogroll motion-element links-of-blogroll-inline">
+              <div class="links-of-blogroll-title">
+                <i class="fa  fa-fw fa-link"></i>
+                Links
+              </div>
+              <ul class="links-of-blogroll-list">
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="http://mp.weixin.qq.com/user1" title="OpenInfo" target="_blank">OpenInfo</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="http://mp.weixin.qq.com/user2" title="stormzhang" target="_blank">stormzhang</a>
+                  </li>
+                
+              </ul>
+            </div>
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#一、下载与安装"><span class="nav-number">1.</span> <span class="nav-text">一、下载与安装</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#二、基础命令"><span class="nav-number">2.</span> <span class="nav-text">二、基础命令</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#三、下载安装box模板"><span class="nav-number">3.</span> <span class="nav-text">三、下载安装box模板</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-在线下载安装"><span class="nav-number">3.1.</span> <span class="nav-text">1. 在线下载安装</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-离线下载安装"><span class="nav-number">3.2.</span> <span class="nav-text">2. 离线下载安装</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-关于版本"><span class="nav-number">3.3.</span> <span class="nav-text">3. 关于版本</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-常用的几个模板"><span class="nav-number">3.4.</span> <span class="nav-text">4. 常用的几个模板</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#四、安装和使用单台虚机"><span class="nav-number">4.</span> <span class="nav-text">四、安装和使用单台虚机</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-用指定模板来初始化配置文件Vagrantfile（init）"><span class="nav-number">4.1.</span> <span class="nav-text">1. 用指定模板来初始化配置文件Vagrantfile（init）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-启动-up-、关闭-halt-、暂停-suspend-、恢复-resume-、重载-reload-虚机"><span class="nav-number">4.2.</span> <span class="nav-text">2. 启动(up)、关闭(halt)、暂停(suspend)、恢复(resume)、重载(reload)虚机</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-登录虚机"><span class="nav-number">4.3.</span> <span class="nav-text">3. 登录虚机</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-销毁-destory-虚机"><span class="nav-number">4.4.</span> <span class="nav-text">4. 销毁(destory)虚机</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#五、制作自己习惯用的模板"><span class="nav-number">5.</span> <span class="nav-text">五、制作自己习惯用的模板</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#六、Vagrantfile参数详解"><span class="nav-number">6.</span> <span class="nav-text">六、Vagrantfile参数详解</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-config-vm-define定义多台主机"><span class="nav-number">6.1.</span> <span class="nav-text">1. config.vm.define定义多台主机</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-vm-network-虚拟机网络"><span class="nav-number">6.2.</span> <span class="nav-text">2. *.vm.network 虚拟机网络</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-vm-hostname-定义虚机主机名"><span class="nav-number">6.3.</span> <span class="nav-text">3. *.vm.hostname 定义虚机主机名</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-vm-synced-folder-宿主机与虚机共享同步目录"><span class="nav-number">6.4.</span> <span class="nav-text">4. *.vm.synced_folder 宿主机与虚机共享同步目录</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#七、插件"><span class="nav-number">7.</span> <span class="nav-text">七、插件</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-插件vagrant-hostmanager：用主机名访问（建议安装）"><span class="nav-number">7.1.</span> <span class="nav-text">1. 插件vagrant-hostmanager：用主机名访问（建议安装）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-插件vagrant-vbguest：自定义共享目录（建议安装）"><span class="nav-number">7.2.</span> <span class="nav-text">2. 插件vagrant-vbguest：自定义共享目录（建议安装）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-插件vagrant-bindfs-支持多种共享模式（可选）"><span class="nav-number">7.3.</span> <span class="nav-text">3. 插件vagrant-bindfs 支持多种共享模式（可选）</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#八、实验例子"><span class="nav-number">8.</span> <span class="nav-text">八、实验例子</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-搭建一个每台机器不同配置的实验环境。"><span class="nav-number">8.1.</span> <span class="nav-text">1. 搭建一个每台机器不同配置的实验环境。</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-批量搭建一组服务器（20170829补充）"><span class="nav-number">8.2.</span> <span class="nav-text">2. 批量搭建一组服务器（20170829补充）</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#自制的Vagrant镜像（20170830补充）"><span class="nav-number">9.</span> <span class="nav-text">自制的Vagrant镜像（20170830补充）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Introduction"><span class="nav-number">10.</span> <span class="nav-text">Introduction</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#In-English"><span class="nav-number">10.1.</span> <span class="nav-text">In English:</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#中文："><span class="nav-number">10.2.</span> <span class="nav-text">中文：</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">StarDustLoong</span>
+
+  
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-area-chart"></i>
+    </span>
+    
+      <span class="post-meta-item-text">本站总字数&#58;</span>
+    
+    <span title="本站总字数">635.5k</span>
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Pisces</a> v5.1.4</div>
+
+
+
+
+#<!-- 百度自动推送 -->
+#<script>
+#(function(){
+#    var bp = document.createElement('script');
+#    var curProtocol = window.location.protocol.split(':')[0];
+#    if (curProtocol === 'https') {
+#        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+#    }
+#    else {
+#        bp.src = 'http://push.ashjian.baidu.com/push.js';
+#    }
+#    var s = document.getElementsByTagName("script")[0];
+#    s.parentNode.insertBefore(bp, s);
+#})();
+#</script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aplayer/dist/APlayer.min.css">
+
+<script src="https://cdn.jsdelivr.net/npm/aplayer/dist/APlayer.min.js"></script>
+<!-- require MetingJS -->
+
+<script src="https://cdn.jsdelivr.net/npm/meting@2.0.1/dist/Meting.min.js"></script>
+<div> 
+<meting-js  
+    server="netease" 
+    type="playlist"  
+    id="5281251057" 
+    fixed="true"  
+    autoplay="false" 
+    loop="all" 
+    order="random"
+    preload="auto" 
+    list-folded="ture" 
+    list-max-height="500px" 
+    lrc-type="1">
+</meting-js>	 
+</div>
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv">
+      本站访客数
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+      人次
+    </span>
+  
+
+  
+    <span class="site-pv">
+      本站总访问量
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+      次
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+  <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+  <script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+  
+  <script type="text/javascript">
+    var GUEST = ['nick','mail','link'];
+    var guest = 'nick,mail,link';
+    guest = guest.split(',').filter(item=>{
+      return GUEST.indexOf(item)>-1;
+    });
+    new Valine({
+        el: '#comments' ,
+        verify: false,
+        notify: false,
+        appId: 'Gp5xxuBGmRxC9yeJHf5wlLpN-gzGzoHsz',
+        appKey: 'wo0eDJonJrnuUrCCCU7EnH1n',
+        placeholder: '欢迎评论',
+        avatar:'mm',
+        guest_info:guest,
+        pageSize:'20' || 10,
+    });
+  </script>
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"jsonPath":"/live2dw/assets/dsr50_lifu_normal.model.json"},"display":{"position":"right","width":700,"height":800,"hOffset":-250,"vOffset":-150},"mobile":{"show":true,"scale":0.7},"log":false});</script></body>
+</html>

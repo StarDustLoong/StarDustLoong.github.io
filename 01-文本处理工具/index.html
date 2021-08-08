@@ -1,0 +1,1598 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="文本处理," />
+
+
+
+
+  
+
+
+  <link rel="alternate" href="/atom.xml" title="" type="application/atom+xml" />
+
+
+
+
+
+
+<meta name="description" content="文件查看cat查看文件，从第一行到最后一行全部显示。 参数：   -E: 显示行结束符$ -A：显示不可打印字符，通常查看脚本是否有多加空格tab回车之类的。 -n：对显示出的每一行进行编号 -s：显示行号，压缩连续的空行，只显示一行空行 -b ：空行不加行号，等同于nl命令   示例： 123456789101112131415161718192021222324252627282930313">
+<meta property="og:type" content="article">
+<meta property="og:title" content="01-文本处理工具">
+<meta property="og:url" content="http://www.ashjian.xyz/01-%E6%96%87%E6%9C%AC%E5%A4%84%E7%90%86%E5%B7%A5%E5%85%B7/index.html">
+<meta property="og:site_name">
+<meta property="og:description" content="文件查看cat查看文件，从第一行到最后一行全部显示。 参数：   -E: 显示行结束符$ -A：显示不可打印字符，通常查看脚本是否有多加空格tab回车之类的。 -n：对显示出的每一行进行编号 -s：显示行号，压缩连续的空行，只显示一行空行 -b ：空行不加行号，等同于nl命令   示例： 123456789101112131415161718192021222324252627282930313">
+<meta property="article:published_time" content="2020-08-20T07:07:03.000Z">
+<meta property="article:modified_time" content="2021-03-26T10:02:15.462Z">
+<meta property="article:author" content="StarDustLoong">
+<meta property="article:tag" content="文本处理">
+<meta name="twitter:card" content="summary">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://www.ashjian.xyz/01-文本处理工具/"/>
+
+
+
+
+
+  <title>01-文本处理工具 | </title>
+  
+
+
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?d7bf52f45e24a0e6f2951901a7a97864";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+<meta name="generator" content="Hexo 4.2.1"></head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title"></span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off"
+             placeholder="搜索..." spellcheck="false"
+             type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://www.ashjian.xyz/01-%E6%96%87%E6%9C%AC%E5%A4%84%E7%90%86%E5%B7%A5%E5%85%B7/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="StarDustLoong">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/uploads/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">01-文本处理工具</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-08-20T15:07:03+08:00">
+                2020-08-20
+              </time>
+            
+
+            
+              <span class="post-meta-divider">|</span>
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-check-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">更新于&#58;</span>
+              
+              <time title="更新于" itemprop="dateModified" datetime="2021-03-26T18:02:15+08:00">
+                2021-03-26
+              </time>
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/linux/" itemprop="url" rel="index">
+                    <span itemprop="name">linux</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/01-%E6%96%87%E6%9C%AC%E5%A4%84%E7%90%86%E5%B7%A5%E5%85%B7/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/01-%E6%96%87%E6%9C%AC%E5%A4%84%E7%90%86%E5%B7%A5%E5%85%B7/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  2.1k
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  9
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+      
+      
+
+      
+        <hr>
+<h2 id="文件查看"><a href="#文件查看" class="headerlink" title="文件查看"></a>文件查看</h2><h3 id="cat"><a href="#cat" class="headerlink" title="cat"></a>cat</h3><p>查看文件，从第一行到最后一行全部显示。</p>
+<p>参数：</p>
+<blockquote>
+<ul>
+<li><code>-E</code>: 显示行结束符$</li>
+<li><code>-A</code>：显示不可打印字符，通常查看脚本是否有多加空格tab回车之类的。</li>
+<li><code>-n</code>：对显示出的每一行进行编号</li>
+<li><code>-s</code>：显示行号，压缩连续的空行，只显示一行空行</li>
+<li><code>-b</code> ：空行不加行号，等同于<code>nl</code>命令</li>
+</ul>
+</blockquote>
+<p>示例：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br></pre></td><td class="code"><pre><code class="hljs plain">[root❄centos7 app]☭ cat catfile<br>AAA	BBB<br>CCC DDD<br>EEE<br><br>GGG<br><br><br>HHH<br>[root❄centos7 app]☭ cat -A catfile <br>AAA^IBBB$<br>CCC DDD$<br>EEE$<br>$<br>GGG$<br>$<br>$<br>HHH$<br>[root❄centos7 app]☭ cat -n catfile <br>     1	AAA	BBB<br>     2	CCC DDD<br>     3	EEE<br>     4	<br>     5	GGG<br>     6	<br>     7	<br>     8	HHH<br>[root❄centos7 app]☭ cat -b catfile<br>     1	AAA	BBB<br>     2	CCC DDD<br>     3	EEE<br><br>     4	GGG<br><br><br>     5	HHH<br>[root❄centos7 app]☭ cat -s catfile<br>AAA	BBB<br>CCC DDD<br>EEE<br><br>GGG<br><br>HHH<br></code></pre></td></tr></table></figure>
+
+<h3 id="tac"><a href="#tac" class="headerlink" title="tac"></a>tac</h3><p>从后往前显示文件，和<code>cat</code>相反。</p>
+<p>示例：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs plain">[root❄centos7 app]☭ tac catfile<br>HHH<br><br><br>GGG<br><br>EEE<br>CCC DDD<br>AAA	BBB<br></code></pre></td></tr></table></figure>
+
+<h3 id="rev"><a href="#rev" class="headerlink" title="rev"></a>rev</h3><p><code>reverse lines</code>水平反转每一行里的字母。</p>
+<p>示例1，水平翻转文件：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs plain">[root❄centos7 app]☭ rev catfile <br>BBB	AAA<br>DDD CCC<br>EEE<br><br>GGG<br><br><br>HHH<br></code></pre></td></tr></table></figure>
+
+<p>示例2，倒序+水平翻转文件：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs plain">[root❄centos7 app]☭ tac catfile | rev<br>HHH<br><br><br>GGG<br><br>EEE<br>DDD CCC<br>BBB	AAA<br></code></pre></td></tr></table></figure>
+
+<h3 id="more"><a href="#more" class="headerlink" title="more"></a>more</h3><p>分页显示，显示到最后会退出。</p>
+<blockquote>
+<ul>
+<li><code>空格</code>或者<code>f</code>下一页</li>
+<li><code>b</code>上一页（管道后跟<code>more</code>无法上一页）</li>
+</ul>
+</blockquote>
+<h3 id="less"><a href="#less" class="headerlink" title="less"></a>less</h3><p>分页显示，显示到最后也不会退出，要按<code>q</code>退出。</p>
+<p><strong>翻屏操作：</strong></p>
+<table>
+<thead>
+<tr>
+<th align="left">键盘按键</th>
+<th align="left">效果</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left"><code>空格键</code></td>
+<td align="left">向下滚动一屏</td>
+</tr>
+<tr>
+<td align="left"><code>b</code></td>
+<td align="left">向上滚动一屏</td>
+</tr>
+<tr>
+<td align="left"><code>j</code></td>
+<td align="left">向下移动一行</td>
+</tr>
+<tr>
+<td align="left"><code>k</code>或<code>回车</code></td>
+<td align="left">向上移动一行</td>
+</tr>
+<tr>
+<td align="left"><code>gg</code></td>
+<td align="left">跳转至第一行</td>
+</tr>
+<tr>
+<td align="left"><code>5g</code></td>
+<td align="left">跳转到第5行</td>
+</tr>
+<tr>
+<td align="left"><code>G</code></td>
+<td align="left">跳转到最后一行</td>
+</tr>
+<tr>
+<td align="left"><code>q</code></td>
+<td align="left">退出</td>
+</tr>
+</tbody></table>
+<p><strong>文本搜索:</strong></p>
+<table>
+<thead>
+<tr>
+<th align="left">键盘按键</th>
+<th align="left">效果</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left"><code>/keyword</code></td>
+<td align="left">向下查找，不区分大小写</td>
+</tr>
+<tr>
+<td align="left"><code>?keyword</code></td>
+<td align="left">向上查找，不区分大小写</td>
+</tr>
+<tr>
+<td align="left"><code>n</code></td>
+<td align="left">查找下一个，与查找方向相同</td>
+</tr>
+<tr>
+<td align="left"><code>N</code></td>
+<td align="left">查找上一个，与查找方向相反</td>
+</tr>
+</tbody></table>
+<hr>
+<h2 id="按行截取"><a href="#按行截取" class="headerlink" title="按行截取"></a>按行截取</h2><h3 id="head"><a href="#head" class="headerlink" title="head"></a>head</h3><p>取文件头部的行，默认头10行。</p>
+<p>参数：</p>
+<blockquote>
+<ul>
+<li><code>-c NUM</code>：显示几个字符</li>
+<li><code>-n NUM</code>：显示几行</li>
+</ul>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs plain"># 取随机数里，数字或字母的字符，取前20个字符，可以用来做随机密码。<br>cat &#x2F;dev&#x2F;urandom | tr -dc &quot;0-9a-zA-Z&quot; | head -c 20<br></code></pre></td></tr></table></figure>
+
+<h3 id="tail"><a href="#tail" class="headerlink" title="tail"></a>tail</h3><p>显示文件尾部的行，默认最后10行。</p>
+<p>参数：</p>
+<blockquote>
+<ul>
+<li><code>-c NUM</code>：只显示倒数几个字符。</li>
+<li><code>-n NUM</code>：示倒数几行。</li>
+<li><code>-f</code>：follow，跟踪这个文件的变动，用来看日志比较多</li>
+</ul>
+</blockquote>
+<p>例子：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs plain">tail -n0 -f &#x2F;var&#x2F;log&#x2F;messages &amp;&#96;<br></code></pre></td></tr></table></figure>
+
+
+
+<blockquote>
+<p><code>-n0</code>只显示新增加的内容，命令最后加一个<code>&amp;</code>，表示放在后台运行，可以去运行其他命令不受影响。当日志变动的时候，会在前台打印出一条，按回车可以继续运行其他命令。</p>
+</blockquote>
+<hr>
+<h2 id="转化内容"><a href="#转化内容" class="headerlink" title="转化内容"></a>转化内容</h2><h3 id="tr"><a href="#tr" class="headerlink" title="tr"></a>tr</h3><p><code>tr [OPTION]... SET1 [SET2]</code><br>把输入的数据当中的字符，凡是在<code>SET1</code>定义范围内出现的，通通对位转换为<code>SET2</code>出现的字符</p>
+<p>参数：</p>
+<blockquote>
+<ul>
+<li><code>tr SET1 SET2 &lt; /path/from/somefile</code>对位转化SET1中的字符为SET2中的字符</li>
+<li><code>tr -d SET1 &lt; /path/from/somefile</code>删除指定集合里出现的字符</li>
+<li><code>tr -s &quot;\n&quot; /path/from/somefile</code>把指定的连续的字符以一个字符表示，压缩。</li>
+<li><code>tr -c</code>Complement ,取字符集的补集，通常与其他参数结合使用，例如<code>-dc</code></li>
+</ul>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><code class="hljs plain">[root@ashjian~]# tr &#39;a-z&#39; &#39;A-Z&#39;<br>aabbcc33<br>AABBCC33<br>^C<br>[root@ashjian~]# tr &#39;a-z&#39; &#39;A-Z&#39; &lt;&#x2F;etc&#x2F;issue<br>\S<br>KERNEL \R ON AN \M<br><br>[root@ashjian~]# tr &#39;a-z&#39; &#39;A-Z&#39; &lt; &#x2F;etc&#x2F;issue &gt; &#x2F;app&#x2F;issue2<br>[root@ashjian~]# cat &#x2F;app&#x2F;issue2<br>\S<br>KERNEL \R ON AN \M<br></code></pre></td></tr></table></figure>
+
+<blockquote>
+<p>tips：如果是输入后再输出到同一个文件，就会清空这个文件，所以最好不要这么用，下面是一个错误示范：</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs plain">[root❄centos7 ~]☭ cd &#x2F;app&#x2F;<br>[root❄centos7 app]☭ cp issue2 issue3<br>[root❄centos7 app]☭ tr &#39;a-z&#39; &#39;A-Z&#39; &lt; issue3 &gt;issue3<br>[root❄centos7 app]☭ cat issue3<br>[root❄centos7 app]☭<br></code></pre></td></tr></table></figure>
+
+<p>追加是可以的，在原有文件基础上再追加一段：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs plain">[root❄centos7 app]☭ cat issue2<br>\S<br>KERNEL \R ON AN \M<br><br>[root❄centos7 app]☭ tr &#39;A-Z&#39; &#39;a-z&#39; &lt; issue2 &gt;&gt; issue2<br>[root❄centos7 app]☭ cat issue2<br>\S<br>KERNEL \R ON AN \M<br><br>\s<br>kernel \r on an \m<br></code></pre></td></tr></table></figure>
+
+<p>dc结合使用：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs plain">[root@ashjianapp]# echo &#123;a..z&#125; &gt;f1<br>[root@ashjianapp]# cat f1<br>a b c d e f g h i j k l m n o p q r s t u v w x y z<br>[root@ashjianapp]# tr -d &#39;f-n&#39; &lt;f1<br>a b c d e          o p q r s t u v w x y z<br>[root@ashjianapp]# cat f1<br>a b c d e f g h i j k l m n o p q r s t u v w x y z<br>[root@ashjianapp]# tr -dc &#39;f-n&#39; &lt; f1<br>fghijklmn[root@ashjianapp]#<br></code></pre></td></tr></table></figure>
+
+<hr>
+<h2 id="按列操作"><a href="#按列操作" class="headerlink" title="按列操作"></a>按列操作</h2><h3 id="cut"><a href="#cut" class="headerlink" title="cut"></a>cut</h3><p>cut可以实现分割每一行，并且指定输出列的字段。</p>
+<blockquote>
+<ul>
+<li><code>-d DELIMITER</code>：指定分隔符（delimiter）</li>
+<li><code>-f FIELDS</code>：取指定字段（fileds）</li>
+</ul>
+</blockquote>
+<p>示例1：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs plain"># 以冒号作为分隔符，取1到3、7的字段<br>cut -d: -f1-3,7 &#x2F;etc&#x2F;passwd<br># 结果<br>root:x:0:&#x2F;bin&#x2F;bash<br>...<br>LongDream:x:1000:&#x2F;bin&#x2F;bash<br>yu:x:1001:&#x2F;bin&#x2F;bash<br>alice:x:1002:&#x2F;bin&#x2F;bash<br>tom:x:1003:&#x2F;bin&#x2F;bash<br></code></pre></td></tr></table></figure>
+
+<p>示例2：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><code class="hljs plain"># 取磁盘利用率,先tr压缩空格为一个空格，然后以空格作为分隔符，取第五个字段<br>df |tr -s &quot; &quot;| cut -d&quot; &quot; -f5<br># 结果<br>Use%<br>5%<br>0%<br>0%<br>1%<br>0%<br>1%<br>22%<br>0%<br></code></pre></td></tr></table></figure>
+
+<h3 id="paste"><a href="#paste" class="headerlink" title="paste"></a>paste</h3><p>把多个文件的多行进行合并，逐行进行合并。</p>
+<p>参数：</p>
+<blockquote>
+<ul>
+<li><code>-d</code>指定分隔符,默认是tab</li>
+<li><code>-s</code>把每个文件里的多行合成一行，每个文件一行。</li>
+</ul>
+</blockquote>
+<p>示例：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><code class="hljs plain">[root❄centos7 app]# cat file1<br>name<br>aaa<br>bbb<br>ccc<br>[root❄centos7 app]# cat file2<br>age<br>18<br>20<br>22<br>[root❄centos7 app]# paste file1 file2<br>name	age<br>aaa		18<br>bbb		20<br>ccc		22<br>[root❄centos7 app]# paste -d: file1 file2<br>name:age<br>aaa:18<br>bbb:20<br>ccc:22<br>[root❄centos7 app]# paste -s file1 file2<br>name	aaa	bbb	ccc<br>age	18	20	22<br></code></pre></td></tr></table></figure>
+
+<hr>
+<h2 id="分析文本"><a href="#分析文本" class="headerlink" title="分析文本"></a>分析文本</h2><h3 id="wc"><a href="#wc" class="headerlink" title="wc"></a>wc</h3><p>直接运行原<code>wc</code>命令：输出文件中的行数、单词数、字节数</p>
+<p>参数：</p>
+<blockquote>
+<ul>
+<li><code>-c</code>：输出字节数</li>
+<li><code>-m</code>：输出字符数</li>
+<li><code>-l</code>：输出行数</li>
+<li><code>-L</code>：输出最长的行的长度。</li>
+<li><code>-w</code>： 输出单词统计数。</li>
+</ul>
+</blockquote>
+<h3 id="sort"><a href="#sort" class="headerlink" title="sort"></a>sort</h3><p>排序，默认是按照字符的大小来排列</p>
+<blockquote>
+<ul>
+<li><code>-t</code> ：指定分隔符</li>
+<li><code>-k</code>：以哪一个为分割</li>
+<li><code>-n</code>：按数字大小排列，从小到大</li>
+<li><code>-r</code>：反向，从大到小</li>
+<li><code>-u</code>：删除重复的行</li>
+</ul>
+</blockquote>
+<p>示例1：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs plain"># 以冒号分割，取第三列UID，nr表示按照数值大小倒序（由大到小）排列。<br>sort -t: -k3 -nr &#x2F;etc&#x2F;passwd<br># 先cut只留第一列用户名和第三列UID<br>cut -d: -f1,3 &#x2F;etc&#x2F;passwd | sort -t: -k2 -nr<br></code></pre></td></tr></table></figure>
+
+
+
+<p>示例2：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs plain"># 取分区使用率最大值<br>df |tr -s &quot; &quot; &quot;%&quot;|cut -d% -f5|sort -nr|head -n1<br></code></pre></td></tr></table></figure>
+
+<h3 id="uniq"><a href="#uniq" class="headerlink" title="uniq"></a>uniq</h3><p>唯一，从输入中删除前后相接的重复的行</p>
+<p><code>-c</code>: 显示每行重复出现的次数</p>
+<p><code>-d</code>: 仅显示重复过的行</p>
+<p><code>-u</code>: 仅显示不曾重复的行</p>
+<p>常和sort 命令一起配合使用，示例：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs plain"># 把用户名列表进行排序（重复的会在相邻的行），然后统计重复用户出现的次数：<br>sort userlist.txt | uniq -c<br># 登录用户的登录次数：<br>&#96;last | cut -d &#39; &#39; -f1|sort| uniq -c |sort -nr&#96;<br></code></pre></td></tr></table></figure>
+
+<h3 id="diff、patch"><a href="#diff、patch" class="headerlink" title="diff、patch"></a>diff、patch</h3><p>diff比较两个文件的区别</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs plain"># 比较两个文件的区别，发现第5行有区别<br>diff foo.conf-broken foo.conf-works<br><br>5c5<br>&lt; use_widgets &#x3D; no<br>---<br>&gt; use_widgets &#x3D; yes<br></code></pre></td></tr></table></figure>
+
+<p>patch可以用diff生成的patch来修复另一个文件。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs plain">diff -u foo.conf-broken foo.conf-works &gt; foo.patch #把差异写到foo.patch补丁里<br>cp foo.conf-broken foo.conf-broken.bak #备份一下<br>patch -b foo.conf-broken foo.patch # 从差异的补丁进行恢复<br></code></pre></td></tr></table></figure>
+
+<hr>
+<h2 id="按关键字过滤"><a href="#按关键字过滤" class="headerlink" title="按关键字过滤"></a>按关键字过滤</h2><h3 id="grep"><a href="#grep" class="headerlink" title="grep"></a>grep</h3><p>文本过滤工具</p>
+<p>不带参数普通用法：</p>
+<blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs plain">grep root &#x2F;etc&#x2F;passwd<br></code></pre></td></tr></table></figure>
+</blockquote>
+<p>带参数：</p>
+<blockquote>
+<ul>
+<li><code>-v</code>：显示不被pattern匹配到的行</li>
+<li><code>-i</code>：忽略字符大小写</li>
+<li><code>-n</code>：显示匹配的行号</li>
+<li><code>-c</code>：统计匹配的行数</li>
+<li><code>-o</code>：仅显示匹配到的字符串</li>
+<li><code>-q</code>：静默模式，不输出任何信息(quiet，可以结合<code>echo $?</code>状态码使用)</li>
+<li><code>-A NUM</code> after, 包含匹配行的后NUM行</li>
+<li><code>-B NUM</code>:before, 包含匹配行的前NUM行</li>
+<li><code>-C NUM</code> context, 包含匹配行的前后各NUM行</li>
+<li><code>-e</code>: 实现多个选项间的逻辑or关系</li>
+<li><code>-w</code>匹配整个单词(字母、下划线、数字汉字，这几个连在一起算一个单词)</li>
+<li><code>-E</code>使用ERE</li>
+<li><code>-F</code>相当于fgrep，不支持正则表达式</li>
+</ul>
+<p>参考书籍：关于grep的各个参数的具体用法，可以看《Linux Shell 脚本攻略（第2版）》4.3章节，有详细说明，这里不做赘述。</p>
+</blockquote>
+<p>例子：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs plain"># 扫描172.16.252。0段的机器，如果主机是up状态（Host is up）的，显示之前一行（-B1）,前一行有ip地址，然后grep for是因为只有有ip的那行有for，然后以空格为分隔符，取第五个，就是ip地址。<br>nmap -v -sP 172.17.252.0&#x2F;24 |grep -B1 &quot;Host is up.&quot;|grep for|cut -d&quot; &quot; -f5<br></code></pre></td></tr></table></figure>
+
+
+
+      
+    </div>
+    
+    
+    
+
+     <!-- 文章末尾统一添加“本文结束”标记 -->
+    <div>
+      
+        <div>
+    
+        <div style="text-align:center;color: #555;font-size:24px;"><-------------The End-------------></div>
+    
+</div>
+
+      
+    </div>
+    
+
+    
+      <div>
+        <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+  <div>坚持原创分享，你的支持就是我最大的动力！</div>
+  <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+    <span>打赏</span>
+  </button>
+  <div id="QR" style="display: none;">
+
+    
+      <div id="wechat" style="display: inline-block">
+        <img id="wechat_qr" src="/uploads/weixin_cash_code.png" alt="StarDustLoong 微信支付"/>
+        <p>微信支付</p>
+      </div>
+    
+
+    
+      <div id="alipay" style="display: inline-block">
+        <img id="alipay_qr" src="/uploads/alipay_cash_code.png" alt="StarDustLoong 支付宝"/>
+        <p>支付宝</p>
+      </div>
+    
+
+    
+
+  </div>
+</div>
+
+      </div>
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/%E6%96%87%E6%9C%AC%E5%A4%84%E7%90%86/" rel="tag"># 文本处理</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/04-%E6%9D%83%E9%99%90%E5%92%8CACL%E7%BB%83%E4%B9%A0%E9%A2%98/" rel="next" title="04-权限和ACL练习题">
+                <i class="fa fa-chevron-left"></i> 04-权限和ACL练习题
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/02-%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F-RegExp/" rel="prev" title="02-正则表达式(RegExp)">
+                02-正则表达式(RegExp) <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+    </div>
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/uploads/avatar.png"
+                alt="StarDustLoong" />
+            
+              <p class="site-author-name" itemprop="name">StarDustLoong</p>
+              <p class="site-description motion-element" itemprop="description">人类如风一般的自由</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">2409</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">12</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">146</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+	   
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/StarDustLoong" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:13671474528@163.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://www.zhihu.com/people/ashjian-ar15" target="_blank" title="知乎">
+                      
+                        <i class="fa fa-fw fa-globe"></i>知乎</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://me.csdn.net/ashjian" target="_blank" title="CSDN">
+                      
+                        <i class="fa fa-fw fa-codiepie"></i>CSDN</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+            <div class="links-of-blogroll motion-element links-of-blogroll-inline">
+              <div class="links-of-blogroll-title">
+                <i class="fa  fa-fw fa-link"></i>
+                Links
+              </div>
+              <ul class="links-of-blogroll-list">
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="http://mp.weixin.qq.com/user1" title="OpenInfo" target="_blank">OpenInfo</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="http://mp.weixin.qq.com/user2" title="stormzhang" target="_blank">stormzhang</a>
+                  </li>
+                
+              </ul>
+            </div>
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#文件查看"><span class="nav-number">1.</span> <span class="nav-text">文件查看</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#cat"><span class="nav-number">1.1.</span> <span class="nav-text">cat</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#tac"><span class="nav-number">1.2.</span> <span class="nav-text">tac</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#rev"><span class="nav-number">1.3.</span> <span class="nav-text">rev</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#more"><span class="nav-number">1.4.</span> <span class="nav-text">more</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#less"><span class="nav-number">1.5.</span> <span class="nav-text">less</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#按行截取"><span class="nav-number">2.</span> <span class="nav-text">按行截取</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#head"><span class="nav-number">2.1.</span> <span class="nav-text">head</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#tail"><span class="nav-number">2.2.</span> <span class="nav-text">tail</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#转化内容"><span class="nav-number">3.</span> <span class="nav-text">转化内容</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#tr"><span class="nav-number">3.1.</span> <span class="nav-text">tr</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#按列操作"><span class="nav-number">4.</span> <span class="nav-text">按列操作</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#cut"><span class="nav-number">4.1.</span> <span class="nav-text">cut</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#paste"><span class="nav-number">4.2.</span> <span class="nav-text">paste</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#分析文本"><span class="nav-number">5.</span> <span class="nav-text">分析文本</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#wc"><span class="nav-number">5.1.</span> <span class="nav-text">wc</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#sort"><span class="nav-number">5.2.</span> <span class="nav-text">sort</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#uniq"><span class="nav-number">5.3.</span> <span class="nav-text">uniq</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#diff、patch"><span class="nav-number">5.4.</span> <span class="nav-text">diff、patch</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#按关键字过滤"><span class="nav-number">6.</span> <span class="nav-text">按关键字过滤</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#grep"><span class="nav-number">6.1.</span> <span class="nav-text">grep</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">StarDustLoong</span>
+
+  
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-area-chart"></i>
+    </span>
+    
+      <span class="post-meta-item-text">本站总字数&#58;</span>
+    
+    <span title="本站总字数">635.5k</span>
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Pisces</a> v5.1.4</div>
+
+
+
+
+#<!-- 百度自动推送 -->
+#<script>
+#(function(){
+#    var bp = document.createElement('script');
+#    var curProtocol = window.location.protocol.split(':')[0];
+#    if (curProtocol === 'https') {
+#        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+#    }
+#    else {
+#        bp.src = 'http://push.ashjian.baidu.com/push.js';
+#    }
+#    var s = document.getElementsByTagName("script")[0];
+#    s.parentNode.insertBefore(bp, s);
+#})();
+#</script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aplayer/dist/APlayer.min.css">
+
+<script src="https://cdn.jsdelivr.net/npm/aplayer/dist/APlayer.min.js"></script>
+<!-- require MetingJS -->
+
+<script src="https://cdn.jsdelivr.net/npm/meting@2.0.1/dist/Meting.min.js"></script>
+<div> 
+<meting-js  
+    server="netease" 
+    type="playlist"  
+    id="5281251057" 
+    fixed="true"  
+    autoplay="false" 
+    loop="all" 
+    order="random"
+    preload="auto" 
+    list-folded="ture" 
+    list-max-height="500px" 
+    lrc-type="1">
+</meting-js>	 
+</div>
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv">
+      本站访客数
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+      人次
+    </span>
+  
+
+  
+    <span class="site-pv">
+      本站总访问量
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+      次
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+  <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+  <script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+  
+  <script type="text/javascript">
+    var GUEST = ['nick','mail','link'];
+    var guest = 'nick,mail,link';
+    guest = guest.split(',').filter(item=>{
+      return GUEST.indexOf(item)>-1;
+    });
+    new Valine({
+        el: '#comments' ,
+        verify: false,
+        notify: false,
+        appId: 'Gp5xxuBGmRxC9yeJHf5wlLpN-gzGzoHsz',
+        appKey: 'wo0eDJonJrnuUrCCCU7EnH1n',
+        placeholder: '欢迎评论',
+        avatar:'mm',
+        guest_info:guest,
+        pageSize:'20' || 10,
+    });
+  </script>
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"jsonPath":"/live2dw/assets/dsr50_lifu_normal.model.json"},"display":{"position":"right","width":700,"height":800,"hOffset":-250,"vOffset":-150},"mobile":{"show":true,"scale":0.7},"log":false});</script></body>
+</html>

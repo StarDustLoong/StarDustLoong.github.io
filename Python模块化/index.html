@@ -1,0 +1,1527 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="python模块化," />
+
+
+
+
+  
+
+
+  <link rel="alternate" href="/atom.xml" title="" type="application/atom+xml" />
+
+
+
+
+
+
+<meta name="description" content="模块化一般来说，编程语言中，库、包、模块是同一种概念，是代码组织方式。Python中只有一种模块对象类型，但是为了模块化组织模块的便利，提供了一个概念一一包模块module，指的是Python的源代码文件包package，指的是模块组织在一起的和包名同名的目录及具相关文件 导入语句import语句   语句 含义    import模块1[,模块2,…] 完全导入   import … as …">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Python模块化">
+<meta property="og:url" content="http://www.ashjian.xyz/Python%E6%A8%A1%E5%9D%97%E5%8C%96/index.html">
+<meta property="og:site_name">
+<meta property="og:description" content="模块化一般来说，编程语言中，库、包、模块是同一种概念，是代码组织方式。Python中只有一种模块对象类型，但是为了模块化组织模块的便利，提供了一个概念一一包模块module，指的是Python的源代码文件包package，指的是模块组织在一起的和包名同名的目录及具相关文件 导入语句import语句   语句 含义    import模块1[,模块2,…] 完全导入   import … as …">
+<meta property="article:published_time" content="2021-07-12T05:49:08.173Z">
+<meta property="article:modified_time" content="2021-07-12T14:04:52.586Z">
+<meta property="article:author" content="StarDustLoong">
+<meta property="article:tag" content="python模块化">
+<meta name="twitter:card" content="summary">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://www.ashjian.xyz/Python模块化/"/>
+
+
+
+
+
+  <title>Python模块化 | </title>
+  
+
+
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?d7bf52f45e24a0e6f2951901a7a97864";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+<meta name="generator" content="Hexo 4.2.1"></head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title"></span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off"
+             placeholder="搜索..." spellcheck="false"
+             type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://www.ashjian.xyz/Python%E6%A8%A1%E5%9D%97%E5%8C%96/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="StarDustLoong">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/uploads/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Python模块化</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2021-07-12T13:49:08+08:00">
+                2021-07-12
+              </time>
+            
+
+            
+              <span class="post-meta-divider">|</span>
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-check-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">更新于&#58;</span>
+              
+              <time title="更新于" itemprop="dateModified" datetime="2021-07-12T22:04:52+08:00">
+                2021-07-12
+              </time>
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/python/" itemprop="url" rel="index">
+                    <span itemprop="name">python</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/Python%E6%A8%A1%E5%9D%97%E5%8C%96/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/Python%E6%A8%A1%E5%9D%97%E5%8C%96/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  4k
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  16
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+      
+      
+
+      
+        <h2 id="模块化"><a href="#模块化" class="headerlink" title="模块化"></a>模块化</h2><p>一般来说，编程语言中，库、包、模块是同一种概念，是代码组织方式。<br>Python中只有一种模块对象类型，但是为了模块化组织模块的便利，提供了一个概念一一包模块module，指的是Python的源代码文件<br>包package，指的是模块组织在一起的和包名同名的目录及具相关文件</p>
+<h2 id="导入语句"><a href="#导入语句" class="headerlink" title="导入语句"></a>导入语句</h2><h3 id="import语句"><a href="#import语句" class="headerlink" title="import语句"></a>import语句</h3><table>
+<thead>
+<tr>
+<th align="left">语句</th>
+<th align="left">含义</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">import模块1[,模块2,…]</td>
+<td align="left">完全导入</td>
+</tr>
+<tr>
+<td align="left">import … as …</td>
+<td align="left">模块别名</td>
+</tr>
+</tbody></table>
+<p>import 语句<br>\1. 找到指定的模块，加载和初始化它，生成模块对象。找不到，抛出ImportError异常<br>\2. 在import所在的作用域的局部命名空间中，增加名称和上一步创建的对象关联<br>单独运行下面的例子，体会区别</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">import</span> functools  <span class="hljs-comment"># 导入模块</span><br>print(<span class="hljs-number">1</span>, dir())<br>print(<span class="hljs-number">2</span>, functools)<br>print(<span class="hljs-number">3</span>, functools.wraps)<br>~~~~~~~~~~~~~~~~~~~~~~~~~~<br><span class="hljs-number">1</span> [..., <span class="hljs-string">'functools'</span>]<br><span class="hljs-number">2</span> &lt;module <span class="hljs-string">'functools'</span> <span class="hljs-keyword">from</span> <span class="hljs-string">'C:\\Users\\SevenXue\\AppData\\Local\\Programs\\Python\\Python35\\lib\\functools.py'</span>&gt;<br><span class="hljs-number">3</span> &lt;function wraps at <span class="hljs-number">0x0000017EA142EA60</span>&gt;<br><span class="hljs-keyword">import</span> os.path  <span class="hljs-comment"># 导入os.path, os加入当前名词空间</span><br>print(<span class="hljs-number">1</span>, dir())<br>print(<span class="hljs-number">2</span>, os)<br>print(<span class="hljs-number">3</span>, os.path)  <span class="hljs-comment"># 完全限定名称访问path</span><br>~~~~~~~~~~~~~~~~~~~~~~<br><span class="hljs-number">1</span> [..., <span class="hljs-string">'os'</span>]<br><span class="hljs-number">2</span> &lt;module <span class="hljs-string">'os'</span> <span class="hljs-keyword">from</span> <span class="hljs-string">'C:\\Users\\SevenXue\\AppData\\Local\\Programs\\Python\\Python35\\lib\\os.py'</span>&gt;<br><span class="hljs-number">3</span> &lt;module <span class="hljs-string">'ntpath'</span> <span class="hljs-keyword">from</span> <span class="hljs-string">'C:\\Users\\SevenXue\\AppData\\Local\\Programs\\Python\\Python35\\lib\\ntpath.py'</span>&gt;<br><span class="hljs-keyword">import</span> os.path <span class="hljs-keyword">as</span> osp  <span class="hljs-comment"># 导入os.path并赋给osp</span><br>print(<span class="hljs-number">1</span>, dir())<br>print(<span class="hljs-number">2</span>, osp)<br>~~~~~~~~~~~~~~~~~~~~~~~~~~~<br><span class="hljs-number">1</span> [..., <span class="hljs-string">'osp'</span>]<br><span class="hljs-number">2</span> &lt;module <span class="hljs-string">'ntpath'</span> <span class="hljs-keyword">from</span> <span class="hljs-string">'C:\\Users\\SevenXue\\AppData\\Local\\Programs\\Python\\Python35\\lib\\ntpath.py'</span>&gt;<br></code></pre></td></tr></table></figure>
+
+<ul>
+<li>总结<ul>
+<li>导入顶级模块，其名称会加入到本地名词空间中，并绑定到其模块对象。</li>
+<li>导入非顶级模块，只将其顶级模块名称加入到本地名词空间中。导入的模块必须使用完全限定名称来访问。</li>
+<li>如果使用了as，as后的名称直接绑定到导入的模块对象，并将该名称加入到本地名词空间中。</li>
+</ul>
+</li>
+</ul>
+<h3 id="from语句"><a href="#from语句" class="headerlink" title="from语句"></a>from语句</h3><table>
+<thead>
+<tr>
+<th align="left">语句</th>
+<th align="left">含义</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">from … import …</td>
+<td align="left">部分导入</td>
+</tr>
+<tr>
+<td align="left">from … import … as …</td>
+<td align="left">别名</td>
+</tr>
+</tbody></table>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">from</span> pathlib <span class="hljs-keyword">import</span> Path, PosixPath  <span class="hljs-comment"># 在当前名词空间导入该模块指定的成员</span><br>print(dir())<br>~~~~~~~~~~~~~~~~~~~~~~~~~~<br>[<span class="hljs-string">'Path'</span>, <span class="hljs-string">'PosixPath'</span>, ...]<br><span class="hljs-keyword">from</span> pathlib <span class="hljs-keyword">import</span> *  <span class="hljs-comment"># 当前名词空间导入该模块所有公共成员（非下划线开头成员）或指定成员</span><br>print(dir())<br>~~~~~~~~~~~~~~~~~~~~~~~~~<br>[<span class="hljs-string">'Path'</span>, <span class="hljs-string">'PosixPath'</span>, <span class="hljs-string">'PurePath'</span>, <span class="hljs-string">'PurePosixPath'</span>, <span class="hljs-string">'PureWindowsPath'</span>, <span class="hljs-string">'WindowsPath'</span>, ...]<br><span class="hljs-keyword">from</span> functools <span class="hljs-keyword">import</span> wraps <span class="hljs-keyword">as</span> wr, partial  <span class="hljs-comment"># 别名</span><br>print(dir())<br>~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~<br>[..., <span class="hljs-string">'partial'</span>, <span class="hljs-string">'wr'</span>]<br><span class="hljs-keyword">from</span> os.path <span class="hljs-keyword">import</span> exists  <span class="hljs-comment"># 加载、初始化os、os.path模块，exists加入本地名词空间并绑定</span><br><br><br><span class="hljs-keyword">if</span> exists(<span class="hljs-string">'d:/t'</span>):<br>    print(<span class="hljs-string">'Found'</span>)<br><span class="hljs-keyword">else</span>:<br>    print(<span class="hljs-string">'Not Found'</span>)<br><br><br>print(<span class="hljs-number">1</span>, dir())<br>print(<span class="hljs-number">2</span>, exists)<br><br><br><span class="hljs-keyword">import</span> os<br><br><br>print(<span class="hljs-number">10</span>, os.path.exists)<br>print(<span class="hljs-number">11</span>, exists)<br>print(<span class="hljs-number">12</span>, os.path.__dict__[<span class="hljs-string">'exists'</span>])<br>print(<span class="hljs-number">13</span>, getattr(os.path, <span class="hljs-string">'exists'</span>))<br><span class="hljs-comment"># 上面4种方式获得同一个对象</span><br>~~~~~~~~~~~~~~~~~~~~~~~~~<br>Not Found<br><span class="hljs-number">1</span> [..., <span class="hljs-string">'exists'</span>]<br><span class="hljs-number">2</span> &lt;function exists at <span class="hljs-number">0x0000024006D2C1E0</span>&gt;  <span class="hljs-comment">#使用了特殊机制，四种获取方法都是同一对象</span><br><span class="hljs-number">10</span> &lt;function exists at <span class="hljs-number">0x0000024006D2C1E0</span>&gt;<br><span class="hljs-number">11</span> &lt;function exists at <span class="hljs-number">0x0000024006D2C1E0</span>&gt;<br><span class="hljs-number">12</span> &lt;function exists at <span class="hljs-number">0x0000024006D2C1E0</span>&gt;<br><span class="hljs-number">13</span> &lt;function exists at <span class="hljs-number">0x0000024006D2C1E0</span>&gt;<br></code></pre></td></tr></table></figure>
+
+<ul>
+<li>总结<ul>
+<li>找到from子句中指定的模块，加载并初始化它（注意不是导入）（部分导入，模块也是全部加载）</li>
+<li>对于import子句后的名称<ul>
+<li>先查from子句导入的模块是否具有该名称的属性</li>
+<li>如果不是，则尝试导入该名称的子模块</li>
+<li>还没有找到，则抛出ImportError异常</li>
+<li>这个名称保存在本地名词空间中中，如果有as子句，则使用as子句后的名称</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">from</span> pathlib <span class="hljs-keyword">import</span> Path  <span class="hljs-comment"># 导入类Path</span><br>print(<span class="hljs-number">1</span>, Path, id(Path))<br><br><br><span class="hljs-keyword">import</span> pathlib <span class="hljs-keyword">as</span> pl  <span class="hljs-comment"># 导入模块使用别名</span><br>print(<span class="hljs-number">2</span>, dir())<br>print(<span class="hljs-number">3</span>, pl)<br>print(<span class="hljs-number">4</span>, pl.Path, id(pl.Path))<br><span class="hljs-comment"># 可以看出导入的名词Path和pl.Path是同一个对象</span><br>~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~<br><span class="hljs-number">1</span> &lt;<span class="hljs-class"><span class="hljs-keyword">class</span> '<span class="hljs-title">pathlib</span>.<span class="hljs-title">Path</span>'&gt; 3082707106104</span><br>2 ['Path', '__builtins__', '__cached__', '__doc__', '__file__', '__loader__', '__name__', '__package__', '__spec__', 'pl']<br><span class="hljs-number">3</span> &lt;module <span class="hljs-string">'pathlib'</span> <span class="hljs-keyword">from</span> <span class="hljs-string">'C:\\Users\\SevenXue\\AppData\\Local\\Programs\\Python\\Python35\\lib\\pathlib.py'</span>&gt;<br><span class="hljs-number">4</span> &lt;<span class="hljs-class"><span class="hljs-keyword">class</span> '<span class="hljs-title">pathlib</span>.<span class="hljs-title">Path</span>'&gt; 3082707106104</span><br></code></pre></td></tr></table></figure>
+
+<h2 id="自定义模块"><a href="#自定义模块" class="headerlink" title="自定义模块"></a>自定义模块</h2><p>自定义模块：.py文件就是一个模块</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-comment"># test1.py文件</span><br>print(<span class="hljs-string">'This is test1 module'</span>)<br><br><br><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">A</span>:</span><br>    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">showmodule</span><span class="hljs-params">(self)</span>:</span><br>        print(<span class="hljs-string">"&#123;&#125;.a = &#123;&#125;"</span>.format(self.__module__, self))<br>        print(self.__class__.__name__)<br><br><br>a = A()<br>a.showmodule()<br><br><br><span class="hljs-comment"># test2.py文件</span><br><span class="hljs-keyword">import</span> test1<br><br>a = test1.A()<br>a.showmodule()<br><br><br><span class="hljs-comment"># test3.py文件</span><br><span class="hljs-keyword">from</span> test1 <span class="hljs-keyword">import</span> A <span class="hljs-keyword">as</span> cls<br><br><br>a = cls()<br>a.showmodule()<br></code></pre></td></tr></table></figure>
+
+<h2 id="自动以模块命名规范"><a href="#自动以模块命名规范" class="headerlink" title="自动以模块命名规范"></a>自动以模块命名规范</h2><ul>
+<li>模块名就是文件名</li>
+<li>模块名必须符合标识符的要求，是非数字开头的字母数字和下划线的组合，test-module.py这样的文件名不能作为模块名</li>
+<li>不要使用系统模块名来避免冲突，除非你明确知道这个模块名的用途</li>
+<li>通常名为全小写，下划线来分割</li>
+</ul>
+<h2 id="模块搜索顺序"><a href="#模块搜索顺序" class="headerlink" title="模块搜索顺序"></a>模块搜索顺序</h2><p>使用sys.path查看搜索顺序</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">import</span> sys<br><br><span class="hljs-keyword">for</span> p <span class="hljs-keyword">in</span> sys.path:<br>    print(p)<br></code></pre></td></tr></table></figure>
+
+<p>显示结果为，python模块的路径搜索顺序<br>当加载一个模块的时候，需要从这些搜索路径中从前到后依次查找，并不搜索这些目录的子目录，搜索到模块就加载，搜索不到就抛异常<br>路径也可以为字典、zip文件、egg文件。<br>-egg文件，由setuptools库创建的包，第三方库常用的格式。添加了元数据（版本号、依赖项等）信息的zip文件<br>- 路径顺序为<br>- 程序主目录。程序运行的主程序脚本所在的目录<br>- PYTHONPATH目录，环境变量PYTHONPATH设置的目录也是搜索模块的路径<br>- 标准库目录，python自带的库模块所在目录</p>
+<p>sys.path可以被修改，追加新的目录</p>
+<h2 id="模块的重复导入"><a href="#模块的重复导入" class="headerlink" title="模块的重复导入"></a>模块的重复导入</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-comment"># test1.py文件</span><br>print(<span class="hljs-string">'This is test1 module'</span>)<br><br><br><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">A</span>:</span><br>    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">showmodule</span><span class="hljs-params">(self)</span>:</span><br>        print(<span class="hljs-string">"&#123;&#125;.a = &#123;&#125;"</span>.format(self.__module__, self))<br>        print(self.__class__.__name__)<br><br><br>a = A()<br>a.showmodule()<br><br><br><span class="hljs-comment"># test2.py文件</span><br><span class="hljs-keyword">import</span> test1<br><br>print(<span class="hljs-string">'local module'</span>)<br><br><span class="hljs-keyword">import</span> test1<br><span class="hljs-keyword">import</span> test1<br></code></pre></td></tr></table></figure>
+
+<p>从执行结果来看，不会产生重复导入的现象。<br>所有加载的模块都会记录在sys.modules中，sys.modules是存储已经加载过的所有模块的字典。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-comment"># test2.py文件</span><br><span class="hljs-keyword">import</span> test1<br><br><br>print(<span class="hljs-string">'local module'</span>)<br><br><br><span class="hljs-keyword">import</span> test1<br><span class="hljs-keyword">import</span> test1<br><br><span class="hljs-keyword">import</span> sys<br>print(sys.modules[<span class="hljs-string">'test1'</span>])<br>~~~~~~~~~~~~~~~~~~~~~~~~~~~~<br>This <span class="hljs-keyword">is</span> test1 module<br>test1.a = &lt;test1.A object at <span class="hljs-number">0x0000028D6D90A8D0</span>&gt;<br>A<br>local module<br>&lt;module <span class="hljs-string">'test1'</span> <span class="hljs-keyword">from</span> <span class="hljs-string">'C:\\python10\\code\\Python10\\test1.py'</span>&gt;<br></code></pre></td></tr></table></figure>
+
+<h2 id="模块运行"><a href="#模块运行" class="headerlink" title="模块运行"></a>模块运行</h2><p><strong>name</strong>，每个模块都会定义一个<strong>name</strong>特殊变量来存储当前模块的名称，如果不指定，则默认为源代码文件名，如果是包则有限定名。<br>解释器初始化的时候，会初始化sys.modules字典（保存已加载的模块）,创建builtins（全局函数、常量）模块、<strong>main</strong>模块、sys模块，以及模块搜索路径sys.path<br>Python是脚本语言，任何一个脚本都可以直接执行，也可以作为模块被导入。<br>当从标准输入（命令行方式敲代码）、脚本（$ python test.py）或交互式读取的时候，会将模块的<strong>name</strong>设置为的<strong>main</strong>，模块的顶层代码就在<strong>main</strong>这个作用域中执行。顶层代码，模块中缩进最外层的代码。<br>如果是import导入的，其<strong>name</strong>默认就是模块名</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-comment"># test1.py文件</span><br><span class="hljs-keyword">import</span> test2<br><br><br><span class="hljs-comment"># test2.py文件</span><br><span class="hljs-comment"># 判断模块是否以程序的方式运行 $ python test.py</span><br><span class="hljs-keyword">if</span> __name__ == <span class="hljs-string">'__main__'</span>:<br>    print(<span class="hljs-string">'in __main__'</span>)  <span class="hljs-comment"># 程序的方式运行的代码</span><br><span class="hljs-keyword">else</span>:<br>    print(<span class="hljs-string">'in import module'</span>)  <span class="hljs-comment"># 模块导入的方式运行的代码</span><br></code></pre></td></tr></table></figure>
+
+<p><code>if __name__ == &#39;__main__&#39;:</code>用途<br>\1. 本模块的功能测试<br>对于非主模块，测试本模块内的函数、类<br>\2. 避免主模块变更的副作用<br>顶层代码，没有封装，主模块使用时没有问题，但是，一旦有了新的主模块，老的主模块成了被导入模块，由于原来代码没有封装，一并执行了。</p>
+<h2 id="模块的属性"><a href="#模块的属性" class="headerlink" title="模块的属性"></a>模块的属性</h2><table>
+<thead>
+<tr>
+<th align="left">属性</th>
+<th align="left">含义</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left"><code>__file__</code></td>
+<td align="left">字符串，源文件路径</td>
+</tr>
+<tr>
+<td align="left"><code>__cached__</code></td>
+<td align="left">字符串，编译后的字节码文件路径</td>
+</tr>
+<tr>
+<td align="left"><code>__spec__</code></td>
+<td align="left">显示模块的规范</td>
+</tr>
+<tr>
+<td align="left"><code>__name__</code></td>
+<td align="left">模块名</td>
+</tr>
+<tr>
+<td align="left"><code>__package__</code></td>
+<td align="left">当模块是包，同<code>__name__</code>;否则，可以设置为顶级模块的空字符串</td>
+</tr>
+</tbody></table>
+<h2 id="包"><a href="#包" class="headerlink" title="包"></a>包</h2><p>包，特殊的模块<br>Python模块支持目录吗？<br>实验<br>项目中新建一个目录m，使用下面的代码</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">import</span> m<br>print(m)<br>print(type(m))<br>print(dir(m))<br>~~~~~~~~~~~~~~~~~~~~~~~~~~<br>&lt;module <span class="hljs-string">'m'</span> (namespace)&gt;<br>&lt;<span class="hljs-class"><span class="hljs-keyword">class</span> '<span class="hljs-title">module</span>'&gt;</span><br>['__doc__', '__loader__', '__name__', '__package__', '__path__', '__spec__']<br></code></pre></td></tr></table></figure>
+
+<p>竟然可以导入目录m，目录也是文件，所以可以导入，不过问题是，目录模块怎么写入代码？为了解决这个问题，Python要求在目录下简历一个特殊文件<strong>init</strong>.py，在其中写入代码<br>pycharm中，创建Directory和创建Python package不同，前者是创建普通的目录，后者是创建一个带有<strong>init</strong>.py文件的目录即包<br>Python中，目录可以作为模块，这就是包，不过代码需要写在该目录下<strong>init</strong>.py中</p>
+<h2 id="子模块"><a href="#子模块" class="headerlink" title="子模块"></a>子模块</h2><p>包目录下的py文件、子目录都是其子模块</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs python">m<br>|-- __init__.py<br>|-- m1.py<br>|-- m2<br>    |-- __init__.py<br>    |-- m21<br>        |-- __init__.py<br></code></pre></td></tr></table></figure>
+
+<p>如上建立子模块目录和文件，所有的py文件中就写一句话print(<code>__name__</code>)</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-comment"># 注意查看模块的加载，当前名词空间</span><br><span class="hljs-comment"># import m</span><br><span class="hljs-comment"># import m.m1</span><br><span class="hljs-comment"># from m import m1</span><br><span class="hljs-comment"># from m.m2 import m21</span><br><span class="hljs-keyword">import</span> m.m2.m21<br><br>print(dir())<br><br><span class="hljs-keyword">import</span> sys<br>print(sorted(filter(<span class="hljs-keyword">lambda</span> x:x.startswith(<span class="hljs-string">'m'</span>), sys.modules.keys())))<br>~~~~~~~~~~~~~~~~~~~~~~~~~~~~~<br>m<br>m.m2<br>m.m2.m21<br>[<span class="hljs-string">'__builtins__'</span>, <span class="hljs-string">'__cached__'</span>, <span class="hljs-string">'__doc__'</span>, <span class="hljs-string">'__file__'</span>, <span class="hljs-string">'__loader__'</span>, <span class="hljs-string">'__name__'</span>, <span class="hljs-string">'__package__'</span>, <span class="hljs-string">'__spec__'</span>, <span class="hljs-string">'m'</span>]<br>[<span class="hljs-string">'m'</span>, <span class="hljs-string">'m.m2'</span>, <span class="hljs-string">'m.m2.m21'</span>, <span class="hljs-string">'marshal'</span>]<br></code></pre></td></tr></table></figure>
+
+<p>删除<strong>init</strong>.py试一试，可以发现删除并不影响导入，但是这不是良好的习惯，请保留<strong>init</strong>py文件</p>
+<h2 id="模块和包的总结"><a href="#模块和包的总结" class="headerlink" title="模块和包的总结"></a>模块和包的总结</h2><p>包能够更好的组织模块，尤其是大的模块代码行数很多，，可以把它拆分成很多子模块，便于使用某些功能就加载相应的子模块。<br>包目录中<strong>init</strong>.py是在包第一次导入的时候就会执行，内容可以为空，也可以是用于该包初始化工作的代码，最好不要删除它（低版本不可删除）<br>导入子模块一定会加载父模块，但是导入父模块一定不会导入子模块<br>包目录之间只能使.点号作为间隔符，表示模块及其子模块的层级关系<br>模块也封装，如同类、函数，不过它能够封装变量、类、函数。<br>模块就是命名空间，其内部的顶层标识符，都是它的属性，可以通过<strong>dict</strong>或dir(module)查看。<br>包也是模块，但模块不一定是包，包是特殊的模块，是一种组织方式，它包含<strong>path</strong>属性</p>
+<p>问题</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">from</span> json <span class="hljs-keyword">import</span> encoder之后，json.dump函数是否能使用，为什么？<br><span class="hljs-keyword">import</span> json.encoder之后呢？json.dump函数能用吗？<br></code></pre></td></tr></table></figure>
+
+<p>原因是from json import encoder之后，当前名词空间没有json，但是json模块已经加载过了，没有jison的引用，无法使用dump函数。<br>import json.encoder也加载json模块，但是当前名词空间有json，因此可以调用。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">from</span> json <span class="hljs-keyword">import</span> encoder<br>print(dir())<br>~~~~~~~~~~~~~~~~~~~~~~~~~~~~<br>[..., <span class="hljs-string">'encoder'</span>]<br><span class="hljs-keyword">import</span> json.encoder<br>print(dir())<br>~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~<br>[..., <span class="hljs-string">'json'</span>]<br></code></pre></td></tr></table></figure>
+
+<h2 id="绝对导入，相对导入"><a href="#绝对导入，相对导入" class="headerlink" title="绝对导入，相对导入"></a>绝对导入，相对导入</h2><h3 id="绝对导入"><a href="#绝对导入" class="headerlink" title="绝对导入"></a>绝对导入</h3><p>在import语句或者from导入模块，模块名称最前面不是以.点开头的<br>绝对导入总是去搜索模块搜索路径中找</p>
+<h3 id="相对导入"><a href="#相对导入" class="headerlink" title="相对导入"></a>相对导入</h3><p><code>只能在包内使用，且只能用在from语句中</code><br>使用.点号，表示当前目录中<br>..表示上一级目录<br>不要在顶层模块中使用相对导入</p>
+<ul>
+<li>举例a.b.c模块，c是模块，c的代码中，使用<ul>
+<li>from .import d # imports a.b.d</li>
+<li>from ..import e # imports a.e</li>
+<li>from .d import x # a.b.d.x</li>
+<li>from ..e import x # a.e.x</li>
+</ul>
+</li>
+</ul>
+<p>… 三点表示上上一级</p>
+<p>使用下面结构的包，体会相对导入的使用</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs python">m<br>|-- __init__.py<br>|-- m1.py<br>|-- m2<br>    |-- __init__.py<br>    |-- m21<br>        |-- __init__.py<br></code></pre></td></tr></table></figure>
+
+<p>测试一下有相对导入语句的模块，能够直接运行吗？<br>不能了，很好理解，使用相对导入的模块就是为了内部互相的引用资源的，不是为了直接运行的，对于包来说，正确的使用方式还是在顶级模块使用这些包。</p>
+<h2 id="访问控制"><a href="#访问控制" class="headerlink" title="访问控制"></a>访问控制</h2><h3 id="下划线开头的模块名"><a href="#下划线开头的模块名" class="headerlink" title="下划线开头的模块名"></a>下划线开头的模块名</h3><p><em>或者_</em>开头的模块是否能够被导入呢？<br>创建文件名为_xyz.py或者__xyz.py测试<br>都可以成功的导入，因为他们都是合法的标识符，就可以用作模块名</p>
+<h3 id="模块内的标识符"><a href="#模块内的标识符" class="headerlink" title="模块内的标识符"></a>模块内的标识符</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-comment"># xyz.py</span><br>print(__name__)<br>A = <span class="hljs-number">5</span><br>_B = <span class="hljs-number">6</span><br>__C = <span class="hljs-number">7</span><br><br>__my__ = <span class="hljs-number">8</span><br><br><br><span class="hljs-comment"># test.py</span><br><span class="hljs-keyword">import</span> xyz<br><br><span class="hljs-keyword">import</span> sys<br>print(<span class="hljs-number">1</span>, sorted(sys.modules.keys()))<br>print(<span class="hljs-number">2</span>, dir())<br><br>print(<span class="hljs-number">3</span>, xyz.A, xyz._B, xyz.__C, xyz.__my__)<br>~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~<br>xyz<br><span class="hljs-number">1</span> [..., <span class="hljs-string">'xyz'</span>, <span class="hljs-string">'zipimport'</span>]<br><span class="hljs-number">2</span> [..., <span class="hljs-string">'xyz'</span>]<br><span class="hljs-number">3</span> <span class="hljs-number">5</span> <span class="hljs-number">6</span> <span class="hljs-number">7</span> <span class="hljs-number">8</span><br></code></pre></td></tr></table></figure>
+
+<p>普通变量、保护变量、私有变量、特殊变量，都没有被隐藏，也就是说模块内没有私有的变量，在模块中定义不做特殊处理。</p>
+<p>from语句</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-comment"># test.py</span><br><span class="hljs-keyword">from</span> xyz <span class="hljs-keyword">import</span> A, _B <span class="hljs-keyword">as</span> B, __my__, __C <span class="hljs-keyword">as</span> C<br><br><span class="hljs-keyword">import</span> sys<br>print(<span class="hljs-number">1</span>, sorted(sys.modules.keys()))<br>print(<span class="hljs-number">2</span>, dir())<br><br>print(<span class="hljs-number">3</span>, A, B, __my__, C)<br>~~~~~~~~~~~~~~~~~~~~~~~~<br>xyz<br><span class="hljs-number">1</span> [..., <span class="hljs-string">'xyz'</span>, <span class="hljs-string">'zipimport'</span>]<br><span class="hljs-number">2</span> [<span class="hljs-string">'A'</span>, <span class="hljs-string">'B'</span>, <span class="hljs-string">'C'</span>, ...]<br><span class="hljs-number">3</span> <span class="hljs-number">5</span> <span class="hljs-number">6</span> <span class="hljs-number">8</span> <span class="hljs-number">7</span><br></code></pre></td></tr></table></figure>
+
+<p>依然可以使用from语句，访问所有变量</p>
+<h2 id="from-…-import-和-all"><a href="#from-…-import-和-all" class="headerlink" title="from … import * 和 __all__"></a>from … import * 和 <code>__all__</code></h2><h3 id="使用from-…-import-导入"><a href="#使用from-…-import-导入" class="headerlink" title="使用from … import * 导入"></a>使用from … import * 导入</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-comment"># xyz.py</span><br>print(__name__)<br>A = <span class="hljs-number">5</span><br>_B = <span class="hljs-number">6</span><br>__C = <span class="hljs-number">7</span><br><br>__my__ = <span class="hljs-number">8</span><br><br><br><span class="hljs-comment"># test.py</span><br><span class="hljs-keyword">from</span> xyz <span class="hljs-keyword">import</span> *<br><br><span class="hljs-keyword">import</span> sys<br>print(<span class="hljs-number">1</span>, sorted(sys.modules.keys()))<br>print(<span class="hljs-number">2</span>, dir())<br>print(<span class="hljs-number">3</span>, locals()[<span class="hljs-string">'A'</span>])<br><br>A = <span class="hljs-number">55</span><br>print(<span class="hljs-number">4</span>, locals()[<span class="hljs-string">'A'</span>])<br>~~~~~~~~~~~~~~~~~~~~~~~~~~~<br>xyz<br><span class="hljs-number">1</span> [..., <span class="hljs-string">'xyz'</span>, <span class="hljs-string">'zipimport'</span>]<br><span class="hljs-number">2</span> [<span class="hljs-string">'A'</span>, ...]<br><span class="hljs-number">3</span> <span class="hljs-number">5</span><br><span class="hljs-number">4</span> <span class="hljs-number">55</span><br></code></pre></td></tr></table></figure>
+
+<p>结果只是导入了A，下划线开头的都没有导入</p>
+<h3 id="使用-all"><a href="#使用-all" class="headerlink" title="使用__all__"></a>使用<code>__all__</code></h3><p><code>__all__</code>是一个列表，元素是字符串，每一个元素都是一个模块内的变量名</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-comment"># xyz.py</span><br>__all__ = [<span class="hljs-string">"X"</span>, <span class="hljs-string">"Y"</span>]<br><br>print(__name__)<br>A = <span class="hljs-number">5</span><br>_B = <span class="hljs-number">6</span><br>__C = <span class="hljs-number">7</span><br><br>__my__ = <span class="hljs-number">8</span><br><br>X = <span class="hljs-number">10</span><br>Y = <span class="hljs-number">20</span><br><br><br><span class="hljs-comment"># test.py</span><br><span class="hljs-keyword">from</span> xyz <span class="hljs-keyword">import</span> *<br><br><span class="hljs-keyword">import</span> sys<br>print(<span class="hljs-number">1</span>, sorted(sys.modules.keys()))<br>print(<span class="hljs-number">2</span>, dir())<br><span class="hljs-comment"># print(3, locals()['A'])</span><br>print(<span class="hljs-number">4</span>, locals()[<span class="hljs-string">'X'</span>])<br>print(<span class="hljs-number">5</span>, locals()[<span class="hljs-string">'Y'</span>])<br>~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~<br>xyz<br><span class="hljs-number">1</span> [..., <span class="hljs-string">'xyz'</span>, <span class="hljs-string">'zipimport'</span>]<br><span class="hljs-number">2</span> [<span class="hljs-string">'X'</span>, <span class="hljs-string">'Y'</span>, ...]<br><span class="hljs-number">4</span> <span class="hljs-number">10</span><br><span class="hljs-number">5</span> <span class="hljs-number">20</span><br></code></pre></td></tr></table></figure>
+
+<p>修改<code>__all__</code>列表，加入下划线开头变量，看看什么效果</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-comment"># xyz.py</span><br>__all__ = [<span class="hljs-string">"X"</span>, <span class="hljs-string">"Y"</span>, <span class="hljs-string">"_B"</span>, <span class="hljs-string">"__C"</span>]<br><br>print(__name__)<br>A = <span class="hljs-number">5</span><br>_B = <span class="hljs-number">6</span><br>__C = <span class="hljs-number">7</span><br><br>__my__ = <span class="hljs-number">8</span><br><br>X = <span class="hljs-number">10</span><br>Y = <span class="hljs-number">20</span><br><br><span class="hljs-comment"># test.py</span><br><span class="hljs-keyword">from</span> xyz <span class="hljs-keyword">import</span> *<br><br><span class="hljs-keyword">import</span> sys<br>print(<span class="hljs-number">1</span>, sorted(sys.modules.keys()))<br>print(<span class="hljs-number">2</span>, dir())<br><span class="hljs-comment"># print(3, locals()['A'])</span><br>print(<span class="hljs-number">4</span>, locals()[<span class="hljs-string">'X'</span>])<br>print(<span class="hljs-number">5</span>, locals()[<span class="hljs-string">'Y'</span>])<br>print(<span class="hljs-number">6</span>, locals()[<span class="hljs-string">'_B'</span>])<br>print(<span class="hljs-number">7</span>, locals()[<span class="hljs-string">'__C'</span>])<br>~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~<br>xyz<br><span class="hljs-number">1</span> [..., <span class="hljs-string">'xyz'</span>, <span class="hljs-string">'zipimport'</span>]<br><span class="hljs-number">2</span> [<span class="hljs-string">'X'</span>, <span class="hljs-string">'Y'</span>, <span class="hljs-string">'_B'</span>, <span class="hljs-string">'__C'</span>, ...]<br><span class="hljs-number">4</span> <span class="hljs-number">10</span><br><span class="hljs-number">5</span> <span class="hljs-number">20</span><br><span class="hljs-number">6</span> <span class="hljs-number">6</span><br><span class="hljs-number">7</span> <span class="hljs-number">7</span><br></code></pre></td></tr></table></figure>
+
+<p>可以看到使用from xyz import * 导入<code>__all__</code>列表中的名称</p>
+<h2 id="包和子模块"><a href="#包和子模块" class="headerlink" title="包和子模块"></a>包和子模块</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><code class="hljs python">m<br>|-- __init__.py<br>|-- m1.py<br><span class="hljs-comment"># __init__.py</span><br>print(__name__)<br>x = <span class="hljs-number">1</span><br><br><br><span class="hljs-comment"># m1.py</span><br>print(__name__)<br>y = <span class="hljs-number">5</span><br><br><br><span class="hljs-comment"># test.py中</span><br><span class="hljs-comment"># 如何访问到m1.py中的变量m1</span><br><span class="hljs-comment"># 访问到m.m1的变量y的几种实现</span><br><span class="hljs-comment"># 方法1， 直接导入m1模块</span><br><span class="hljs-keyword">import</span> m.m1<br>print(m.m1.y)<br><br><span class="hljs-comment"># 方法2，直接导入m.m1的属性y</span><br><span class="hljs-keyword">from</span> m.m1 improt y<br>print(y)<br><br><span class="hljs-comment"># 方法3，from m import *</span><br><span class="hljs-comment"># 该方法导入后，无法看到子模块m1，无法访问y</span><br><span class="hljs-comment"># 在__init__.py增加__all__ = ['x', 'm1'], 使用__all__提供导出的名称</span><br><span class="hljs-keyword">from</span> m <span class="hljs-keyword">import</span> *<br>print(m1.y)<br><br><span class="hljs-comment"># 方法4，不使用__all__</span><br><span class="hljs-comment"># 在__init__.py增加from . import m1</span><br><span class="hljs-keyword">from</span> m <span class="hljs-keyword">import</span> *<br>print(m1.y)<br></code></pre></td></tr></table></figure>
+
+<p><code>__init__.py</code>中有什么变量，则使用from m import *加载什么变量，这依然符合模块的访问控制</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-comment"># __init__.py</span><br>print(__name__)<br>x = <span class="hljs-number">1</span><br><br><span class="hljs-keyword">from</span> .m1 <span class="hljs-keyword">import</span> y <span class="hljs-keyword">as</span> _z<br>print(dir())<br></code></pre></td></tr></table></figure>
+
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><h3 id="使用from-xyz-import-导入"><a href="#使用from-xyz-import-导入" class="headerlink" title="使用from xyz import *导入"></a>使用<code>from xyz import *</code>导入</h3><ol>
+<li>如果模块没有<code>__all__</code>，<code>from xyz import *</code>只导入非下划线开头的模块的变量。如果是包，子模块也不会导入，除非在<code>__all__</code>中设置，或<code>__init__.py</code>中使用相对导入</li>
+<li>如果模块有<code>__all__</code>，<code>from xyz import *</code>只导入<code>__all</code>列表中指定的名称，哪怕这个名词是下划线开头的，或者是子模块</li>
+<li><code>from xyz import *</code>方式导入，使用简单，但是其副作用是导入大量不需要使用的变量，甚至有可能造成名称的冲突。而<code>__all__</code>可以控制被导入模块在这种导入方式下能够提供的变量名称，就是为了阻止<code>from xyz import *</code>导入过多的模块变量，从而避免冲突。因此，编写模块时，应该尽量加入<code>__all__</code></li>
+</ol>
+<h3 id="from-module-import-name1-name2-导入"><a href="#from-module-import-name1-name2-导入" class="headerlink" title="from module import name1, name2 导入"></a>from module import name1, name2 导入</h3><p>这种方式的导入是明确的，哪怕是导入子模块，或者导入下划线开头的名称<br>程序员可以由控制的导入名称和其对应的对象</p>
+<h2 id="模块变量的修改"><a href="#模块变量的修改" class="headerlink" title="模块变量的修改"></a>模块变量的修改</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-comment"># xyz.py</span><br>print(__name__)<br>X = <span class="hljs-number">10</span><br><br><br><span class="hljs-comment"># test2.py</span><br><span class="hljs-keyword">import</span> xyz<br><br>print(xyz.X)<br><br><br><span class="hljs-comment"># test.py</span><br><span class="hljs-keyword">import</span> xyz<br><br>print(xyz.X)<br>xyz.X = <span class="hljs-number">50</span><br><br><span class="hljs-keyword">import</span> test2<br>~~~~~~~~~~~~~~~~~~~~~~~<br>xyz<br><span class="hljs-number">10</span><br><span class="hljs-number">50</span><br></code></pre></td></tr></table></figure>
+
+<p>模块对象是同一个，因此模块的变量也是同一个，对模块变量的修改，会影响所有使用者。<br>除非万不得已，或者明确知道自己在做什么，否则不要修改模块的变量。<br>前面学习过的猴子不定，也可以通过打补丁的方式，修改模块的变量、类、函数等内容。</p>
+
+      
+    </div>
+    
+    
+    
+
+     <!-- 文章末尾统一添加“本文结束”标记 -->
+    <div>
+      
+        <div>
+    
+        <div style="text-align:center;color: #555;font-size:24px;"><-------------The End-------------></div>
+    
+</div>
+
+      
+    </div>
+    
+
+    
+      <div>
+        <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+  <div>坚持原创分享，你的支持就是我最大的动力！</div>
+  <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+    <span>打赏</span>
+  </button>
+  <div id="QR" style="display: none;">
+
+    
+      <div id="wechat" style="display: inline-block">
+        <img id="wechat_qr" src="/uploads/weixin_cash_code.png" alt="StarDustLoong 微信支付"/>
+        <p>微信支付</p>
+      </div>
+    
+
+    
+      <div id="alipay" style="display: inline-block">
+        <img id="alipay_qr" src="/uploads/alipay_cash_code.png" alt="StarDustLoong 支付宝"/>
+        <p>支付宝</p>
+      </div>
+    
+
+    
+
+  </div>
+</div>
+
+      </div>
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/python%E6%A8%A1%E5%9D%97%E5%8C%96/" rel="tag"># python模块化</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/Python%E5%88%86%E5%8F%91/" rel="next" title="Python分发">
+                <i class="fa fa-chevron-left"></i> Python分发
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/Python%E5%BC%82%E5%B8%B8%E5%A4%84%E7%90%86/" rel="prev" title="Python异常处理">
+                Python异常处理 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+    </div>
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/uploads/avatar.png"
+                alt="StarDustLoong" />
+            
+              <p class="site-author-name" itemprop="name">StarDustLoong</p>
+              <p class="site-description motion-element" itemprop="description">人类如风一般的自由</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">2409</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">12</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">146</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+	   
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/StarDustLoong" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:13671474528@163.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://www.zhihu.com/people/ashjian-ar15" target="_blank" title="知乎">
+                      
+                        <i class="fa fa-fw fa-globe"></i>知乎</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://me.csdn.net/ashjian" target="_blank" title="CSDN">
+                      
+                        <i class="fa fa-fw fa-codiepie"></i>CSDN</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+            <div class="links-of-blogroll motion-element links-of-blogroll-inline">
+              <div class="links-of-blogroll-title">
+                <i class="fa  fa-fw fa-link"></i>
+                Links
+              </div>
+              <ul class="links-of-blogroll-list">
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="http://mp.weixin.qq.com/user1" title="OpenInfo" target="_blank">OpenInfo</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="http://mp.weixin.qq.com/user2" title="stormzhang" target="_blank">stormzhang</a>
+                  </li>
+                
+              </ul>
+            </div>
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#模块化"><span class="nav-number">1.</span> <span class="nav-text">模块化</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#导入语句"><span class="nav-number">2.</span> <span class="nav-text">导入语句</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#import语句"><span class="nav-number">2.1.</span> <span class="nav-text">import语句</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#from语句"><span class="nav-number">2.2.</span> <span class="nav-text">from语句</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#自定义模块"><span class="nav-number">3.</span> <span class="nav-text">自定义模块</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#自动以模块命名规范"><span class="nav-number">4.</span> <span class="nav-text">自动以模块命名规范</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#模块搜索顺序"><span class="nav-number">5.</span> <span class="nav-text">模块搜索顺序</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#模块的重复导入"><span class="nav-number">6.</span> <span class="nav-text">模块的重复导入</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#模块运行"><span class="nav-number">7.</span> <span class="nav-text">模块运行</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#模块的属性"><span class="nav-number">8.</span> <span class="nav-text">模块的属性</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#包"><span class="nav-number">9.</span> <span class="nav-text">包</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#子模块"><span class="nav-number">10.</span> <span class="nav-text">子模块</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#模块和包的总结"><span class="nav-number">11.</span> <span class="nav-text">模块和包的总结</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#绝对导入，相对导入"><span class="nav-number">12.</span> <span class="nav-text">绝对导入，相对导入</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#绝对导入"><span class="nav-number">12.1.</span> <span class="nav-text">绝对导入</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#相对导入"><span class="nav-number">12.2.</span> <span class="nav-text">相对导入</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#访问控制"><span class="nav-number">13.</span> <span class="nav-text">访问控制</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#下划线开头的模块名"><span class="nav-number">13.1.</span> <span class="nav-text">下划线开头的模块名</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#模块内的标识符"><span class="nav-number">13.2.</span> <span class="nav-text">模块内的标识符</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#from-…-import-和-all"><span class="nav-number">14.</span> <span class="nav-text">from … import * 和 __all__</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#使用from-…-import-导入"><span class="nav-number">14.1.</span> <span class="nav-text">使用from … import * 导入</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#使用-all"><span class="nav-number">14.2.</span> <span class="nav-text">使用__all__</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#包和子模块"><span class="nav-number">15.</span> <span class="nav-text">包和子模块</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#总结"><span class="nav-number">16.</span> <span class="nav-text">总结</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#使用from-xyz-import-导入"><span class="nav-number">16.1.</span> <span class="nav-text">使用from xyz import *导入</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#from-module-import-name1-name2-导入"><span class="nav-number">16.2.</span> <span class="nav-text">from module import name1, name2 导入</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#模块变量的修改"><span class="nav-number">17.</span> <span class="nav-text">模块变量的修改</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">StarDustLoong</span>
+
+  
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-area-chart"></i>
+    </span>
+    
+      <span class="post-meta-item-text">本站总字数&#58;</span>
+    
+    <span title="本站总字数">635.5k</span>
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Pisces</a> v5.1.4</div>
+
+
+
+
+#<!-- 百度自动推送 -->
+#<script>
+#(function(){
+#    var bp = document.createElement('script');
+#    var curProtocol = window.location.protocol.split(':')[0];
+#    if (curProtocol === 'https') {
+#        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+#    }
+#    else {
+#        bp.src = 'http://push.ashjian.baidu.com/push.js';
+#    }
+#    var s = document.getElementsByTagName("script")[0];
+#    s.parentNode.insertBefore(bp, s);
+#})();
+#</script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aplayer/dist/APlayer.min.css">
+
+<script src="https://cdn.jsdelivr.net/npm/aplayer/dist/APlayer.min.js"></script>
+<!-- require MetingJS -->
+
+<script src="https://cdn.jsdelivr.net/npm/meting@2.0.1/dist/Meting.min.js"></script>
+<div> 
+<meting-js  
+    server="netease" 
+    type="playlist"  
+    id="5281251057" 
+    fixed="true"  
+    autoplay="false" 
+    loop="all" 
+    order="random"
+    preload="auto" 
+    list-folded="ture" 
+    list-max-height="500px" 
+    lrc-type="1">
+</meting-js>	 
+</div>
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv">
+      本站访客数
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+      人次
+    </span>
+  
+
+  
+    <span class="site-pv">
+      本站总访问量
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+      次
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+  <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+  <script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+  
+  <script type="text/javascript">
+    var GUEST = ['nick','mail','link'];
+    var guest = 'nick,mail,link';
+    guest = guest.split(',').filter(item=>{
+      return GUEST.indexOf(item)>-1;
+    });
+    new Valine({
+        el: '#comments' ,
+        verify: false,
+        notify: false,
+        appId: 'Gp5xxuBGmRxC9yeJHf5wlLpN-gzGzoHsz',
+        appKey: 'wo0eDJonJrnuUrCCCU7EnH1n',
+        placeholder: '欢迎评论',
+        avatar:'mm',
+        guest_info:guest,
+        pageSize:'20' || 10,
+    });
+  </script>
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"jsonPath":"/live2dw/assets/dsr50_lifu_normal.model.json"},"display":{"position":"right","width":700,"height":800,"hOffset":-250,"vOffset":-150},"mobile":{"show":true,"scale":0.7},"log":false});</script></body>
+</html>

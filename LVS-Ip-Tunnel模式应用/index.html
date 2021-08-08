@@ -1,0 +1,1423 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="LVS," />
+
+
+
+
+  
+
+
+  <link rel="alternate" href="/atom.xml" title="" type="application/atom+xml" />
+
+
+
+
+
+
+<meta name="description" content="一、什么是Ip Tunnel模式 Ip Tunnel，又叫IP隧道，顾名思义，LVS通过在IP数据包外面再封装了一层Ip Tunnel 头部，将数据包的源地址改写为LVS自身的物理地址，目的地址改写为RS的物理地址，从而实现跨网段访问RS。整个过程看起来好像LVS和RS之间有一条隧道，数据包通过这条虚拟的隧道进行传输。 如下图所示：  Ip Tunnel封装  Ip Tunnel模式下，客户端的请">
+<meta property="og:type" content="article">
+<meta property="og:title" content="LVS-Ip Tunnel模式应用">
+<meta property="og:url" content="http://www.ashjian.xyz/LVS-Ip-Tunnel%E6%A8%A1%E5%BC%8F%E5%BA%94%E7%94%A8/index.html">
+<meta property="og:site_name">
+<meta property="og:description" content="一、什么是Ip Tunnel模式 Ip Tunnel，又叫IP隧道，顾名思义，LVS通过在IP数据包外面再封装了一层Ip Tunnel 头部，将数据包的源地址改写为LVS自身的物理地址，目的地址改写为RS的物理地址，从而实现跨网段访问RS。整个过程看起来好像LVS和RS之间有一条隧道，数据包通过这条虚拟的隧道进行传输。 如下图所示：  Ip Tunnel封装  Ip Tunnel模式下，客户端的请">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/3329890-0ec591745507277a.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/488/format/webp">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/3329890-a2ea5341d079b8b4.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/918/format/webp">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/3329890-8222a8edc57415c1.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1200/format/webp">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/3329890-a30e98a77ac1859f.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/809/format/webp">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/3329890-e39a353885c27857.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/916/format/webp">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/3329890-36818d06f31e9a18.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1200/format/webp">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/3329890-8d24a17365aba761.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/903/format/webp">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/3329890-94cd48125cc33139.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/904/format/webp">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/3329890-80875f5181e29540.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1200/format/webp">
+<meta property="article:published_time" content="2020-11-30T12:56:16.000Z">
+<meta property="article:modified_time" content="2021-03-26T10:02:14.929Z">
+<meta property="article:author" content="StarDustLoong">
+<meta property="article:tag" content="LVS">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://upload-images.jianshu.io/upload_images/3329890-0ec591745507277a.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/488/format/webp">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://www.ashjian.xyz/LVS-Ip-Tunnel模式应用/"/>
+
+
+
+
+
+  <title>LVS-Ip Tunnel模式应用 | </title>
+  
+
+
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?d7bf52f45e24a0e6f2951901a7a97864";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+<meta name="generator" content="Hexo 4.2.1"></head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title"></span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off"
+             placeholder="搜索..." spellcheck="false"
+             type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://www.ashjian.xyz/LVS-Ip-Tunnel%E6%A8%A1%E5%BC%8F%E5%BA%94%E7%94%A8/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="StarDustLoong">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/uploads/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">LVS-Ip Tunnel模式应用</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-11-30T20:56:16+08:00">
+                2020-11-30
+              </time>
+            
+
+            
+              <span class="post-meta-divider">|</span>
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-check-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">更新于&#58;</span>
+              
+              <time title="更新于" itemprop="dateModified" datetime="2021-03-26T18:02:14+08:00">
+                2021-03-26
+              </time>
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/linux/" itemprop="url" rel="index">
+                    <span itemprop="name">linux</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/LVS-Ip-Tunnel%E6%A8%A1%E5%BC%8F%E5%BA%94%E7%94%A8/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/LVS-Ip-Tunnel%E6%A8%A1%E5%BC%8F%E5%BA%94%E7%94%A8/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  1.9k
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  7
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+      
+      
+
+      
+        <h1 id="一、什么是Ip-Tunnel模式"><a href="#一、什么是Ip-Tunnel模式" class="headerlink" title="一、什么是Ip Tunnel模式"></a>一、什么是Ip Tunnel模式</h1><p> Ip Tunnel，又叫IP隧道，顾名思义，LVS通过在IP数据包外面再封装了一层Ip Tunnel 头部，将数据包的源地址改写为LVS自身的物理地址，目的地址改写为RS的物理地址，从而实现跨网段访问RS。整个过程看起来好像LVS和RS之间有一条隧道，数据包通过这条虚拟的隧道进行传输。<br> 如下图所示：</p>
+<p><img src="https:////upload-images.jianshu.io/upload_images/3329890-0ec591745507277a.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/488/format/webp" alt="img"></p>
+<p>Ip Tunnel封装</p>
+<p> Ip Tunnel模式下，客户端的请求包到达负载均衡器的虚拟服务IP端口后，负载均衡器不会改写请求包的IP和端口，但是会在数据包IP层外面再封装一个IP层，然后将数据包转发；真实服务器收到请求后，会先将外面封装的Ip Tunnel头去掉，然后处理里面实际的请求报文；与DR模式类似，响应包也不再经过LVS，而是直接返回给客户端。所以Ip Tunnel模式的转发效率虽然弱于DR，但是强于NAT。</p>
+<h1 id="二、为什么要用Ip-Tunnel模式"><a href="#二、为什么要用Ip-Tunnel模式" class="headerlink" title="二、为什么要用Ip Tunnel模式"></a>二、为什么要用Ip Tunnel模式</h1><p> 既然Ip Tunnel模式的性能比不上DR，那为什么还要用它呢？ 因为它可以跨网段转发！<br> Ip Tunnel模式最大的优点就在于它可以跨网段转发，没有DR和NAT模式的组网限制。这在部署上带来的很大的灵活性，甚至还可以跨机房转发，不过不建议这样使用，一是会带来跨机房间的流量，提高了成本；二是跨机房转发必然会要在RS机房上绑定LVS机房的VIP，这有可能会被运营商的防火墙认为是IP伪造请求而拦截。</p>
+<h1 id="三、如何配置Ip-Tunnel模式"><a href="#三、如何配置Ip-Tunnel模式" class="headerlink" title="三、如何配置Ip Tunnel模式"></a>三、如何配置Ip Tunnel模式</h1><h2 id="【LVS配置】"><a href="#【LVS配置】" class="headerlink" title="【LVS配置】"></a>【LVS配置】</h2><ol>
+<li>使用ipvsadm配置</li>
+</ol>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs css"><span class="hljs-selector-tag">ipvsadm</span> <span class="hljs-selector-tag">-A</span> <span class="hljs-selector-tag">-t</span> <span class="hljs-selector-tag">vip</span><span class="hljs-selector-pseudo">:port</span> <span class="hljs-selector-tag">-s</span> <span class="hljs-selector-tag">rr</span><br><span class="hljs-selector-tag">ipvsadm</span> <span class="hljs-selector-tag">-a</span> <span class="hljs-selector-tag">-t</span> <span class="hljs-selector-tag">vip</span><span class="hljs-selector-pseudo">:port</span> <span class="hljs-selector-tag">-r</span> <span class="hljs-selector-tag">rip</span> <span class="hljs-selector-tag">-i</span><br></code></pre></td></tr></table></figure>
+
+<ol>
+<li>使用Keepalived配置<br>推荐使用Keepalived管理LVS。Keepalived提供配置文件keepalived.conf，可以很方便的配置LVS，并且提供了健康检查功能。</li>
+</ol>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><code class="hljs swift">virtual_server vip port &#123;<br>    delay_loop <span class="hljs-number">6</span><br>    lb_algo rr<br>    lb_kind <span class="hljs-type">TUN</span>          <span class="hljs-comment">//与DR模式唯一的区别就是这里配置为TUN</span><br>#    persistence_timeout <span class="hljs-number">50</span><br>    <span class="hljs-class"><span class="hljs-keyword">protocol</span> <span class="hljs-title">TCP</span></span><br><span class="hljs-class"></span><br><span class="hljs-class">    <span class="hljs-title">real_server</span> <span class="hljs-title">rip</span> <span class="hljs-title">port</span> </span>&#123;<br>        weight <span class="hljs-number">100</span><br>        <span class="hljs-type">TCP_CHECK</span> &#123;<br>            connect_timeout <span class="hljs-number">3</span><br>            retry <span class="hljs-number">3</span><br>            delay_before_retry <span class="hljs-number">3</span><br>        &#125;<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p> 注意这里只写了与DR模式配置不一样的地方，lvs上配置vip之类的就没写了。</p>
+<h2 id="【RS配置】"><a href="#【RS配置】" class="headerlink" title="【RS配置】"></a>【RS配置】</h2><ol>
+<li>加载ipip模块。</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs undefined">modprobe ipip<br></code></pre></td></tr></table></figure>
+
+<ol>
+<li>启动tunl0虚拟网卡</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs undefined">ifconfig tunl0 up<br></code></pre></td></tr></table></figure>
+
+<ol>
+<li>将vip绑定在tunl0网卡上。（注意这里也是与DR模式不同的地方，DR模式是将vip绑在LO网卡）</li>
+</ol>
+<figure class="highlight csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs csharp">ip addr <span class="hljs-keyword">add</span> vip dev tunl0<br></code></pre></td></tr></table></figure>
+
+<ol>
+<li>设置内核参数</li>
+</ol>
+<figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs ruby">echo <span class="hljs-string">"0"</span> &gt; <span class="hljs-regexp">/proc/sys</span><span class="hljs-regexp">/net/ipv</span>4/ip_forward<br>echo <span class="hljs-string">"2"</span> &gt; <span class="hljs-regexp">/proc/sys</span><span class="hljs-regexp">/net/ipv</span>4/conf/all/arp_announce<br>echo <span class="hljs-string">"1"</span> &gt; <span class="hljs-regexp">/proc/sys</span><span class="hljs-regexp">/net/ipv</span>4/conf/all/arp_ignore<br>echo <span class="hljs-string">"0"</span> &gt; <span class="hljs-regexp">/proc/sys</span><span class="hljs-regexp">/net/ipv</span>4/conf/all/rp_filter<br>echo <span class="hljs-string">"0"</span> &gt; <span class="hljs-regexp">/proc/sys</span><span class="hljs-regexp">/net/ipv</span>4/conf/tunl<span class="hljs-number">0</span>/rp_filter<br></code></pre></td></tr></table></figure>
+
+<p> 注意Ip Tunnel模式下需要将RS上的rp_filter参数配为0，否则无法正常工作，因为RS是在物理网卡收到请求，但是VIP是绑在虚拟网卡tunl0上的。</p>
+<h1 id="四、Ip-Tunnel模式需要注意的地方"><a href="#四、Ip-Tunnel模式需要注意的地方" class="headerlink" title="四、Ip Tunnel模式需要注意的地方"></a>四、Ip Tunnel模式需要注意的地方</h1><h2 id="【Ip-Tunnel模式存在的问题】"><a href="#【Ip-Tunnel模式存在的问题】" class="headerlink" title="【Ip Tunnel模式存在的问题】"></a>【Ip Tunnel模式存在的问题】</h2><p> Ip Tunnel模式下，LVS会在数据报文原有的IP头部上再封装一层IP头，封装层IP头的源IP是LVS节点的物理IP，目的IP是RS的物理IP，相当于原有的数据报文是在一层封装的隧道中传输。<br> 这样可以解决跨网段转发的问题，但是会带来一个新的问题：<br> 每个数据包都要封装一个新的20字节的IP头，如果LVS上收到的数据包就已经达到了Ethernet帧的最大值1514（MTU1500+帧头14），这时候封装层的IP头就无法加进去。如果数据报文IP头中设置了DF标志位（Don’t Fragment），这时候LVS就无法正常转发该报文。而是会返回一个Type=3，Code=4的ICMP报文给客户端，通知客户端目的地不可达，需要分片，并且在通知报文中指定了本端的MTU为1480。如果客户端支持PMTUD协议，那么客户端会根据ICMP中通知的MTU值重新计算合适的MSS，对要发送的数据进行分片后再重传给LVS节点。<br> 下图是TUN模式下LVS上的抓包，可以看到一开始LVS收到的数据包的data长度为1460，加上20字节TCP头，加上20字节IP头，已经达到MTU1500了（抓包大小为1514是算上了14字节的Ethernet帧头）。</p>
+<p><img src="https:////upload-images.jianshu.io/upload_images/3329890-a2ea5341d079b8b4.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/918/format/webp" alt="img"></p>
+<p>数据长度为1460</p>
+<p> 这时候LVS无法转发，通过ICMP报文通知客户端分片后重传。</p>
+<p><img src="https:////upload-images.jianshu.io/upload_images/3329890-8222a8edc57415c1.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1200/format/webp" alt="img"></p>
+<p>ICMP通知重传</p>
+<p><img src="https:////upload-images.jianshu.io/upload_images/3329890-a30e98a77ac1859f.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/809/format/webp" alt="img"></p>
+<p>告知本端MTU为1480</p>
+<p> 下图可以看到重传后的数据报文中data长度变成了1440，剩余的data位于另外的分片中。1440加上20字节TCP头，加上20字节IP头刚好等于ICMP报文中通知的MTU值1480。此时LVS在1480的基础上再插入20字节的封装层的IP头，刚好等于物理网卡的MTU值1500。这时候IP TUNNEL模式就可以正常转发了。</p>
+<p><img src="https:////upload-images.jianshu.io/upload_images/3329890-e39a353885c27857.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/916/format/webp" alt="img"></p>
+<p>数据长度为1440</p>
+<p> 出现这个问题的原因在于IP TUNNEL模式下，LVS需要在源数据报文中再插入20字节的封装层IP头，所以它将自身的MTU值降到了1480。 这个情况下，LVS对每个大包（超过1480）的包都通过ICMP消息通知客户端分片。这依赖于客户端支持PMTUD，并且还依赖于ICMP通知能正常返回到客户端。因为在实际情况下，ICMP消息在返回客户端的过程中需要经过多跳公网路由，在中间很可能会被拦截过滤掉，这时客户端无法收到LVS返回的ICMP通知，就无法正常的分片重传了，导致LVS转发失败。</p>
+<h2 id="【解决方法】"><a href="#【解决方法】" class="headerlink" title="【解决方法】"></a>【解决方法】</h2><p> 可以通过减少RS侧的MSS值，比如调到1400。这样客户端在和RS三次握手协商MSS的时候，就会使用修改后的MSS值。这样客户端网卡在对数据包进行分片时就会减小单个请求中的data大小，确保LVS上收到的请求大小不会超过1480，从而不会触发到上述的问题。<br> iptables配置方法如下，实际情况中可以根据需求指定规则所要匹配的ip地址，这样可以减小配置修改的影响范围。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">iptables -A OUTPUT -s xxx -p tcp --tcp-flags ALL SYN,ACK -j TCPMSS --<span class="hljs-built_in">set</span>-mss 1400<br></code></pre></td></tr></table></figure>
+
+<p> 下面是修改后的客户端上的抓包结果：</p>
+<p><img src="https:////upload-images.jianshu.io/upload_images/3329890-36818d06f31e9a18.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1200/format/webp" alt="img"></p>
+<p>MSS修改为1400</p>
+<p> 从上图可以看到客户端在三次握手过程中收到的RS沟通的MSS值为修改后的值1400。<br> （注意wireshark中之所以能抓到超过1514字节的包，是因为目前大部分机器上都是开启了TSO/GSO的，TCP分片的工作下放给了网卡驱动去做；而wireshark抓到的是网卡缓冲区中的数据，还没有进行分片，所以有可能会看到大于1514的包；但是在真正发送出去的时候网卡驱动会根据MSS对TCP报文进行分片；可以对比服务端收到的抓包，服务端上收到的包就不会超过1514字节了）<br> 下面是LVS上的抓包结果：</p>
+<p><img src="https:////upload-images.jianshu.io/upload_images/3329890-8d24a17365aba761.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/903/format/webp" alt="img"></p>
+<p>MSS=1400</p>
+<p> LVS上收到来自客户端的数据包分片中的data长度也变成了1400，这样LVS就可以正常插入封装层IP头进行转发了。<br> 下图可以看到插入封装头后，数据包里面有两层IP头。</p>
+<p><img src="https:////upload-images.jianshu.io/upload_images/3329890-94cd48125cc33139.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/904/format/webp" alt="img"></p>
+<p>两层IP头</p>
+<p> 下图展示的就是LVS收到No. 1442的请求包，大小为1454字节；插入20字节的封装头后，数据包变为1474字节，然后转发给RS。</p>
+<p><img src="https:////upload-images.jianshu.io/upload_images/3329890-80875f5181e29540.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1200/format/webp" alt="img"></p>
+<p>Ip Tunnel转发</p>
+
+      
+    </div>
+    
+    
+    
+
+     <!-- 文章末尾统一添加“本文结束”标记 -->
+    <div>
+      
+        <div>
+    
+        <div style="text-align:center;color: #555;font-size:24px;"><-------------The End-------------></div>
+    
+</div>
+
+      
+    </div>
+    
+
+    
+      <div>
+        <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+  <div>坚持原创分享，你的支持就是我最大的动力！</div>
+  <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+    <span>打赏</span>
+  </button>
+  <div id="QR" style="display: none;">
+
+    
+      <div id="wechat" style="display: inline-block">
+        <img id="wechat_qr" src="/uploads/weixin_cash_code.png" alt="StarDustLoong 微信支付"/>
+        <p>微信支付</p>
+      </div>
+    
+
+    
+      <div id="alipay" style="display: inline-block">
+        <img id="alipay_qr" src="/uploads/alipay_cash_code.png" alt="StarDustLoong 支付宝"/>
+        <p>支付宝</p>
+      </div>
+    
+
+    
+
+  </div>
+</div>
+
+      </div>
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/LVS/" rel="tag"># LVS</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/ip%E6%95%B0%E6%8D%AE%E5%8C%85%E7%BB%8F%E7%94%B1%E8%B7%AF%E7%94%B1%E8%BD%AC%E5%8F%91%E7%9A%84%E6%97%B6%E5%80%99%E6%BA%90ip%EF%BC%8C%E7%9B%AE%E7%9A%84ip%E6%98%AF%E5%90%A6%E6%94%B9%E5%8F%98/" rel="next" title="ip数据包经由路由转发的时候源ip，目的ip是否改变">
+                <i class="fa fa-chevron-left"></i> ip数据包经由路由转发的时候源ip，目的ip是否改变
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/lvs/" rel="prev" title="lvs">
+                lvs <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+    </div>
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/uploads/avatar.png"
+                alt="StarDustLoong" />
+            
+              <p class="site-author-name" itemprop="name">StarDustLoong</p>
+              <p class="site-description motion-element" itemprop="description">人类如风一般的自由</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">2409</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">12</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">146</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+	   
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/StarDustLoong" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:13671474528@163.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://www.zhihu.com/people/ashjian-ar15" target="_blank" title="知乎">
+                      
+                        <i class="fa fa-fw fa-globe"></i>知乎</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://me.csdn.net/ashjian" target="_blank" title="CSDN">
+                      
+                        <i class="fa fa-fw fa-codiepie"></i>CSDN</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+            <div class="links-of-blogroll motion-element links-of-blogroll-inline">
+              <div class="links-of-blogroll-title">
+                <i class="fa  fa-fw fa-link"></i>
+                Links
+              </div>
+              <ul class="links-of-blogroll-list">
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="http://mp.weixin.qq.com/user1" title="OpenInfo" target="_blank">OpenInfo</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="http://mp.weixin.qq.com/user2" title="stormzhang" target="_blank">stormzhang</a>
+                  </li>
+                
+              </ul>
+            </div>
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#一、什么是Ip-Tunnel模式"><span class="nav-number">1.</span> <span class="nav-text">一、什么是Ip Tunnel模式</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#二、为什么要用Ip-Tunnel模式"><span class="nav-number">2.</span> <span class="nav-text">二、为什么要用Ip Tunnel模式</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#三、如何配置Ip-Tunnel模式"><span class="nav-number">3.</span> <span class="nav-text">三、如何配置Ip Tunnel模式</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#【LVS配置】"><span class="nav-number">3.1.</span> <span class="nav-text">【LVS配置】</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#【RS配置】"><span class="nav-number">3.2.</span> <span class="nav-text">【RS配置】</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#四、Ip-Tunnel模式需要注意的地方"><span class="nav-number">4.</span> <span class="nav-text">四、Ip Tunnel模式需要注意的地方</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#【Ip-Tunnel模式存在的问题】"><span class="nav-number">4.1.</span> <span class="nav-text">【Ip Tunnel模式存在的问题】</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#【解决方法】"><span class="nav-number">4.2.</span> <span class="nav-text">【解决方法】</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">StarDustLoong</span>
+
+  
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-area-chart"></i>
+    </span>
+    
+      <span class="post-meta-item-text">本站总字数&#58;</span>
+    
+    <span title="本站总字数">635.5k</span>
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Pisces</a> v5.1.4</div>
+
+
+
+
+#<!-- 百度自动推送 -->
+#<script>
+#(function(){
+#    var bp = document.createElement('script');
+#    var curProtocol = window.location.protocol.split(':')[0];
+#    if (curProtocol === 'https') {
+#        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+#    }
+#    else {
+#        bp.src = 'http://push.ashjian.baidu.com/push.js';
+#    }
+#    var s = document.getElementsByTagName("script")[0];
+#    s.parentNode.insertBefore(bp, s);
+#})();
+#</script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aplayer/dist/APlayer.min.css">
+
+<script src="https://cdn.jsdelivr.net/npm/aplayer/dist/APlayer.min.js"></script>
+<!-- require MetingJS -->
+
+<script src="https://cdn.jsdelivr.net/npm/meting@2.0.1/dist/Meting.min.js"></script>
+<div> 
+<meting-js  
+    server="netease" 
+    type="playlist"  
+    id="5281251057" 
+    fixed="true"  
+    autoplay="false" 
+    loop="all" 
+    order="random"
+    preload="auto" 
+    list-folded="ture" 
+    list-max-height="500px" 
+    lrc-type="1">
+</meting-js>	 
+</div>
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv">
+      本站访客数
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+      人次
+    </span>
+  
+
+  
+    <span class="site-pv">
+      本站总访问量
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+      次
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+  <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+  <script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+  
+  <script type="text/javascript">
+    var GUEST = ['nick','mail','link'];
+    var guest = 'nick,mail,link';
+    guest = guest.split(',').filter(item=>{
+      return GUEST.indexOf(item)>-1;
+    });
+    new Valine({
+        el: '#comments' ,
+        verify: false,
+        notify: false,
+        appId: 'Gp5xxuBGmRxC9yeJHf5wlLpN-gzGzoHsz',
+        appKey: 'wo0eDJonJrnuUrCCCU7EnH1n',
+        placeholder: '欢迎评论',
+        avatar:'mm',
+        guest_info:guest,
+        pageSize:'20' || 10,
+    });
+  </script>
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"jsonPath":"/live2dw/assets/dsr50_lifu_normal.model.json"},"display":{"position":"right","width":700,"height":800,"hOffset":-250,"vOffset":-150},"mobile":{"show":true,"scale":0.7},"log":false});</script></body>
+</html>

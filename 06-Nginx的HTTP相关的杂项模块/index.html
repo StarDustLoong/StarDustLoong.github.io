@@ -1,0 +1,1544 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Hexo, NexT" />
+
+
+
+
+  
+
+
+  <link rel="alternate" href="/atom.xml" title="" type="application/atom+xml" />
+
+
+
+
+
+
+<meta name="description" content="主要介绍下面几个模块： ngx_http_access_modulehttp_access_module包含了http的访问权限控制的一个模块，前面一节的limit_except指令里用过，还可以用在http, server, location等地方。 allow  deny  示例： 1234567location &#x2F;admin &amp;#123;    deny  192.168.1.1;">
+<meta property="og:type" content="article">
+<meta property="og:title" content="06-Nginx的HTTP相关的杂项模块">
+<meta property="og:url" content="http://www.ashjian.xyz/06-Nginx%E7%9A%84HTTP%E7%9B%B8%E5%85%B3%E7%9A%84%E6%9D%82%E9%A1%B9%E6%A8%A1%E5%9D%97/index.html">
+<meta property="og:site_name">
+<meta property="og:description" content="主要介绍下面几个模块： ngx_http_access_modulehttp_access_module包含了http的访问权限控制的一个模块，前面一节的limit_except指令里用过，还可以用在http, server, location等地方。 allow  deny  示例： 1234567location &#x2F;admin &amp;#123;    deny  192.168.1.1;">
+<meta property="og:image" content="https://raw.githubusercontent.com/ashjian/picBed/master/20201130235102.jpg">
+<meta property="og:image" content="https://raw.githubusercontent.com/ashjian/picBed/master/20201130235103.jpg">
+<meta property="og:image" content="https://raw.githubusercontent.com/ashjian/picBed/master/20201130235104.jpg">
+<meta property="og:image" content="https://raw.githubusercontent.com/ashjian/picBed/master/20201130235105.jpg">
+<meta property="og:image" content="https://raw.githubusercontent.com/ashjian/picBed/master/20201130235106.jpg">
+<meta property="og:image" content="https://raw.githubusercontent.com/ashjian/picBed/master/20201130235107.jpg">
+<meta property="og:image" content="https://raw.githubusercontent.com/ashjian/picBed/master/20201130235108.jpg">
+<meta property="og:image" content="https://raw.githubusercontent.com/ashjian/picBed/master/20201130235109.jpg">
+<meta property="og:image" content="https://raw.githubusercontent.com/ashjian/picBed/master/20201130235110.jpg">
+<meta property="og:image" content="https://raw.githubusercontent.com/ashjian/picBed/master/20201130235111.jpg">
+<meta property="og:image" content="https://raw.githubusercontent.com/ashjian/picBed/master/20201130235112.jpg">
+<meta property="og:image" content="https://raw.githubusercontent.com/ashjian/picBed/master/20201130235113.jpg">
+<meta property="og:image" content="https://raw.githubusercontent.com/ashjian/picBed/master/20201130235114.jpg">
+<meta property="og:image" content="https://raw.githubusercontent.com/ashjian/picBed/master/20201130235023.jpg">
+<meta property="og:image" content="https://raw.githubusercontent.com/ashjian/picBed/master/20201130235018.jpg">
+<meta property="og:image" content="https://raw.githubusercontent.com/ashjian/picBed/master/20201130235010.jpg">
+<meta property="og:image" content="https://raw.githubusercontent.com/ashjian/picBed/master/20201130235004.jpg">
+<meta property="og:image" content="https://raw.githubusercontent.com/ashjian/picBed/master/20201130234959.jpg">
+<meta property="og:image" content="https://raw.githubusercontent.com/ashjian/picBed/master/20201130234951.jpg">
+<meta property="og:image" content="https://raw.githubusercontent.com/ashjian/picBed/master/20201130234945.jpg">
+<meta property="og:image" content="https://raw.githubusercontent.com/ashjian/picBed/master/20201130234935.jpg">
+<meta property="og:image" content="https://raw.githubusercontent.com/ashjian/picBed/master/20201130234852.jpg">
+<meta property="og:image" content="https://raw.githubusercontent.com/ashjian/picBed/master/20201130234544.jpg">
+<meta property="og:image" content="https://raw.githubusercontent.com/ashjian/picBed/master/20201130234841.jpg">
+<meta property="og:image" content="https://raw.githubusercontent.com/ashjian/picBed/master/20201130232105.jpg">
+<meta property="og:image" content="https://raw.githubusercontent.com/ashjian/picBed/master/20201130232052.jpg">
+<meta property="article:published_time" content="2020-12-03T04:16:11.000Z">
+<meta property="article:modified_time" content="2021-03-26T10:02:21.856Z">
+<meta property="article:author" content="StarDustLoong">
+<meta property="article:tag" content="linux">
+<meta property="article:tag" content="python">
+<meta property="article:tag" content="运维">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://raw.githubusercontent.com/ashjian/picBed/master/20201130235102.jpg">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://www.ashjian.xyz/06-Nginx的HTTP相关的杂项模块/"/>
+
+
+
+
+
+  <title>06-Nginx的HTTP相关的杂项模块 | </title>
+  
+
+
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?d7bf52f45e24a0e6f2951901a7a97864";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+<meta name="generator" content="Hexo 4.2.1"></head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title"></span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off"
+             placeholder="搜索..." spellcheck="false"
+             type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://www.ashjian.xyz/06-Nginx%E7%9A%84HTTP%E7%9B%B8%E5%85%B3%E7%9A%84%E6%9D%82%E9%A1%B9%E6%A8%A1%E5%9D%97/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="StarDustLoong">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/uploads/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">06-Nginx的HTTP相关的杂项模块</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-12-03T12:16:11+08:00">
+                2020-12-03
+              </time>
+            
+
+            
+              <span class="post-meta-divider">|</span>
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-check-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">更新于&#58;</span>
+              
+              <time title="更新于" itemprop="dateModified" datetime="2021-03-26T18:02:21+08:00">
+                2021-03-26
+              </time>
+            
+          </span>
+
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/06-Nginx%E7%9A%84HTTP%E7%9B%B8%E5%85%B3%E7%9A%84%E6%9D%82%E9%A1%B9%E6%A8%A1%E5%9D%97/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/06-Nginx%E7%9A%84HTTP%E7%9B%B8%E5%85%B3%E7%9A%84%E6%9D%82%E9%A1%B9%E6%A8%A1%E5%9D%97/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  2.1k
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  8
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+      
+      
+
+      
+        <p>主要介绍下面几个模块：</p>
+<h2 id="ngx-http-access-module"><a href="#ngx-http-access-module" class="headerlink" title="ngx_http_access_module"></a>ngx_http_access_module</h2><p><code>http_access_module</code>包含了http的访问权限控制的一个模块，前面一节的<code>limit_except</code>指令里用过，还可以用在http, server, location等地方。</p>
+<p><strong><code>allow</code></strong></p>
+<p><a href="http://www.yulongjun.com/images/15042681401675.jpg" target="_blank" rel="noopener"><img src="https://raw.githubusercontent.com/ashjian/picBed/master/20201130235102.jpg" alt="img"></a></p>
+<p><strong><code>deny</code></strong></p>
+<p><a href="http://www.yulongjun.com/images/15042681508555.jpg" target="_blank" rel="noopener"><img src="https://raw.githubusercontent.com/ashjian/picBed/master/20201130235103.jpg" alt="img"></a></p>
+<p>示例：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs plain">location &#x2F;admin &#123;<br>    deny  192.168.1.1;<br>    allow 192.168.1.0&#x2F;24;<br>    allow 10.1.1.0&#x2F;16;<br>    allow 2001:0db8::&#x2F;32;<br>    deny  all;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<h2 id="ngx-http-auth-basic-module"><a href="#ngx-http-auth-basic-module" class="headerlink" title="ngx_http_auth_basic_module"></a>ngx_http_auth_basic_module</h2><p>实现基于用户的访问控制，使用basic机制进行用户认证</p>
+<p><strong><code>auth_basic</code></strong></p>
+<p><a href="http://www.yulongjun.com/images/15042686684419.jpg" target="_blank" rel="noopener"><img src="https://raw.githubusercontent.com/ashjian/picBed/master/20201130235104.jpg" alt="img"></a></p>
+<p><strong><code>auth_basic_user_file</code></strong></p>
+<p><a href="http://www.yulongjun.com/images/15042686761224.jpg" target="_blank" rel="noopener"><img src="https://raw.githubusercontent.com/ashjian/picBed/master/20201130235105.jpg" alt="img"></a></p>
+<p>示例：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs plain">yum install -y http-tools  # htpasswd工具在这个包里<br>htpasswd -c -m &#x2F;etc&#x2F;nginx&#x2F;.htpasswd  admin1  # 之后输入admin1的两次密码<br>htpasswd -m &#x2F;etc&#x2F;nginx&#x2F;.htpasswd  admin2  # 之后设置admin2 的密码<br></code></pre></td></tr></table></figure>
+
+<p>修改nginx的配置文件：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs plain">location &#x2F;admin &#123;<br>    auth_basic           &quot;Admin Area&quot;;<br>    auth_basic_user_file &#x2F;etc&#x2F;nginx&#x2F;.htpasswd;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<h2 id="ngx-sub-status-module"><a href="#ngx-sub-status-module" class="headerlink" title="ngx_sub_status_module"></a>ngx_sub_status_module</h2><p>用于输出nginx的基本状态信息。</p>
+<p><strong><code>stub_status</code></strong></p>
+<p><a href="http://www.yulongjun.com/images/15042694008699.jpg" target="_blank" rel="noopener"><img src="https://raw.githubusercontent.com/ashjian/picBed/master/20201130235106.jpg" alt="img"></a></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs plain">location<br><br>&#x2F;basic_status &#123;<br>    stub_status;<br>    allow 172.16.0.0&#x2F;16;<br>    deny all;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<blockquote>
+<p>Active connections: 291<br>server accepts handled requests<br>16630948 16630948 31070465<br>Reading: 6 Writing: 179 Waiting: 106</p>
+</blockquote>
+<ul>
+<li><code>Active connections</code>: 活动状态的连接数</li>
+<li><code>accepts</code>：已经接受的客户端请求的总数</li>
+<li><code>handled</code>：已经处理完成的客户端请求的总数</li>
+<li><code>requests</code>：客户端发来的总的请求数</li>
+<li><code>Reading</code>：正在读取客户端请求报文首部的连接的连接数</li>
+<li><code>Writing</code>：正在向客户端发送响应报文过程中的连接数</li>
+<li><code>Waiting</code>：正在等待客户端发出请求的空闲连接数</li>
+</ul>
+<h2 id="ngx-http-log-module"><a href="#ngx-http-log-module" class="headerlink" title="ngx_http_log_module"></a>ngx_http_log_module</h2><p>指定http访问日志格式和路径的模块。</p>
+<p><strong><code>log_format</code></strong></p>
+<p><a href="http://www.yulongjun.com/images/15042721093915.jpg" target="_blank" rel="noopener"><img src="https://raw.githubusercontent.com/ashjian/picBed/master/20201130235107.jpg" alt="img"></a></p>
+<p>string可以使用nginx核心模块及其它模块内嵌的变量。<br>Nginx内嵌变量：<a href="http://nginx.org/en/docs/varindex.html" target="_blank" rel="noopener">http://nginx.org/en/docs/varindex.html</a></p>
+<p>我们可以看到<code>/etc/nginx/nginx.conf</code>的默认的format格式：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs plain">log_format  main  &#39;$remote_addr - $remote_user [$time_local] &quot;$request&quot; &#39;<br>                      &#39;$status $body_bytes_sent &quot;$http_referer&quot; &#39;<br>                      &#39;&quot;$http_user_agent&quot; &quot;$http_x_forwarded_for&quot;&#39;;<br></code></pre></td></tr></table></figure>
+
+<p>具体分析一下：</p>
+<ul>
+<li><code>$remote_addr</code>：指的就是客户端地址。</li>
+<li><code>$remote_user</code>：Basic认证时候的用户名</li>
+<li><code>[$time_local]</code>： 中括号括起来的本地时间(通用的日志格式的那种）</li>
+<li><code>$request</code>：request URI</li>
+<li><code>$status</code>：响应码</li>
+<li><code>body_bytes_sent</code>：返回的body大小</li>
+<li><code>http_referer</code>：跳转链接，从哪个网页跳转过来，可以用来看外链。</li>
+<li><code>http_user_agent</code>：用户浏览器类型</li>
+<li><code>http_x_forwarded_for</code>：简称XFF头，它代表客户端，也就是HTTP的请求端真实的IP，在通过了HTTP 代理或者负载均衡服务器时会添加该项。</li>
+</ul>
+<blockquote>
+<p>httpd的日志格式默认使用的combined模式，combined格式的默认定义为：<br><code>LogFormat &quot;%h %l %u %t \&quot;%r\&quot; %&gt;s %b \&quot;%{Referer}i\&quot; \&quot;%{User-Agent}i\&quot;&quot; combined</code><br>这里写了各种参数代表的意义：<a href="http://blog.csdn.net/hytfly/article/details/11209909" target="_blank" rel="noopener">http://blog.csdn.net/hytfly/article/details/11209909</a><br>官方详细参数解析：<a href="http://httpd.apache.org/docs/2.4/mod/mod_log_config.html#formats" target="_blank" rel="noopener">http://httpd.apache.org/docs/2.4/mod/mod_log_config.html#formats</a></p>
+</blockquote>
+<p><strong><code>access_log</code></strong></p>
+<p><a href="http://www.yulongjun.com/images/15042721383996.jpg" target="_blank" rel="noopener"><img src="https://raw.githubusercontent.com/ashjian/picBed/master/20201130235108.jpg" alt="img"></a></p>
+<p>可以在不同的区域自定义访问日志文件路径和文件名，还有日志格式，以及相关的缓冲的配置：</p>
+<ul>
+<li>buffer=size</li>
+<li>flush=time</li>
+</ul>
+<p><strong><code>open_log_file_cache</code></strong></p>
+<p><a href="http://www.yulongjun.com/images/15042721222468.jpg" target="_blank" rel="noopener"><img src="https://raw.githubusercontent.com/ashjian/picBed/master/20201130235109.jpg" alt="img"></a></p>
+<p>缓存各日志文件相关的元数据信息。</p>
+<ul>
+<li>max：缓存的最大文件描述符数量</li>
+<li>min_uses：在inactive指定的时长内访问大于等于此值方 可被当作活动项</li>
+<li>inactive：非活动时长</li>
+<li>valid：验正缓存中各缓存项是否为活动项的时间间隔</li>
+</ul>
+<h2 id="ngx-gzip-module"><a href="#ngx-gzip-module" class="headerlink" title="ngx_gzip_module"></a>ngx_gzip_module</h2><p><strong><code>gzip</code></strong></p>
+<p>是否开启gzip。</p>
+<p><a href="http://www.yulongjun.com/images/15042767219690.jpg" target="_blank" rel="noopener"><img src="https://raw.githubusercontent.com/ashjian/picBed/master/20201130235110.jpg" alt="img"></a></p>
+<p><strong><code>gzip_comp_level</code></strong></p>
+<p>gzip压缩级别。级别1-9。</p>
+<p><a href="http://www.yulongjun.com/images/15042767486590.jpg" target="_blank" rel="noopener"><img src="https://raw.githubusercontent.com/ashjian/picBed/master/20201130235111.jpg" alt="img"></a></p>
+<p><strong><code>gzip disable</code></strong></p>
+<p>禁止IE6之类的浏览器压缩。</p>
+<p><a href="http://www.yulongjun.com/images/15042767723557.jpg" target="_blank" rel="noopener"><img src="https://raw.githubusercontent.com/ashjian/picBed/master/20201130235112.jpg" alt="img"></a></p>
+<p><strong><code>gzip_min_length</code></strong></p>
+<p>不能多大的文件都压缩吧，那样效率很低，这里规定了gzip压缩的最小响应报文大小。</p>
+<p><a href="http://www.yulongjun.com/images/15042767839800.jpg" target="_blank" rel="noopener"><img src="https://raw.githubusercontent.com/ashjian/picBed/master/20201130235113.jpg" alt="img"></a></p>
+<p><strong><code>gzip_buffers</code></strong></p>
+<p>支持实现压缩功能时为其配置的缓冲区数量及每个缓存区的大小。</p>
+<p><a href="http://www.yulongjun.com/images/15042767368732.jpg" target="_blank" rel="noopener"><img src="https://raw.githubusercontent.com/ashjian/picBed/master/20201130235114.jpg" alt="img"></a></p>
+<p><strong><code>gzip_proxied</code></strong></p>
+<p>nginx作为代理服务器接收到从被代理服务器发送的响应报文后，在何种条件下启用压缩功能的。</p>
+<p><a href="http://www.yulongjun.com/images/15042769199720.jpg" target="_blank" rel="noopener"><img src="https://raw.githubusercontent.com/ashjian/picBed/master/20201130235023.jpg" alt="img"></a></p>
+<p><code>off</code>：对代理的请求不启用。<br><code>no-cache, no-store，private</code>：表示从被代理服务器收到的响应报文首部的Cache-Control的值为此三者中任何一个，则启用压缩功能。</p>
+<p><strong><code>gzip_types mime-type</code></strong></p>
+<p>压缩过滤器，仅对此处设定的MIME类型的内容启用压缩功能。</p>
+<p><a href="http://www.yulongjun.com/images/15042769348380.jpg" target="_blank" rel="noopener"><img src="https://raw.githubusercontent.com/ashjian/picBed/master/20201130235018.jpg" alt="img"></a></p>
+<p>示例：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs plain">gzip  on;<br>gzip_comp_level 6;<br>gzip_min_length 64;<br>gzip_proxied any;<br>gzip_types text&#x2F;xml text&#x2F;css  application&#x2F;javascript;<br></code></pre></td></tr></table></figure>
+
+<h2 id="ngx-http-ssl-module"><a href="#ngx-http-ssl-module" class="headerlink" title="ngx_http_ssl_module"></a>ngx_http_ssl_module</h2><p><strong><code>ssl</code></strong></p>
+<p>开启或关闭ssl。</p>
+<p><a href="http://www.yulongjun.com/images/15042783534830.jpg" target="_blank" rel="noopener"><img src="https://raw.githubusercontent.com/ashjian/picBed/master/20201130235010.jpg" alt="img"></a></p>
+<p><strong><code>ssl_certificate</code></strong></p>
+<p>当前虚拟主机使用PEM格式的证书文件。</p>
+<p><a href="http://www.yulongjun.com/images/15042783667235.jpg" target="_blank" rel="noopener"><img src="https://raw.githubusercontent.com/ashjian/picBed/master/20201130235004.jpg" alt="img"></a></p>
+<p><strong><code>ssl_certificate_key</code></strong></p>
+<p>当前虚拟主机上与其证书匹配的私钥文件。</p>
+<p><a href="http://www.yulongjun.com/images/15042783865794.jpg" target="_blank" rel="noopener"><img src="https://raw.githubusercontent.com/ashjian/picBed/master/20201130234959.jpg" alt="img"></a></p>
+<p><strong><code>ssl_protocols</code></strong></p>
+<p>支持ssl协议版本，默认为1、1.1、1.2，为了安全可以改为1.3，1.2是有安全漏洞的。</p>
+<p><a href="http://www.yulongjun.com/images/15042784116536.jpg" target="_blank" rel="noopener"><img src="https://raw.githubusercontent.com/ashjian/picBed/master/20201130234951.jpg" alt="img"></a></p>
+<p><strong><code>ssl_session_cache</code></strong></p>
+<p>builtin[:size]：使用OpenSSL内建的缓存，此缓存为每worker进程私有。<br>[shared:name:size]：在各worker之间使用一个共享的缓存。</p>
+<p><a href="http://www.yulongjun.com/images/15042784835696.jpg" target="_blank" rel="noopener"><img src="https://raw.githubusercontent.com/ashjian/picBed/master/20201130234945.jpg" alt="img"></a></p>
+<p><strong><code>ssl_session_timeout</code></strong></p>
+<p>客户端一侧的连接可以复用ssl session cache中缓存的ssl参数的有效时长。</p>
+<p><a href="http://www.yulongjun.com/images/15042785149633.jpg" target="_blank" rel="noopener"><img src="https://raw.githubusercontent.com/ashjian/picBed/master/20201130234935.jpg" alt="img"></a></p>
+<p><code>ngx_http_ssl_module</code>参数示例：</p>
+<p>生成自签名证书</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><code class="hljs plain">cd &#x2F;etc&#x2F;pki&#x2F;CA<br>openssl genrsa -out  private&#x2F;cakey.pem 4096<br>chmod go&#x3D; private&#x2F;cakey.pem<br>openssl req -new -x509 -key private&#x2F;cakey.pem -out  cacert.pem -days 365<br>touch index.txt<br>echo 01&gt; serial<br>cd &#x2F;etc&#x2F;nginx<br>mkdir ssl<br>cd ssl<br>(umask 077; openssl genrsa -out nginx.key 2048)<br>openssl req -new -key nginx.key -out nginx.csr<br>openssl ca -in nginx.csr -out nginx.crt<br></code></pre></td></tr></table></figure>
+
+
+
+<p>配置ssl模块</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs plain">server &#123;<br>	listen 443 ssl;<br>	server_name www.yulongjun.com;<br>	root &#x2F;vhosts&#x2F;ssl&#x2F;htdocs;<br>	ssl on;<br>	ssl_certificate &#x2F;etc&#x2F;nginx&#x2F;ssl&#x2F;nginx.crt;<br>	ssl_certificate_key &#x2F;etc&#x2F;nginx&#x2F;ssl&#x2F;nginx.key;<br>	ssl_session_cache shared:sslcache:20m;<br>	ssl_session_timeout 600s;<br>	<br>&#125;<br></code></pre></td></tr></table></figure>
+
+
+
+<h2 id="ngx-http-rewrite-module（URL重写）"><a href="#ngx-http-rewrite-module（URL重写）" class="headerlink" title="ngx_http_rewrite_module（URL重写）"></a>ngx_http_rewrite_module（URL重写）</h2><p>有下面几种url重写：</p>
+<blockquote>
+<p><a href="http://bbs.yulongjun.com/" target="_blank" rel="noopener">http://bbs.yulongjun.com/</a> –&gt; <a href="http://www.yulongjun.com/bbs/" target="_blank" rel="noopener">http://www.yulongjun.com/bbs/</a><br><a href="http://www.yulongjun.com/" target="_blank" rel="noopener">http://www.yulongjun.com/</a> –&gt; <a href="https://www.yulongjun.com/" target="_blank" rel="noopener">https://www.yulongjun.com/</a><br><a href="http://www.yulongjun.com/login.php;username=tom" target="_blank" rel="noopener">http://www.yulongjun.com/login.php;username=tom</a> –&gt;<a href="http://www.yulongjun.com/tom/" target="_blank" rel="noopener">http://www.yulongjun.com/tom/</a></p>
+<p><a href="http://www.yulongjun.io/bbs/" target="_blank" rel="noopener">http://www.yulongjun.io/bbs/</a> –&gt; <a href="http://bbs.yulongjun.io/" target="_blank" rel="noopener">http://bbs.yulongjun.io/</a></p>
+</blockquote>
+<p>将用户请求的URI基于regex所描述的模式进行检查，而后完成替换。</p>
+<p><strong><code>rewrite</code></strong></p>
+<p><a href="http://www.yulongjun.com/images/15043158084593.jpg" target="_blank" rel="noopener"><img src="https://raw.githubusercontent.com/ashjian/picBed/master/20201130234852.jpg" alt="img"></a></p>
+<p>将用户请求的URI基于regex所描述的模式进行检查，匹配到时将其替换为replacement指定的新的URI。</p>
+<p>注意：如果在同一级配置块中存在多个rewrite规则，那么会自下而下逐个检查；被某条件规则替换完成后，会重新一轮的替换检查，因此，隐含有循环机制；[flag]所表示的标志位用于控制此循环机制。</p>
+<p>如果replacement是以<a href="http://xn--https-wm6j//开头，则替换结果会直接以重定向返回给客户端。" target="_blank" rel="noopener">http://或https://开头，则替换结果会直接以重定向返回给客户端。</a></p>
+<p><code>[flag]</code>：</p>
+<ul>
+<li><strong>last</strong>：重写完成后停止对当前URI在当前location中后续的其它重写操作，而后对新的URI启动新一轮重写检查；提前重启新一轮循环(类似于continue)；</li>
+<li><strong>break</strong>：重写完成后停止对当前URI在当前location中后续的其它重写操作，而后直接跳转至重写规则配置块之后的其它配置；结束循环；</li>
+<li><strong>redirect</strong>：重写完成后以临时重定向方式(302 Moved</li>
+<li>Temprarily)直接返回重写后生成的新URI给客户端，由客户端重新发起请求；不能以<a href="http://xn--https-wm6j//开头；" target="_blank" rel="noopener">http://或https://开头；</a></li>
+<li><strong>permanent</strong>：重写完成后以永久重定向方式(301 Moved Permanently)直接返回重写后生成的新URI给客户端，由客户端重新发起请求；</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs plain">rewrite &#x2F;(.*)$ https:&#x2F;&#x2F;www.yulongjun.io&#x2F;$1;<br>rewrite &#x2F;bbs<br></code></pre></td></tr></table></figure>
+
+<p><strong><code>return</code></strong></p>
+<p><a href="http://www.yulongjun.com/images/15043174234909.jpg" target="_blank" rel="noopener"><img src="https://raw.githubusercontent.com/ashjian/picBed/master/20201130234544.jpg" alt="img"></a></p>
+<p>停止处理，然后返回一个特殊响应码给客户端。还可以指定返回的url页面。</p>
+<p><strong><code>rewrite_log</code></strong></p>
+<p><a href="http://www.yulongjun.com/images/15043205846502.jpg" target="_blank" rel="noopener"><img src="https://raw.githubusercontent.com/ashjian/picBed/master/20201130234841.jpg" alt="img"></a></p>
+<p>是否开启重写日志</p>
+<p><strong><code>if</code></strong></p>
+<p><a href="http://www.yulongjun.com/images/15043205419834.jpg" target="_blank" rel="noopener"><img src="https://raw.githubusercontent.com/ashjian/picBed/master/20201130232105.jpg" alt="img"></a></p>
+<p>引入一个新的配置上下文 ；条件满足时，执行配置块中的配置指令。只支持在server, location。</p>
+<p>condition：</p>
+<ul>
+<li>比较操作符：<ul>
+<li><code>==</code></li>
+<li><code>!=</code></li>
+<li><code>~</code>：模式匹配，区分字符大小写；</li>
+<li><code>~*</code>：模式匹配，不区分字符大小写；</li>
+<li><code>!~</code>：模式不匹配，区分字符大小写；</li>
+<li><code>!~</code>*：模式不匹配，不区分字符大小写；</li>
+</ul>
+</li>
+<li>文件及目录存在性判断：<br><code>-e</code>, <code>!-e</code><br><code>-f</code>, <code>!-f</code><br><code>-d</code>, <code>!-d</code><br><code>-x</code>, <code>!-x</code></li>
+</ul>
+<p>示例：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><code class="hljs plain">if ($http_user_agent ~ MSIE) &#123;<br>    rewrite ^(.*)$ &#x2F;msie&#x2F;$1 break;<br>&#125;<br><br>if ($http_cookie ~* &quot;id&#x3D;([^;]+)(?:;|$)&quot;) &#123;<br>    set $id $1;<br>&#125;<br><br>if ($request_method &#x3D; POST) &#123;<br>    return 405;<br>&#125;<br><br>if ($slow) &#123;<br>    limit_rate 10k;<br>&#125;<br><br>if ($invalid_referer) &#123;<br>    return 403;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p><strong><code>set</code></strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs plain">![](&#x2F;images&#x2F;15043208822285.jpg)<br></code></pre></td></tr></table></figure>
+
+<p>设置用户自定义变量。</p>
+<h2 id="ngx-http-referer-module"><a href="#ngx-http-referer-module" class="headerlink" title="ngx_http_referer_module"></a>ngx_http_referer_module</h2><p>访问有通过地址直接访问，或者从其他网站跳转过来。</p>
+<p>用过滤<code>referer</code>头域的方法可以来防止盗链。</p>
+<p><strong><code>valid_referers</code></strong></p>
+<p>定义referer首部的合法 可用值。</p>
+<p><a href="http://www.yulongjun.com/images/15043213666497.jpg" target="_blank" rel="noopener"><img src="https://raw.githubusercontent.com/ashjian/picBed/master/20201130232052.jpg" alt="img"></a></p>
+<ul>
+<li><strong>none</strong>：请求报文首部没有referer首部。</li>
+<li><strong>blocked</strong>：请求报文的referer首部没有值。</li>
+<li><strong>server_names</strong>：参数，其可以有值作为主机名或主机名模式。<ul>
+<li><strong>arbitrary_string</strong>：直接字符串，但可使用<code>*</code>作通配符。</li>
+<li><strong>regular expression</strong>：被指定的正则表达式模式匹配到的字符串；要使用<code>~</code>打头，例如 <code>~.*\.yulongjun\.com</code>。</li>
+</ul>
+</li>
+</ul>
+<p>示例：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><code class="hljs plain">valid_referers none block server_names *.yulongjun.com yulongjun.* ~\.yulongjun\.;<br><br>if($invalid_referer) &#123;<br>	return http:&#x2F;&#x2F;www.yulongjun.com&#x2F;invalid.jpg;<br>&#125;<br>valid_referers none blocked server_names<br>               *.example.com example.* www.example.org&#x2F;galleries&#x2F;<br>               ~\.google\.;<br><br>if ($invalid_referer) &#123;<br>    return 403;<br>&#125;<br></code></pre></td></tr></table></figure>
+      
+    </div>
+    
+    
+    
+
+     <!-- 文章末尾统一添加“本文结束”标记 -->
+    <div>
+      
+        <div>
+    
+        <div style="text-align:center;color: #555;font-size:24px;"><-------------The End-------------></div>
+    
+</div>
+
+      
+    </div>
+    
+
+    
+      <div>
+        <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+  <div>坚持原创分享，你的支持就是我最大的动力！</div>
+  <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+    <span>打赏</span>
+  </button>
+  <div id="QR" style="display: none;">
+
+    
+      <div id="wechat" style="display: inline-block">
+        <img id="wechat_qr" src="/uploads/weixin_cash_code.png" alt="StarDustLoong 微信支付"/>
+        <p>微信支付</p>
+      </div>
+    
+
+    
+      <div id="alipay" style="display: inline-block">
+        <img id="alipay_qr" src="/uploads/alipay_cash_code.png" alt="StarDustLoong 支付宝"/>
+        <p>支付宝</p>
+      </div>
+    
+
+    
+
+  </div>
+</div>
+
+      </div>
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/05-ngx-http-core-module%E8%AF%A6%E8%A7%A3/" rel="next" title="05-ngx_http_core_module详解">
+                <i class="fa fa-chevron-left"></i> 05-ngx_http_core_module详解
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/07-ngx-http-proxy-module%E8%AF%A6%E8%A7%A3/" rel="prev" title="07-ngx_http_proxy_module详解">
+                07-ngx_http_proxy_module详解 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+    </div>
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/uploads/avatar.png"
+                alt="StarDustLoong" />
+            
+              <p class="site-author-name" itemprop="name">StarDustLoong</p>
+              <p class="site-description motion-element" itemprop="description">人类如风一般的自由</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">2409</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">12</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">146</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+	   
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/StarDustLoong" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:13671474528@163.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://www.zhihu.com/people/ashjian-ar15" target="_blank" title="知乎">
+                      
+                        <i class="fa fa-fw fa-globe"></i>知乎</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://me.csdn.net/ashjian" target="_blank" title="CSDN">
+                      
+                        <i class="fa fa-fw fa-codiepie"></i>CSDN</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+            <div class="links-of-blogroll motion-element links-of-blogroll-inline">
+              <div class="links-of-blogroll-title">
+                <i class="fa  fa-fw fa-link"></i>
+                Links
+              </div>
+              <ul class="links-of-blogroll-list">
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="http://mp.weixin.qq.com/user1" title="OpenInfo" target="_blank">OpenInfo</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="http://mp.weixin.qq.com/user2" title="stormzhang" target="_blank">stormzhang</a>
+                  </li>
+                
+              </ul>
+            </div>
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#ngx-http-access-module"><span class="nav-number">1.</span> <span class="nav-text">ngx_http_access_module</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#ngx-http-auth-basic-module"><span class="nav-number">2.</span> <span class="nav-text">ngx_http_auth_basic_module</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#ngx-sub-status-module"><span class="nav-number">3.</span> <span class="nav-text">ngx_sub_status_module</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#ngx-http-log-module"><span class="nav-number">4.</span> <span class="nav-text">ngx_http_log_module</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#ngx-gzip-module"><span class="nav-number">5.</span> <span class="nav-text">ngx_gzip_module</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#ngx-http-ssl-module"><span class="nav-number">6.</span> <span class="nav-text">ngx_http_ssl_module</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#ngx-http-rewrite-module（URL重写）"><span class="nav-number">7.</span> <span class="nav-text">ngx_http_rewrite_module（URL重写）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#ngx-http-referer-module"><span class="nav-number">8.</span> <span class="nav-text">ngx_http_referer_module</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">StarDustLoong</span>
+
+  
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-area-chart"></i>
+    </span>
+    
+      <span class="post-meta-item-text">本站总字数&#58;</span>
+    
+    <span title="本站总字数">635.5k</span>
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Pisces</a> v5.1.4</div>
+
+
+
+
+#<!-- 百度自动推送 -->
+#<script>
+#(function(){
+#    var bp = document.createElement('script');
+#    var curProtocol = window.location.protocol.split(':')[0];
+#    if (curProtocol === 'https') {
+#        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+#    }
+#    else {
+#        bp.src = 'http://push.ashjian.baidu.com/push.js';
+#    }
+#    var s = document.getElementsByTagName("script")[0];
+#    s.parentNode.insertBefore(bp, s);
+#})();
+#</script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aplayer/dist/APlayer.min.css">
+
+<script src="https://cdn.jsdelivr.net/npm/aplayer/dist/APlayer.min.js"></script>
+<!-- require MetingJS -->
+
+<script src="https://cdn.jsdelivr.net/npm/meting@2.0.1/dist/Meting.min.js"></script>
+<div> 
+<meting-js  
+    server="netease" 
+    type="playlist"  
+    id="5281251057" 
+    fixed="true"  
+    autoplay="false" 
+    loop="all" 
+    order="random"
+    preload="auto" 
+    list-folded="ture" 
+    list-max-height="500px" 
+    lrc-type="1">
+</meting-js>	 
+</div>
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv">
+      本站访客数
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+      人次
+    </span>
+  
+
+  
+    <span class="site-pv">
+      本站总访问量
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+      次
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+  <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+  <script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+  
+  <script type="text/javascript">
+    var GUEST = ['nick','mail','link'];
+    var guest = 'nick,mail,link';
+    guest = guest.split(',').filter(item=>{
+      return GUEST.indexOf(item)>-1;
+    });
+    new Valine({
+        el: '#comments' ,
+        verify: false,
+        notify: false,
+        appId: 'Gp5xxuBGmRxC9yeJHf5wlLpN-gzGzoHsz',
+        appKey: 'wo0eDJonJrnuUrCCCU7EnH1n',
+        placeholder: '欢迎评论',
+        avatar:'mm',
+        guest_info:guest,
+        pageSize:'20' || 10,
+    });
+  </script>
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"jsonPath":"/live2dw/assets/dsr50_lifu_normal.model.json"},"display":{"position":"right","width":700,"height":800,"hOffset":-250,"vOffset":-150},"mobile":{"show":true,"scale":0.7},"log":false});</script></body>
+</html>

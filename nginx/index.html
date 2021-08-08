@@ -1,0 +1,1903 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Hexo, NexT" />
+
+
+
+
+  
+
+
+  <link rel="alternate" href="/atom.xml" title="" type="application/atom+xml" />
+
+
+
+
+
+
+<meta name="description" content="Nginx NginxI&#x2F;O模型：    阻塞型、非阻塞型、复用型、信号驱动型、异步 同步&#x2F;异步：    关注消息通知机制； 消息通知：     同步：等待对方返回消息；      异步：被调用者通过状态、通知或回调机制通知调用者被调用者的运行状态；阻塞&#x2F;非阻塞：    关注调用者在等待结果返回之前所处的状态；  阻塞：blocking，调用结果返回之前，调用者被挂起； 非阻塞：nonblock">
+<meta property="og:type" content="article">
+<meta property="og:title" content="nginx">
+<meta property="og:url" content="http://www.ashjian.xyz/nginx/index.html">
+<meta property="og:site_name">
+<meta property="og:description" content="Nginx NginxI&#x2F;O模型：    阻塞型、非阻塞型、复用型、信号驱动型、异步 同步&#x2F;异步：    关注消息通知机制； 消息通知：     同步：等待对方返回消息；      异步：被调用者通过状态、通知或回调机制通知调用者被调用者的运行状态；阻塞&#x2F;非阻塞：    关注调用者在等待结果返回之前所处的状态；  阻塞：blocking，调用结果返回之前，调用者被挂起； 非阻塞：nonblock">
+<meta property="og:image" content="https://raw.githubusercontent.com/ashjian/picBed/master/20201201003326.png">
+<meta property="article:published_time" content="2020-12-03T04:16:17.000Z">
+<meta property="article:modified_time" content="2021-03-26T10:02:04.763Z">
+<meta property="article:author" content="StarDustLoong">
+<meta property="article:tag" content="linux">
+<meta property="article:tag" content="python">
+<meta property="article:tag" content="运维">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://raw.githubusercontent.com/ashjian/picBed/master/20201201003326.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://www.ashjian.xyz/nginx/"/>
+
+
+
+
+
+  <title>nginx | </title>
+  
+
+
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?d7bf52f45e24a0e6f2951901a7a97864";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+<meta name="generator" content="Hexo 4.2.1"></head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title"></span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off"
+             placeholder="搜索..." spellcheck="false"
+             type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://www.ashjian.xyz/nginx/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="StarDustLoong">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/uploads/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">nginx</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-12-03T12:16:17+08:00">
+                2020-12-03
+              </time>
+            
+
+            
+              <span class="post-meta-divider">|</span>
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-check-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">更新于&#58;</span>
+              
+              <time title="更新于" itemprop="dateModified" datetime="2021-03-26T18:02:04+08:00">
+                2021-03-26
+              </time>
+            
+          </span>
+
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/nginx/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/nginx/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  7.9k
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  35
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+      
+      
+
+      
+        <p><img src="https://raw.githubusercontent.com/ashjian/picBed/master/20201201003326.png" alt="image-20200930103335496"></p>
+<p>Nginx</p>
+<h2 id="Nginx"><a href="#Nginx" class="headerlink" title="Nginx"></a>Nginx</h2><p>I/O模型：<br>    阻塞型、非阻塞型、复用型、信号驱动型、异步</p>
+<p>同步/异步：<br>    关注消息通知机制；</p>
+<pre><code>消息通知：
+    同步：等待对方返回消息； 
+    异步：被调用者通过状态、通知或回调机制通知调用者被调用者的运行状态；</code></pre><p>阻塞/非阻塞：<br>    关注调用者在等待结果返回之前所处的状态； </p>
+<pre><code>阻塞：blocking，调用结果返回之前，调用者被挂起；
+非阻塞：nonblocking，调用结果返回之前，调用者不会被挂起；</code></pre><p>一次文件IO请求，都会由两阶段组成：<br>    第一步：等待数据，即数据从磁盘到内核内存；<br>    第二步：复制数据，即数据内核内存到进程内存； </p>
+<p>复用型IO调用：<br>    select()：1024<br>    poll()：</p>
+<pre><code>event-driven：
+    epoll（Linux）：libevent
+    Kqueue（BSD）：
+    /dev/poll（Solaris）</code></pre><h2 id="Nginx的程序架构："><a href="#Nginx的程序架构：" class="headerlink" title="Nginx的程序架构："></a>Nginx的程序架构：</h2><p>​    master/worker<br>​        一个master进程：<br>​            负载加载和分析配置文件、管理worker进程、平滑升级<br>​        一个或多个worker进程<br>​            处理并响应用户请求<br>​        缓存相关的进程：<br>​            cache loader：载入缓存对象<br>​            cache manager：管理缓存对象<br>​<br>​    特性：异步、事件驱动和非阻塞<br>​        并发请求处理：通过epoll/select<br>​        文件IO：高级IO sendfile，异步，mmap<br>​<br>​    nginx模块：高度模块化，但其模块早期不支持DSO机制；近期版本支持动态装载和卸载；<br>​        模块分类：<br>​            核心模块：core module<br>​            标准模块：<br>​                HTTP modules：<br>​                    Standard HTTP modules<br>​                    Optional HTTP modules<br>​                Mail modules<br>​                Stream modules：<br>​                    传输层代理<br>​            3rd party modules<br>​<br>​    nginx的功用：<br>​        静态的web资源服务器；(图片服务器，或js/css/html/txt等静态资源服务器)<br>​        结合FastCGI/uwSGI/SCGI等协议反代动态资源请求；<br>​        http/https协议的反向代理；<br>​        imap4/pop3协议的反向代理；<br>​        tcp/udp协议的请求转发；<br>​<br>nginx的安装配置：<br>​    官方的预制包：<br>​        <a href="http://nginx.org/packages/centos/7/x86_64/RPMS/" target="_blank" rel="noopener">http://nginx.org/packages/centos/7/x86_64/RPMS/</a><br>​        Fedora-EPEL:<br>​<br>​    编译安装：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs bash">]<span class="hljs-comment"># yum groupinstall "Development Tools" "Server Platform Development"</span><br>~]<span class="hljs-comment"># yum install pcre-devel openssl-devel zlib-devel #pcre用来正则表达式，zlib用于支持传输压缩格式</span><br>~]<span class="hljs-comment"># useradd -r nginx</span><br>~]<span class="hljs-comment">#  ./configure --prefix=/usr/local/nginx --conf-path=/etc/nginx/nginx.conf --error-log-path=/var/log/nginx/error.log --http-log-path=/var/log/nginx/access.log --pid-path=/var/run/nginx.pid --lock-path=/var/run/nginx.lock --user=nginx --group=nginx --with-http_ssl_module --with-http_v2_module --with-http_dav_module --with-http_stub_status_module --with-threads --with-file-aio</span><br><br>]<span class="hljs-comment">#make &amp;&amp; make install</span><br></code></pre></td></tr></table></figure>
+
+<p>​    程序环境<br>​        配置文件的组成部分：<br>​            主配置文件：nginx.conf<br>​                include conf.d/*.conf<br>​            fastcgi， uwsgi，scgi等协议相关的配置文件<br>​            mime.types：支持的mime类型<br>​        主程序文件：/usr/sbin/nginx<br>​        Unit File：nginx.service<br>​<br>​    配置：<br>​        主配置文件的配置指令：<br>​            directive value [value2 …];<br>​<br>​            注意：<br>​                (1) 指令必须以分号结尾；<br>​                (2) 支持使用配置变量；<br>​                    内建变量：由Nginx模块引入，可直接引用；<br>​                    自定义变量：由用户使用set命令定义；<br>​                        set variable_name value;<br>​                        引用变量：$variable_name</p>
+<p>​<br>​            主配置文件结构：<br>​                main block：主配置段，也即全局配置段；<br>​                    event {<br>​                        …<br>​                    }：事件驱动相关的配置；<br>​                http {<br>​                    …<br>​                }：http/https 协议相关的配置段；<br>​                mail {<br>​                    …<br>​                }<br>​                stream {<br>​                    …<br>​                }<br>​            </p>
+<p>​        http协议相关的配置结构<br>​            http {<br>​                …<br>​                …：各server的公共配置<br>​                server {<br>​                    …<br>​                }：每个server用于定义一个虚拟主机；<br>​                server {<br>​                    …<br>​                    listen<br>​                    server_name<br>​                    root<br>​                    alias<br>​                    location [OPERATOR] URL {<br>​                        …<br>​                        if CONDITION {<br>​                            …<br>​                        }<br>​                    }<br>​                }<br>​            }<br>​    </p>
+<h2 id="main配置段常见的配置指令："><a href="#main配置段常见的配置指令：" class="headerlink" title="main配置段常见的配置指令："></a>main配置段常见的配置指令：</h2><p>​        分类：<br>​            正常运行必备的配置<br>​            优化性能相关的配置<br>​            用于调试及定位问题相关的配置<br>​            事件驱动相关的配置<br>​<br>​        正常运行必备的配置：<br>​            1、user<br>​                Syntax:    user user [group];<br>​                Default:    user nobody nobody;<br>​                Context:    main<br>​<br>​                Defines user and group credentials used by worker processes. If group is omitted, a group whose name equals that of user is used.<br>​<br>​            2、pid /PATH/TO/PID_FILE;<br>​                指定存储nginx主进程进程号码的文件路径；<br>​<br>​            3、include file | mask;<br>​                指明包含进来的其它配置文件片断；<br>​<br>​            4、load_module file;<br>​                指明要装载的动态模块；<br>​<br>​        性能优化相关的配置：<br>​            1、worker_processes number | auto;<br>​                worker进程的数量；通常应该等于小于当前主机的cpu的物理核心数；<br>​                auto：当前主机物理CPU核心数；<br>​<br>​            2、worker_cpu_affinity cpumask …;<br>​                worker_cpu_affinity auto [cpumask];<br>​<br>​                CPU MASK：<br>​                    00000000：<br>​                    00000001：0号CPU<br>​                    00000010：1号CPU<br>​                    … …<br>​            3、worker_priority number;<br>​                指定worker进程的nice值，设定worker进程优先级；[-20,20]<br>​<br>​            4、worker_rlimit_nofile number;<br>​                worker进程所能够打开的文件数量上限；<br>​<br>​        调试、定位问题：<br>​            1、daemon on|off;<br>​                是否以守护进程方式运行Nignx；<br>​<br>​            2、master_process on|off;<br>​                是否以master/worker模型运行nginx；默认为on；<br>​<br>​            3、error_log file [level];<br>​<br>​        事件驱动相关的配置:<br>​            events {<br>​                …<br>​            }<br>​<br>​            1、worker_connections number;<br>​                每个worker进程所能够打开的最大并发连接数数量；<br>​<br>​                worker_processes * worker_connections<br>​<br>​            2、use method;<br>​                指明并发连接请求的处理方法；<br>​<br>​                    use epoll;<br>​<br>​            3、accept_mutex on | off;<br>​                处理新的连接请求的方法；on意味着由各worker轮流处理新请求，Off意味着每个新请求的到达都会通知所有的worker进程；</p>
+<p>​        http协议的相关配置：<br>​            http {<br>​                … …<br>​                server {<br>​                    …<br>​                    server_name<br>​                    root<br>​                    location [OPERATOR] /uri/ {<br>​                        …<br>​                    }<br>​                }<br>​                server {<br>​                    …<br>​                }<br>​            }<br>​<br>​            与套接字相关的配置：<br>​<br>​                1、server { … }<br>​                    配置一个虚拟主机；<br>​<br>​                    server {<br>​                        listen address[:PORT]|PORT;<br>​                        server_name SERVER_NAME;<br>​                        root /PATH/TO/DOCUMENT_ROOT;<br>​                    }<br>​<br>​                2、listen PORT|address[:port]|unix:/PATH/TO/SOCKET_FILE<br>​                      listen address[:port] [default_server] [ssl] [http2 | spdy]  [backlog=number] [rcvbuf=size] [sndbuf=size]<br>​<br>​                    default_server：设定为默认虚拟主机；<br>​                    ssl：限制仅能够通过ssl连接提供服务；<br>​                    backlog=number：后援队列长度；<br>​                    rcvbuf=size：接收缓冲区大小；<br>​                    sndbuf=size：发送缓冲区大小；<br>​<br>​                3、server_name name …;<br>​                    指明虚拟主机的主机名称；后可跟多个由空白字符分隔的字符串；<br>​                        支持<em>通配任意长度的任意字符；server_name *.magedu.com  <a href="http://www.magedu" target="_blank" rel="noopener">www.magedu</a>.</em><br>​                        支持<del>起始的字符做正则表达式模式匹配；server_name ~^www\d+.magedu.com$<br>​<br>​                    匹配机制：<br>​                        (1) 首先是字符串精确匹配;<br>​                        (2) 左侧<em>通配符；<br>​                        (3) 右侧*通配符；<br>​                        (4) 正则表达式；<br>​<br>​                    练习：定义四个虚拟主机，混合使用三种类型的虚拟主机；<br>​                        仅开放给来自于本地网络中的主机访问；<br>​<br>​                4、tcp_nodelay on | off;<br>​                    在keepalived模式下的连接是否启用TCP_NODELAY选项；<br>​<br>​                    tcp_nopush on|off;<br>​                    在sendfile模式下，是否启用TCP_CORK选项；<br>​<br>​                5、sendfile on | off;<br>​                    是否启用sendfile功能；<br>​<br>​            定义路径相关的配置：<br>​                6、root path;<br>​                    设置web资源路径映射；用于指明用户请求的url所对应的本地文件系统上的文档所在目录路径；可用的位置：http, server, location, if in location；<br>​<br>​                7、location [ = | ~ | ~</em> | ^</del> ] uri { … }<br>​                    Sets configuration depending on a request URI.<br>​<br>​                    在一个server中location配置段可存在多个，用于实现从uri到文件系统的路径映射；ngnix会根据用户请求的URI来检查定义的所有location，并找出一个最佳匹配，而后应用其配置；<br>​<br>​                    =：对URI做精确匹配；例如, <a href="http://www.magedu.com/" target="_blank" rel="noopener">http://www.magedu.com/</a>, <a href="http://www.magedu.com/index.html" target="_blank" rel="noopener">http://www.magedu.com/index.html</a><br>​                        location  =  / {<br>​                            …<br>​                        }<br>​                    <del>：对URI做正则表达式模式匹配，区分字符大小写；<br>​                    ~*：对URI做正则表达式模式匹配，不区分字符大小写；<br>​                    ^</del>：对URI的左半部分做匹配检查，不区分字符大小写；<br>​                    不带符号：匹配起始于此uri的所有的url；<br>​<br>​                    匹配优先级：=, ^~, ～/～*，不带符号；<br>​<br>​                    root /vhosts/www/htdocs/<br>​                        <a href="http://www.magedu.com/index.html" target="_blank" rel="noopener">http://www.magedu.com/index.html</a> –&gt; /vhosts/www/htdocs/index.html<br>​<br>​                    server {<br>​                        root  /vhosts/www/htdocs/<br>​<br>​                        location /admin/ {<br>​                            root /webapps/app1/data/<br>​                        }<br>​                    }<br>​<br>​                8、alias path;<br>​                    定义路径别名，文档映射的另一种机制；仅能用于location上下文；<br>​<br>​                    注意：location中使用root指令和alias指令的意义不同；<br>​                        (a) root，给定的路径对应于location中的/uri/左侧的/；<br>​                        (b) alias，给定的路径对应于location中的/uri/右侧的/；<br>​<br>​                9、index file …;<br>​                    默认资源；http, server, location；<br>​<br>​                10、error_page code … [=[response]] uri;<br>​                    Defines the URI that will be shown for the specified errors.<br>​<br>​                11、try_files file … uri;<br>​<br>​            定义客户端请求的相关配置<br>​<br>​                12、keepalive_timeout timeout [header_timeout];<br>​                    设定保持连接的超时时长，0表示禁止长连接；默认为75s；<br>​<br>​                13、keepalive_requests number;<br>​                    在一次长连接上所允许请求的资源的最大数量，默认为100;<br>​<br>​                14、keepalive_disable none | browser …;<br>​                    对哪种浏览器禁用长连接；<br>​<br>​                15、send_timeout time;<br>​                    向客户端发送响应报文的超时时长，此处，是指两次写操作之间的间隔时长；<br>​<br>​                16、client_body_buffer_size size;<br>​                    用于接收客户端请求报文的body部分的缓冲区大小；默认为16k；超出此大小时，其将被暂存到磁盘上的由client_body_temp_path指令所定义的位置；<br>​<br>​                17、client_body_temp_path path [level1 [level2 [level3]]];<br>​                    设定用于存储客户端请求报文的body部分的临时存储路径及子目录结构和数量；<br>​<br>​                        16进制的数字；<br>​<br>​                        client_body_temp_path   /var/tmp/client_body  2 1 1<br>​                            1：表示用一位16进制数字表示一级子目录；0-f<br>​                            2：表示用2位16进程数字表示二级子目录：00-ff<br>​                            2：表示用2位16进程数字表示三级子目录：00-ff<br>​<br>​            对客户端进行限制的相关配置：<br>​                18、limit_rate rate;<br>​                    限制响应给客户端的传输速率，单位是bytes/second，0表示无限制；<br>​<br>​                19、limit_except method … { … }<br>​                    限制对指定的请求方法之外的其它方法的使用客户端；<br>​<br>​                    limit_except GET {<br>​                        allow 192.168.1.0/24;<br>​                        deny  all;<br>​                    }<br>​<br>​             文件操作优化的配置<br>​                20、aio on | off | threads[=pool];<br>​                    是否启用aio功能；<br>​<br>​                21、directio size | off;<br>​                    在Linux主机启用O_DIRECT标记，此处意味文件大于等于给定的大小时使用，例如directio 4m;<br>​<br>​                22、open_file_cache off;<br>​                    open_file_cache max=N [inactive=time];<br>​                        nginx可以缓存以下三种信息：<br>​                            (1) 文件的描述符、文件大小和最近一次的修改时间；<br>​                            (2) 打开的目录结构；<br>​                            (3) 没有找到的或者没有权限访问的文件的相关信息；<br>​<br>​                        max=N：可缓存的缓存项上限；达到上限后会使用LRU算法实现缓存管理；<br>​<br>​                        inactive=time：缓存项的非活动时长，在此处指定的时长内未被命中的或命中的次数少于open_file_cache_min_uses指令所指定的次数的缓存项即为非活动项；<br>​<br>​                23、open_file_cache_valid time;<br>​                    缓存项有效性的检查频率；默认为60s;<br>​<br>​                24、open_file_cache_min_uses number;<br>​                    在open_file_cache指令的inactive参数指定的时长内，至少应该被命中多少次方可被归类为活动项；<br>​<br>​                25、open_file_cache_errors on | off;<br>​                    是否缓存查找时发生错误的文件一类的信息；<br>​<br>​            ngx_http_access_module模块：<br>​                实现基于ip的访问控制功能<br>​<br>​                26、allow address | CIDR | unix: | all;<br>​                27、deny address | CIDR | unix: | all;<br>​<br>​                    http, server, location, limit_except<br>​<br>​            ngx_http_auth_basic_module模块<br>​                实现基于用户的访问控制，使用basic机制进行用户认证；<br>​<br>​                28、auth_basic string | off;<br>​                29、auth_basic_user_file file;<br>​<br>​                    location /admin/ {<br>​                        alias /webapps/app1/data/;<br>​                        auth_basic “Admin Area”;<br>​                        auth_basic_user_file /etc/nginx/.ngxpasswd;<br>​                    }<br>​<br>​                    注意：htpasswd命令由httpd-tools所提供；<br>​<br>​            ngx_http_stub_status_module模块<br>​                用于输出nginx的基本状态信息；<br>​<br>​                Active connections: 291<br>​                server accepts handled requests<br>​                    16630948 16630948 31070465<br>​                Reading: 6 Writing: 179 Waiting: 106<br>​<br>​                Active connections: 活动状态的连接数；<br>​                accepts：已经接受的客户端请求的总数；<br>​                handled：已经处理完成的客户端请求的总数；<br>​                requests：客户端发来的总的请求数；<br>​                Reading：处于读取客户端请求报文首部的连接的连接数；<br>​                Writing：处于向客户端发送响应报文过程中的连接数；<br>​                Waiting：处于等待客户端发出请求的空闲连接数；<br>​<br>​                30、stub_status;<br>​<br>​                配置示例：<br>​                    location  /basic_status {<br>​                        stub_status;<br>​                    }<br>​<br>​            ngx_http_log_module模块<br>​                he ngx_http_log_module module writes request logs in the specified format.<br>​<br>​                31、log_format name string …;<br>​                    string可以使用nginx核心模块及其它模块内嵌的变量；<br>​<br>​                    课外作业：为nginx定义使用类似于httpd的combined格式的访问日志；<br>​<br>​                32、access_log path [format [buffer=size] [gzip[=level]] [flush=time] [if=condition]];<br>​                    access_log off;<br>​<br>​                    访问日志文件路径，格式及相关的缓冲的配置；<br>​                        buffer=size<br>​                        flush=time<br>​<br>​                33、open_log_file_cache max=N [inactive=time] [min_uses=N] [valid=time];<br>​                    open_log_file_cache off;<br>​                        缓存各日志文件相关的元数据信息；<br>​<br>​                        max：缓存的最大文件描述符数量；<br>​                        min_uses：在inactive指定的时长内访问大于等于此值方可被当作活动项；<br>​                        inactive：非活动时长；<br>​                        valid：验正缓存中各缓存项是否为活动项的时间间隔；<br>​<br>​            ngx_http_gzip_module：<br>​                The ngx_http_gzip_module module is a filter that compresses responses using the “gzip” method. This often helps to reduce the size of transmitted data by half or even more.<br>​<br>​                1、gzip on | off;<br>​                    Enables or disables gzipping of responses.<br>​<br>​                2、gzip_comp_level level;<br>​                    Sets a gzip compression level of a response. Acceptable values are in the range from 1 to 9.<br>​<br>​                3、    gzip_disable regex …;<br>​                    Disables gzipping of responses for requests with “User-Agent” header fields matching any of the specified regular expressions.<br>​<br>​                4、    gzip_min_length length;<br>​                    启用压缩功能的响应报文大小阈值；<br>​<br>​                5、gzip_buffers number size;<br>​                    支持实现压缩功能时为其配置的缓冲区数量及每个缓存区的大小；<br>​<br>​                6、gzip_proxied off | expired | no-cache | no-store | private | no_last_modified | no_etag | auth | any …;<br>​                    nginx作为代理服务器接收到从被代理服务器发送的响应报文后，在何种条件下启用压缩功能的；<br>​                        off：对代理的请求不启用<br>​                        no-cache, no-store，private：表示从被代理服务器收到的响应报文首部的Cache-Control的值为此三者中任何一个，则启用压缩功能；<br>​<br>​                7、gzip_types mime-type …;<br>​                    压缩过滤器，仅对此处设定的MIME类型的内容启用压缩功能；</p>
+<p>​                示例：<br>​                    gzip  on;<br>​                    gzip_comp_level 6;<br>​                    gzip_min_length 64;<br>​                    gzip_proxied any;<br>​                    gzip_types text/xml text/css  application/javascript;<br>​<br>​            ngx_http_ssl_module模块：<br>​<br>​                1、    ssl on | off;<br>​                    Enables the HTTPS protocol for the given virtual server.<br>​<br>​                2、ssl_certificate file;<br>​                    当前虚拟主机使用PEM格式的证书文件；<br>​<br>​                3、ssl_certificate_key file;<br>​                    当前虚拟主机上与其证书匹配的私钥文件；<br>​<br>​                4、ssl_protocols [SSLv2] [SSLv3] [TLSv1] [TLSv1.1] [TLSv1.2];<br>​                    支持ssl协议版本，默认为后三个；<br>​<br>​                5、ssl_session_cache off | none | [builtin[:size]] [shared:name:size];<br>​                    builtin[:size]：使用OpenSSL内建的缓存，此缓存为每worker进程私有；<br>​<br>​                    [shared:name:size]：在各worker之间使用一个共享的缓存；<br>​<br>​                6、ssl_session_timeout time;<br>​                    客户端一侧的连接可以复用ssl session cache中缓存 的ssl参数的有效时长；<br>​<br>​                配置示例：<br>​                    server {<br>​                        listen 443 ssl;<br>​                        server_name <a href="http://www.magedu.com" target="_blank" rel="noopener">www.magedu.com</a>;<br>​                        root /vhosts/ssl/htdocs;<br>​                        ssl on;<br>​                        ssl_certificate /etc/nginx/ssl/nginx.crt;<br>​                        ssl_certificate_key /etc/nginx/ssl/nginx.key;<br>​                        ssl_session_cache shared:sslcache:20m;<br>​                    }                            </p>
+<p>​    ngx_http_rewrite_module模块：<br>​<br>​        The ngx_http_rewrite_module module is used to change request URI using PCRE regular expressions, return redirects, and conditionally select configurations.<br>​<br>​        bbs.magedu.com/ –&gt; <a href="http://www.magedu.com/bbs/" target="_blank" rel="noopener">www.magedu.com/bbs/</a>,  <a href="http://www.magedu.com/" target="_blank" rel="noopener">http://www.magedu.com/</a> –&gt; <a href="https://www.magedu.com/" target="_blank" rel="noopener">https://www.magedu.com/</a><br>​        <a href="http://www.magedu.com/login.php;username=tom" target="_blank" rel="noopener">http://www.magedu.com/login.php;username=tom</a> –&gt; <a href="http://www.magedu.com/tom/" target="_blank" rel="noopener">http://www.magedu.com/tom/</a><br>​<br>​        <a href="http://www.ilinux.io/bbs/" target="_blank" rel="noopener">http://www.ilinux.io/bbs/</a> –&gt; <a href="http://bbs.ilinux.io/" target="_blank" rel="noopener">http://bbs.ilinux.io/</a></p>
+<p>​<br>​            将用户请求的URI基于regex所描述的模式进行检查，而后完成替换；<br>​<br>​            1、rewrite regex replacement [flag]<br>​                将用户请求的URI基于regex所描述的模式进行检查，匹配到时将其替换为replacement指定的新的URI；<br>​                </p>
+<p>​            注意：如果在同一级配置块中存在多个rewrite规则，那么会自下而下逐个检查；被某条件规则替换完成后，会重新一轮的替换检查，因此，隐含有循环机制；[flag]所表示的标志位用于控制此循环机制；<br>​<br>​            如果replacement是以http://或https://开头，则替换结果会直接以重向返回给客户端；<br>​                301：永久重定向；<br>​<br>​            [flag]：<br>​                last：重写完成后停止对当前URI在当前location中后续的其它重写操作，而后对新的URI启动新一轮重写检查；提前重启新一轮循环；<br>​                break：重写完成后停止对当前URI在当前location中后续的其它重写操作，而后直接跳转至重写规则配置块之后的其它配置；结束循环；<br>​                redirect：重写完成后以临时重定向方式直接返回重写后生成的新URI给客户端，由客户端重新发起请求；不能以http://或https://开头；<br>​                permanent:重写完成后以永久重定向方式直接返回重写后生成的新URI给客户端，由客户端重新发起请求；<br>​<br>​        2、return<br>​            return code [text];<br>​            return code URL;<br>​            return URL;<br>​<br>​            Stops processing and returns the specified code to a client.<br>​<br>​        3、    rewrite_log on | off;<br>​            是否开启重写日志；<br>​<br>​        4、    if (condition) { … }<br>​            引入一个新的配置上下文 ；条件满足时，执行配置块中的配置指令；server, location；<br>​<br>​            condition：<br>​                比较操作符：<br>​                    ==<br>​                    !=<br>​                    <del>：模式匹配，区分字符大小写；<br>​                    ~*：模式匹配，不区分字符大小写；<br>​                    !</del>：模式不匹配，区分字符大小写；<br>​                    !<del><em>：模式不匹配，不区分字符大小写；<br>​                文件及目录存在性判断：<br>​                    -e, !-e<br>​                    -f, !-f<br>​                    -d, !-d<br>​                    -x, !-x<br>​<br>​        5、set $variable value;<br>​            用户自定义变量 ；<br>​<br>​    ngx_http_referer_module模块：<br>​        The ngx_http_referer_module module is used to block access to a site for requests with invalid values in the “Referer” header field.<br>​<br>​        1、valid_referers none | blocked | server_names | string …;<br>​            定义referer首部的合法可用值；<br>​<br>​                none：请求报文首部没有referer首部；<br>​                blocked：请求报文的referer首部没有值；<br>​                server_names：参数，其可以有值作为主机名或主机名模式；<br>​                    arbitrary_string：直接字符串，但可使用</em>作通配符；<br>​                    regular expression：被指定的正则表达式模式匹配到的字符串；要使用</del>打头，例如 ~.<em>.magedu.com；<br>​<br>​            配置示例：<br>​                valid_referers none block server_names *.magedu.com *.mageedu.com magedu.</em> mageedu.* ~.magedu.;<br>​<br>​                if($invalid_referer) {<br>​                    return <a href="http://www.magedu.com/invalid.jpg" target="_blank" rel="noopener">http://www.magedu.com/invalid.jpg</a>;<br>​                }</p>
+<p>​<br>Nginx(3)<br>​<br>​        ngx_http_proxy_module模块：<br>​<br>​            The ngx_http_proxy_module module allows passing requests to another server.<br>​<br>​            1、proxy_pass URL;<br>​                Context:    location, if in location, limit_except<br>​<br>                注意：proxy_pass后面的路径不带uri时，其会将location的uri传递给后端主机；</p>
+<pre><code>            server {
+                ...
+                server_name HOSTNAME;
+                location /uri/ {
+                    proxy http://hos[:port];
+                }
+                ...
+            }
+
+            http://HOSTNAME/uri --&gt; http://host/uri 
+
+        proxy_pass后面的路径是一个uri时，其会将location的uri替换为proxy_pass的uri；
+
+            server {
+                ...
+                server_name HOSTNAME;
+                location /uri/ {
+                    proxy http://host/new_uri/;
+                }
+                ...
+            }
+
+            http://HOSTNAME/uri/ --&gt; http://host/new_uri/
+
+        如果location定义其uri时使用了正则表达式的模式，或在if语句或limt_execept中使用proxy_pass指令，则proxy_pass之后必须不能使用uri; 用户请求时传递的uri将直接附加代理到的服务的之后；
+
+            server {
+                ...
+                server_name HOSTNAME;
+                location ~|~* /uri/ {
+                    proxy http://host;
+                }
+                ...
+            }
+
+            http://HOSTNAME/uri/ --&gt; http://host/uri/；
+
+    2、proxy_set_header field value;
+        设定发往后端主机的请求报文的请求首部的值；Context:    http, server, location
+
+        proxy_set_header X-Real-IP  $remote_addr;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+
+    3、proxy_cache_path
+        定义可用于proxy功能的缓存；Context:    http            
+
+        proxy_cache_path path [levels=levels] [use_temp_path=on|off] keys_zone=name:size [inactive=time] [max_size=size] [manager_files=number] [manager_sleep=time] [manager_threshold=time] [loader_files=number] [loader_sleep=time] [loader_threshold=time] [purger=on|off] [purger_files=number] [purger_sleep=time] [purger_threshold=time];
+
+    4、proxy_cache zone | off;
+        指明要调用的缓存，或关闭缓存机制；Context:    http, server, location
+
+    5、    proxy_cache_key string;
+        缓存中用于“键”的内容；
+
+        默认值：proxy_cache_key $scheme$proxy_host$request_uri;
+
+    6、proxy_cache_valid [code ...] time;
+        定义对特定响应码的响应内容的缓存时长；
+
+        定义在http{...}中；
+        proxy_cache_path /var/cache/nginx/proxy_cache levels=1:1:1 keys_zone=pxycache:20m max_size=1g;
+
+        定义在需要调用缓存功能的配置段，例如server{...}；
+        proxy_cache pxycache;
+        proxy_cache_key $request_uri;
+        proxy_cache_valid 200 302 301 1h;
+        proxy_cache_valid any 1m;
+
+    7、proxy_cache_use_stale
+
+        proxy_cache_use_stale error | timeout | invalid_header | updating | http_500 | http_502 | http_503 | http_504 | http_403 | http_404 | off ...;
+
+        Determines in which cases a stale cached response can be used when an error occurs during communication with the proxied server.
+
+    8、proxy_cache_methods GET | HEAD | POST ...;
+        If the client request method is listed in this directive then the response will be cached. “GET” and “HEAD” methods are always added to the list, though it is recommended to specify them explicitly. 
+
+    9、proxy_hide_header field;
+        By default, nginx does not pass the header fields “Date”, “Server”, “X-Pad”, and “X-Accel-...” from the response of a proxied server to a client. The proxy_hide_header directive sets additional fields that will not be passed.
+
+    10、proxy_connect_timeout time;
+        Defines a timeout for establishing a connection with a proxied server. It should be noted that this timeout cannot usually exceed 75 seconds.
+
+        默认为60s；最长为75s；
+
+    11、proxy_read_timeout time; 
+        Defines a timeout for reading a response from the proxied server. The timeout is set only between two successive read operations, not for the transmission of the whole response.
+
+    12、proxy_send_timeout time;
+        Sets a timeout for transmitting a request to the proxied server. he timeout is set only between two successive write operations, not for the transmission of the whole request. If the proxied server does not receive anything within this time, the connection is closed.
+
+ngx_http_headers_module模块
+    The ngx_http_headers_module module allows adding the “Expires” and “Cache-Control” header fields, and arbitrary fields, to a response header.
+
+    向由代理服务器响应给客户端的响应报文添加自定义首部，或修改指定首部的值；
+
+    1、add_header name value [always];
+        添加自定义首部；
+
+        add_header X-Via  $server_addr;
+        add_header X-Accel $server_name;
+
+    2、expires [modified] time;
+        expires epoch | max | off;
+
+        用于定义Expire或Cache-Control首部的值；</code></pre><p>​<br>​<br>​        ngx_http_fastcgi_module模块：<br>​<br>​            The ngx_http_fastcgi_module module allows passing requests to a FastCGI server.<br>​<br>​            1、fastcgi_pass address;<br>​                address为fastcgi server的地址；    location, if in location；<br>​<br>                    <a href="http://www.ilinux.io/admin/index.php" target="_blank" rel="noopener">http://www.ilinux.io/admin/index.php</a> –&gt; /admin/index.php (uri)<br>                        /data/application/admin/index.php</p>
+<p>​<br>​            2、fastcgi_index name;<br>​                fastcgi默认的主页资源;<br>​<br>​            3、fastcgi_param parameter value [if_not_empty];<br>​                Sets a parameter that should be passed to the FastCGI server. The value can contain text, variables, and their combination.<br>​<br>​            配置示例1：<br>​                前提：配置好fpm server和mariadb-server服务；<br>​                    location ~* .php$ {<br>​                        root           /usr/share/nginx/html;<br>​                        fastcgi_pass   127.0.0.1:9000;<br>​                        fastcgi_index  index.php;<br>​                        fastcgi_param  SCRIPT_FILENAME  /usr/share/nginx/html$fastcgi_script_name;<br>​                        include        fastcgi_params;<br>​                    }<br>​<br>            配置示例2：通过/pm_status和/ping来获取fpm server状态信息；<br>                location ~* ^/(pm_status|ping)$ {<br>                    include        fastcgi_params;<br>                    fastcgi_pass 127.0.0.1:9000;<br>                    fastcgi_param  SCRIPT_FILENAME  $fastcgi_script_name;<br>                }            </p>
+<pre><code>4、fastcgi_cache_path path [levels=levels] [use_temp_path=on|off] keys_zone=name:size [inactive=time] [max_size=size] [manager_files=number] [manager_sleep=time] [manager_threshold=time] [loader_files=number] [loader_sleep=time] [loader_threshold=time] [purger=on|off] [purger_files=number] [purger_sleep=time] [purger_threshold=time];
+
+    定义fastcgi的缓存；缓存位置为磁盘上的文件系统，由path所指定路径来定义；
+
+        levels=levels：缓存目录的层级数量，以及每一级的目录数量；levels=ONE:TWO:THREE
+            leves=1:2:2
+        keys_zone=name:size
+            k/v映射的内存空间的名称及大小
+        inactive=time
+            非活动时长
+        max_size=size
+            磁盘上用于缓存数据的缓存空间上限
+
+5、fastcgi_cache zone | off;
+    调用指定的缓存空间来缓存数据；http, server, location
+
+6、fastcgi_cache_key string;
+    定义用作缓存项的key的字符串；
+
+7、fastcgi_cache_methods GET | HEAD | POST ...;
+    为哪些请求方法使用缓存；
+
+8、fastcgi_cache_min_uses number;
+    缓存空间中的缓存项在inactive定义的非活动时间内至少要被访问到此处所指定的次数方可被认作活动项；
+
+9、fastcgi_cache_valid [code ...] time;
+    不同的响应码各自的缓存时长；
+
+    示例：
+        http {
+            ...
+            fastcgi_cache_path /var/cache/nginx/fastcgi_cache levels=1:2:1 keys_zone=fcgi:20m inactive=120s;
+            ...
+            server {
+                ...
+                location ~* \.php$ {
+                    ...
+                    fastcgi_cache fcgi;
+                    fastcgi_cache_key $request_uri;
+                    fastcgi_cache_valid 200 302 10m;
+                    fastcgi_cache_valid 301 1h;
+                    fastcgi_cache_valid any 1m;    
+                    ...
+                }
+                ...
+            }
+            ...
+        }
+
+    10、fastcgi_keep_conn on | off;
+        By default, a FastCGI server will close a connection right after sending the response. However, when this directive is set to the value on, nginx will instruct a FastCGI server to keep connections open.</code></pre><p>​<br>​    博客作业：以上所有内容；<br>​    练习：实现lnmp，lnamp提供多个虚拟主机；nginx和php使用同一主机和不同主机；<br>​        (1) http, 提供wordpress；<br>​        (2) https, 提供pma；</p>
+<p>​        </p>
+<pre><code>ngx_http_upstream_module模块 
+    The ngx_http_upstream_module module is used to define groups of servers that can be referenced by the proxy_pass, fastcgi_pass, uwsgi_pass, scgi_pass, and memcached_pass directives.</code></pre><p>​    </p>
+<p>​<br>​<br>​<br>​<br>​<br>​    ngx_http_upstream_module模块<br>​        The ngx_http_upstream_module module is used to define groups of servers that can be referenced by the proxy_pass, fastcgi_pass, uwsgi_pass, scgi_pass, and memcached_pass directives.<br>​<br>​        1、upstream name { … }<br>​            定义后端服务器组，会引入一个新的上下文；Context: http<br>​<br>​            upstream httpdsrvs {<br>​                server …<br>​                server…<br>​                …<br>​            }<br>​<br>        2、server address [parameters];<br>            在upstream上下文中server成员，以及相关的参数；Context:    upstream</p>
+<pre><code>        address的表示格式：
+            unix:/PATH/TO/SOME_SOCK_FILE
+            IP[:PORT]
+            HOSTNAME[:PORT]
+
+        parameters：
+            weight=number
+                权重，默认为1；
+            max_fails=number
+                失败尝试最大次数；超出此处指定的次数时，server将被标记为不可用；
+            fail_timeout=time
+                设置将服务器标记为不可用状态的超时时长；
+            max_conns
+                当前的服务器的最大并发连接数；
+            backup
+                将服务器标记为“备用”，即所有服务器均不可用时此服务器才启用；
+            down
+                标记为“不可用”；
+
+    3、least_conn;
+        最少连接调度算法，当server拥有不同的权重时其为wlc;
+
+    4、    ip_hash;
+        源地址hash调度方法；
+
+    5、hash key [consistent];
+        基于指定的key的hash表来实现对请求的调度，此处的key可以直接文本、变量或二者的组合；
+
+        作用：将请求分类，同一类请求将发往同一个upstream server；
+
+        If the consistent parameter is specified the ketama consistent hashing method will be used instead.
+
+        示例：
+            hash $request_uri consistent;
+            hash $remote_addr;
+
+    6、keepalive connections;
+        为每个worker进程保留的空闲的长连接数量；
+
+nginx的其它的二次发行版：
+    tengine
+    OpenResty
+
+ngx_stream_core_module模块
+    模拟反代基于tcp或udp的服务连接，即工作于传输层的反代或调度器；
+
+    1、stream { ... }
+        定义stream相关的服务；Context:main
+
+        stream {
+            upstream sshsrvs {
+                server 192.168.22.2:22; 
+                server 192.168.22.3:22; 
+                least_conn;
+            }
+
+            server {
+                listen 10.1.0.6:22022;
+                proxy_pass sshsrvs;
+            }
+        }    
+
+    2、listen
+        listen address:port [ssl] [udp] [proxy_protocol] [backlog=number] [bind] [ipv6only=on|off] [reuseport] [so_keepalive=on|off|[keepidle]:[keepintvl]:[keepcnt]];
+
+
+博客作业：以上所有内容；
+
+思考：
+    (1) 动态资源存储一组服务器、图片资源存在一组服务器、静态的文本类资源存储在一组服务器；如何分别调度？
+    (2) 动态资源基于fastcgi或http协议（ap）?
+        lnamp</code></pre><p>memcached：</p>
+<pre><code>memcached is a high-performance, distributed memory object caching system, generic in nature, but intended for use in speeding up dynamic web applications by alleviating database load.
+
+
+缓存服务器：
+    缓存：cache，无持久存储功能；
+    bypass缓存
+    k/v cache，仅支持存储流式化数据；
+
+LiveJournal旗下的Danga Interactive研发，
+
+    特性：
+        k/v cache：仅可序列化数据；存储项：k/v；
+        智能性一半依赖于客户端（调用memcached的API开发程序），一半依赖于服务端；
+        分布式缓存：互不通信的分布式集群；
+            分布式系统请求路由方法：取模法，一致性哈希算法；
+        算法复杂度：O(1)
+        清理过期缓存项：
+            缓存耗尽：LRU 
+            缓存项过期：惰性清理机制
+
+安装配置：
+    由CentOS 7 base仓库直接提供：
+        监听的端口：
+            11211/tcp, 11211/udp 
+
+    主程序：/usr/bin/memcached
+    配置文件：/etc/sysconfig/memcached
+    Unit File：memcached.service 
+
+    协议格式：memcached协议
+        文本格式
+        二进制格式
+
+    命令：
+        统计类：stats, stats items, stats slabs, stats sizes
+        存储类：set, add, replace, append, prepend
+            命令格式：&lt;command name&gt; &lt;key&gt; &lt;flags&gt; &lt;exptime&gt; &lt;bytes&gt;  
+            &lt;cas unique&gt;
+        检索类：get, delete, incr/decr
+        清空：flush_all
+
+        示例：
+            telnet&gt; add KEY &lt;flags&gt; &lt;expiretime&gt; &lt;bytes&gt; \r
+            telnet&gt; VALUE
+
+    memcached程序的常用选项：
+        -m &lt;num&gt;：Use &lt;num&gt; MB memory max to use for object storage; the default is 64 megabytes.
+        -c &lt;num&gt;：Use &lt;num&gt; max simultaneous connections; the default is 1024.
+        -u &lt;username&gt;：以指定的用户身份来运行进程；
+        -l &lt;ip_addr&gt;：监听的IP地址，默认为本机所有地址；
+        -p &lt;num&gt;：监听的TCP端口， the default is port 11211.
+        -U &lt;num&gt;：Listen on UDP port &lt;num&gt;, the default is port 11211, 0 is off.
+        -M：内存耗尽时，不执行LRU清理缓存，而是拒绝存入新的缓存项，直到有多余的空间可用时为止；
+        -f &lt;factor&gt;：增长因子；默认是1.25；
+        -t &lt;threads&gt;：启动的用于响应用户请求的线程数；
+
+    memcached默认没有认证机制，可借用于SASL进行认证；
+        SASL：Simple Authentication Secure Layer
+
+    API:
+        php-pecl-memcache
+        php-pecl-memcached
+        python-memcached
+        libmemcached
+        libmemcached-devel
+
+    命令行工具：
+        memcached-tool  SERVER:PORT  COMMAND</code></pre><p>​<br>​<br>​<br>​<br>​<br>​<br>​<br>​<br>​<br>​<br>​<br>​<br>​<br>​                </p>
+<p>​<br>​<br>​<br>​<br>​<br>​<br>​<br>​<br>​<br>​<br>​<br>​<br>​<br>​<br>​<br>​<br>​<br>​<br>​<br>​<br>​<br>​<br>​<br>​<br>Nginx(4)</p>
+<pre><code>LB Cluster：
+    传输层：lvs、nginx、haproxy
+    应用层：nginx(http, https, smtp, pop, imap), haproxy(http), httpd(http/https), ats, perlbal, pound, ...
+
+nginx load balancer：
+    tcp/udp
+
+nginx proxy：
+    reverse proxy：
+
+应用程序发布：
+    灰度模型：
+        (1) 如果存在用户会话；
+            从服务器上拆除会话；
+        (2) 新版本应用程序存在bug；
+            回滚；
+
+ngx_http_proxy_module
+
+    (1) proxy_pass URL;
+        location, if in location, limit_except
+
+        注意：proxy_pass后面的路径不带uri时，其会将location的uri传递给后端主机；
+
+            location /uri/ {
+                proxy_pass http://HOST;
+            }
+
+        proxy_pass后面的路径是一个uri时，其会将location的uri替换为proxy_pass的uri；
+            location /uri/ {
+                proxy_pass http://HOST/new_uri/;
+            }
+
+        如果location定义其uri时使用正则表达式的模式，则proxy_pass之后必须不能使用uri；
+            location ~|~* PATTERN {
+                proxy_pass http://HOST;
+            }
+
+    (2) proxy_set_header field value;
+        设定发往后端主机的请求报文的请求首部的值； 
+
+        示例：
+            proxy_set_header X-Real-IP $remote_addr;
+            proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for
+
+    (3) proxy_cache_path
+
+        proxy_cache_path path [levels=levels] [use_temp_path=on|off] keys_zone=name:size [inactive=time] [max_size=size] [loader_files=number] [loader_sleep=time] [loader_threshold=time] [purger=on|off] [purger_files=number] [purger_sleep=time] [purger_threshold=time];
+
+    (4) proxy_cache zone | off;
+        调用的缓存的名称，或禁用缓存；
+
+    (5) proxy_cache_key string;
+        缓存条目的键；
+
+    (6) proxy_cache_valid [code ...] time;
+        对各类响应码的缓存时长；
+
+    使用示例：
+        定义在http{}中：
+            proxy_cache_path /var/cache/nginx/proxy_cache levels=1:2:1 keys_zone=pcache:10m max_size=1g;
+
+        定义在server{}及其内部的组件中：
+            proxy_cache pcache;
+            proxy_cache_key $request_uri;
+            proxy_cache_valid 200 302 10m;
+            proxy_cache_valid 301 1h;
+            proxy_cache_valid any 1m;                
+
+    (7) proxy_cache_use_stale error | timeout | invalid_header | updating | http_500 | http_502 | http_503 | http_504 | http_403 | http_404 | off ...;
+
+    (8)     proxy_connect_timeout
+        proxy_read_timeout
+        proxy_send_timeout
+
+    (9)   proxy_buffer_size
+        proxy_buffering
+        proxy_buffers
+
+ngx_http_headers_module
+    The ngx_http_headers_module module allows adding the “Expires” and “Cache-Control” header fields, and arbitrary fields, to a response header.
+
+    (1)     add_header name value [always];
+        向响应报文中添加自定义首部；
+
+        可用上下文：http, server, location, if in location
+
+        add_header X-Via $server_addr;
+        add_header X-Accel $server_name;
+
+    (2) expires [modified] time;
+        expires epoch | max | off;
+
+        用于定义Expire或Cache-Control首部的值，或添加其它自定义首部；</code></pre><p>回顾：<br>    LB Cluster：<br>        传输层：lvs, nginx(stream), haproxy(mode tcp)<br>        应用层：<br>            http/https：nginx(upstream), haproxy(mode http), httpd, ats, perlbal, pound, …</p>
+<pre><code>    lvs：
+        类型：nat/dr/tun/fullnat
+        算法：
+            静态：rr, wrr, sh, dh
+            动态：lc, wlc, sed, nq, lblc, lblcr
+
+    session保持：
+        session sticky（SourceIP/Cookie）
+        session replication cluster
+        session server（redis/...）
+
+Nginx：
+    web：web server, web reverse proxy
+    mail：mail reverse proxy
+    tcp/udp：stream module
+
+    ngx_http_proxy_module
+        proxy_path
+
+        proxy_cache_path
+        proxy_cache
+        proxy_cache_key
+        proxy_cache_valid
+        proxy_cache_methods</code></pre><p>Nginx(4)</p>
+<pre><code>ngx_http_upstream_module    
+    The ngx_http_upstream_module module is used to define groups of servers that can be referenced by the proxy_pass, fastcgi_pass, uwsgi_pass, scgi_pass, and memcached_pass directives.
+
+    (1) upstream name { ... }
+        定义后端服务器组；引入一个新的上下文；只能用于http{}上下文中；
+
+        默认的调度方法是wrr；
+
+    (2) server address [parameters];
+        定义服务器地址和相关的参数；
+            地址格式：
+                IP[:PORT]
+                HOSTNAME[:PORT]
+                unix:/PATH/TO/SOME_SOCK_FILE
+
+            参数：
+                weight=number
+                    权重，默认为1；
+                max_fails=number
+                    失败尝试的最大次数；
+                fail_timeout=time
+                    设置服务器为不可用状态的超时时长；
+                backup
+                    把服务器标记为“备用”状态； 
+                down
+                    手动标记其为不可用；
+
+    (3) least_conn;
+        最少连接调度算法； 当server拥有不同的权重时为wlc；当所有后端主机的连接数相同时，则使用wrr进行调度；
+
+    (4) least_time header | last_byte;
+        最短平均响应时长和最少连接；
+        header：response_header; 
+        last_byte: full_response; 
+
+        仅Nginx Plus有效；
+
+    (5) ip_hash;
+        源地址hash算法；能够将来自同一个源IP地址的请求始终发往同一个upstream server；
+
+    (6) hash key [consistent];
+        基于指定的key的hash表实现请求调度，此处的key可以文本、变量或二者的组合；
+
+        consistent：参数，指定使用一致性hash算法；
+
+        示例：
+            hash $request_uri consistent
+            hash $remote_addr
+            hash $cookie_name
+
+    (7) keepalive connections;
+        可使用长连接的连接数量；
+
+    (8) health_check [parameters];
+        定义对后端主机的健康状态检测机制；只能用于location上下文；
+
+        可用参数：
+            interval=time：检测频率，默认为每隔5秒钟；
+            fails=number：判断服务器状态转为失败需要检测的次数；
+            passes=number：判断服务器状态转为成功需要检测的次数；
+            uri=uri：判断其健康与否时使用的uri；
+            match=name：基于指定的match来衡量检测结果的成败；
+            port=number：使用独立的端口进行检测；
+
+        仅Nginx Plus有效；
+
+    (9) match name { ... }
+        Defines the named test set used to verify responses to health check requests.
+        定义衡量某检测结果是否为成功的衡量机制；
+
+        专用指令：
+            status：期望的响应码；
+                status CODE
+                status ! CODE
+                ...
+            header：基于响应报文的首部进行判断
+                header HEADER=VALUE
+                header HEADER ~ VALUE 
+                ...
+            body：基于响应报文的内容进行判断
+                body ~ &quot;PATTERN&quot;
+                body !~ &quot;PATTERN&quot;
+
+        仅Nginx Plus有效；
+
+博客作业：以上所有内容；
+课外实践：实践tengine和Openresty；
+
+ngx_stream_core_module
+
+    The ngx_stream_core_module module is available since version 1.9.0. This module is not built by default, it should be enabled with the --with-stream configuration parameter.
+
+    (1) listen address:port [ssl] [udp] [backlog=number] [bind] [ipv6only=on|off] [reuseport] [so_keepalive=on|off|[keepidle]:[keepintvl]:[keepcnt]];
+        监听的端口；
+            默认为tcp协议；
+            udp: 监听udp协议的端口；
+
+ngx_stream_proxy_module
+
+    The ngx_stream_proxy_module module (1.9.0) allows proxying data streams over TCP, UDP (1.9.13), and UNIX-domain sockets.
+
+    (1) proxy_pass address;
+        Sets the address of a proxied server. The address can be specified as a domain name or IP address, and a port or as a UNIX-domain socket path.
+
+    (2) proxy_timeout timeout;
+        Sets the timeout between two successive read or write operations on client or proxied server connections. If no data is transmitted within this time, the connection is closed.
+
+        默认为10m; 
+
+    (3) proxy_connect_timeout time;
+        Defines a timeout for establishing a connection with a proxied server.
+
+        设置nginx与被代理的服务器尝试建立连接的超时时长；默认为60s；</code></pre><p>​<br>​        示例：<br>​            stream {<br>​                upstream sshsrvs {<br>​                    server 192.168.10.130:22;<br>​                    server 192.168.10.131:22;<br>​                    hash $remote_addr consistent;<br>​                }<br>​<br>​                server {<br>​                    listen 172.16.100.6:22202;<br>​                    proxy_pass sshsrvs;<br>​                    proxy_timeout 60s;<br>​                    proxy_connect_timeout 10s;<br>​                }<br>​            }<br>​<br>​    编译安装：<br>​        前提：开发环境，包括nginx编译要启用的功能依赖到的开发库；<br>​            # yum groupinstall “Development Tools” “Server Platform Development”<br>​            # yum -y pcre-devel openssl-devel<br>​<br>        编译过程：<br>            # ./configure –prefix=/usr/local/nginx –sbin-path=/usr/sbin/nginx –conf-path=/etc/nginx/nginx.conf –error-log-path=/var/log/nginx/error.log –http-log-path=/var/log/nginx/access.log –user=nginx –group=nginx –with-http_ssl_module  –with-http_stub_status_module –with-http_flv_module –with-http_mp4_module –with-threads –with-file-aio<br>            # make &amp;&amp; make install</p>
+<pre><code>课程实践：
+    nginx--&gt; AMPs（wordpress）
+    nginx--&gt; FPMs（wordpress）
+
+    nginx--&gt; images servers ( imgs.magedu.com）
+                location ~* \.(jpg|png|gif|jpeg)$ {
+                    ...
+                }
+               dynamic content servers (shop.magedu.com)
+                location ~* \.php$ {
+                    ...
+                }
+
+                location / {
+                    ...
+                }
+
+    自定义错误404和5xx错误页，文本静态内容传输压缩；</code></pre><p>​<br>​<br>​                    </p>
+
+      
+    </div>
+    
+    
+    
+
+     <!-- 文章末尾统一添加“本文结束”标记 -->
+    <div>
+      
+        <div>
+    
+        <div style="text-align:center;color: #555;font-size:24px;"><-------------The End-------------></div>
+    
+</div>
+
+      
+    </div>
+    
+
+    
+      <div>
+        <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+  <div>坚持原创分享，你的支持就是我最大的动力！</div>
+  <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+    <span>打赏</span>
+  </button>
+  <div id="QR" style="display: none;">
+
+    
+      <div id="wechat" style="display: inline-block">
+        <img id="wechat_qr" src="/uploads/weixin_cash_code.png" alt="StarDustLoong 微信支付"/>
+        <p>微信支付</p>
+      </div>
+    
+
+    
+      <div id="alipay" style="display: inline-block">
+        <img id="alipay_qr" src="/uploads/alipay_cash_code.png" alt="StarDustLoong 支付宝"/>
+        <p>支付宝</p>
+      </div>
+    
+
+    
+
+  </div>
+</div>
+
+      </div>
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/nagle%E7%9A%84tpc-nopush%E5%92%8Cctp-nodelay/" rel="next" title="nagle的tpc_nopush和ctp_nodelay">
+                <i class="fa fa-chevron-left"></i> nagle的tpc_nopush和ctp_nodelay
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/Nginx%E6%93%8D%E4%BD%9C%E8%AE%B0%E5%BD%95/" rel="prev" title="Nginx操作记录">
+                Nginx操作记录 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+    </div>
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/uploads/avatar.png"
+                alt="StarDustLoong" />
+            
+              <p class="site-author-name" itemprop="name">StarDustLoong</p>
+              <p class="site-description motion-element" itemprop="description">人类如风一般的自由</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">2409</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">12</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">146</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+	   
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/StarDustLoong" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:13671474528@163.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://www.zhihu.com/people/ashjian-ar15" target="_blank" title="知乎">
+                      
+                        <i class="fa fa-fw fa-globe"></i>知乎</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://me.csdn.net/ashjian" target="_blank" title="CSDN">
+                      
+                        <i class="fa fa-fw fa-codiepie"></i>CSDN</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+            <div class="links-of-blogroll motion-element links-of-blogroll-inline">
+              <div class="links-of-blogroll-title">
+                <i class="fa  fa-fw fa-link"></i>
+                Links
+              </div>
+              <ul class="links-of-blogroll-list">
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="http://mp.weixin.qq.com/user1" title="OpenInfo" target="_blank">OpenInfo</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="http://mp.weixin.qq.com/user2" title="stormzhang" target="_blank">stormzhang</a>
+                  </li>
+                
+              </ul>
+            </div>
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Nginx"><span class="nav-number">1.</span> <span class="nav-text">Nginx</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Nginx的程序架构："><span class="nav-number">2.</span> <span class="nav-text">Nginx的程序架构：</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#main配置段常见的配置指令："><span class="nav-number">3.</span> <span class="nav-text">main配置段常见的配置指令：</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">StarDustLoong</span>
+
+  
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-area-chart"></i>
+    </span>
+    
+      <span class="post-meta-item-text">本站总字数&#58;</span>
+    
+    <span title="本站总字数">635.5k</span>
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Pisces</a> v5.1.4</div>
+
+
+
+
+#<!-- 百度自动推送 -->
+#<script>
+#(function(){
+#    var bp = document.createElement('script');
+#    var curProtocol = window.location.protocol.split(':')[0];
+#    if (curProtocol === 'https') {
+#        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+#    }
+#    else {
+#        bp.src = 'http://push.ashjian.baidu.com/push.js';
+#    }
+#    var s = document.getElementsByTagName("script")[0];
+#    s.parentNode.insertBefore(bp, s);
+#})();
+#</script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aplayer/dist/APlayer.min.css">
+
+<script src="https://cdn.jsdelivr.net/npm/aplayer/dist/APlayer.min.js"></script>
+<!-- require MetingJS -->
+
+<script src="https://cdn.jsdelivr.net/npm/meting@2.0.1/dist/Meting.min.js"></script>
+<div> 
+<meting-js  
+    server="netease" 
+    type="playlist"  
+    id="5281251057" 
+    fixed="true"  
+    autoplay="false" 
+    loop="all" 
+    order="random"
+    preload="auto" 
+    list-folded="ture" 
+    list-max-height="500px" 
+    lrc-type="1">
+</meting-js>	 
+</div>
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv">
+      本站访客数
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+      人次
+    </span>
+  
+
+  
+    <span class="site-pv">
+      本站总访问量
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+      次
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+  <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+  <script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+  
+  <script type="text/javascript">
+    var GUEST = ['nick','mail','link'];
+    var guest = 'nick,mail,link';
+    guest = guest.split(',').filter(item=>{
+      return GUEST.indexOf(item)>-1;
+    });
+    new Valine({
+        el: '#comments' ,
+        verify: false,
+        notify: false,
+        appId: 'Gp5xxuBGmRxC9yeJHf5wlLpN-gzGzoHsz',
+        appKey: 'wo0eDJonJrnuUrCCCU7EnH1n',
+        placeholder: '欢迎评论',
+        avatar:'mm',
+        guest_info:guest,
+        pageSize:'20' || 10,
+    });
+  </script>
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"jsonPath":"/live2dw/assets/dsr50_lifu_normal.model.json"},"display":{"position":"right","width":700,"height":800,"hOffset":-250,"vOffset":-150},"mobile":{"show":true,"scale":0.7},"log":false});</script></body>
+</html>

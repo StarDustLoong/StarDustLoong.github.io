@@ -1,0 +1,1705 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="python异常处理," />
+
+
+
+
+  
+
+
+  <link rel="alternate" href="/atom.xml" title="" type="application/atom+xml" />
+
+
+
+
+
+
+<meta name="description" content="异常Exception 错误Error 逻辑错误：算法写错了，加法写成了减法 笔误：变量名写错了，语法错误 函数或类使用错误，其实这也属于逻辑错误 总之，错误是可以避免的   异常Exception 本意就是意外情况 这有个前提，没有出现上面说的错误，也就是说程序写的没有问题，但是在某些情况下，会出现一些意外，导致程序无法正常的执行下去。 例如open函数操作一个文件，文件不存在，或者创建一个文件">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Python异常处理">
+<meta property="og:url" content="http://www.ashjian.xyz/Python%E5%BC%82%E5%B8%B8%E5%A4%84%E7%90%86/index.html">
+<meta property="og:site_name">
+<meta property="og:description" content="异常Exception 错误Error 逻辑错误：算法写错了，加法写成了减法 笔误：变量名写错了，语法错误 函数或类使用错误，其实这也属于逻辑错误 总之，错误是可以避免的   异常Exception 本意就是意外情况 这有个前提，没有出现上面说的错误，也就是说程序写的没有问题，但是在某些情况下，会出现一些意外，导致程序无法正常的执行下去。 例如open函数操作一个文件，文件不存在，或者创建一个文件">
+<meta property="article:published_time" content="2021-07-12T05:49:08.295Z">
+<meta property="article:modified_time" content="2021-07-06T09:15:17.350Z">
+<meta property="article:author" content="StarDustLoong">
+<meta property="article:tag" content="python异常处理">
+<meta name="twitter:card" content="summary">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://www.ashjian.xyz/Python异常处理/"/>
+
+
+
+
+
+  <title>Python异常处理 | </title>
+  
+
+
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?d7bf52f45e24a0e6f2951901a7a97864";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+<meta name="generator" content="Hexo 4.2.1"></head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title"></span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off"
+             placeholder="搜索..." spellcheck="false"
+             type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://www.ashjian.xyz/Python%E5%BC%82%E5%B8%B8%E5%A4%84%E7%90%86/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="StarDustLoong">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/uploads/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Python异常处理</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2021-07-12T13:49:08+08:00">
+                2021-07-12
+              </time>
+            
+
+            
+              <span class="post-meta-divider">|</span>
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-check-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">更新于&#58;</span>
+              
+              <time title="更新于" itemprop="dateModified" datetime="2021-07-06T17:15:17+08:00">
+                2021-07-06
+              </time>
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/python/" itemprop="url" rel="index">
+                    <span itemprop="name">python</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/Python%E5%BC%82%E5%B8%B8%E5%A4%84%E7%90%86/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/Python%E5%BC%82%E5%B8%B8%E5%A4%84%E7%90%86/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  3.2k
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  13
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+      
+      
+
+      
+        <h2 id="异常Exception"><a href="#异常Exception" class="headerlink" title="异常Exception"></a>异常Exception</h2><ul>
+<li>错误Error<ul>
+<li>逻辑错误：算法写错了，加法写成了减法</li>
+<li>笔误：变量名写错了，语法错误</li>
+<li>函数或类使用错误，其实这也属于逻辑错误</li>
+<li>总之，错误是可以避免的</li>
+</ul>
+</li>
+<li>异常Exception<ul>
+<li>本意就是意外情况</li>
+<li>这有个前提，没有出现上面说的错误，也就是说程序写的没有问题，但是在某些情况下，会出现一些意外，导致程序无法正常的执行下去。</li>
+<li>例如open函数操作一个文件，文件不存在，或者创建一个文件时已经存在了，或者访问一个网络文件，突然断网了，这就是异常，是个意外的青况。</li>
+<li>异常不可能避免</li>
+</ul>
+</li>
+<li>错误和异常<ul>
+<li>在高级编程语言中，一般都有错误和异常的概念，异常是可以捕获，并被处理的，但是错误是不能被捕获的。</li>
+</ul>
+</li>
+</ul>
+<h3 id="举例：对比异常和错误"><a href="#举例：对比异常和错误" class="headerlink" title="举例：对比异常和错误"></a>举例：对比异常和错误</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-comment"># 异常</span><br><span class="hljs-keyword">with</span> open(<span class="hljs-string">'testabd'</span>) <span class="hljs-keyword">as</span> f:<br>    <span class="hljs-keyword">pass</span><br>~~~~~~~~~~~~~~~~~~~~~~~~~~<br>Traceback (most recent call last):<br>  File <span class="hljs-string">"C:/python10/code/Python10/1001.py"</span>, line <span class="hljs-number">1</span>, <span class="hljs-keyword">in</span> &lt;module&gt;<br>    <span class="hljs-keyword">with</span> open(<span class="hljs-string">'testabd'</span>) <span class="hljs-keyword">as</span> f:<br>FileNotFoundError: [Errno <span class="hljs-number">2</span>] No such file <span class="hljs-keyword">or</span> directory: <span class="hljs-string">'testabd'</span><br><span class="hljs-comment"># 错误</span><br><span class="hljs-function"><span class="hljs-keyword">def</span> 0<span class="hljs-title">A</span><span class="hljs-params">()</span>:</span><br>    <span class="hljs-keyword">pass</span><br>~~~~~~~~~~~~~~~~~~~~~<br>  File <span class="hljs-string">"C:/python10/code/Python10/1001.py"</span>, line <span class="hljs-number">1</span><br>    <span class="hljs-function"><span class="hljs-keyword">def</span> 0<span class="hljs-title">A</span><span class="hljs-params">()</span>:</span><br>        ^<br>SyntaxError: invalid syntax<br></code></pre></td></tr></table></figure>
+
+<p>一个健壮的程序<br>尽可能的避免错误<br>尽可能的捕获、处理各种异常</p>
+<h2 id="产生异常"><a href="#产生异常" class="headerlink" title="产生异常"></a>产生异常</h2><ul>
+<li>产生：<ul>
+<li>raise语句显式的抛出异常</li>
+<li>Python解释器自己检测到异常并引发它</li>
+</ul>
+</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">foo</span><span class="hljs-params">()</span>:</span><br>    print(<span class="hljs-string">'before'</span>)<br>    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">bar</span><span class="hljs-params">()</span>:</span><br>        print(<span class="hljs-number">1</span>/<span class="hljs-number">0</span>)  <span class="hljs-comment"># 除零异常</span><br><br><br>    bar()<br>    print(<span class="hljs-string">'after'</span>)<br><br>foo()<br>~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~<br>before<br>  File <span class="hljs-string">"C:/python10/code/Python10/1001.py"</span>, line <span class="hljs-number">4</span>, <span class="hljs-keyword">in</span> bar<br>    print(<span class="hljs-number">1</span>/<span class="hljs-number">0</span>)  <span class="hljs-comment"># 除零异常</span><br>ZeroDivisionError: division by zero<br><span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">bar</span><span class="hljs-params">()</span>:</span><br>    print(<span class="hljs-string">'before'</span>)<br>    <span class="hljs-keyword">raise</span> Exception(<span class="hljs-string">'my exception'</span>)<br>    print(<span class="hljs-string">'after'</span>)<br><br><br>bar()<br>~~~~~~~~~~~~~~~~~~~~<br>before<br>  File <span class="hljs-string">"C:/python10/code/Python10/1001.py"</span>, line <span class="hljs-number">3</span>, <span class="hljs-keyword">in</span> bar<br>    <span class="hljs-keyword">raise</span> Exception(<span class="hljs-string">'my exception'</span>)<br>Exception: my exception<br></code></pre></td></tr></table></figure>
+
+<p>程序会在异常抛出的地方中断执行，如果不捕获，就会提前结束程序</p>
+<ul>
+<li>raise语句<ul>
+<li>raise后什么都没有，表示抛出最近一个被激活的异常，如果没有被激活的异常，则抛类型异常。这种方法很少用。</li>
+<li>rasie后要求应该是BaseException类的子类或实例，如果是类，将被无参实例化。</li>
+</ul>
+</li>
+</ul>
+<h2 id="异常的捕获"><a href="#异常的捕获" class="headerlink" title="异常的捕获"></a>异常的捕获</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">try</span>:<br>    待捕获异常的代码<br><span class="hljs-keyword">except</span> [异常类型]:<br>    异常的处理代码块<br><span class="hljs-keyword">try</span>:<br>    print(<span class="hljs-string">'begin'</span>)<br>    c = <span class="hljs-number">1</span> / <span class="hljs-number">0</span><br>    print(<span class="hljs-string">'end'</span>)<br><span class="hljs-keyword">except</span>:<br>    print(<span class="hljs-string">'catch the exception'</span>)<br>print(<span class="hljs-string">'outer'</span>)<br>~~~~~~~~~~~~~~~~~~~~~~~<br>begin<br>catch the exception<br>outer<br></code></pre></td></tr></table></figure>
+
+<p>上例执行到<code>c = 1 / 0</code>时产生异常并抛出，由于使用了try…except语句块则捕捉到了这个异常，异常生成位置之后语句将不再执行，转而执行对应的except部分的语句，最后执行try…except语句块之外的语句。</p>
+<p>捕获指定类型的异常</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">try</span>:<br>    print(<span class="hljs-string">'begin'</span>)<br>    c = <span class="hljs-number">1</span> / <span class="hljs-number">0</span><br>    print(<span class="hljs-string">'end'</span>)<br><span class="hljs-keyword">except</span> ArithmeticError:<br>    print(<span class="hljs-string">'catch the exception'</span>)<br>print(<span class="hljs-string">'outer'</span>)<br>~~~~~~~~~~~~~~~~~~~~~~~<br>begin<br>catch the exception<br>outer<br></code></pre></td></tr></table></figure>
+
+<h2 id="异常类及继承层次"><a href="#异常类及继承层次" class="headerlink" title="异常类及继承层次"></a>异常类及继承层次</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-comment"># Python异常的继承</span><br>BaseException<br> +-- SystemExit<br> +-- KeyboardInterrupt<br> +-- GeneratorExit<br> +-- Exception<br>      +-- StopIteration<br>      +-- StopAsyncIteration<br>      +-- ArithmeticError<br>      |    +-- FloatingPointError<br>      |    +-- OverflowError<br>      |    +-- ZeroDivisionError<br>      +-- AssertionError<br>      +-- AttributeError<br>      +-- BufferError<br>      +-- EOFError<br>      +-- ImportError<br>      +-- LookupError<br>      |    +-- IndexError<br>      |    +-- KeyError<br>      +-- MemoryError<br>      +-- NameError<br>      |    +-- UnboundLocalError<br>      +-- OSError<br>      |    +-- BlockingIOError<br>      |    +-- ChildProcessError<br>      |    +-- ConnectionError<br>      |    |    +-- BrokenPipeError<br>      |    |    +-- ConnectionAbortedError<br>      |    |    +-- ConnectionRefusedError<br>      |    |    +-- ConnectionResetError<br></code></pre></td></tr></table></figure>
+
+<h2 id="python标准异常"><a href="#python标准异常" class="headerlink" title="python标准异常"></a>python标准异常</h2><table>
+<thead>
+<tr>
+<th align="left">异常名称</th>
+<th align="left">描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">BaseException</td>
+<td align="left">所有异常的基类</td>
+</tr>
+<tr>
+<td align="left">SystemExit</td>
+<td align="left">解释器请求退出</td>
+</tr>
+<tr>
+<td align="left">KeyboardInterrupt</td>
+<td align="left">用户中断执行(通常是输入^C)</td>
+</tr>
+<tr>
+<td align="left">Exception</td>
+<td align="left">常规错误的基类</td>
+</tr>
+<tr>
+<td align="left">StopIteration</td>
+<td align="left">迭代器没有更多的值</td>
+</tr>
+<tr>
+<td align="left">GeneratorExit</td>
+<td align="left">生成器(generator)发生异常来通知退出</td>
+</tr>
+<tr>
+<td align="left">StandardError</td>
+<td align="left">所有的内建标准异常的基类</td>
+</tr>
+<tr>
+<td align="left">ArithmeticError</td>
+<td align="left">所有数值计算错误的基类</td>
+</tr>
+<tr>
+<td align="left">FloatingPointError</td>
+<td align="left">浮点计算错误</td>
+</tr>
+<tr>
+<td align="left">OverflowError</td>
+<td align="left">数值运算超出最大限制</td>
+</tr>
+<tr>
+<td align="left">ZeroDivisionError</td>
+<td align="left">除(或取模)零 (所有数据类型)</td>
+</tr>
+<tr>
+<td align="left">AssertionError</td>
+<td align="left">断言语句失败</td>
+</tr>
+<tr>
+<td align="left">AttributeError</td>
+<td align="left">对象没有这个属性</td>
+</tr>
+<tr>
+<td align="left">EOFError</td>
+<td align="left">没有内建输入,到达EOF 标记</td>
+</tr>
+<tr>
+<td align="left">EnvironmentError</td>
+<td align="left">操作系统错误的基类</td>
+</tr>
+<tr>
+<td align="left">IOError</td>
+<td align="left">输入/输出操作失败</td>
+</tr>
+<tr>
+<td align="left">OSError</td>
+<td align="left">操作系统错误</td>
+</tr>
+<tr>
+<td align="left">WindowsError</td>
+<td align="left">系统调用失败</td>
+</tr>
+<tr>
+<td align="left">ImportError</td>
+<td align="left">导入模块/对象失败</td>
+</tr>
+<tr>
+<td align="left">LookupError</td>
+<td align="left">无效数据查询的基类</td>
+</tr>
+<tr>
+<td align="left">IndexError</td>
+<td align="left">序列中没有此索引(index)</td>
+</tr>
+<tr>
+<td align="left">KeyError</td>
+<td align="left">映射中没有这个键</td>
+</tr>
+<tr>
+<td align="left">MemoryError</td>
+<td align="left">内存溢出错误(对于Python 解释器不是致命的)</td>
+</tr>
+<tr>
+<td align="left">NameError</td>
+<td align="left">未声明/初始化对象 (没有属性)</td>
+</tr>
+<tr>
+<td align="left">UnboundLocalError</td>
+<td align="left">访问未初始化的本地变量</td>
+</tr>
+<tr>
+<td align="left">ReferenceError</td>
+<td align="left">弱引用(Weak reference)试图访问已经垃圾回收了的对象</td>
+</tr>
+<tr>
+<td align="left">RuntimeError</td>
+<td align="left">一般的运行时错误</td>
+</tr>
+<tr>
+<td align="left">NotImplementedError</td>
+<td align="left">尚未实现的方法</td>
+</tr>
+<tr>
+<td align="left">SyntaxError</td>
+<td align="left">Python 语法错误</td>
+</tr>
+<tr>
+<td align="left">IndentationError</td>
+<td align="left">缩进错误</td>
+</tr>
+<tr>
+<td align="left">TabError</td>
+<td align="left">Tab 和空格混用</td>
+</tr>
+<tr>
+<td align="left">SystemError</td>
+<td align="left">一般的解释器系统错误</td>
+</tr>
+<tr>
+<td align="left">TypeError</td>
+<td align="left">对类型无效的操作</td>
+</tr>
+<tr>
+<td align="left">ValueError</td>
+<td align="left">传入无效的参数</td>
+</tr>
+<tr>
+<td align="left">UnicodeError</td>
+<td align="left">Unicode 相关的错误</td>
+</tr>
+<tr>
+<td align="left">UnicodeDecodeError</td>
+<td align="left">Unicode 解码时的错误</td>
+</tr>
+<tr>
+<td align="left">UnicodeEncodeError</td>
+<td align="left">Unicode 编码时错误</td>
+</tr>
+<tr>
+<td align="left">UnicodeTranslateError</td>
+<td align="left">Unicode 转换时错误</td>
+</tr>
+<tr>
+<td align="left">Warning</td>
+<td align="left">警告的基类</td>
+</tr>
+<tr>
+<td align="left">DeprecationWarning</td>
+<td align="left">关于被弃用的特征的警告</td>
+</tr>
+<tr>
+<td align="left">FutureWarning</td>
+<td align="left">关于构造将来语义会有改变的警告</td>
+</tr>
+<tr>
+<td align="left">OverflowWarning</td>
+<td align="left">旧的关于自动提升为长整型(long)的警告</td>
+</tr>
+<tr>
+<td align="left">PendingDeprecationWarning</td>
+<td align="left">关于特性将会被废弃的警告</td>
+</tr>
+<tr>
+<td align="left">RuntimeWarning</td>
+<td align="left">可疑的运行时行为(runtime behavior)的警告</td>
+</tr>
+<tr>
+<td align="left">SyntaxWarning</td>
+<td align="left">可疑的语法的警告</td>
+</tr>
+<tr>
+<td align="left">UserWarning</td>
+<td align="left">用户代码生成的警告</td>
+</tr>
+</tbody></table>
+<h2 id="BaseException及子类"><a href="#BaseException及子类" class="headerlink" title="BaseException及子类"></a>BaseException及子类</h2><ul>
+<li>BaseException<ul>
+<li>所有内建异常类的基类是BaseException</li>
+</ul>
+</li>
+<li>SystemExit<ul>
+<li>sys.exit()函数引发的异常，异常不捕获处理，就直接交给Python解释器，解释器退出。</li>
+</ul>
+</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">import</span> sys<br><br>print(<span class="hljs-string">'befor'</span>)<br>sys.exit(<span class="hljs-number">1</span>)<br>print(<span class="hljs-string">'SysExit'</span>)<br>print(<span class="hljs-string">'outer'</span>)  <span class="hljs-comment"># 是否执行</span><br>~~~~~~~~~~~~~~~~~~~~~<br>befor<br><br>Process finished <span class="hljs-keyword">with</span> exit code <span class="hljs-number">1</span><br><span class="hljs-comment"># 捕获这个异常</span><br><span class="hljs-keyword">import</span> sys<br><span class="hljs-keyword">try</span>:<br>    sys.exit(<span class="hljs-number">1</span>)<br><span class="hljs-keyword">except</span> SystemExit:<br>    print(<span class="hljs-string">'SysExit'</span>)<br>print(<span class="hljs-string">'outer'</span>)<br>~~~~~~~~~~~~~~~~~~~~~~<br>SysExit<br>outer<br><br>Process finished <span class="hljs-keyword">with</span> exit code <span class="hljs-number">0</span><br></code></pre></td></tr></table></figure>
+
+<ul>
+<li>KeyboardInterrupt<ul>
+<li>对应的捕获用户中断行为Ctrl + C</li>
+</ul>
+</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">try</span>:<br>    <span class="hljs-keyword">import</span> time<br>    <span class="hljs-keyword">while</span> <span class="hljs-literal">True</span>:<br>        time.sleep(<span class="hljs-number">0.5</span>)<br>        <span class="hljs-keyword">pass</span><br><span class="hljs-keyword">except</span> KeyboardInterrupt:<br>    print(<span class="hljs-string">'ctl + c'</span>)<br>print(<span class="hljs-string">'outer'</span>)<br>~~~~~~~~~~~~~~~~~~~~~~~<br></code></pre></td></tr></table></figure>
+
+<h2 id="Exception及子类"><a href="#Exception及子类" class="headerlink" title="Exception及子类"></a>Exception及子类</h2><p>Exception是所有内建的、非系统退出的异常的基类，自定义异常应该继承自它</p>
+<ul>
+<li>SyntaxError语法错误<ul>
+<li>Python将这种错误也轨道异常类下面的Exception下的子类，但是这种错误是不可捕获的</li>
+</ul>
+</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">a</span><span class="hljs-params">()</span>:</span><br>    <span class="hljs-keyword">try</span>:<br>        <span class="hljs-number">0</span>a = <span class="hljs-number">5</span><br>    <span class="hljs-keyword">except</span>:<br>        <span class="hljs-keyword">pass</span><br>~~~~~~~~~~~~~~~~~~~~~~~~~~~~<br>  File <span class="hljs-string">"C:/python10/code/Python10/1001.py"</span>, line <span class="hljs-number">3</span><br>    <span class="hljs-number">0</span>a = <span class="hljs-number">5</span><br>     ^<br>SyntaxError: invalid syntax<br><br>Process finished <span class="hljs-keyword">with</span> exit code <span class="hljs-number">1</span><br></code></pre></td></tr></table></figure>
+
+<ul>
+<li>ArithmeticError所有算数计算引发的异常，其子类有除零异常等</li>
+<li>LookupError<ul>
+<li>使用映射的键或序列的索引无效时引发的异常的基类：IndexError, KeyError</li>
+</ul>
+</li>
+<li>自定义异常<ul>
+<li>从Exception继承的类</li>
+</ul>
+</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">MyException</span><span class="hljs-params">(Exception)</span>:</span><br>    <span class="hljs-keyword">pass</span><br><br><span class="hljs-keyword">try</span>:<br>    <span class="hljs-keyword">raise</span> MyException()<br><span class="hljs-keyword">except</span> MyException:<br>    print(<span class="hljs-string">'catch the exception'</span>)<br>~~~~~~~~~~~~~~~~~~~~~~~~~~~~~<br>catch the exception<br></code></pre></td></tr></table></figure>
+
+<h2 id="异常的捕获-1"><a href="#异常的捕获-1" class="headerlink" title="异常的捕获"></a>异常的捕获</h2><p>except可以捕获多个异常</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">MyException</span><span class="hljs-params">(Exception)</span>:</span><br>    <span class="hljs-keyword">pass</span><br><br><span class="hljs-keyword">try</span>:<br>    a = <span class="hljs-number">1</span> / <span class="hljs-number">0</span>  <span class="hljs-comment">#</span><br>    <span class="hljs-keyword">raise</span> MyException()  <span class="hljs-comment"># 自定义</span><br>    open(<span class="hljs-string">'a1.txt'</span>)<br><span class="hljs-keyword">except</span> MyException:<br>    print(<span class="hljs-string">'catch the exception'</span>)<br><span class="hljs-keyword">except</span> ZeroDivisionError:<br>    print(<span class="hljs-string">'1/0'</span>)<br><span class="hljs-keyword">except</span> Exception:  <span class="hljs-comment"># 调整except的顺序</span><br>    print(<span class="hljs-string">'Exception'</span>)<br>~~~~~~~~~~~~~~~~~~~~~~~~~<br><span class="hljs-number">1</span>/<span class="hljs-number">0</span><br></code></pre></td></tr></table></figure>
+
+<ul>
+<li>捕获规则<ul>
+<li>捕获是从上到下依次比较，如果匹配，则执行匹配的except语句块</li>
+<li>如果被一个except语句捕获，其他except语句就不会再次捕获了</li>
+<li>如果没有任何一个except语句捕获到这个异常，则该异常向外抛出</li>
+</ul>
+</li>
+<li>捕获的原则<ul>
+<li>从小到大，从具体到宽泛</li>
+</ul>
+</li>
+</ul>
+<h2 id="as子句"><a href="#as子句" class="headerlink" title="as子句"></a>as子句</h2><p>被抛出的异常，应该是异常的实例，如何获得这个对象呢？使用as子句</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">MyException</span><span class="hljs-params">(Exception)</span>:</span><br>    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">__init__</span><span class="hljs-params">(self, code, message)</span>:</span><br>        self.code = code<br>        self.message = message<br><br><br><span class="hljs-keyword">try</span>:<br>    <span class="hljs-keyword">raise</span> MyException<br><span class="hljs-keyword">except</span> MyException <span class="hljs-keyword">as</span> e:<br>    print(<span class="hljs-string">'MyException = &#123;&#125; &#123;&#125;'</span>.format(e.code, e.message))<br><span class="hljs-keyword">except</span> Exception <span class="hljs-keyword">as</span> e:<br>    print(<span class="hljs-string">'Exception = &#123;&#125;'</span>.format(e))<br>~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~<br>Exception = __init__() missing <span class="hljs-number">2</span> required positional arguments: <span class="hljs-string">'code'</span> <span class="hljs-keyword">and</span> <span class="hljs-string">'message'</span><br></code></pre></td></tr></table></figure>
+
+<p>raise后跟类名是无参构造实例，因此需要2个参数</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">MyException</span><span class="hljs-params">(Exception)</span>:</span><br>    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">__init__</span><span class="hljs-params">(self, code, message)</span>:</span><br>        self.code = code<br>        self.message = message<br><br><br><span class="hljs-keyword">try</span>:<br>    <span class="hljs-keyword">raise</span> MyException(<span class="hljs-number">200</span>, <span class="hljs-string">'ok'</span>)<br><span class="hljs-keyword">except</span> MyException <span class="hljs-keyword">as</span> e:<br>    print(<span class="hljs-string">'MyException = &#123;&#125; &#123;&#125;'</span>.format(e.code, e.message))<br><span class="hljs-keyword">except</span> Exception <span class="hljs-keyword">as</span> e:<br>    print(<span class="hljs-string">'Exception = &#123;&#125;'</span>.format(e))<br>~~~~~~~~~~~~~~~~~~~~~~~~~~~~~<br>MyException = <span class="hljs-number">200</span> ok<br></code></pre></td></tr></table></figure>
+
+<h2 id="finally子句"><a href="#finally子句" class="headerlink" title="finally子句"></a>finally子句</h2><ul>
+<li>finally<ul>
+<li>最终，即最后一定要执行的，try…finally语句块中，不管是否发生了异常，都要执行finally的部分</li>
+</ul>
+</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">try</span>:<br>    f = open(<span class="hljs-string">'test.txt'</span>)<br><span class="hljs-keyword">except</span> FileNotFoundError <span class="hljs-keyword">as</span> e:<br>    print(<span class="hljs-string">'&#123;&#125; &#123;&#125; &#123;&#125;'</span>.format(e.__class__, e.errno, e.strerror))<br><span class="hljs-keyword">finally</span>:<br>    print(<span class="hljs-string">'清理工作'</span>)<br>    f.close()<br>~~~~~~~~~~~~~~~~~~~~<br>    f.close()<br>NameError: name <span class="hljs-string">'f'</span> <span class="hljs-keyword">is</span> <span class="hljs-keyword">not</span> defined<br></code></pre></td></tr></table></figure>
+
+<p>注意上例中的f的作用域，解决的办法是在外部定义f<br>finally中一般防止资源的清理、释放工作的语句</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><code class="hljs python">f = <span class="hljs-literal">None</span><br><span class="hljs-keyword">try</span>:<br>    f = open(<span class="hljs-string">'test.txt'</span>)<br><span class="hljs-keyword">except</span> FileNotFoundError <span class="hljs-keyword">as</span> e:<br>    print(<span class="hljs-string">'&#123;&#125; &#123;&#125; &#123;&#125;'</span>.format(e.__class__, e.errno, e.strerror))<br><span class="hljs-keyword">finally</span>:<br>    print(<span class="hljs-string">'清理工作'</span>)<br>    <span class="hljs-keyword">if</span> f:<br>        f.close()<br>~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~<br>&lt;<span class="hljs-class"><span class="hljs-keyword">class</span> '<span class="hljs-title">FileNotFoundError</span>'&gt; 2 <span class="hljs-title">No</span> <span class="hljs-title">such</span> <span class="hljs-title">file</span> <span class="hljs-title">or</span> <span class="hljs-title">directory</span></span><br><span class="hljs-class">清理工作</span><br></code></pre></td></tr></table></figure>
+
+<p>也可以在finally中再次捕捉异常</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">try</span>:<br>    f = open(<span class="hljs-string">'test.txt'</span>)<br><span class="hljs-keyword">except</span> FileNotFoundError <span class="hljs-keyword">as</span> e:<br>    print(<span class="hljs-string">'&#123;&#125; &#123;&#125; &#123;&#125;'</span>.format(e.__class__, e.errno, e.strerror))<br><span class="hljs-keyword">finally</span>:<br>    print(<span class="hljs-string">'清理工作'</span>)<br>    <span class="hljs-keyword">try</span>:<br>        f.close()<br>    <span class="hljs-keyword">except</span> NameError <span class="hljs-keyword">as</span> e:<br>        print(e)<br>~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~<br>清理工作<br>name <span class="hljs-string">'f'</span> <span class="hljs-keyword">is</span> <span class="hljs-keyword">not</span> defined<br></code></pre></td></tr></table></figure>
+
+<p>因为赋值既定义，而f定义失败，抛出异常，f后续调用则会抛出NameError(name ‘f’ is not defined),在Python中，try是不开辟新作用域的，所有这里f还是在全局作用域中。而将f放置在外部是python推荐的良好做法，并不是因为try影响了作用域</p>
+<h2 id="finall执行时机"><a href="#finall执行时机" class="headerlink" title="finall执行时机"></a>finall执行时机</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-comment"># 测试1</span><br><span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">foo</span><span class="hljs-params">()</span>:</span><br>    <span class="hljs-keyword">try</span>:<br>        <span class="hljs-keyword">return</span> <span class="hljs-number">3</span><br>    <span class="hljs-keyword">finally</span>:<br>        print(<span class="hljs-string">'finally'</span>)<br>    print(<span class="hljs-string">'=='</span>)<br><br><br>print(foo())<br>~~~~~~~~~~~~~~~~~~~~~~~<br><span class="hljs-keyword">finally</span><br><span class="hljs-number">3</span><br><span class="hljs-comment"># 测试2</span><br><span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">foo</span><span class="hljs-params">()</span>:</span><br>    <span class="hljs-comment"># return 1</span><br>    <span class="hljs-keyword">try</span>:<br>        <span class="hljs-keyword">return</span> <span class="hljs-number">3</span><br>    <span class="hljs-keyword">finally</span>:<br>        <span class="hljs-keyword">return</span> <span class="hljs-number">5</span><br>    print(<span class="hljs-string">'=='</span>)<br><br><br>print(foo())<br>~~~~~~~~~~~~~~~~~~~~~~~<br><span class="hljs-number">5</span><br></code></pre></td></tr></table></figure>
+
+<ul>
+<li>测试1<ul>
+<li>进入try，执行return 3，虽然函数要返回，但是finally一定还要执行，所以打印了finally后，函数返回。</li>
+</ul>
+</li>
+<li>测试2<ul>
+<li>进入try，执行return 3，虽然函数要返回，但是finally一定还要执行，所以执行return 5，函数返回。5被压在栈顶，所以返回5。简单说，函数的返回值取决于最后一个执行的return语句，而finally则是try…finally中最后执行的语句块。</li>
+</ul>
+</li>
+</ul>
+<h2 id="异常的传递"><a href="#异常的传递" class="headerlink" title="异常的传递"></a>异常的传递</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">foo1</span><span class="hljs-params">()</span>:</span><br>    <span class="hljs-keyword">return</span> <span class="hljs-number">1</span>/<span class="hljs-number">0</span><br><br><br><span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">foo2</span><span class="hljs-params">()</span>:</span><br>    print(<span class="hljs-string">'foo2 start'</span>)<br>    foo1()<br>    print(<span class="hljs-string">'foo2 stop'</span>)<br><br><br>foo2()<br>~~~~~~~~~~~~~~~~~~~~~~~~~~<br>foo2 start<br>Traceback (most recent call last):<br>  File <span class="hljs-string">"C:/python10/code/Python10/1001.py"</span>, line <span class="hljs-number">11</span>, <span class="hljs-keyword">in</span> &lt;module&gt;<br>    foo2()<br>  File <span class="hljs-string">"C:/python10/code/Python10/1001.py"</span>, line <span class="hljs-number">7</span>, <span class="hljs-keyword">in</span> foo2<br>    foo1()<br>  File <span class="hljs-string">"C:/python10/code/Python10/1001.py"</span>, line <span class="hljs-number">2</span>, <span class="hljs-keyword">in</span> foo1<br>    <span class="hljs-keyword">return</span> <span class="hljs-number">1</span>/<span class="hljs-number">0</span><br>ZeroDivisionError: division by zero<br></code></pre></td></tr></table></figure>
+
+<p>foo2调用了foo1， foo1产生的异常，传递到了foo2中。<br>异常总是向外层抛出，如果外层没有处理这个异常，就会继续向外抛出<br>如果内层捕获并处理了异常，外部就不能捕获到了<br>如果到了最外层还是没有被处理，就会中断异常所在的线程的执行</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-comment"># 线程中测试异常</span><br><span class="hljs-keyword">import</span> time<br><span class="hljs-keyword">import</span> threading<br><br><br><span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">foo1</span><span class="hljs-params">()</span>:</span><br>    <span class="hljs-keyword">return</span> <span class="hljs-number">1</span>/<span class="hljs-number">0</span><br><br><br><span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">foo2</span><span class="hljs-params">()</span>:</span><br>    time.sleep(<span class="hljs-number">3</span>)  <span class="hljs-comment"># 3秒后抛出异常</span><br>    print(<span class="hljs-string">'foo2 start'</span>)<br>    foo1()<br>    print(<span class="hljs-string">'foo2 stop'</span>)<br><br><br>t = threading.Thread(target=foo2)<br>t.start()<br><br><span class="hljs-keyword">while</span> <span class="hljs-literal">True</span>:<br>    time.sleep(<span class="hljs-number">1</span>)<br>    print(<span class="hljs-string">'Everything OK'</span>)<br>    <span class="hljs-keyword">if</span> t.is_alive():<br>        print(<span class="hljs-string">'alive'</span>)<br>    <span class="hljs-keyword">else</span>:<br>        print(<span class="hljs-string">'dead'</span>)<br>~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~<br>Everything OK<br>alive<br>Everything OK<br>alive<br>Exception <span class="hljs-keyword">in</span> thread Thread<span class="hljs-number">-1</span>:<br>foo2 start<br>Traceback (most recent call last):<br>  File <span class="hljs-string">"C:\Users\SevenXue\AppData\Local\Programs\Python\Python35\lib\threading.py"</span>, line <span class="hljs-number">914</span>, <span class="hljs-keyword">in</span> _bootstrap_inner<br>    self.run()<br>  File <span class="hljs-string">"C:\Users\SevenXue\AppData\Local\Programs\Python\Python35\lib\threading.py"</span>, line <span class="hljs-number">862</span>, <span class="hljs-keyword">in</span> run<br>    self._target(*self._args, **self._kwargs)<br>  File <span class="hljs-string">"C:/python10/code/Python10/1001.py"</span>, line <span class="hljs-number">12</span>, <span class="hljs-keyword">in</span> foo2<br>    foo1()<br>  File <span class="hljs-string">"C:/python10/code/Python10/1001.py"</span>, line <span class="hljs-number">6</span>, <span class="hljs-keyword">in</span> foo1<br>    <span class="hljs-keyword">return</span> <span class="hljs-number">1</span>/<span class="hljs-number">0</span><br>ZeroDivisionError: division by zero<br><br>Everything OK<br>dead<br>Everything OK<br>dead<br></code></pre></td></tr></table></figure>
+
+<h2 id="try嵌套"><a href="#try嵌套" class="headerlink" title="try嵌套"></a>try嵌套</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">try</span>:<br>    <span class="hljs-keyword">try</span>:<br>        ret = <span class="hljs-number">1</span> / <span class="hljs-number">0</span><br>    <span class="hljs-keyword">except</span> KeyError <span class="hljs-keyword">as</span> e:<br>        print(e)<br>    <span class="hljs-keyword">else</span>:<br>        print(<span class="hljs-string">'inner OK'</span>)<br>    <span class="hljs-keyword">finally</span>:<br>        print(<span class="hljs-string">'inner fin'</span>)<br><span class="hljs-keyword">except</span>:<br>    print(<span class="hljs-string">'outer catch'</span>)<br><span class="hljs-keyword">finally</span>:<br>    print(<span class="hljs-string">'outer fin'</span>)<br>~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~<br>inner fin<br>outer catch<br>outer fin<br></code></pre></td></tr></table></figure>
+
+<p>内部捕获不到异常，会向外层传递异常<br>但是如果内层有finally且其中有return、break语句，则异常就不会继续向外抛出</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">foo</span><span class="hljs-params">()</span>:</span><br>    <span class="hljs-keyword">try</span>:<br>        ret = <span class="hljs-number">1</span> / <span class="hljs-number">0</span><br>    <span class="hljs-keyword">except</span> KeyError <span class="hljs-keyword">as</span> e:<br>        print(e)<br>    <span class="hljs-keyword">finally</span>:<br>        print(<span class="hljs-string">'inner fin'</span>)<br>        <span class="hljs-keyword">return</span>  <span class="hljs-comment"># 异常被丢弃</span><br><br><span class="hljs-keyword">try</span>:<br>    foo()<br><span class="hljs-keyword">except</span>:<br>    print(<span class="hljs-string">'outer catch'</span>)<br><span class="hljs-keyword">finally</span>:<br>    print(<span class="hljs-string">'outer fin'</span>)<br>~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~<br>inner fin<br>outer fin<br></code></pre></td></tr></table></figure>
+
+<h2 id="异常的捕获时机"><a href="#异常的捕获时机" class="headerlink" title="异常的捕获时机"></a>异常的捕获时机</h2><h3 id="立即捕获"><a href="#立即捕获" class="headerlink" title="立即捕获"></a>立即捕获</h3><p>需要立即返回一个明确的结果</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">parse_int</span><span class="hljs-params">(s)</span>:</span><br>    <span class="hljs-keyword">try</span>:<br>        <span class="hljs-keyword">return</span> int(s)<br>    <span class="hljs-keyword">except</span>:<br>        <span class="hljs-keyword">return</span> <span class="hljs-number">0</span><br><br><br>print(parse_int(<span class="hljs-string">'s'</span>))<br>~~~~~~~~~~~~~~~~~~~~~~~~~~~~~<br><span class="hljs-number">0</span><br></code></pre></td></tr></table></figure>
+
+<h3 id="边界捕获"><a href="#边界捕获" class="headerlink" title="边界捕获"></a>边界捕获</h3><p>封装产生了边界。<br>例如，写了一个模块，用户调用这个模块的时候捕获异常，模块内部不需要捕获、处理异常，一旦内部处理了，外部调用者就无法感知了。<br>例如，open函数，出现的异常交给调用者处理，文件存在了，就不用再创建了，看是否修改还是删除<br>例如，己写了一个类，使了open函数，但是出现了异常不知道如何处理，就继续向外层抛出，一般来说最外层也是边界，必须处理这个异常了，否则线程退出</p>
+<h2 id="else子句"><a href="#else子句" class="headerlink" title="else子句"></a>else子句</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">try</span>:<br>    ret = <span class="hljs-number">1</span> * <span class="hljs-number">0</span><br><span class="hljs-keyword">except</span> ArithmeticError <span class="hljs-keyword">as</span> e:<br>    print(e)<br><span class="hljs-keyword">else</span>:<br>    print(<span class="hljs-string">'OK'</span>)<br><span class="hljs-keyword">finally</span>:<br>    print(<span class="hljs-string">'fin'</span>)<br>~~~~~~~~~~~~~~~~~~~~~~~~~~~~<br>OK<br>fin<br></code></pre></td></tr></table></figure>
+
+<ul>
+<li>else子句<ul>
+<li>没有任何异常发生，则执行</li>
+</ul>
+</li>
+</ul>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">try</span>:<br>    &lt;语句&gt;  <span class="hljs-comment"># 运行别的代码</span><br><span class="hljs-keyword">except</span> &lt;异常类&gt;:<br>    &lt;语句&gt;  <span class="hljs-comment"># 捕获某种类型的异常</span><br><span class="hljs-keyword">except</span> &lt;异常类&gt; <span class="hljs-keyword">as</span> &lt;变量名&gt;:<br>    &lt;语句&gt;  <span class="hljs-comment"># 捕获某种类型的异常并获得对象</span><br><span class="hljs-keyword">else</span>:<br>    &lt;语句&gt;  <span class="hljs-comment"># 如果没有异常发生</span><br><span class="hljs-keyword">finally</span>:<br>    &lt;语句&gt;  <span class="hljs-comment"># 退出try时总会执行</span><br></code></pre></td></tr></table></figure>
+
+<p>try的工作原理<br>\1. 如果try中语句执行时发生异常，搜索except子句，并执行第一个匹配该异常的e×cept子句<br>\2. 如果try中语句执行时发生异常，却没有匹配的except子句，异常将被递交到外层的try，如果外层不处理这个异常，异常将继续向外层传递。如果都不处理该异常，则会传递到最外层，如果还没有处理，就终止异常所在的线程<br>\3. 如果在try执行时没有发生异常，将执行else子句中的语句<br>\4. 无论try中是否发生异常，finally子句最终都会执行</p>
+<p>\5.try在python中是无开辟新的作用域的，而在java中是有开辟新的作用域</p>
+
+      
+    </div>
+    
+    
+    
+
+     <!-- 文章末尾统一添加“本文结束”标记 -->
+    <div>
+      
+        <div>
+    
+        <div style="text-align:center;color: #555;font-size:24px;"><-------------The End-------------></div>
+    
+</div>
+
+      
+    </div>
+    
+
+    
+      <div>
+        <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+  <div>坚持原创分享，你的支持就是我最大的动力！</div>
+  <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+    <span>打赏</span>
+  </button>
+  <div id="QR" style="display: none;">
+
+    
+      <div id="wechat" style="display: inline-block">
+        <img id="wechat_qr" src="/uploads/weixin_cash_code.png" alt="StarDustLoong 微信支付"/>
+        <p>微信支付</p>
+      </div>
+    
+
+    
+      <div id="alipay" style="display: inline-block">
+        <img id="alipay_qr" src="/uploads/alipay_cash_code.png" alt="StarDustLoong 支付宝"/>
+        <p>支付宝</p>
+      </div>
+    
+
+    
+
+  </div>
+</div>
+
+      </div>
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/python%E5%BC%82%E5%B8%B8%E5%A4%84%E7%90%86/" rel="tag"># python异常处理</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/Python%E6%A8%A1%E5%9D%97%E5%8C%96/" rel="next" title="Python模块化">
+                <i class="fa fa-chevron-left"></i> Python模块化
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/Python%E4%B9%8Bslots%E3%80%81%E5%8F%8D%E5%90%91%E6%96%B9%E6%B3%95%E3%80%81%E7%94%9F%E6%88%90%E5%99%A8%E4%BA%A4%E4%BA%92/" rel="prev" title="Python之slots、反向方法、生成器交互">
+                Python之slots、反向方法、生成器交互 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+    </div>
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/uploads/avatar.png"
+                alt="StarDustLoong" />
+            
+              <p class="site-author-name" itemprop="name">StarDustLoong</p>
+              <p class="site-description motion-element" itemprop="description">人类如风一般的自由</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">2409</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">12</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">146</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+	   
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/StarDustLoong" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:13671474528@163.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://www.zhihu.com/people/ashjian-ar15" target="_blank" title="知乎">
+                      
+                        <i class="fa fa-fw fa-globe"></i>知乎</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://me.csdn.net/ashjian" target="_blank" title="CSDN">
+                      
+                        <i class="fa fa-fw fa-codiepie"></i>CSDN</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+            <div class="links-of-blogroll motion-element links-of-blogroll-inline">
+              <div class="links-of-blogroll-title">
+                <i class="fa  fa-fw fa-link"></i>
+                Links
+              </div>
+              <ul class="links-of-blogroll-list">
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="http://mp.weixin.qq.com/user1" title="OpenInfo" target="_blank">OpenInfo</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="http://mp.weixin.qq.com/user2" title="stormzhang" target="_blank">stormzhang</a>
+                  </li>
+                
+              </ul>
+            </div>
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#异常Exception"><span class="nav-number">1.</span> <span class="nav-text">异常Exception</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#举例：对比异常和错误"><span class="nav-number">1.1.</span> <span class="nav-text">举例：对比异常和错误</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#产生异常"><span class="nav-number">2.</span> <span class="nav-text">产生异常</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#异常的捕获"><span class="nav-number">3.</span> <span class="nav-text">异常的捕获</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#异常类及继承层次"><span class="nav-number">4.</span> <span class="nav-text">异常类及继承层次</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#python标准异常"><span class="nav-number">5.</span> <span class="nav-text">python标准异常</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#BaseException及子类"><span class="nav-number">6.</span> <span class="nav-text">BaseException及子类</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Exception及子类"><span class="nav-number">7.</span> <span class="nav-text">Exception及子类</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#异常的捕获-1"><span class="nav-number">8.</span> <span class="nav-text">异常的捕获</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#as子句"><span class="nav-number">9.</span> <span class="nav-text">as子句</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#finally子句"><span class="nav-number">10.</span> <span class="nav-text">finally子句</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#finall执行时机"><span class="nav-number">11.</span> <span class="nav-text">finall执行时机</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#异常的传递"><span class="nav-number">12.</span> <span class="nav-text">异常的传递</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#try嵌套"><span class="nav-number">13.</span> <span class="nav-text">try嵌套</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#异常的捕获时机"><span class="nav-number">14.</span> <span class="nav-text">异常的捕获时机</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#立即捕获"><span class="nav-number">14.1.</span> <span class="nav-text">立即捕获</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#边界捕获"><span class="nav-number">14.2.</span> <span class="nav-text">边界捕获</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#else子句"><span class="nav-number">15.</span> <span class="nav-text">else子句</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#总结"><span class="nav-number">16.</span> <span class="nav-text">总结</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">StarDustLoong</span>
+
+  
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-area-chart"></i>
+    </span>
+    
+      <span class="post-meta-item-text">本站总字数&#58;</span>
+    
+    <span title="本站总字数">635.5k</span>
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Pisces</a> v5.1.4</div>
+
+
+
+
+#<!-- 百度自动推送 -->
+#<script>
+#(function(){
+#    var bp = document.createElement('script');
+#    var curProtocol = window.location.protocol.split(':')[0];
+#    if (curProtocol === 'https') {
+#        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+#    }
+#    else {
+#        bp.src = 'http://push.ashjian.baidu.com/push.js';
+#    }
+#    var s = document.getElementsByTagName("script")[0];
+#    s.parentNode.insertBefore(bp, s);
+#})();
+#</script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aplayer/dist/APlayer.min.css">
+
+<script src="https://cdn.jsdelivr.net/npm/aplayer/dist/APlayer.min.js"></script>
+<!-- require MetingJS -->
+
+<script src="https://cdn.jsdelivr.net/npm/meting@2.0.1/dist/Meting.min.js"></script>
+<div> 
+<meting-js  
+    server="netease" 
+    type="playlist"  
+    id="5281251057" 
+    fixed="true"  
+    autoplay="false" 
+    loop="all" 
+    order="random"
+    preload="auto" 
+    list-folded="ture" 
+    list-max-height="500px" 
+    lrc-type="1">
+</meting-js>	 
+</div>
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv">
+      本站访客数
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+      人次
+    </span>
+  
+
+  
+    <span class="site-pv">
+      本站总访问量
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+      次
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+  <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+  <script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+  
+  <script type="text/javascript">
+    var GUEST = ['nick','mail','link'];
+    var guest = 'nick,mail,link';
+    guest = guest.split(',').filter(item=>{
+      return GUEST.indexOf(item)>-1;
+    });
+    new Valine({
+        el: '#comments' ,
+        verify: false,
+        notify: false,
+        appId: 'Gp5xxuBGmRxC9yeJHf5wlLpN-gzGzoHsz',
+        appKey: 'wo0eDJonJrnuUrCCCU7EnH1n',
+        placeholder: '欢迎评论',
+        avatar:'mm',
+        guest_info:guest,
+        pageSize:'20' || 10,
+    });
+  </script>
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"jsonPath":"/live2dw/assets/dsr50_lifu_normal.model.json"},"display":{"position":"right","width":700,"height":800,"hOffset":-250,"vOffset":-150},"mobile":{"show":true,"scale":0.7},"log":false});</script></body>
+</html>

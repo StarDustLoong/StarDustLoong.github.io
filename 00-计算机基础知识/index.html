@@ -1,0 +1,1787 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="运维基础," />
+
+
+
+
+  
+
+
+  <link rel="alternate" href="/atom.xml" title="" type="application/atom+xml" />
+
+
+
+
+
+
+<meta name="description" content="计算机系统计算机系统由硬件(Hardware)系统和软件(Software)系统两大部分组成  计算机硬件 计算机（Computer）：俗称电脑，是一种能接收和存储信息，并按照存储在其内部的程序对海量数据进行自动、高速地处理，然后把处理结果输出的现代化智能电子设备  发展历史： 第一代计算机(1946-1957)     电子管时代  第二代计算机(1958-1964)     晶体管时代  第三">
+<meta property="og:type" content="article">
+<meta property="og:title" content="00-计算机基础知识">
+<meta property="og:url" content="http://www.ashjian.xyz/00-%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/index.html">
+<meta property="og:site_name">
+<meta property="og:description" content="计算机系统计算机系统由硬件(Hardware)系统和软件(Software)系统两大部分组成  计算机硬件 计算机（Computer）：俗称电脑，是一种能接收和存储信息，并按照存储在其内部的程序对海量数据进行自动、高速地处理，然后把处理结果输出的现代化智能电子设备  发展历史： 第一代计算机(1946-1957)     电子管时代  第二代计算机(1958-1964)     晶体管时代  第三">
+<meta property="og:image" content="https://raw.githubusercontent.com/ashjian/picBed/master/20200813192631.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/ashjian/picBed/master/20200813192651.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/ashjian/picBed/master/20200813192706.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/ashjian/picBed/master/20200813192706.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/ashjian/picBed/master/20200813201016.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/ashjian/picBed/master/20200813201040.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/ashjian/picBed/master/20200813201046.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/ashjian/picBed/master/20200813201110.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/ashjian/picBed/master/20200813201123.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/ashjian/picBed/master/20200813201134.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/ashjian/picBed/master/20200813201420.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/ashjian/picBed/master/20200813201428.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/ashjian/picBed/master/20200813201435.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/ashjian/picBed/master/20200813201441.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/ashjian/picBed/master/20200813201511.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/ashjian/picBed/master/20200813201511.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/ashjian/picBed/master/20200813192206.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/ashjian/picBed/master/20200813201641.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/ashjian/picBed/master/20200813201641.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/ashjian/picBed/master/20200813201711.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/ashjian/picBed/master/20200813201739.png">
+<meta property="article:published_time" content="2020-08-13T12:21:26.000Z">
+<meta property="article:modified_time" content="2021-03-26T10:02:19.459Z">
+<meta property="article:author" content="StarDustLoong">
+<meta property="article:tag" content="运维基础">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://raw.githubusercontent.com/ashjian/picBed/master/20200813192631.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://www.ashjian.xyz/00-计算机基础知识/"/>
+
+
+
+
+
+  <title>00-计算机基础知识 | </title>
+  
+
+
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?d7bf52f45e24a0e6f2951901a7a97864";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+<meta name="generator" content="Hexo 4.2.1"></head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title"></span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off"
+             placeholder="搜索..." spellcheck="false"
+             type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://www.ashjian.xyz/00-%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="StarDustLoong">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/uploads/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">00-计算机基础知识</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-08-13T20:21:26+08:00">
+                2020-08-13
+              </time>
+            
+
+            
+              <span class="post-meta-divider">|</span>
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-check-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">更新于&#58;</span>
+              
+              <time title="更新于" itemprop="dateModified" datetime="2021-03-26T18:02:19+08:00">
+                2021-03-26
+              </time>
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/linux/" itemprop="url" rel="index">
+                    <span itemprop="name">linux</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/00-%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/00-%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  5.2k
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  18
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+      
+      
+
+      
+        <h2 id="计算机系统"><a href="#计算机系统" class="headerlink" title="计算机系统"></a>计算机系统</h2><p>计算机系统由硬件(Hardware)系统和软件(Software)系统两大部分组成</p>
+<p><img src="https://raw.githubusercontent.com/ashjian/picBed/master/20200813192631.png" alt="image-20200812231148884"></p>
+<h2 id="计算机硬件"><a href="#计算机硬件" class="headerlink" title="计算机硬件"></a>计算机硬件</h2><ul>
+<li><p>计算机（Computer）：俗称电脑，是一种能接收和存储信息，并按照存储在其内部的程序对海量数据进行自动、高速地处理，然后把处理结果输出的现代化智能电子设备</p>
+</li>
+<li><p>发展历史：</p>
+<p>第一代计算机(1946-1957)     电子管时代 </p>
+<p>第二代计算机(1958-1964)     晶体管时代 </p>
+<p>第三代计算机(1965-1970)     集成电路时代 </p>
+<p>第四代计算机(1971以后)       大规模集成电路时代</p>
+</li>
+</ul>
+<p>1946年,世界上第一台计算机ENIAC(electronic numerical integrator and calculator)在美国宾州大学诞生，是美国奥伯丁武器试验场为了满足计算弹道需要而研制成的。使用了17468只电子管，占地170平方米,重达30吨，耗电174千瓦，耗资40多万美元。每秒可进行5000次加法或减法运算</p>
+<p><strong>世界第一台计算机</strong></p>
+<p><img src="https://raw.githubusercontent.com/ashjian/picBed/master/20200813192651.png" alt="image-20200812232833422"></p>
+<h2 id="计算机硬件组成"><a href="#计算机硬件组成" class="headerlink" title="计算机硬件组成"></a>计算机硬件组成</h2><p>冯·诺依曼体系结构： 1946年数学家冯·诺依曼于提出，计算机硬件由运算器、控制器、存储器、输入设备和输出设备五大部分组成</p>
+<p><img src="https://raw.githubusercontent.com/ashjian/picBed/master/20200813192706.png" alt="image-20200812232941188"></p>
+<p><strong>摩尔定律</strong></p>
+<p>由英特尔（Intel）创始人之一戈登·摩尔于1965年提出<br>当价格不变时，集成电路上可容纳的元器件的数目，约每隔18-24个月便会增加一倍，性能也将提升一倍 </p>
+<p><strong>按规模划分</strong></p>
+<ul>
+<li>巨型计算机：应用于国防尖端技术和现代科学计算中。巨型机的运算速度可达每秒百万亿次以上， “天河一号”为我国首台千万亿次超级计算机</li>
+<li>大型计算机：具有较高的运算速度，每秒可以执行几千万条指令，而且有较大的存储空间。往往用于科学计算、数据处理或作为网络服务器使用，如：IBM z13 mainframe</li>
+<li>小型计算机：规模较小、结构简单、运行环境要求较低，一般应用于工业自动控制、测量仪器、医疗设备中的数据采集等方面</li>
+<li>微型计算机：中央处理器（CPU）采用微处理器芯片，体积小巧轻便，广泛用于商业、服务业、工厂的自动控制、办公自动化以及大众化的信息处理</li>
+</ul>
+<h3 id="服务器"><a href="#服务器" class="headerlink" title="服务器"></a>服务器</h3><ul>
+<li>服务器Server是计算机的一种，是网络中为客户端计算机提供各种服务的高性能的计算机，服务器在网络操作系统的控制下，将与其相连的硬盘、磁带、打印机及昂贵的专用通讯设备提供给网络上的客户站点共享，也能为网络用户提供集中计算、信息发布及数据管理等服务</li>
+<li>服务器按应用功能可分为：<br>Web服务器、数据库服务器、文件服务器、中间件应用服务器、日志服务器、监控服务器、程序版本控制服务器、虚拟机服务器、邮件服务器、打印服务器、域控制服务器、多媒体服务器、通讯服务器、ERP服务器等</li>
+<li>服务器按外形分类：<br>塔式服务器、刀片式服务器、机架式服务器</li>
+</ul>
+<p><strong>塔式Tower服务器</strong></p>
+<p> <img src="https://raw.githubusercontent.com/ashjian/picBed/master/20200813192706.png" alt="image-20200812234815088"></p>
+<ul>
+<li><p>早期的服务器形式</p>
+</li>
+<li><p>外形以及结构和平时使用的立式PC差不多</p>
+</li>
+<li><p>机箱空间大，主板扩展性较强，插槽较多</p>
+</li>
+<li><p>预留了足够的内部空间，以便日后进行硬盘和电源的冗余扩展，设计一般都考虑降噪</p>
+</li>
+<li><p>目前较少使用</p>
+</li>
+</ul>
+<p><strong>刀片式Blade服务器</strong></p>
+<p><img src="https://raw.githubusercontent.com/ashjian/picBed/master/20200813201016.png" alt="image-20200812235043750"></p>
+<p><img src="https://raw.githubusercontent.com/ashjian/picBed/master/20200813201040.png" alt="image-20200812235056197"></p>
+<ul>
+<li>在标准高度的机架式机箱内可插装多个卡式的服务器单元，实现高可用和高密度</li>
+<li>更高的密度，集中管理，高性能，灵活扩展，按需配置</li>
+<li>可以使用系统软件将这些母板集合成一个服务器集群。在集群模式下，所有的母板可以连接起来提供高速的网络环境，并同时共享资源，为相同的用户群服务</li>
+</ul>
+<p><strong>机架式Rack服务器</strong></p>
+<p><img src="https://raw.githubusercontent.com/ashjian/picBed/master/20200813201046.png" alt="image-20200812235318717"></p>
+<ul>
+<li>按照统一标准设计，配合机柜统一使用</li>
+<li>便于统计管理，高密度，节省空间</li>
+<li>机架服务器的宽度为19英寸（48.26cm），高度以U为单位，如42U</li>
+<li>1U=1.75英寸=44.45毫米，通常有1U， 2U，3U，4U，5U，7U几种标准的服务器。机柜的尺寸也是采用通用的工业标准</li>
+<li>现阶段销售数量最多的服务器</li>
+<li>机箱尺寸比较小巧</li>
+<li>在机柜中可以同时放置多台服务器</li>
+</ul>
+<p><strong>服务器硬件组成</strong></p>
+<p><img src="https://raw.githubusercontent.com/ashjian/picBed/master/20200813201110.png" alt="image-20200812235524966"></p>
+<p><strong>服务器配置示例</strong></p>
+<table>
+<thead>
+<tr>
+<th>No.</th>
+<th>指标项</th>
+<th>指标要求</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>1</td>
+<td>ntel 处理器</td>
+<td>标配2个Intel6核XeonE7-4809v2处理器(1.9GHz,12M缓存,6.4GT/s)</td>
+</tr>
+<tr>
+<td>2</td>
+<td>处理器的数量(配置/最多)</td>
+<td>2/2</td>
+</tr>
+<tr>
+<td>3</td>
+<td>配置/内存(最多</td>
+<td>2GB(4x8GB)1600MHzDDR3内存</td>
+</tr>
+<tr>
+<td>4</td>
+<td>硬盘</td>
+<td>IBM 1TB 7.2K 6Gbps SAS 2.5” SFF Slim-HS  HDD</td>
+</tr>
+<tr>
+<td>5</td>
+<td>RAID卡</td>
+<td>标配M5210支持RAID0、1、10可选缓存或Flash保护</td>
+</tr>
+<tr>
+<td>6</td>
+<td>网络</td>
+<td>4口个千兆以太网卡</td>
+</tr>
+<tr>
+<td>7</td>
+<td>光驱</td>
+<td>DVD-ROM</td>
+</tr>
+<tr>
+<td>8</td>
+<td>整机保修时间</td>
+<td>原厂3年7*24(4小时之内携带备件现场服务)</td>
+</tr>
+<tr>
+<td>9</td>
+<td>电源</td>
+<td>标配2个900W热插拔电源(带2根PDU电源线)</td>
+</tr>
+<tr>
+<td>10</td>
+<td>服务器的外观样式</td>
+<td>4U机架式(含上机架导轨)</td>
+</tr>
+</tbody></table>
+<h3 id="服务器硬件—CPU"><a href="#服务器硬件—CPU" class="headerlink" title="服务器硬件—CPU"></a>服务器硬件—CPU</h3><ul>
+<li><p>CPU是Central Processing Unit的缩写，即中央处理器。由控制器和运算器构成，是整个计算机系统中最重要的部分</p>
+</li>
+<li><p>服务器CPU公司</p>
+</li>
+<li><p>Intel</p>
+<ul>
+<li>Xeon      至强  </li>
+<li>Itanium   安腾</li>
+</ul>
+</li>
+<li><p>AMD</p>
+<ul>
+<li>Althlon MP</li>
+</ul>
+</li>
+<li><p>IBM</p>
+<ul>
+<li>power</li>
+</ul>
+</li>
+</ul>
+<p>  <img src="https://raw.githubusercontent.com/ashjian/picBed/master/20200813201123.png" alt="image-20200813000459375"></p>
+<ul>
+<li>主频：主频是CPU的时钟频率(CPU Clock Speed)，是CPU运算时的工作的频率（1秒内发生的同步脉冲数）的简称。单位是Hz。一般说来，主频越高，CPU的速度越快，由于内部结构不同，并非所有的时钟频率相同的CPU的性能都一样</li>
+</ul>
+<ul>
+<li><p>外频：系统总线的工作频率， CPU与外部（主板芯片组）交换数据、指令的工作时钟频率</p>
+<ul>
+<li>倍频：倍频则是指CPU外频与主频相差的倍数</li>
+<li>三者关系是：主频=外频x倍频</li>
+<li>高速缓存（cache）：高速交换的存储器。CPU缓存分为一级，二级，三级缓存，即L1，L2，L3</li>
+<li>内存总线速度(Memory-Bus Speed)：一般等同于CPU的外频，指CPU与二级<br>(L2)高速缓存和内存之间的通信速度</li>
+<li>地址总线宽度：决定了CPU可以访问的物理地址空间</li>
+</ul>
+<p><strong>CPU类型</strong></p>
+<ul>
+<li>x86</li>
+</ul>
+</li>
+<li><p>X64（CISC）</p>
+<ul>
+<li>ARM（Acorn RISC Machine）</li>
+<li>m68000, m68k（moto）</li>
+<li>Power（IBM）</li>
+<li>Powerpc（apple,ibm,moto）</li>
+<li>Ultrasparc （Sun）</li>
+<li>Alpha（HP）</li>
+<li>安腾（compaq）</li>
+</ul>
+</li>
+</ul>
+<h3 id="服务器分类"><a href="#服务器分类" class="headerlink" title="服务器分类"></a>服务器分类</h3><ul>
+<li>按照CPU体系架构来区分，服务器主要分为两类：</li>
+<li>非x86服务器：使用RISC（精简指令集）或EPIC（并行指令代码） 处理器，并且主要采用UNIX和其它专用操作系统的服务器，指令系统相对简单，它只要求硬件执行很有限且最常用的那部分执令，CPU主要有Compaq的Alpha、HP的PA-RISC、IBM的Power PC、MIPS的MIPS和SUN的Sparc、Intel研发的EPIC安腾处理器等。这种服务器价格昂贵，体系封闭，但是稳定性好，性能强，主要用在金融、电信等大型企业的核心系统</li>
+<li>x86服务器：又称CISC（复杂指令集）架构服务器，即通常所讲的PC服务器，它是基于PC机体系结构，使用Intel或其它兼容x86指令集的处理器芯片的服务器。目前主要为intel的Xeon E3，E5，E7系列，价格相对便宜、兼容性好、稳定性较差、安全性不算太高</li>
+</ul>
+<h3 id="服务器硬件—主板"><a href="#服务器硬件—主板" class="headerlink" title="服务器硬件—主板"></a>服务器硬件—主板</h3><ul>
+<li>主板mainboard、系统板systemboard或母板motherboard，安装在机箱内，是计算机最基本的也是最重要的部件之一</li>
+<li>主板一般为矩形电路板，上面安装了组成计算机的主要电路系统，一般有BIOS芯片、I/O控制芯片、键盘和面板控制开关接口、指示灯插接件、扩充插槽、主板及插卡的直流电源供电接插件等元件</li>
+</ul>
+<p><img src="https://raw.githubusercontent.com/ashjian/picBed/master/20200813201134.png" alt="image-20200813001010354"></p>
+<h3 id="服务器硬件—内存"><a href="#服务器硬件—内存" class="headerlink" title="服务器硬件—内存"></a>服务器硬件—内存</h3><ul>
+<li><p>内存是介于CPU 和外部存储之间，是CPU 对外部存储中程序与数据进行高速运算时存放程序指令、数据和中间结果的临时场所，它的物理实质就是一组具备数据输入输出和数据存储功能的高速集成电路</p>
+</li>
+<li><p>内存是CPU能直接寻址的存储空间，由半导体器件制成。内存的特点是存取速度快</p>
+</li>
+<li><p>计算机中所有程序的运行都是在内存中进行的，因此内存的性能对计算机的影响非常大</p>
+</li>
+<li><p>外存：硬盘，U盘，软盘，光盘</p>
+</li>
+<li><p>内存和外存的区别：</p>
+<p>​    内存断电后数据丢失<br>​    外存断电后数据可以保存</p>
+<p><img src="https://raw.githubusercontent.com/ashjian/picBed/master/20200813201420.png" alt="image-20200813001222691"></p>
+</li>
+<li><p>容量：即该内存的存储容量，单位一般为“MB”或“GB”</p>
+</li>
+<li><p>内存带宽：<br>•    内存带宽是指内存与北桥芯片之间的数据传输率<br>•    单通道内存节制器一般都是64-bit的，8个二进制位相当于1个字节，换算成字节是64/8=8，再乘以内存的运行频率，如果是DDR内存就要再乘以2<br>•    计算公式：<br>内存带宽=内存总线频率×数据总线位数/8</p>
+</li>
+<li><p>示例：单通道DDR内存带宽计算</p>
+<p>​            DDR4-4000：4000MHz * 64bit/8=32000MB/S<br>​            DDR4-3600：3600MHz * 64bit/8=28800MB/S </p>
+<pre><code>双通道： 
+DDR4-4000：4000MHz * 64bit * 2/8=64000MB/S</code></pre></li>
+<li><p>在线备用内存技术</p>
+<ul>
+<li>当主内存或者是扩展内存中的内存出现多位错误时或者出现物理内存故障时，服务器仍继续运行 </li>
+<li>由备用内存接替出现故障内存的工作</li>
+<li>备用的内存区域必须比其它区域的内存容量要大或相同</li>
+</ul>
+</li>
+<li><p>内存镜像</p>
+<ul>
+<li>镜像为系统在出现多位错或内存物理故障时提供数据保护功能，以保证系统仍能正常的运行 </li>
+<li>数据同时写入两个镜像的内存区域</li>
+<li>从一个区域进行数据的读取</li>
+</ul>
+</li>
+</ul>
+<p><img src="https://raw.githubusercontent.com/ashjian/picBed/master/20200813201428.png" alt="image-20200813012646321"></p>
+<h3 id="服务器硬件—硬盘"><a href="#服务器硬件—硬盘" class="headerlink" title="服务器硬件—硬盘"></a>服务器硬件—硬盘</h3><ul>
+<li>机械硬盘结构：</li>
+<li>存储介质（Media）——盘片<br>盘片的基板是金属或玻璃材质制成，为达到高密度高稳定的质量，基板要求表面光滑平整，不可有任何暇疵</li>
+<li>读写头（Read Write Head）——磁头<br>磁头是硬盘读取数据的关键部件，它的主要作用就是将存储在硬盘盘片上的磁信息转化为电信号向</li>
+<li>传输马达（ Spindle Motor &amp; Voice Coil Motor ）<br>马达上装有一至多片盘片，以7200，10000，15000 RPM等定速旋转，为保持其平衡不可抖动，所以其质量要求严谨，不产生高温躁音</li>
+</ul>
+<img src="https://raw.githubusercontent.com/ashjian/picBed/master/20200813201435.png" alt="image-20200813084604566" style="zoom:50%;" />
+
+<ul>
+<li><p>硬盘基本参数：</p>
+<ul>
+<li><p>容量</p>
+<p>容量是硬盘最主要的参数。单位有MB、GB、TB</p>
+</li>
+<li><p>转速</p>
+<p>转速是指硬盘盘片每分钟转动的圈数，单位为rpm。现在硬盘的转速已经达到10000rpm，15000rpm </p>
+</li>
+<li><p>传输速率</p>
+<p>传输速率(Data Transfer Rate) 。硬盘的数据传输率是指硬盘读写数据的速度，单位为兆字节每秒（MB/s） </p>
+</li>
+<li><p>缓存</p>
+<p>硬盘缓存的目的是为了解决系统前后级读写速度不匹配的问题，以提高硬盘的读写速度 </p>
+</li>
+</ul>
+</li>
+</ul>
+<p>​    硬盘接口类型：</p>
+<ul>
+<li>IDE接口：硬盘接口规范，采用ATA技术规范</li>
+<li>SCSI接口：应用于小型机上的高速数据传输技术</li>
+<li>SATA接口： Serial ATA，提高传输速率，支持热插拔</li>
+<li>SAS接口： Serial Attached SCSI，兼容SAT</li>
+</ul>
+<p>​    目前主流的硬盘接口为SATA和SAS接口</p>
+<ul>
+<li><p>SSD硬盘：<br>SSD(Solid State Disk)泛指使用NAND Flash组成的固态硬盘。其特别之处在于</p>
+<p>没有机械结构，</p>
+<p>以区块写入和抹除的方式作读写的功能，因此在读写的效率上，非常依赖读写技术上的设计SSD读写存取速度快，性能稳定，防震性高，发热低，耐低温，电耗低，无噪音。因为没有机械部分，所以长时间使用也出现故障几率也较小。缺点:价格高，容量小，在普通硬盘前毫无性价比优势 </p>
+</li>
+</ul>
+<p><strong>服务器的性能短板</strong>：<br>如果CPU有每秒处理1000个服务请求的能力，各种总线的负载能力能达到500个，但网卡只能接受200个请求，而硬盘只能负担150个的话，那这台服务器得处理能力只能是150个请求/秒，有85%的处理器计算能力浪费了<br>在计算机系统当中，硬盘的读写速率已经成为影响系统性能进一步提高的瓶颈</p>
+<p><strong>各种硬件处理速度</strong></p>
+<p><img src="https://raw.githubusercontent.com/ashjian/picBed/master/20200813201441.png" alt="image-20200813085148766"></p>
+<h3 id="服务器硬件—阵列卡"><a href="#服务器硬件—阵列卡" class="headerlink" title="服务器硬件—阵列卡"></a>服务器硬件—阵列卡</h3><ul>
+<li><p>Raid卡：<br>用来实现RAID的建立和重建，检测和修复多位错误，错误磁盘自动检测等功能。RAID芯片使CPU的资源得以释放<br>阵列卡（RAID卡）的作用:</p>
+<p>阵列卡把若干硬盘驱动器按照一定要求组成一个整体、由阵列控制器管理的系统。<br>阵列卡用来提高磁盘子系统的性能及可靠性</p>
+<p>阵列卡参数:</p>
+<p>​    支持的RAID级别<br>​    阵列卡缓存<br>​    电池保护</p>
+</li>
+</ul>
+<p><strong>服务器硬件—电源</strong></p>
+<p>电源和风扇</p>
+<ul>
+<li>支持服务器的电力负载</li>
+<li>支持冗余，防止电源故障<br>–    故障预警和防止<br>–    故障之前的预防性维护<br>–    保证服务器持续运行</li>
+<li>电源子系统包括<br>–    智能电源和风扇</li>
+<li>冗余电源和风扇</li>
+</ul>
+<h3 id="服务器硬件—显卡"><a href="#服务器硬件—显卡" class="headerlink" title="服务器硬件—显卡"></a>服务器硬件—显卡</h3><p>服务器都在主板上集成了显卡，但是显存容量不高，一般为16M或32M GPU： Graphic Processing Unit，即“图形处理器” </p>
+<h3 id="服务器硬件—网卡"><a href="#服务器硬件—网卡" class="headerlink" title="服务器硬件—网卡"></a>服务器硬件—网卡</h3><p>服务器都在主板上集成了网卡，传输速率为1Gbps，即千兆网卡<br>特殊应用需要高端网卡，如光纤网卡，Infiniband网卡等，传输速率能达到10Gbps、 20Gbps，即万兆网卡</p>
+<h3 id="服务器硬件—热插拔技术"><a href="#服务器硬件—热插拔技术" class="headerlink" title="服务器硬件—热插拔技术"></a>服务器硬件—热插拔技术</h3><ul>
+<li>称为热交换技术（Hot  Swap），允许在不关机的状态下更换故障热插拔设备</li>
+<li>常见的热插拔设备：硬盘，电源，PCI设备，风扇等</li>
+<li>热插拔硬盘技术与RAID技术配合起来，可以使服务器在不关机的状态下恢复故障硬盘上的数据，同时并不影响网络用户对数据的使用</li>
+</ul>
+<h3 id="服务器硬件—机柜"><a href="#服务器硬件—机柜" class="headerlink" title="服务器硬件—机柜"></a>服务器硬件—机柜</h3><p>机架式服务器-服务器放置在机柜中<br>通常使用的机柜是42U（约2米高）机柜（ 1U=44.45mm） 外观尺寸一般为：宽600<em>深1000</em>高2000（mm） </p>
+<p><img src="https://raw.githubusercontent.com/ashjian/picBed/master/20200813201511.png" alt="image-20200813115249821"></p>
+<h2 id="操作系统"><a href="#操作系统" class="headerlink" title="操作系统"></a>操作系统</h2><p>OS: Operating System，通用目的的软件程序</p>
+<p>​    硬件驱动</p>
+<p>​    进程管理    </p>
+<p>​    内存管理    </p>
+<p>​    网络管理    </p>
+<p>​    安全管理    </p>
+<p>​    文件管理</p>
+<p>OS分类：</p>
+<p>​    服务器OS：RHEL，CentOS，Windows Server，AIX     </p>
+<p>​    桌面OS：Windows 10，Mac OS，Fedora<br>​    移动设备OS：Andriod，IOS，AliOS </p>
+<img src="https://raw.githubusercontent.com/ashjian/picBed/master/20200813201511.png" alt="image-20200813115654804" style="zoom:50%;" />
+
+<h3 id="interface"><a href="#interface" class="headerlink" title="interface"></a>interface</h3><ul>
+<li><p>接口：interface，来源于电气工程学科，指的是插座与插头的连接口，起到将电与电器连接起为的功能。后来延伸到软件工程里指软件包向外提供的功能模块的函数接口。所以接口是用来连接两个东西、信号转换和屏蔽细节</p>
+</li>
+<li><p>​    操作系统通过接口的方式，建立了用户与计算机硬件的沟通方式。用户通过调用操作系统的接口来使用计算机的各种计算服务。</p>
+</li>
+<li><p>为操作系统一般会提供两个重要的接口来满足用户的一些一般性的使用需求：</p>
+<p>命令行：实际是一个叫shell的终端程序提供的功能，该程序底层的实质还是调用一些操作系统提供的函数</p>
+<p>窗口界面：窗口界面通过编写的窗口程序接收来自操作系统消息队列的一些鼠标、键盘动作，进而做出一些响应</p>
+</li>
+</ul>
+<h3 id="开发接口标准"><a href="#开发接口标准" class="headerlink" title="开发接口标准"></a>开发接口标准</h3><ul>
+<li>ABI: Application Binary Interface<br>ABI描述了应用程序与OS之间的底层接口,允许编译好的目标代码在使用兼容ABI的系统中无需改动就能运行</li>
+<li>运行程序格式：<br>Windows: EXE, .dll(dynamic link library)，.lib<br>Linux: ELF,  .so(shared object),  .a</li>
+<li>API：Application Programming Interface<br>API定义了源代码和库之间的接口，因此同样的源代码可以在支持这个API的任何系统中编译</li>
+<li>POSIX: Portable Operating System Interface 可移植的操作系统接口IEEE在操作系统上定义的一系列API标准<br>POSIX兼容的程序可在其它POSIX操作系统编译执行</li>
+</ul>
+<h3 id="用户态和内核态"><a href="#用户态和内核态" class="headerlink" title="用户态和内核态"></a>用户态和内核态</h3><ul>
+<li><p>计算机硬件资源都是操作系统内核进行管理的，目前操作系统都是基于多任务、多用户的。如果每个用户进程都可以随便访问操作系统内核的模块，改变状态，那整个操作系统的稳定性、安全性都大大降低</p>
+</li>
+<li><p>为了将内核程序与用户程序隔离开，在硬件层面上提供了一次机制，将程序执行的状态分为了不同的级别，从0到3，数字越小，访问级别越高。0代表内核态，在该特权级别下，所有内存上的数据都是可见的，可访问的。3代表用户态，在这个特权级下，程序只能访问一部分的内存区域，只能执行一些限定的指令</p>
+<p><img src="https://raw.githubusercontent.com/ashjian/picBed/master/20200813192206.png" alt="image-20200813120234652"></p>
+<h3 id="系统调用system-call"><a href="#系统调用system-call" class="headerlink" title="系统调用system call"></a>系统调用system call</h3><p>对于非一般性使用需求，操作系统提供了一系列的函数调用给软件开发者，由软件开发者来实现一些用户需要的功能。这些函数调用由于是操作系统内核提供的，为了有别于一般的函数调用，被称为系统调用。比如使用C语言进行软件开发时，经常用的printf函数，它的内部实际就是通过write这个系统调用，让操作系统内核把字符打印在屏幕上的</p>
+<p><img src="https://raw.githubusercontent.com/ashjian/picBed/master/20200813201641.png" alt="image-20200813120327044"></p>
+<h3 id="Library-function和system-call"><a href="#Library-function和system-call" class="headerlink" title="Library function和system call"></a>Library function和system call</h3><p><img src="https://raw.githubusercontent.com/ashjian/picBed/master/20200813201641.png" alt="image-20200813120410005"></p>
+<h2 id="编程语言"><a href="#编程语言" class="headerlink" title="编程语言"></a>编程语言</h2><ul>
+<li><p>低级语言</p>
+<p>机器语言：0和1<br>汇编语言：和机器语言一一对应，与硬件相关的特有代码、驱动程序开发</p>
+</li>
+<li><p>中级语言：C</p>
+<p>系统级应用、驱动程序</p>
+</li>
+<li><p>高级语言： java，python，go，php，Objective-C，C#</p>
+<p>应用级程序开发</p>
+<h2 id="服务器三大操作系统"><a href="#服务器三大操作系统" class="headerlink" title="服务器三大操作系统"></a>服务器三大操作系统</h2><ul>
+<li><p>Windows：</p>
+</li>
+<li><p>Linux：GNU/Linux</p>
+</li>
+<li><p>Unix：1969年Ken Thompson</p>
+<p>System: Bell Lab</p>
+<p>​        AIX （IBM） </p>
+<p>​        Solaris (SUN) </p>
+<p>​        HP-UX (HP) </p>
+<p>BSD: （BSRG）Berkeley System Distribution</p>
+<p>​        NetBSD OpenBSD FreeBSD </p>
+</li>
+</ul>
+<h2 id="Linux起源"><a href="#Linux起源" class="headerlink" title="Linux起源"></a>Linux起源</h2><ul>
+<li><p>1991年的10月5日，Torvalds在comp.os.minix新闻组上发布消息，正式向外宣布他自行编写的完全自由免费的内核诞生（Freeminix-like kernel sources for 386-AT）—FREAX，含义是怪诞的、怪物、异想天开</p>
+</li>
+<li><p>类Unix的内核，在GPL下发布</p>
+</li>
+<li><p>官网：<a href="http://www.kernel.org" target="_blank" rel="noopener">www.kernel.org</a></p>
+</li>
+<li><p>Linux操作系统</p>
+<p>​        完整的类UNIX操作系统 </p>
+<p>​        Linux内核+ GNU工具<br>​        如：CentOS,Ubuntu,Android</p>
+</li>
+</ul>
+<h2 id="Linux发行版"><a href="#Linux发行版" class="headerlink" title="Linux发行版"></a>Linux发行版</h2><p>slackware：SUSE Linux Enterprise Server (SLES)</p>
+<p>​                                                    OpenSuse桌面 </p>
+<ul>
+<li><p>debian:        ubuntu，deepin（深度），mint</p>
+</li>
+<li><p>redhat：    </p>
+<p>​              RHEL: RedHat Enterprise Linux  每18个月发行一个   新版本</p>
+<p>​                CentOS：兼容RHEL的格式<br>​               中标麒麟：中标软件 </p>
+</li>
+</ul>
+<p>​                     Fedora：每6个月发行一个新版本</p>
+<ul>
+<li>ArchLinux：轻量简洁，遵循K.I.S.S.原则（ keep it simple and stupid ）</li>
+<li>Gentoo：极致性能，不提供传统意义的安装程序，下载源代码在本机上编译安装软件</li>
+<li>LFS：Linux From scratch 自制Linux</li>
+<li>Android：kernel+busybox（工具集）+java虚拟机</li>
+<li>Linux分支参考网站：</li>
+</ul>
+<p>​    <a href="http://futurist.se/gldt/" target="_blank" rel="noopener">http://futurist.se/gldt/</a><br>​    <a href="http://www.mindpin.com/d3js-demo/linux/" target="_blank" rel="noopener">http://www.mindpin.com/d3js-demo/linux/</a></p>
+<p>开源 Open Source</p>
+<ul>
+<li>开源： Open Source ，软件和源代码提供给所有人</li>
+</ul>
+<p>​        自由分发软件和源代码 能够修改和创建衍生作品</p>
+<ul>
+<li>软件分类：</li>
+</ul>
+<p>​        商业<br>​        共享<br>​        自由 free</p>
+<h3 id="开源协议"><a href="#开源协议" class="headerlink" title="开源协议"></a>开源协议</h3><ul>
+<li>世界上的开源许可证，大概有上百种</li>
+<li>GPLv2, GPLv3, LGPL(lesser) ：通用公共许可 copyleft</li>
+<li>Apache: apache</li>
+<li>BSD: bsd</li>
+<li>Mozilla</li>
+<li>MIT</li>
+<li><img src="https://raw.githubusercontent.com/ashjian/picBed/master/20200813201711.png" alt="image-20200813191107707"></li>
+</ul>
+<h2 id="Linux哲学思想"><a href="#Linux哲学思想" class="headerlink" title="Linux哲学思想"></a>Linux哲学思想</h2><ul>
+<li>一切都是一个文件（包括硬件） </li>
+<li>小型，单一用途的程序<br>链接程序，共同完成复杂的任务 </li>
+<li>避免令人困惑的用户界面</li>
+<li>配置数据存储在文本中</li>
+</ul>
+<h3 id="获取发行版"><a href="#获取发行版" class="headerlink" title="获取发行版"></a>获取发行版</h3><ul>
+<li>CentOS<br><a href="https://wiki.centos.org/Download" target="_blank" rel="noopener">https://wiki.centos.org/Download</a><br><a href="http://mirrors.aliyun.com" target="_blank" rel="noopener">http://mirrors.aliyun.com</a><br><a href="http://mirrors.sohu.com" target="_blank" rel="noopener">http://mirrors.sohu.com</a><br><a href="http://mirrors.163.com" target="_blank" rel="noopener">http://mirrors.163.com</a><br><a href="https://mirrors.tuna.tsinghua.edu.cn/centos/" target="_blank" rel="noopener">https://mirrors.tuna.tsinghua.edu.cn/centos/</a></li>
+<li>Ubuntu<br><a href="http://cdimage.ubuntu.com/releases/18.04.1/release/?_ga=2.56783850.1" target="_blank" rel="noopener">http://cdimage.ubuntu.com/releases/18.04.1/release/?_ga=2.56783850.1</a> 533668672.1544323446-1412352718.1543052421</li>
+</ul>
+<h2 id="虚拟机"><a href="#虚拟机" class="headerlink" title="虚拟机"></a>虚拟机</h2><p>虚拟机：用软件（如：vmware,virtualbox等）模拟硬件</p>
+<p><img src="https://raw.githubusercontent.com/ashjian/picBed/master/20200813201739.png" alt="image-20200813191718186"></p>
+</li>
+</ul>
+</li>
+</ul>
+
+      
+    </div>
+    
+    
+    
+
+     <!-- 文章末尾统一添加“本文结束”标记 -->
+    <div>
+      
+        <div>
+    
+        <div style="text-align:center;color: #555;font-size:24px;"><-------------The End-------------></div>
+    
+</div>
+
+      
+    </div>
+    
+
+    
+      <div>
+        <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+  <div>坚持原创分享，你的支持就是我最大的动力！</div>
+  <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+    <span>打赏</span>
+  </button>
+  <div id="QR" style="display: none;">
+
+    
+      <div id="wechat" style="display: inline-block">
+        <img id="wechat_qr" src="/uploads/weixin_cash_code.png" alt="StarDustLoong 微信支付"/>
+        <p>微信支付</p>
+      </div>
+    
+
+    
+      <div id="alipay" style="display: inline-block">
+        <img id="alipay_qr" src="/uploads/alipay_cash_code.png" alt="StarDustLoong 支付宝"/>
+        <p>支付宝</p>
+      </div>
+    
+
+    
+
+  </div>
+</div>
+
+      </div>
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/%E8%BF%90%E7%BB%B4%E5%9F%BA%E7%A1%80/" rel="tag"># 运维基础</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/%E3%80%8A%E5%8F%AA%E7%8B%BC%EF%BC%9A%E5%BD%B1%E9%80%9D%E4%BA%8C%E5%BA%A6%E3%80%8B%E5%8E%9F%E5%9E%8B%E6%B5%85%E8%80%83%EF%BC%9A%E5%9B%BD%E4%B9%8B%E7%AF%87/" rel="next" title="《只狼：影逝二度》原型浅考：国之篇">
+                <i class="fa fa-chevron-left"></i> 《只狼：影逝二度》原型浅考：国之篇
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/01-%E5%91%BD%E4%BB%A4%E5%9F%BA%E6%9C%AC%E6%A0%BC%E5%BC%8F/" rel="prev" title="01-命令基本格式">
+                01-命令基本格式 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+    </div>
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/uploads/avatar.png"
+                alt="StarDustLoong" />
+            
+              <p class="site-author-name" itemprop="name">StarDustLoong</p>
+              <p class="site-description motion-element" itemprop="description">人类如风一般的自由</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">2409</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">12</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">146</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+	   
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/StarDustLoong" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:13671474528@163.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://www.zhihu.com/people/ashjian-ar15" target="_blank" title="知乎">
+                      
+                        <i class="fa fa-fw fa-globe"></i>知乎</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://me.csdn.net/ashjian" target="_blank" title="CSDN">
+                      
+                        <i class="fa fa-fw fa-codiepie"></i>CSDN</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+            <div class="links-of-blogroll motion-element links-of-blogroll-inline">
+              <div class="links-of-blogroll-title">
+                <i class="fa  fa-fw fa-link"></i>
+                Links
+              </div>
+              <ul class="links-of-blogroll-list">
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="http://mp.weixin.qq.com/user1" title="OpenInfo" target="_blank">OpenInfo</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="http://mp.weixin.qq.com/user2" title="stormzhang" target="_blank">stormzhang</a>
+                  </li>
+                
+              </ul>
+            </div>
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#计算机系统"><span class="nav-number">1.</span> <span class="nav-text">计算机系统</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#计算机硬件"><span class="nav-number">2.</span> <span class="nav-text">计算机硬件</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#计算机硬件组成"><span class="nav-number">3.</span> <span class="nav-text">计算机硬件组成</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#服务器"><span class="nav-number">3.1.</span> <span class="nav-text">服务器</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#服务器硬件—CPU"><span class="nav-number">3.2.</span> <span class="nav-text">服务器硬件—CPU</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#服务器分类"><span class="nav-number">3.3.</span> <span class="nav-text">服务器分类</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#服务器硬件—主板"><span class="nav-number">3.4.</span> <span class="nav-text">服务器硬件—主板</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#服务器硬件—内存"><span class="nav-number">3.5.</span> <span class="nav-text">服务器硬件—内存</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#服务器硬件—硬盘"><span class="nav-number">3.6.</span> <span class="nav-text">服务器硬件—硬盘</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#服务器硬件—阵列卡"><span class="nav-number">3.7.</span> <span class="nav-text">服务器硬件—阵列卡</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#服务器硬件—显卡"><span class="nav-number">3.8.</span> <span class="nav-text">服务器硬件—显卡</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#服务器硬件—网卡"><span class="nav-number">3.9.</span> <span class="nav-text">服务器硬件—网卡</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#服务器硬件—热插拔技术"><span class="nav-number">3.10.</span> <span class="nav-text">服务器硬件—热插拔技术</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#服务器硬件—机柜"><span class="nav-number">3.11.</span> <span class="nav-text">服务器硬件—机柜</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#操作系统"><span class="nav-number">4.</span> <span class="nav-text">操作系统</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#interface"><span class="nav-number">4.1.</span> <span class="nav-text">interface</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#开发接口标准"><span class="nav-number">4.2.</span> <span class="nav-text">开发接口标准</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#用户态和内核态"><span class="nav-number">4.3.</span> <span class="nav-text">用户态和内核态</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#系统调用system-call"><span class="nav-number">4.4.</span> <span class="nav-text">系统调用system call</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Library-function和system-call"><span class="nav-number">4.5.</span> <span class="nav-text">Library function和system call</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#编程语言"><span class="nav-number">5.</span> <span class="nav-text">编程语言</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#服务器三大操作系统"><span class="nav-number">6.</span> <span class="nav-text">服务器三大操作系统</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Linux起源"><span class="nav-number">7.</span> <span class="nav-text">Linux起源</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Linux发行版"><span class="nav-number">8.</span> <span class="nav-text">Linux发行版</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#开源协议"><span class="nav-number">8.1.</span> <span class="nav-text">开源协议</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Linux哲学思想"><span class="nav-number">9.</span> <span class="nav-text">Linux哲学思想</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#获取发行版"><span class="nav-number">9.1.</span> <span class="nav-text">获取发行版</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#虚拟机"><span class="nav-number">10.</span> <span class="nav-text">虚拟机</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">StarDustLoong</span>
+
+  
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-area-chart"></i>
+    </span>
+    
+      <span class="post-meta-item-text">本站总字数&#58;</span>
+    
+    <span title="本站总字数">635.5k</span>
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Pisces</a> v5.1.4</div>
+
+
+
+
+#<!-- 百度自动推送 -->
+#<script>
+#(function(){
+#    var bp = document.createElement('script');
+#    var curProtocol = window.location.protocol.split(':')[0];
+#    if (curProtocol === 'https') {
+#        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+#    }
+#    else {
+#        bp.src = 'http://push.ashjian.baidu.com/push.js';
+#    }
+#    var s = document.getElementsByTagName("script")[0];
+#    s.parentNode.insertBefore(bp, s);
+#})();
+#</script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aplayer/dist/APlayer.min.css">
+
+<script src="https://cdn.jsdelivr.net/npm/aplayer/dist/APlayer.min.js"></script>
+<!-- require MetingJS -->
+
+<script src="https://cdn.jsdelivr.net/npm/meting@2.0.1/dist/Meting.min.js"></script>
+<div> 
+<meting-js  
+    server="netease" 
+    type="playlist"  
+    id="5281251057" 
+    fixed="true"  
+    autoplay="false" 
+    loop="all" 
+    order="random"
+    preload="auto" 
+    list-folded="ture" 
+    list-max-height="500px" 
+    lrc-type="1">
+</meting-js>	 
+</div>
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv">
+      本站访客数
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+      人次
+    </span>
+  
+
+  
+    <span class="site-pv">
+      本站总访问量
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+      次
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+  <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+  <script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+  
+  <script type="text/javascript">
+    var GUEST = ['nick','mail','link'];
+    var guest = 'nick,mail,link';
+    guest = guest.split(',').filter(item=>{
+      return GUEST.indexOf(item)>-1;
+    });
+    new Valine({
+        el: '#comments' ,
+        verify: false,
+        notify: false,
+        appId: 'Gp5xxuBGmRxC9yeJHf5wlLpN-gzGzoHsz',
+        appKey: 'wo0eDJonJrnuUrCCCU7EnH1n',
+        placeholder: '欢迎评论',
+        avatar:'mm',
+        guest_info:guest,
+        pageSize:'20' || 10,
+    });
+  </script>
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"jsonPath":"/live2dw/assets/dsr50_lifu_normal.model.json"},"display":{"position":"right","width":700,"height":800,"hOffset":-250,"vOffset":-150},"mobile":{"show":true,"scale":0.7},"log":false});</script></body>
+</html>

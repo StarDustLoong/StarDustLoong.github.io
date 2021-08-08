@@ -1,0 +1,1492 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="python基础," />
+
+
+
+
+  
+
+
+  <link rel="alternate" href="/atom.xml" title="" type="application/atom+xml" />
+
+
+
+
+
+
+<meta name="description" content="Pytho解释器官方CPython  C语言开发，最广泛的Python解释器  IPython  一个交互式、功能增强的Cpython  PyPy  Python语言写的Python解释器，JIT技术，动态编译Python代码 Jython  Python的源代码编译成Java的字节码，跑在JVM上    IronPython  与Jython类似，运行在.Net平台上的解释器，Python代码被">
+<meta property="og:type" content="article">
+<meta property="og:title" content="python基础认知和基础语法">
+<meta property="og:url" content="http://www.ashjian.xyz/python%E5%9F%BA%E7%A1%80%E8%AE%A4%E7%9F%A5%E5%92%8C%E5%9F%BA%E7%A1%80%E8%AF%AD%E6%B3%95/index.html">
+<meta property="og:site_name">
+<meta property="og:description" content="Pytho解释器官方CPython  C语言开发，最广泛的Python解释器  IPython  一个交互式、功能增强的Cpython  PyPy  Python语言写的Python解释器，JIT技术，动态编译Python代码 Jython  Python的源代码编译成Java的字节码，跑在JVM上    IronPython  与Jython类似，运行在.Net平台上的解释器，Python代码被">
+<meta property="og:image" content="https://raw.githubusercontent.com/ashjian/picBed/master/20210217114036.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/ashjian/picBed/master/20210217114030.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/ashjian/picBed/master/20210217114025.png">
+<meta property="article:published_time" content="2021-05-24T05:37:57.024Z">
+<meta property="article:modified_time" content="2021-03-26T10:02:20.280Z">
+<meta property="article:author" content="StarDustLoong">
+<meta property="article:tag" content="python基础">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://raw.githubusercontent.com/ashjian/picBed/master/20210217114036.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://www.ashjian.xyz/python基础认知和基础语法/"/>
+
+
+
+
+
+  <title>python基础认知和基础语法 | </title>
+  
+
+
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?d7bf52f45e24a0e6f2951901a7a97864";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+<meta name="generator" content="Hexo 4.2.1"></head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title"></span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off"
+             placeholder="搜索..." spellcheck="false"
+             type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://www.ashjian.xyz/python%E5%9F%BA%E7%A1%80%E8%AE%A4%E7%9F%A5%E5%92%8C%E5%9F%BA%E7%A1%80%E8%AF%AD%E6%B3%95/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="StarDustLoong">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/uploads/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">python基础认知和基础语法</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2021-05-24T13:37:57+08:00">
+                2021-05-24
+              </time>
+            
+
+            
+              <span class="post-meta-divider">|</span>
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-check-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">更新于&#58;</span>
+              
+              <time title="更新于" itemprop="dateModified" datetime="2021-03-26T18:02:20+08:00">
+                2021-03-26
+              </time>
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/python/" itemprop="url" rel="index">
+                    <span itemprop="name">python</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/python%E5%9F%BA%E7%A1%80%E8%AE%A4%E7%9F%A5%E5%92%8C%E5%9F%BA%E7%A1%80%E8%AF%AD%E6%B3%95/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/python%E5%9F%BA%E7%A1%80%E8%AE%A4%E7%9F%A5%E5%92%8C%E5%9F%BA%E7%A1%80%E8%AF%AD%E6%B3%95/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  2.7k
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  11
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+      
+      
+
+      
+        <h2 id="Pytho解释器"><a href="#Pytho解释器" class="headerlink" title="Pytho解释器"></a>Pytho解释器</h2><p>官方CPython</p>
+<ul>
+<li>C语言开发，最广泛的Python解释器</li>
+</ul>
+<p>IPython</p>
+<ul>
+<li>一个交互式、功能增强的Cpython</li>
+</ul>
+<p>PyPy</p>
+<ul>
+<li><p>Python语言写的Python解释器，JIT技术，动态编译Python代码</p>
+<p>Jython</p>
+<ul>
+<li>Python的源代码编译成Java的字节码，跑在JVM上</li>
+</ul>
+</li>
+</ul>
+<p>IronPython</p>
+<ul>
+<li>与Jython类似，运行在.Net平台上的解释器，Python代码被编译成.Net的字节码</li>
+</ul>
+<h2 id="Python基础语法"><a href="#Python基础语法" class="headerlink" title="Python基础语法"></a>Python基础语法</h2><h3 id="注释"><a href="#注释" class="headerlink" title="注释"></a>注释</h3><p>#标注的文本  </p>
+<h3 id="数字"><a href="#数字" class="headerlink" title="数字"></a>数字</h3><ul>
+<li>整数，不区分long和int</li>
+<li>进制0xa、0o10、0b10</li>
+<li>bool，2个值True、False</li>
+<li>浮点数<br>1.2、3.1415、-0.12，1.46e9等价于1.46*109</li>
+<li>复数，1+2j</li>
+</ul>
+<h3 id="字符串"><a href="#字符串" class="headerlink" title="字符串"></a>字符串</h3><ul>
+<li>使用’ “ 单双引号引用的字符的序列</li>
+<li>‘’’和””” 单双三引号，可以跨行、可以在其中自由的使用单双引号</li>
+<li>在字符串前面加上r或者R前缀，表示该字符串不做特殊的处理</li>
+</ul>
+<h3 id="转义序列"><a href="#转义序列" class="headerlink" title="转义序列"></a>转义序列</h3><p> \\ \t \r \n \‘ \“<br>前缀r，把里面的所有字符当普通字符对待</p>
+<h3 id="缩进"><a href="#缩进" class="headerlink" title="缩进"></a>缩进</h3><p>未使用C等语言的花括号，而是采用缩进的方式表示层次关系<br>约定使用4个空格缩进</p>
+<h3 id="续行"><a href="#续行" class="headerlink" title="续行"></a>续行</h3><p>在行尾使用<br>如果使用各种括号，认为括号内是一个整体，内部跨行不用\</p>
+<h3 id="标识符"><a href="#标识符" class="headerlink" title="标识符"></a>标识符</h3><ol>
+<li>一个名字，用来指代一个值</li>
+<li>只能字母、下划线和数字</li>
+<li>只能以字母或下划线开头</li>
+<li>不能是python的关键字，例如def、class就不能作为标识符</li>
+<li>Python是大小写敏感的<br>约定：<br>不允许使用中文<br>不允许使用歧义单词，例如class_<br>在python中不要随便使用下划线开头的表示符</li>
+</ol>
+<h3 id="常量"><a href="#常量" class="headerlink" title="常量"></a>常量</h3><p>一旦赋值就不能改变值的标识符<br>python中无法定义常量</p>
+<h3 id="字面常量"><a href="#字面常量" class="headerlink" title="字面常量"></a>字面常量</h3><p>一个单独的量，例如12、”abc” 、’2341356514.03e-9’</p>
+<h3 id="变量"><a href="#变量" class="headerlink" title="变量"></a>变量</h3><p>赋值后，可以改变值的标识符</p>
+<h3 id="Python的语言类型"><a href="#Python的语言类型" class="headerlink" title="Python的语言类型"></a>Python的语言类型</h3><p>Python是动态语言、强类型语言</p>
+<ul>
+<li>静态编译语言<br>实现声明变量类型，类型不能再改变<br>编译时检查</li>
+<li>动态编译语言<br>不用事先声明类型，随时可以赋值为其他类型<br>编程时不知道是什么类型，很难推断</li>
+<li>强类型语言<br>不同类型之间操作，必须先强制类型转换为同一类型。print(‘a’+1)</li>
+<li>弱类型语言<br>不同类型间可以操作，自动隐式转换，JavaScript中console.log(1+’a’)</li>
+<li><img src="https://raw.githubusercontent.com/ashjian/picBed/master/20210217114036.png" alt="image-20210216120700326"></li>
+</ul>
+<h3 id="运算符Operator"><a href="#运算符Operator" class="headerlink" title="运算符Operator"></a>运算符Operator</h3><ul>
+<li>算数运算符</li>
+</ul>
+<p>​       + - * / % **  </p>
+<p>​       自然除/结果是浮点数，整除//。注：2.x中/和//都是整除</p>
+<ul>
+<li><p>位运算符<br>&amp; | ~ ^ &lt;&lt; &gt;&gt;<br>常用方式：乘除2的倍数，32 // 4相当于32 &gt;&gt; 2<br>12，0xc，0o14，0b1100<br>~12等于多少，为什么</p>
+</li>
+<li><p>比较运算符<br>== != &gt; &lt; &gt;= &lt;=<br>返回一个bool值<br>1 &lt; ‘1’ 1 == ‘1’</p>
+</li>
+<li><p>链式比较操作符<br>4&gt;3&gt;2 4&gt;mynumber &gt;=1</p>
+</li>
+<li><p>逻辑运算符<br>与或非and or not</p>
+</li>
+<li><p>短路运算符<br>and 如果第一个表达式为False，后面就没有必要计算了，这个逻辑表达式一定是False<br>or 如果第一个表达式True，后面没有必要计算了，这个逻辑表达式一定是True</p>
+</li>
+<li><p>赋值运算符<br>a = min(3,5)<br>+= -= *= /= %= 等<br>x = y = z = 10</p>
+</li>
+<li><p>成员运算符<br>in、not in</p>
+</li>
+<li><p>身份运算符<br>is 、is not</p>
+</li>
+</ul>
+<h3 id="运算符优先级（由高到低）"><a href="#运算符优先级（由高到低）" class="headerlink" title="运算符优先级（由高到低）"></a>运算符优先级（由高到低）</h3><p><img src="https://raw.githubusercontent.com/ashjian/picBed/master/20210217114030.png" alt="image-20210216120629665"></p>
+<p>算数运算符&gt; 位运算符&gt;身份运算符&gt; 成员运算符&gt; 逻辑运算符<br>记不住，用括号<br>长表达式，多用括号，<br>易懂、易读</p>
+<h3 id="表达式Expression"><a href="#表达式Expression" class="headerlink" title="表达式Expression"></a>表达式Expression</h3><p>由数字、符号、括号、变量等的组合<br>算数表达式<br>逻辑表达式<br>赋值表达式<br>Python中，赋值即定义，如果一个变量已经定义，赋值相当于重新定义</p>
+<h3 id="内存管理"><a href="#内存管理" class="headerlink" title="内存管理"></a>内存管理</h3><p>变量无须事先声明，也不需要指定类型<br>动态语言的特性<br>编程中一般无须关心变量的存亡，也不用关心内存的管理<br>python使用引用计数记录所有对象的引用数<br>当对象引用数变为0，它就可以被垃圾回收GC<br>计数增加：赋值给其它变量就增加引用计数，例如x=3;y=x<br>计数减少：<br>函数运行结束时，局部变量就会被自动销毁，对象引用计数减少<br>变量被赋值给其它对象。例如x=3;y=x;x=4<br>有关性能的时候，就需要考虑变量的引用问题，但是该释放内存，还是尽量不释放内存，看需求</p>
+<h3 id="程序控制"><a href="#程序控制" class="headerlink" title="程序控制"></a>程序控制</h3><ul>
+<li>顺序<br>按照先后顺序一条条执行<br>例如，先洗手，再吃饭，再洗碗</li>
+<li>分支<br>根据不同的情况判断，条件满足执行某条件下的语句<br>例如，先洗手，如果饭没有做好，玩游戏，如果饭做好了，就吃饭，如果饭都没有做，叫外卖</li>
+<li>循环<br>条件满足就反复执行，不满足就不执行或不再执行<br>例如，先洗手，看饭好了没有，没有好，一会来看一次是否好了，一会儿来看一次，直到饭好<br>了，才可是吃饭。这里循环的条件是饭没有好，饭没有好，就循环的来看饭好了没有。</li>
+<li>单分支结构<br>if语句<br>if condition:<pre><code>代码块</code></pre>condition必须是一个bool类型，这个地方有一个隐式转换bool(condition)<br>if 1&lt;2:<pre><code>print(&apos;1 less than 2&apos;)</code></pre> 代码块<br>类似于if语句的冒号后面的就是一个语句块<br>在if、for、def、class等</li>
+</ul>
+<h3 id="真值表"><a href="#真值表" class="headerlink" title="真值表"></a>真值表</h3><p><img src="https://raw.githubusercontent.com/ashjian/picBed/master/20210217114025.png" alt="image-20210216121225125"></p>
+<p>False等价布尔值，相当于bool(value)<br>空集合<br>空字符串<br>空字典<br>空列表<br>空元祖<br>None对象<br>0</p>
+<h3 id="多分支结构"><a href="#多分支结构" class="headerlink" title="多分支结构"></a>多分支结构</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs plain">if...elif...else语句<br>if condition1:<br>	代码块1<br>elif condition2:<br>	代码块2<br>elif condition3:<br>	代码块3<br>......<br>else:<br>	代码块<br></code></pre></td></tr></table></figure>
+
+<p>举例</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs plain">a &#x3D; 5<br>if a&lt;0:<br>	print(&#39;negative&#39;)<br>elif a&#x3D;&#x3D;0:<br>	print(&#39;zero&#39;)<br>else:<br>	print(&#39;positive<br></code></pre></td></tr></table></figure>
+
+
+
+<h3 id="分支嵌套"><a href="#分支嵌套" class="headerlink" title="分支嵌套"></a>分支嵌套</h3><p>举例</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs plain">score &#x3D; 80<br>if score&lt;0:<br>	print(&#39;wrong&#39;)<br>else:<br>	if score&#x3D;&#x3D;0:<br>		print(&#39;egg&#39;)<br>	elif score &lt;&#x3D; 100:<br>		print(&#39;right&#39;)<br>	else:<br>		print(&#39;too big&#39;)<br></code></pre></td></tr></table></figure>
+
+<p>嵌套结构，可以是分支、循环的嵌套<br>可以互相嵌套多层</p>
+<p>练习：<br>输入2个数字，输出最大数</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs plain">x &#x3D; int(input(&quot;x&gt;&gt;&gt;&quot;))<br>y &#x3D; int(input(&quot;y&gt;&gt;&gt;&quot;))<br>if x &gt; y:<br>    print(&quot;the biggest number is &#123;&#125;&quot;.format(x) )<br>if x &lt; y:<br>    print(&quot;the biggest number is &#123;&#125;&quot;.format(y))<br></code></pre></td></tr></table></figure>
+
+<p>给定一个不超过5位的正整数，判断其有几位<br>使用input函数<br>input函数获取键盘输入input([prompt])</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><code class="hljs plain">val &#x3D; input(&#39;&gt;&gt;&gt;&#39;)<br>val &#x3D; int(val)<br>if val &gt;&#x3D; 1000: #fold<br>if val&gt;&#x3D;10000:<br>   print(5)<br>else:<br>   print(4)<br>else:<br>   if val&gt;&#x3D;100: <br>   print(3)<br>elif val &gt;&#x3D; 10:<br>   print(2)<br>else:<br>   print(1)<br></code></pre></td></tr></table></figure>
+
+
+
+<h3 id="循环——while语句"><a href="#循环——while语句" class="headerlink" title="循环——while语句"></a>循环——while语句</h3><p>语法<br>while condition:<br>block<br>当条件满足即condition为True，进入循环体，执行block<br>举例<br>flag=10<br>while flag:<br>    print(flag)<br>    flag -= 1<br>执行结果是什么？为什么？<br>如果flag=-10可以吗？如何改造？</p>
+<h3 id="循环——for语句"><a href="#循环——for语句" class="headerlink" title="循环——for语句*"></a>循环——for语句*</h3><p>语法<br>for element in iteratable:<br>    block<br>当可迭代对象中有元素可以迭代，进入循环体，执行block<br>range函数<br>举例：打印1~10<br>for i in range(10):<br>    print(i+1)<br>执行结果是什么？为什么？<br>如果想倒序打印呢？</p>
+<h3 id="循环continue语句"><a href="#循环continue语句" class="headerlink" title="循环continue语句"></a>循环continue语句</h3><p>中断当前循环的当次执行，继续下一次循环<br>举例：计算10以内的偶数（for循环）<br>for i in range(10):<br>    if not i%2:<br>    print(i)<br>还有其它的实现吗？</p>
+<p>举例：计算10以内的偶数（for循环）<br>for i in range(0,10,2):<br>    print(i)<br>for i in range(0,10):<br>    if i &amp; 1:<br>        continue<br>    print(i)</p>
+<h3 id="循环break语句"><a href="#循环break语句" class="headerlink" title="循环break语句"></a>循环break语句</h3><p>终止当前循环<br>举例：计算1000以内的被7整除的前20个数（for循环）<br>count = 0<br>for i in range(0,1000,7):<br>    print(i)<br>    count += 1<br>    if count &gt;= 20:<br>        break</p>
+<h3 id="循环continue、break语句"><a href="#循环continue、break语句" class="headerlink" title="循环continue、break语句"></a>循环continue、break语句</h3><p>总结<br>continue和break是循环的控制语句，只影响当前循环，包括while、for循环<br>如果循环嵌套， continue和break也只影响语句所在的那一层循环<br>continue和break 不是跳出语句块，所以if cond: break 不是跳出if，而是终止if外的break所<br>在的循环</p>
+<p>练习：<br>给定一个不超过5位的正整数，判断该数的位数，依次打印出个位、十位、百位、千位、万位的数字</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><code class="hljs plain">val &#x3D; input(&#39;&gt;&gt;&gt;&#39;)<br>val &#x3D; int(val)<br>print(val)<br>if val &gt;&#x3D; 1000: # 折半<br>	if val&gt;&#x3D;10000:<br>		num &#x3D; 5<br>	else:<br>		num &#x3D; 4<br>else:<br>	if val&gt;&#x3D;100:<br>		num &#x3D; 3<br>	elif val &gt;&#x3D; 10:<br>		num &#x3D; 2<br>	else:<br>		num &#x3D; 1<br>print(num)<br>c &#x3D; val<br>for i in range(num):<br>	n &#x3D; c &#x2F;&#x2F; 10<br>	print(c - n*10)<br>	c &#x3D; n # 如果打印顺序是从万位到个位，如何实现？<br>假设输入为54321<br>第一趟：54321 &#x2F;&#x2F; 10 &#x3D; 5432<br>54321 - 5432*10 &#x3D; 1<br>第二趟：5432 &#x2F;&#x2F; 10 &#x3D; 543<br>5432 - 543*10 &#x3D; 2<br>依次类推<br></code></pre></td></tr></table></figure>
+
+<p>练习：<br>给定一个不超过5位的正整数，判断该数的位数，依次从万位打印到个位的数字</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><code class="hljs plain">val &#x3D; input(&#39;&gt;&gt;&gt;&#39;)<br>val &#x3D; int(val)<br>print(val)<br>if val &gt;&#x3D; 1000: # 折半<br>	if val&gt;&#x3D;10000:<br>		num &#x3D; 5<br>	else:<br>		num &#x3D; 4<br>else:<br>	if val&gt;&#x3D;100:<br>		num &#x3D; 3<br>	elif val &gt;&#x3D; 10:<br>		num &#x3D; 2<br>	else:<br>		num &#x3D; 1<br>print(num)<br>pre &#x3D; 0<br>for i in range(num,0,-1):<br>	cur &#x3D; val&#x2F;&#x2F;(10**(i-1))<br>	print(cur - pre*10)<br>	pre &#x3D; cur<br>假设输入为54321<br>第一趟：cur &#x3D; 54321 &#x2F;&#x2F; 10000 &#x3D; 5<br>打印5 - 0<br>pre &#x3D; 5<br>第二趟：cur &#x3D; 54321 &#x2F;&#x2F; 1000 &#x3D; 54<br>打印54 - 5 * 10 &#x3D; 4<br>pre &#x3D; 54<br>第二趟：cur &#x3D; 54321 &#x2F;&#x2F; 100 &#x3D; 543<br>打印543 - 54 * 10 &#x3D; 3<br>pre &#x3D; 543<br>依次类推<br></code></pre></td></tr></table></figure>
+
+
+
+<h3 id="循环else子句"><a href="#循环else子句" class="headerlink" title="循环else子句"></a>循环else子句</h3><p>语法<br>while condition:<br>    block<br>else:<br>    block<br>for element in iteratable:<br>    block<br>else:<br>    block<br>如果循环正常的执行结束，就执行else子句；如果使用break终止，else子句不会执行</p>
+<p>练习：<br>打印一个边长为n的正方形</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs plain">n &#x3D; int(input(&quot;n&gt;&gt;&gt;&quot;))<br>for i in range(1,n+1):<br>    if i&#x3D;&#x3D;1 or i&#x3D;&#x3D;10-1:<br>        print(&quot;*&quot;*9)<br>    else:<br>        print(&quot;*&quot;,end&#x3D;&quot;&quot;)<br>        print(&quot; &quot;*7,end&#x3D;&quot;&quot;)<br>        print(&quot;*&quot;)<br></code></pre></td></tr></table></figure>
+
+<p>求100内所有奇数的和（2500）</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs plain">for i in range(101):<br>    if i%2&#x3D;&#x3D;1:<br>        sum+&#x3D;i<br>print(sum)<br></code></pre></td></tr></table></figure>
+
+<p>判断学生成绩，成绩等级A-E。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><code class="hljs plain">n&#x3D;int(input(&quot;请输入一个100以内的分数&gt;&gt;&gt;&quot;))<br>print(n)<br>if n&gt;&#x3D;90:<br>    print(&quot;A&quot;)<br>elif n&gt;&#x3D;80:<br>    print(&quot;B&quot;)<br>elif n&gt;&#x3D;70:<br>    print(&quot;C&quot;)<br>elif n&gt;&#x3D;60:<br>    print(&quot;D&quot;)<br>else:<br>    print(&quot;E&quot;)<br></code></pre></td></tr></table></figure>
+
+<p>求1到5阶乘之和</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs plain">def jiecheng( n ):<br>    if n&#x3D;&#x3D;1 or n&#x3D;&#x3D;0:<br>        return n<br>    else:<br>        return jiecheng(n-1)*n<br>n&#x3D;int(input(&quot;&gt;&gt;&gt;&quot;))<br>sum&#x3D;0<br>for i in range(n+1):<br>    sum+&#x3D;jiecheng(i)<br>print(sum)<br></code></pre></td></tr></table></figure>
+
+<p>给一个数，判断它是否是素数（质数）<br>质数：一个大于1的自然数只能被1和它本身整除</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs plain">n&#x3D;int(input(&quot;&gt;&gt;&gt;&quot;))<br>for i in range(2,n):<br>    if n%i&#x3D;&#x3D;0:<br>        print(&quot;不是质数&quot;)<br>        break<br>else:<br>    print(&quot;是质数&quot;)<br></code></pre></td></tr></table></figure>
+
+
+      
+    </div>
+    
+    
+    
+
+     <!-- 文章末尾统一添加“本文结束”标记 -->
+    <div>
+      
+        <div>
+    
+        <div style="text-align:center;color: #555;font-size:24px;"><-------------The End-------------></div>
+    
+</div>
+
+      
+    </div>
+    
+
+    
+      <div>
+        <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+  <div>坚持原创分享，你的支持就是我最大的动力！</div>
+  <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+    <span>打赏</span>
+  </button>
+  <div id="QR" style="display: none;">
+
+    
+      <div id="wechat" style="display: inline-block">
+        <img id="wechat_qr" src="/uploads/weixin_cash_code.png" alt="StarDustLoong 微信支付"/>
+        <p>微信支付</p>
+      </div>
+    
+
+    
+      <div id="alipay" style="display: inline-block">
+        <img id="alipay_qr" src="/uploads/alipay_cash_code.png" alt="StarDustLoong 支付宝"/>
+        <p>支付宝</p>
+      </div>
+    
+
+    
+
+  </div>
+</div>
+
+      </div>
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/python%E5%9F%BA%E7%A1%80/" rel="tag"># python基础</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/Python%E5%8F%98%E9%87%8F%E5%92%8C%E5%AF%B9%E8%B1%A1/" rel="next" title="Python变量和对象">
+                <i class="fa fa-chevron-left"></i> Python变量和对象
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/Python%E5%A4%9A%E7%89%88%E6%9C%AC%E7%AE%A1%E7%90%86%E5%99%A8pyenv/" rel="prev" title="Python多版本管理器pyenv">
+                Python多版本管理器pyenv <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+    </div>
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/uploads/avatar.png"
+                alt="StarDustLoong" />
+            
+              <p class="site-author-name" itemprop="name">StarDustLoong</p>
+              <p class="site-description motion-element" itemprop="description">人类如风一般的自由</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">2409</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">12</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">146</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+	   
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/StarDustLoong" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:13671474528@163.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://www.zhihu.com/people/ashjian-ar15" target="_blank" title="知乎">
+                      
+                        <i class="fa fa-fw fa-globe"></i>知乎</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://me.csdn.net/ashjian" target="_blank" title="CSDN">
+                      
+                        <i class="fa fa-fw fa-codiepie"></i>CSDN</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+            <div class="links-of-blogroll motion-element links-of-blogroll-inline">
+              <div class="links-of-blogroll-title">
+                <i class="fa  fa-fw fa-link"></i>
+                Links
+              </div>
+              <ul class="links-of-blogroll-list">
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="http://mp.weixin.qq.com/user1" title="OpenInfo" target="_blank">OpenInfo</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="http://mp.weixin.qq.com/user2" title="stormzhang" target="_blank">stormzhang</a>
+                  </li>
+                
+              </ul>
+            </div>
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Pytho解释器"><span class="nav-number">1.</span> <span class="nav-text">Pytho解释器</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Python基础语法"><span class="nav-number">2.</span> <span class="nav-text">Python基础语法</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#注释"><span class="nav-number">2.1.</span> <span class="nav-text">注释</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#数字"><span class="nav-number">2.2.</span> <span class="nav-text">数字</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#字符串"><span class="nav-number">2.3.</span> <span class="nav-text">字符串</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#转义序列"><span class="nav-number">2.4.</span> <span class="nav-text">转义序列</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#缩进"><span class="nav-number">2.5.</span> <span class="nav-text">缩进</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#续行"><span class="nav-number">2.6.</span> <span class="nav-text">续行</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#标识符"><span class="nav-number">2.7.</span> <span class="nav-text">标识符</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#常量"><span class="nav-number">2.8.</span> <span class="nav-text">常量</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#字面常量"><span class="nav-number">2.9.</span> <span class="nav-text">字面常量</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#变量"><span class="nav-number">2.10.</span> <span class="nav-text">变量</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Python的语言类型"><span class="nav-number">2.11.</span> <span class="nav-text">Python的语言类型</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#运算符Operator"><span class="nav-number">2.12.</span> <span class="nav-text">运算符Operator</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#运算符优先级（由高到低）"><span class="nav-number">2.13.</span> <span class="nav-text">运算符优先级（由高到低）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#表达式Expression"><span class="nav-number">2.14.</span> <span class="nav-text">表达式Expression</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#内存管理"><span class="nav-number">2.15.</span> <span class="nav-text">内存管理</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#程序控制"><span class="nav-number">2.16.</span> <span class="nav-text">程序控制</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#真值表"><span class="nav-number">2.17.</span> <span class="nav-text">真值表</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#多分支结构"><span class="nav-number">2.18.</span> <span class="nav-text">多分支结构</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#分支嵌套"><span class="nav-number">2.19.</span> <span class="nav-text">分支嵌套</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#循环——while语句"><span class="nav-number">2.20.</span> <span class="nav-text">循环——while语句</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#循环——for语句"><span class="nav-number">2.21.</span> <span class="nav-text">循环——for语句*</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#循环continue语句"><span class="nav-number">2.22.</span> <span class="nav-text">循环continue语句</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#循环break语句"><span class="nav-number">2.23.</span> <span class="nav-text">循环break语句</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#循环continue、break语句"><span class="nav-number">2.24.</span> <span class="nav-text">循环continue、break语句</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#循环else子句"><span class="nav-number">2.25.</span> <span class="nav-text">循环else子句</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">StarDustLoong</span>
+
+  
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-area-chart"></i>
+    </span>
+    
+      <span class="post-meta-item-text">本站总字数&#58;</span>
+    
+    <span title="本站总字数">635.5k</span>
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Pisces</a> v5.1.4</div>
+
+
+
+
+#<!-- 百度自动推送 -->
+#<script>
+#(function(){
+#    var bp = document.createElement('script');
+#    var curProtocol = window.location.protocol.split(':')[0];
+#    if (curProtocol === 'https') {
+#        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+#    }
+#    else {
+#        bp.src = 'http://push.ashjian.baidu.com/push.js';
+#    }
+#    var s = document.getElementsByTagName("script")[0];
+#    s.parentNode.insertBefore(bp, s);
+#})();
+#</script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aplayer/dist/APlayer.min.css">
+
+<script src="https://cdn.jsdelivr.net/npm/aplayer/dist/APlayer.min.js"></script>
+<!-- require MetingJS -->
+
+<script src="https://cdn.jsdelivr.net/npm/meting@2.0.1/dist/Meting.min.js"></script>
+<div> 
+<meting-js  
+    server="netease" 
+    type="playlist"  
+    id="5281251057" 
+    fixed="true"  
+    autoplay="false" 
+    loop="all" 
+    order="random"
+    preload="auto" 
+    list-folded="ture" 
+    list-max-height="500px" 
+    lrc-type="1">
+</meting-js>	 
+</div>
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv">
+      本站访客数
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+      人次
+    </span>
+  
+
+  
+    <span class="site-pv">
+      本站总访问量
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+      次
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+  <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+  <script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+  
+  <script type="text/javascript">
+    var GUEST = ['nick','mail','link'];
+    var guest = 'nick,mail,link';
+    guest = guest.split(',').filter(item=>{
+      return GUEST.indexOf(item)>-1;
+    });
+    new Valine({
+        el: '#comments' ,
+        verify: false,
+        notify: false,
+        appId: 'Gp5xxuBGmRxC9yeJHf5wlLpN-gzGzoHsz',
+        appKey: 'wo0eDJonJrnuUrCCCU7EnH1n',
+        placeholder: '欢迎评论',
+        avatar:'mm',
+        guest_info:guest,
+        pageSize:'20' || 10,
+    });
+  </script>
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"jsonPath":"/live2dw/assets/dsr50_lifu_normal.model.json"},"display":{"position":"right","width":700,"height":800,"hOffset":-250,"vOffset":-150},"mobile":{"show":true,"scale":0.7},"log":false});</script></body>
+</html>

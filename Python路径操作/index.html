@@ -1,0 +1,1544 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="pythonS路径操作," />
+
+
+
+
+  
+
+
+  <link rel="alternate" href="/atom.xml" title="" type="application/atom+xml" />
+
+
+
+
+
+
+<meta name="description" content="路径操作模块路径操作模块3.4版本之前 os.path模块 12345678910111213141516171819202122232425262728293031from os import pathp &#x3D; path.join(&#39;&#x2F;etc&#39;, &#39;sysconfig&#39;, &#39;network&#39;)print(1, type(p), p">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Python路径操作">
+<meta property="og:url" content="http://www.ashjian.xyz/Python%E8%B7%AF%E5%BE%84%E6%93%8D%E4%BD%9C/index.html">
+<meta property="og:site_name">
+<meta property="og:description" content="路径操作模块路径操作模块3.4版本之前 os.path模块 12345678910111213141516171819202122232425262728293031from os import pathp &#x3D; path.join(&#39;&#x2F;etc&#39;, &#39;sysconfig&#39;, &#39;network&#39;)print(1, type(p), p">
+<meta property="article:published_time" content="2021-05-29T07:46:15.415Z">
+<meta property="article:modified_time" content="2021-05-10T13:16:10.479Z">
+<meta property="article:author" content="StarDustLoong">
+<meta property="article:tag" content="pythonS路径操作">
+<meta name="twitter:card" content="summary">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://www.ashjian.xyz/Python路径操作/"/>
+
+
+
+
+
+  <title>Python路径操作 | </title>
+  
+
+
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?d7bf52f45e24a0e6f2951901a7a97864";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+<meta name="generator" content="Hexo 4.2.1"></head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title"></span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off"
+             placeholder="搜索..." spellcheck="false"
+             type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://www.ashjian.xyz/Python%E8%B7%AF%E5%BE%84%E6%93%8D%E4%BD%9C/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="StarDustLoong">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/uploads/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Python路径操作</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2021-05-29T15:46:15+08:00">
+                2021-05-29
+              </time>
+            
+
+            
+              <span class="post-meta-divider">|</span>
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-check-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">更新于&#58;</span>
+              
+              <time title="更新于" itemprop="dateModified" datetime="2021-05-10T21:16:10+08:00">
+                2021-05-10
+              </time>
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/python/" itemprop="url" rel="index">
+                    <span itemprop="name">python</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/Python%E8%B7%AF%E5%BE%84%E6%93%8D%E4%BD%9C/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/Python%E8%B7%AF%E5%BE%84%E6%93%8D%E4%BD%9C/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  2.4k
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  12
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+      
+      
+
+      
+        <h2 id="路径操作模块"><a href="#路径操作模块" class="headerlink" title="路径操作模块"></a>路径操作模块</h2><p>路径操作模块<br>3.4版本之前 os.path模块</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><code class="hljs plain">from os import path<br><br>p &#x3D; path.join(&#39;&#x2F;etc&#39;, &#39;sysconfig&#39;, &#39;network&#39;)<br>print(1, type(p), p)  # 路径的类型，输出路径<br>print(2, path.exists(p))  # 路径是否存在<br>print(3, path.split(p))  # 路径拆分(head, tail)<br>print(4, path.abspath(&#39;&#39;))  # 当前路径<br>p &#x3D; path.join(&#39;o:&#x2F;&#39;, p, &#39;test.txt&#39;)<br>print(5, path.dirname(p))  # 路径名<br>print(6, path.basename(p))  # 文件名<br>print(7, path.splitdrive(p))  # 以驱动器拆分输出路径<br>~~~~~~~~~~~~~~~~~~~~~~~~~~~~~<br>1 &lt;class &#39;str&#39;&gt; &#x2F;etc\sysconfig\network<br>2 False<br>3 (&#39;&#x2F;etc\\sysconfig&#39;, &#39;network&#39;)<br>4 C:\python10\code\Python06<br>5 o:&#x2F;etc\sysconfig\network<br>6 test.txt<br>7 (&#39;o:&#39;, &#39;&#x2F;etc\\sysconfig\\network\\test.txt&#39;)<br><br>p1 &#x3D; path.abspath(__file__)<br>print(p1, path.basename(p1))<br>while p1 !&#x3D; path.dirname(p1):<br>    p1 &#x3D; path.dirname(p1)<br>    print(p1, path.basename(p1))<br>~~~~~~~~~~~~~~~~~~~~~~~~~~~~~<br>C:\python10\code\Python06\test.py test.py<br>C:\python10\code\Python06 Python06<br>C:\python10\code code<br>C:\python10 python10<br>C:\<br></code></pre></td></tr></table></figure>
+
+<h3 id="3-4版本开始-pathlib模块"><a href="#3-4版本开始-pathlib模块" class="headerlink" title="3.4版本开始 pathlib模块"></a>3.4版本开始 pathlib模块</h3><ul>
+<li><p>建议使用pathlib模块，提供Path对象操作，包括目录和文件</p>
+</li>
+<li><p>from pathlib import Path</p>
+</li>
+</ul>
+<h2 id="pathlib模块-目录操作"><a href="#pathlib模块-目录操作" class="headerlink" title="pathlib模块-目录操作"></a>pathlib模块-目录操作</h2><h3 id="初始化"><a href="#初始化" class="headerlink" title="初始化"></a>初始化</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs plain">p &#x3D; Path()  # 当前目录<br>p &#x3D; Path(&#39;a&#39;, &#39;b&#39;, &#39;c&#x2F;d&#39;)  # 当前目录下的a&#x2F;b&#x2F;c&#x2F;d<br>p &#x3D; Path(&#39;&#x2F;etc&#39;)  # 根下的etc目录<br></code></pre></td></tr></table></figure>
+
+<ul>
+<li>路径拼接和分解</li>
+</ul>
+<h3 id="路径拼接-操作符"><a href="#路径拼接-操作符" class="headerlink" title="路径拼接 操作符/"></a>路径拼接 操作符/</h3><ul>
+<li>Path对象/Path对象</li>
+<li>Path对象/字符串或者字符串/Path对象</li>
+</ul>
+<h3 id="路径分解"><a href="#路径分解" class="headerlink" title="路径分解"></a>路径分解</h3><ul>
+<li>parts属性，可以返回路径中的每一个部分</li>
+</ul>
+<h3 id="joinpath"><a href="#joinpath" class="headerlink" title="joinpath"></a>joinpath</h3><ul>
+<li>joinpath(*other)连接多个字符串到path对象中</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><code class="hljs plain">from pathlib import Path<br><br>p &#x3D; Path()<br>p &#x3D; p &#x2F; &#39;a&#39;<br>p1 &#x3D; &#39;b&#39; &#x2F; p<br>p2 &#x3D; Path(&#39;c&#39;)<br>p3 &#x3D; p2 &#x2F; p1<br>print(1, p3)<br>print(2, p3.parts)<br>p4 &#x3D; p3.joinpath(&#39;etc&#39;, &#39;init.d&#39;, Path(&#39;httpd&#39;))<br>print(3, p4)<br>~~~~~~~~~~~~~~~~~~~~<br>1 c\b\a<br>2 (&#39;c&#39;, &#39;b&#39;, &#39;a&#39;)<br>3 c\b\a\etc\init.d\httpd<br></code></pre></td></tr></table></figure>
+
+<h3 id="获取路径"><a href="#获取路径" class="headerlink" title="获取路径"></a>获取路径</h3><ul>
+<li>str获取路径字符串</li>
+<li>bytes获取路径字符串的bytes</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs plain">from pathlib import Path<br><br>p &#x3D; Path(&#39;&#x2F;etc&#39;)<br>print(str(p), bytes(p))<br>~~~~~~~~~~~~~~~~~~~~~~~~~~<br>\etc b&#39;\\etc&#39;<br></code></pre></td></tr></table></figure>
+
+
+
+<p>父目录</p>
+<ul>
+<li><p>parent目录的逻辑父目录</p>
+</li>
+<li><p>parents父目录序列， 索引0是直接的父</p>
+</li>
+<li><p>例如，a/b/c/d, d[0]=a/b/c，索引0是直接的父</p>
+<table>
+<thead>
+<tr>
+<th>目录</th>
+<th>根目录或当前目录</th>
+<th>a/</th>
+<th>b/</th>
+<th>c/</th>
+<th>d/</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>索引</td>
+<td>3</td>
+<td>2</td>
+<td>1</td>
+<td>0</td>
+<td></td>
+</tr>
+<tr>
+<td>一般通过len(p.parents)-层数，获取想得到的目录</td>
+<td>len-1</td>
+<td>len-2</td>
+<td>len-3</td>
+<td>len-4</td>
+<td></td>
+</tr>
+</tbody></table>
+</li>
+</ul>
+  <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><code class="hljs plain">from pathlib import Path<br><br>p &#x3D; Path(&#39;a&#x2F;b&#x2F;c&#x2F;d&#39;)<br>print(0, p.parent)  # d索引0的父目录是<br>print(1, p.parent.parent) # d索引1的父目录是<br>print(2, p.parent.parent.parent)  # d索引2的父目录是<br>print(3, p.parent.parent.parent.parent)<br>for x in p.parents:  # x从0开始获取父目录<br>    print(x)<br>~~~~~~~~~~~~~~~~~~~~~<br>1 a\b\c<br>2 a\b<br>3 a<br>4 .<br>a\b\c<br>a\b<br>a.<br></code></pre></td></tr></table></figure>
+
+<ul>
+<li>name、Stem、Suffix、suffixes、with-suffix(suffix)、with-name(name)<ul>
+<li>name目录的最后一个部分</li>
+<li>suffix目录中最后一个部分的扩展名</li>
+<li>stem目录最后一个部分，没有后缀</li>
+<li>suffixes返回多个扩展名列表</li>
+<li>with-suffix(suffix)补充扩展名到路径尾部，返回新的路径，扩展名存在则无效</li>
+<li>with-name(name)替换目录最后一个部分并返回一个新的路径</li>
+</ul>
+</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><code class="hljs plain">from pathlib import Path<br><br>p &#x3D; Path(&#39;&#x2F;pythonedu&#x2F;mysqlinstall&#x2F;mysql.tar.gz&#39;)<br>print(1, p.name)<br>print(2, p.suffix)<br>print(3, p.suffixes)<br>print(4, p.stem)<br>print(5, p.with_name(&#39;mysql-5.tgz&#39;))<br>p &#x3D; Path(&#39;README&#39;)<br>print(6, p.with_suffix(&#39;.txt&#39;))<br>~~~~~~~~~~~~~~~~~~~~~~~~~~~<br>1 mysql.tar.gz<br>2 .gz<br>3 [&#39;.tar&#39;, &#39;.gz&#39;]<br>4 mysql.tar<br>5 \pythonedu\mysqlinstall\mysql-5.tgz<br>6 README.txt<br></code></pre></td></tr></table></figure>
+
+<ul>
+<li>cwd()返回当前工作目录</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs python">In [<span class="hljs-number">4</span>]: print(p.cwd())<br>/home/python/steven/projects/web12<br></code></pre></td></tr></table></figure>
+
+<ul>
+<li>home()返回当前家目录</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs python">In [<span class="hljs-number">5</span>]: print(p.home())<br>/home/python<br></code></pre></td></tr></table></figure>
+
+<ul>
+<li>is_判断<ul>
+<li>is_dir()是否是目录目录存在返回True</li>
+<li>is_file()是否是普通文件，文件存在返回True</li>
+<li>is_symlink()是否是软链接</li>
+<li>is_socket()是否是socket文件</li>
+<li>is_block_device()是否是块设备</li>
+<li>is_char_device()是否是字符设备</li>
+<li>is_absolute()是否是绝对路径</li>
+</ul>
+</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><code class="hljs plain">In [11]: p1 &#x3D; Path(&#39;&#x2F;dev&#39;)<br><br>In [12]: p1<br>Out[12]: PosixPath(&#39;&#x2F;dev&#39;)<br><br>In [13]: (p1 &#x2F; &#39;tty&#39;).is_char_device()<br>Out[13]: True<br><br>In [14]: (p1 &#x2F; &#39;tty&#39;).is_block_device()<br>Out[14]: False<br><br>In [15]: (p1 &#x2F; &#39;stdout&#39;).is_symlink()<br>Out[15]: True<br><br>In [16]: (p1 &#x2F; &#39;stdout&#39;).is_file()<br>Out[16]: False<br><br>In [17]: p2 &#x3D; Path()<br><br>In [18]: p2.is_absolute()<br>Out[18]: False<br></code></pre></td></tr></table></figure>
+
+<ul>
+<li>resolve()返回一个新的路径，这个新路径就是当前Path对象的绝对路径，如果是软链接则直接被解析</li>
+<li>absolute()也可以获取绝对路径，但是准荐使用resolve()</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs plain">In [19]: Path().resolve()<br>Out[19]: PosixPath(&#39;&#x2F;home&#x2F;python&#x2F;steven&#x2F;projects&#x2F;web&#39;)<br><br>In [4]: Path().absolute()<br>Out[4]: PosixPath(&#39;&#x2F;home&#x2F;python&#x2F;steven&#x2F;projects&#x2F;web&#39;)<br></code></pre></td></tr></table></figure>
+
+<ul>
+<li>exists()目录或文件是否存在</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs plain">In [8]: Path(&#39;&#x2F;etc&#x2F;test&#39;).exists()<br>Out[8]: False<br></code></pre></td></tr></table></figure>
+
+<ul>
+<li>rmdir()删除空目录。没有提供判断目录为空的方法</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs plain">In [10]: Path(&#39;&#x2F;tmp&#x2F;test&#39;).rmdir()<br><br>In [11]: ll &#x2F;tmp<br>total 0<br><br># 如果目录有文件，会报错<br>OSError: [Errno 39] Directory not empty: &#39;&#x2F;tmp&#x2F;test&#39;<br></code></pre></td></tr></table></figure>
+
+<ul>
+<li>touch(mode=0o666,exist_ok=True)创建一个文件</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs plain">In [29]: Path(&#39;&#x2F;tmp&#x2F;1.sh&#39;).touch()<br><br>In [30]: ll &#x2F;tmp<br>total 1<br>-rw-rw-r-- 1 python    0 Apr 25 08:39 1.sh<br></code></pre></td></tr></table></figure>
+
+<ul>
+<li>as_uri()将路径返回成URI，例如’file:///etc/passwd’</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs plain">In [31]: Path(&#39;&#x2F;tmp&#39;).as_uri()<br>Out[31]: &#39;file:&#x2F;&#x2F;&#x2F;tmp&#39;<br></code></pre></td></tr></table></figure>
+
+<ul>
+<li>mkdir(mode=0o777,parents=False,exist_ok=False)<br>parents，是否创建父目录，True等同于mkdir -P; False时，父目录不存在，则抛出FileNotFoundError<br>exist_ok参数，在3.5版本加入。False时，路径存在，抛出FileExistsError；True时，FileExistsErrori被忽略</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs plain">In [32]: Path(&#39;&#x2F;tmp&#x2F;test&#39;).mkdir()<br> <br>In [33]: ll &#x2F;tmp<br>total 1<br>drwxrwxr-x 2 python 4096 Apr 25 08:53 test&#x2F;<br><br>In [37]: Path(&#39;&#x2F;tmp&#x2F;a&#x2F;b&#x2F;c&#x2F;d&#39;).mkdir(parents&#x3D;True)<br><br>In [39]: Path(&#39;&#x2F;tmp&#x2F;a&#x2F;b&#x2F;c&#x2F;d&#39;).mkdir(parents&#x3D;True, exist_ok&#x3D;True)<br></code></pre></td></tr></table></figure>
+
+<ul>
+<li>iterdir()<ul>
+<li>迭代当前路径</li>
+</ul>
+</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><code class="hljs plain">from pathlib import Path<br><br>p &#x3D; Path()<br>p &#x2F;&#x3D; &#39;a&#x2F;b&#x2F;c&#x2F;d&#39;<br>print(0, p)<br>print(1, p.exists())  # False<br><br><br>p.mkdir()  # FileNotFoundError<br>print(2, p.exists())  # False<br>p.mkdir(parents&#x3D;True)<br>p.mkdir(parents&#x3D;True, exist_ok&#x3D;True)<br>p &#x2F;&#x3D; &#39;readme.txt&#39;<br>print(3, p)  # 3 a&#x2F;b&#x2F;c&#x2F;d&#x2F;readme.txt<br>p.parent.rmdir()  # a&#x2F;b&#x2F;c<br>p.parent.exists()  # False &#39;a&#x2F;b&#x2F;c&#39;<br>p.mkdir()  # FileNotFoundError<br>p.mkdir(parents&#x3D;True)  # 成功，&#39;a&#x2F;b&#x2F;c&#x2F;d&#x2F;readme.txt&#39;<br></code></pre></td></tr></table></figure>
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><code class="hljs plain"># 遍历，并判断文件类型，如果是目录是否可以判断其是否为空？<br><br>from pathlib import Path<br><br>p &#x3D; Path()<br>p &#x2F;&#x3D; &#39;a&#x2F;b&#x2F;c&#x2F;d&#x2F;readme.txt&#39;<br>p.mkdir(parents&#x3D;True, exist_ok&#x3D;True)<br><br>for x in p.parents[len(p.parents)-1].iterdir():<br>    &quot;&quot;&quot;<br>    p.parents[len(p.parents)-1],获取的是当前文件夹的位置, readme.txt的第4层父是. 为了获取.的位置<br>    p.parents[len(p.parents)-1].iterdir()，迭代生成器<br>    &quot;&quot;&quot;<br>    print(x, end&#x3D;&#39;\t&#39;)<br>    if x.is_dir():  # 判断是会否是文件夹<br>        flag &#x3D; False<br>        for _ in x.iterdir():  # 判断里面是否有文件夹<br>            flag &#x3D; True<br>            break<br>        # for 循环是否可以使用else子句<br>        print(&#39;dir&#39;, &#39;Not Empty&#39; if flag else &#39;Empyt&#39;, sep&#x3D;&#39;\t&#39;)<br>    elif x.is_file():  # 判断是否是文件<br>        print(&#39;file&#39;)<br>    else:<br>        print(&#39;other file&#39;)<br>~~~~~~~~~~~~~~~~~~~~<br>Untitled.ipynb  file<br>a   dir Not Empty<br>b   dir Empyt<br>Python10Training    dir Not Empty<br></code></pre></td></tr></table></figure>
+
+<h3 id="通配符"><a href="#通配符" class="headerlink" title="通配符"></a>通配符</h3><ul>
+<li>glob(pattern)通配给定的模式</li>
+<li>rglob(pattern)通配给定的模式，递归目录,返回一个生成器</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><code class="hljs plain">In [4]: list(Path().glob(&#39;test*&#39;))  # 返回当前对象下的test开头的文件<br>Out[4]: <br>[PosixPath(&#39;test.b&#39;),<br> PosixPath(&#39;test1.py&#39;),<br> PosixPath(&#39;test.a&#39;),<br> PosixPath(&#39;test.py&#39;)]<br><br>In [5]: list(Path().glob(&#39;**&#x2F;*.py&#39;))  #递归所有目录，等同rglob<br>Out[5]: [PosixPath(&#39;test1.py&#39;), PosixPath(&#39;test.py&#39;)]<br><br>In [6]: g &#x3D; Path().rglob(&#39;*.py&#39;)  # 生成器<br><br>In [7]: next(g)<br>Out[7]: PosixPath(&#39;test1.py&#39;)<br><br>In [8]: next(g)<br>Out[8]: PosixPath(&#39;test.py&#39;)<br></code></pre></td></tr></table></figure>
+
+<h3 id="匹配"><a href="#匹配" class="headerlink" title="匹配"></a>匹配</h3><ul>
+<li>match(pattern)</li>
+<li>模式匹配，成功返回True</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs plain">Path(&#39;a&#x2F;b.py&#39;).match(&#39;*.py&#39;)  # True<br>Path(&#39;&#x2F;a&#x2F;b&#x2F;c.py&#39;).match(&#39;b&#x2F;*.py&#39;)  # True<br>Path(&#39;&#x2F;a&#x2F;b&#x2F;c.py&#39;).match(&#39;a&#x2F;*.py&#39;)  # False<br>Path(&#39;&#x2F;a&#x2F;b&#x2F;c.py&#39;).match(&#39;a&#x2F;*&#x2F;*.py&#39;)  # True<br>Path(&#39;&#x2F;a&#x2F;b&#x2F;c.py&#39;).match(&#39;a&#x2F;**&#x2F;*.py&#39;)  # True<br>Path(&#39;&#x2F;a&#x2F;b&#x2F;c.py&#39;).match(&#39;**&#x2F;*.py&#39;)  # True<br></code></pre></td></tr></table></figure>
+
+<ul>
+<li>stat()相当于stat命令</li>
+<li>lasts()同stat()，但如果是符号链接，则显示符号链接本身的文件信息</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><code class="hljs plain">$ ln -s test t<br>$ ll<br>total 0<br>lrwxrwxrwx 1 python python 4 Apr 25 12:30 t -&gt; test<br>-rw-rw-r-- 1 python python 0 Apr 25 12:30 test<br>In [1]: from pathlib import Path<br><br>In [2]: p &#x3D; Path(&#39;test&#39;)<br><br>In [3]: p.stat()<br>Out[3]: os.stat_result(st_mode&#x3D;33204, st_ino&#x3D;917685, st_dev&#x3D;2050, st_nlink&#x3D;1, st_uid&#x3D;502, st_gid&#x3D;502, st_size&#x3D;0, st_atime&#x3D;1524630611, st_mtime&#x3D;1524630611, st_ctime&#x3D;1524630611)<br><br>In [4]: p1 &#x3D; Path(&#39;t&#39;)<br><br>In [5]: p1.stat()<br>Out[5]: os.stat_result(st_mode&#x3D;33204, st_ino&#x3D;917685, st_dev&#x3D;2050, st_nlink&#x3D;1, st_uid&#x3D;502, st_gid&#x3D;502, st_size&#x3D;0, st_atime&#x3D;1524630611, st_mtime&#x3D;1524630611, st_ctime&#x3D;1524630611)<br><br>In [7]: p1.lstat()<br>Out[7]: os.stat_result(st_mode&#x3D;41471, st_ino&#x3D;917686, st_dev&#x3D;2050, st_nlink&#x3D;1, st_uid&#x3D;502, st_gid&#x3D;502, st_size&#x3D;4, st_atime&#x3D;1524630620, st_mtime&#x3D;1524630618, st_ctime&#x3D;1524630618)<br></code></pre></td></tr></table></figure>
+
+<h3 id="文件操作"><a href="#文件操作" class="headerlink" title="文件操作"></a>文件操作</h3><ul>
+<li>open(mode=’r’,buffering=-1，encoding=None,errors=None,newline=None)</li>
+<li>使用方法类似内建函数open。返回一个文件对象</li>
+</ul>
+<h3 id="3-5增加的新函数"><a href="#3-5增加的新函数" class="headerlink" title="3.5增加的新函数"></a>3.5增加的新函数</h3><ul>
+<li>read_bytes()<ul>
+<li>以’rb’读取路径对应文件，并返回二进制流。看源码</li>
+</ul>
+</li>
+<li>read_text(encoding=None,errors=None)<ul>
+<li>以’rt’方式读取路径对应文件，返回文本。</li>
+</ul>
+</li>
+<li>Path.write_bytes(data)<ul>
+<li>以’wb’方式写入数据到路径对应文件。</li>
+</ul>
+</li>
+<li>write_text(data,encoding=None,errors=None)<ul>
+<li>以’wt方式写入字符串到路径对应文件。</li>
+</ul>
+</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><code class="hljs plain">In [4]: p &#x3D; Path(&#39;my_binary_file&#39;)<br><br>In [5]: p.write_bytes(b&#39;Binary file contents&#39;)<br>Out[5]: 20<br><br>In [6]: p.read_bytes()<br>Out[6]: b&#39;Binary file contents&#39;<br><br>In [7]: p &#x3D; Path(&#39;my_test_file&#39;)<br><br>In [8]: p.write_text(&#39;Text file contents&#39;)<br>Out[8]: 18<br><br>In [9]: p.read_text()<br>Out[9]: &#39;Text file contents&#39;<br></code></pre></td></tr></table></figure>
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs plain">from pathlib import Path<br>p &#x3D; Path(&#39;test.py&#39;)<br>p.write_text(&#39;hello python&#39;)<br>print(p.read_text())<br>with p.open() as f:<br>    print(f.read(5))<br>~~~~~~~~~~~~~~~~~~~~~~~~~<br>hello python<br>hello<br></code></pre></td></tr></table></figure>
+
+
+      
+    </div>
+    
+    
+    
+
+     <!-- 文章末尾统一添加“本文结束”标记 -->
+    <div>
+      
+        <div>
+    
+        <div style="text-align:center;color: #555;font-size:24px;"><-------------The End-------------></div>
+    
+</div>
+
+      
+    </div>
+    
+
+    
+      <div>
+        <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+  <div>坚持原创分享，你的支持就是我最大的动力！</div>
+  <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+    <span>打赏</span>
+  </button>
+  <div id="QR" style="display: none;">
+
+    
+      <div id="wechat" style="display: inline-block">
+        <img id="wechat_qr" src="/uploads/weixin_cash_code.png" alt="StarDustLoong 微信支付"/>
+        <p>微信支付</p>
+      </div>
+    
+
+    
+      <div id="alipay" style="display: inline-block">
+        <img id="alipay_qr" src="/uploads/alipay_cash_code.png" alt="StarDustLoong 支付宝"/>
+        <p>支付宝</p>
+      </div>
+    
+
+    
+
+  </div>
+</div>
+
+      </div>
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/pythonS%E8%B7%AF%E5%BE%84%E6%93%8D%E4%BD%9C/" rel="tag"># pythonS路径操作</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/Python%E7%9A%84shuttil%E6%A8%A1%E5%9D%97/" rel="next" title="Python的shuttil模块">
+                <i class="fa fa-chevron-left"></i> Python的shuttil模块
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/Python%E6%96%87%E4%BB%B6%E6%93%8D%E4%BD%9C/" rel="prev" title="Python文件操作">
+                Python文件操作 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+    </div>
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/uploads/avatar.png"
+                alt="StarDustLoong" />
+            
+              <p class="site-author-name" itemprop="name">StarDustLoong</p>
+              <p class="site-description motion-element" itemprop="description">人类如风一般的自由</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">2409</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">12</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">146</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+	   
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/StarDustLoong" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:13671474528@163.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://www.zhihu.com/people/ashjian-ar15" target="_blank" title="知乎">
+                      
+                        <i class="fa fa-fw fa-globe"></i>知乎</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://me.csdn.net/ashjian" target="_blank" title="CSDN">
+                      
+                        <i class="fa fa-fw fa-codiepie"></i>CSDN</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+            <div class="links-of-blogroll motion-element links-of-blogroll-inline">
+              <div class="links-of-blogroll-title">
+                <i class="fa  fa-fw fa-link"></i>
+                Links
+              </div>
+              <ul class="links-of-blogroll-list">
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="http://mp.weixin.qq.com/user1" title="OpenInfo" target="_blank">OpenInfo</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="http://mp.weixin.qq.com/user2" title="stormzhang" target="_blank">stormzhang</a>
+                  </li>
+                
+              </ul>
+            </div>
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#路径操作模块"><span class="nav-number">1.</span> <span class="nav-text">路径操作模块</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#3-4版本开始-pathlib模块"><span class="nav-number">1.1.</span> <span class="nav-text">3.4版本开始 pathlib模块</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#pathlib模块-目录操作"><span class="nav-number">2.</span> <span class="nav-text">pathlib模块-目录操作</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#初始化"><span class="nav-number">2.1.</span> <span class="nav-text">初始化</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#路径拼接-操作符"><span class="nav-number">2.2.</span> <span class="nav-text">路径拼接 操作符&#x2F;</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#路径分解"><span class="nav-number">2.3.</span> <span class="nav-text">路径分解</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#joinpath"><span class="nav-number">2.4.</span> <span class="nav-text">joinpath</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#获取路径"><span class="nav-number">2.5.</span> <span class="nav-text">获取路径</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#通配符"><span class="nav-number">2.6.</span> <span class="nav-text">通配符</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#匹配"><span class="nav-number">2.7.</span> <span class="nav-text">匹配</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#文件操作"><span class="nav-number">2.8.</span> <span class="nav-text">文件操作</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-5增加的新函数"><span class="nav-number">2.9.</span> <span class="nav-text">3.5增加的新函数</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">StarDustLoong</span>
+
+  
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-area-chart"></i>
+    </span>
+    
+      <span class="post-meta-item-text">本站总字数&#58;</span>
+    
+    <span title="本站总字数">635.5k</span>
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Pisces</a> v5.1.4</div>
+
+
+
+
+#<!-- 百度自动推送 -->
+#<script>
+#(function(){
+#    var bp = document.createElement('script');
+#    var curProtocol = window.location.protocol.split(':')[0];
+#    if (curProtocol === 'https') {
+#        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+#    }
+#    else {
+#        bp.src = 'http://push.ashjian.baidu.com/push.js';
+#    }
+#    var s = document.getElementsByTagName("script")[0];
+#    s.parentNode.insertBefore(bp, s);
+#})();
+#</script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aplayer/dist/APlayer.min.css">
+
+<script src="https://cdn.jsdelivr.net/npm/aplayer/dist/APlayer.min.js"></script>
+<!-- require MetingJS -->
+
+<script src="https://cdn.jsdelivr.net/npm/meting@2.0.1/dist/Meting.min.js"></script>
+<div> 
+<meting-js  
+    server="netease" 
+    type="playlist"  
+    id="5281251057" 
+    fixed="true"  
+    autoplay="false" 
+    loop="all" 
+    order="random"
+    preload="auto" 
+    list-folded="ture" 
+    list-max-height="500px" 
+    lrc-type="1">
+</meting-js>	 
+</div>
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv">
+      本站访客数
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+      人次
+    </span>
+  
+
+  
+    <span class="site-pv">
+      本站总访问量
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+      次
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+  <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+  <script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+  
+  <script type="text/javascript">
+    var GUEST = ['nick','mail','link'];
+    var guest = 'nick,mail,link';
+    guest = guest.split(',').filter(item=>{
+      return GUEST.indexOf(item)>-1;
+    });
+    new Valine({
+        el: '#comments' ,
+        verify: false,
+        notify: false,
+        appId: 'Gp5xxuBGmRxC9yeJHf5wlLpN-gzGzoHsz',
+        appKey: 'wo0eDJonJrnuUrCCCU7EnH1n',
+        placeholder: '欢迎评论',
+        avatar:'mm',
+        guest_info:guest,
+        pageSize:'20' || 10,
+    });
+  </script>
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"jsonPath":"/live2dw/assets/dsr50_lifu_normal.model.json"},"display":{"position":"right","width":700,"height":800,"hOffset":-250,"vOffset":-150},"mobile":{"show":true,"scale":0.7},"log":false});</script></body>
+</html>

@@ -1,0 +1,1508 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="只狼," />
+
+
+
+
+  
+
+
+  <link rel="alternate" href="/atom.xml" title="" type="application/atom+xml" />
+
+
+
+
+
+
+<meta name="description" content="非本人原创，用于个人收藏，转载：https:&#x2F;&#x2F;www.gcores.com&#x2F;articles&#x2F;118473恭喜只狼拿到年度游戏了，老贼陪跑多年这次也算实至名归，心疼我秀夫一秒，两个月前分析过一篇只狼的场景设计。这次从另外的角度聊一聊，可能对现在的游戏场景设计有另外一些启发。 本篇6800字，并且有些理论需要一定时间消化，请找一个合适的时间进行阅读。 如画构成欧洲造园的如画式风格，被视为受到过中国">
+<meta property="og:type" content="article">
+<meta property="og:title" content="从传统东方园林的造园思路，看《只狼》的场景设计">
+<meta property="og:url" content="http://www.ashjian.xyz/%E4%BB%8E%E4%BC%A0%E7%BB%9F%E4%B8%9C%E6%96%B9%E5%9B%AD%E6%9E%97%E7%9A%84%E9%80%A0%E5%9B%AD%E6%80%9D%E8%B7%AF%EF%BC%8C%E7%9C%8B%E3%80%8A%E5%8F%AA%E7%8B%BC%E3%80%8B%E7%9A%84%E5%9C%BA%E6%99%AF%E8%AE%BE%E8%AE%A1/index.html">
+<meta property="og:site_name">
+<meta property="og:description" content="非本人原创，用于个人收藏，转载：https:&#x2F;&#x2F;www.gcores.com&#x2F;articles&#x2F;118473恭喜只狼拿到年度游戏了，老贼陪跑多年这次也算实至名归，心疼我秀夫一秒，两个月前分析过一篇只狼的场景设计。这次从另外的角度聊一聊，可能对现在的游戏场景设计有另外一些启发。 本篇6800字，并且有些理论需要一定时间消化，请找一个合适的时间进行阅读。 如画构成欧洲造园的如画式风格，被视为受到过中国">
+<meta property="og:image" content="https://image.gcores.com/7a19340d-bdef-4bdb-9bdd-abaee8bffd6f.JPG?x-oss-process=image/resize,limit_1,m_lfit,w_700,h_2000/quality,q_90/watermark,image_d2F0ZXJtYXJrLnBuZw,g_se,x_10,y_10">
+<meta property="og:image" content="https://image.gcores.com/4d7d8525-068c-4aea-ac43-c474cd8d4ae9.jpg?x-oss-process=image/resize,limit_1,m_lfit,w_700,h_2000/quality,q_90/watermark,image_d2F0ZXJtYXJrLnBuZw,g_se,x_10,y_10">
+<meta property="og:image" content="https://image.gcores.com/0b5f8331-3230-4169-9c49-a86d5c1d2b2c.jpg?x-oss-process=image/resize,limit_1,m_lfit,w_700,h_2000/quality,q_90/watermark,image_d2F0ZXJtYXJrLnBuZw,g_se,x_10,y_10">
+<meta property="og:image" content="https://image.gcores.com/a7d44b6b-4cb5-44fc-befb-3acc2ca6049b.jpg?x-oss-process=image/resize,limit_1,m_lfit,w_700,h_2000/quality,q_90/watermark,image_d2F0ZXJtYXJrLnBuZw,g_se,x_10,y_10">
+<meta property="og:image" content="https://image.gcores.com/026089fe-7734-4f68-b05f-d409bd890dcc.jpg?x-oss-process=image/resize,limit_1,m_lfit,w_700,h_2000/quality,q_90/watermark,image_d2F0ZXJtYXJrLnBuZw,g_se,x_10,y_10">
+<meta property="og:image" content="https://image.gcores.com/fa0bc3ee-c209-4981-b938-15db06d9adef.jpg?x-oss-process=image/resize,limit_1,m_lfit,w_700,h_2000/quality,q_90/watermark,image_d2F0ZXJtYXJrLnBuZw,g_se,x_10,y_10">
+<meta property="og:image" content="https://image.gcores.com/2b21d911-7014-4c0f-81a3-8d17788ff435.jpg?x-oss-process=image/resize,limit_1,m_lfit,w_700,h_2000/quality,q_90/watermark,image_d2F0ZXJtYXJrLnBuZw,g_se,x_10,y_10">
+<meta property="og:image" content="https://image.gcores.com/96da26e1-a99f-4508-81e6-a817741ca49f.jpg?x-oss-process=image/resize,limit_1,m_lfit,w_700,h_2000/quality,q_90/watermark,image_d2F0ZXJtYXJrLnBuZw,g_se,x_10,y_10">
+<meta property="og:image" content="https://image.gcores.com/83168fe6-0f6c-42f8-bce6-be68f2677496.gif?x-oss-process=image/resize,limit_1,m_lfit,w_700,h_2000">
+<meta property="og:image" content="https://image.gcores.com/6ffcf43b-147d-4de5-af4e-dbea5ee9bd73.gif?x-oss-process=image/resize,limit_1,m_lfit,w_700,h_2000">
+<meta property="og:image" content="https://image.gcores.com/82030587-e111-42de-b4c4-dfeb9c9dbc2d.gif?x-oss-process=image/resize,limit_1,m_lfit,w_700,h_2000">
+<meta property="og:image" content="https://image.gcores.com/899a8d59-5a9a-4fd4-9b12-af48a0cf978a.gif?x-oss-process=image/resize,limit_1,m_lfit,w_700,h_2000">
+<meta property="og:image" content="https://image.gcores.com/4312916f-d475-45fb-8179-72af7dd5852d.jpg?x-oss-process=image/resize,limit_1,m_lfit,w_700,h_2000/quality,q_90/watermark,image_d2F0ZXJtYXJrLnBuZw,g_se,x_10,y_10">
+<meta property="og:image" content="https://image.gcores.com/70a3e4d3-349a-40bf-b1e1-2d15ed4477c8.jpg?x-oss-process=image/resize,limit_1,m_lfit,w_700,h_2000/quality,q_90/watermark,image_d2F0ZXJtYXJrLnBuZw,g_se,x_10,y_10">
+<meta property="og:image" content="https://image.gcores.com/6433f96c-6f16-430a-91ad-3ac0af041b4d.jpg?x-oss-process=image/resize,limit_1,m_lfit,w_700,h_2000/quality,q_90/watermark,image_d2F0ZXJtYXJrLnBuZw,g_se,x_10,y_10">
+<meta property="og:image" content="https://image.gcores.com/8bf09192-2a99-4191-b4fb-b5bf250695b3.jpg?x-oss-process=image/resize,limit_1,m_lfit,w_700,h_2000/quality,q_90/watermark,image_d2F0ZXJtYXJrLnBuZw,g_se,x_10,y_10">
+<meta property="og:image" content="https://image.gcores.com/7990dd38-0571-47d9-86e3-d753b87b3a0f.jpg?x-oss-process=image/resize,limit_1,m_lfit,w_700,h_2000/quality,q_90/watermark,image_d2F0ZXJtYXJrLnBuZw,g_se,x_10,y_10">
+<meta property="og:image" content="https://image.gcores.com/b3290faf-965a-4ba8-8540-d580fd002693.jpg?x-oss-process=image/resize,limit_1,m_lfit,w_700,h_2000/quality,q_90/watermark,image_d2F0ZXJtYXJrLnBuZw,g_se,x_10,y_10">
+<meta property="og:image" content="https://image.gcores.com/a6a441df-e2ac-4121-8dea-0a4cf1df5b2b.jpg?x-oss-process=image/resize,limit_1,m_lfit,w_700,h_2000/quality,q_90/watermark,image_d2F0ZXJtYXJrLnBuZw,g_se,x_10,y_10">
+<meta property="og:image" content="https://image.gcores.com/04fe6beb-4ab1-4c4a-90a5-adac5bece146.gif?x-oss-process=image/resize,limit_1,m_lfit,w_700,h_2000">
+<meta property="og:image" content="https://image.gcores.com/644d9c9d-0f1c-4a20-8f25-39f50a135214.gif?x-oss-process=image/resize,limit_1,m_lfit,w_700,h_2000">
+<meta property="og:image" content="https://image.gcores.com/b13409cf-9865-4fc6-88c6-a1caffa43401.jpg?x-oss-process=image/resize,limit_1,m_lfit,w_700,h_2000/quality,q_90/watermark,image_d2F0ZXJtYXJrLnBuZw,g_se,x_10,y_10">
+<meta property="og:image" content="https://image.gcores.com/56a151f6-6e92-48ea-8bbd-d319884de96f.gif?x-oss-process=image/resize,limit_1,m_lfit,w_700,h_2000">
+<meta property="og:image" content="https://image.gcores.com/102023df-ad5a-4413-9a2a-8b49fcf1194b.jpg?x-oss-process=image/resize,limit_1,m_lfit,w_700,h_2000/quality,q_90/watermark,image_d2F0ZXJtYXJrLnBuZw,g_se,x_10,y_10">
+<meta property="og:image" content="https://image.gcores.com/e0b3e143-c575-4034-b923-e2b88c1798a2.gif?x-oss-process=image/resize,limit_1,m_lfit,w_700,h_2000">
+<meta property="og:image" content="https://image.gcores.com/ce25e153-9ed0-4780-9c80-31f756621f88.gif?x-oss-process=image/resize,limit_1,m_lfit,w_700,h_2000">
+<meta property="og:image" content="https://image.gcores.com/536d4b83-010e-45c0-aec2-7ee266bbfb86.JPG?x-oss-process=image/resize,limit_1,m_lfit,w_700,h_2000/quality,q_90/watermark,image_d2F0ZXJtYXJrLnBuZw,g_se,x_10,y_10">
+<meta property="og:image" content="https://image.gcores.com/cb57d2a3-50ce-4eab-b1d2-fdd80be1314a.gif?x-oss-process=image/resize,limit_1,m_lfit,w_700,h_2000">
+<meta property="og:image" content="https://image.gcores.com/dcdc051d-2e54-4bdf-844a-a8e735c62952.jpg?x-oss-process=image/resize,limit_1,m_lfit,w_700,h_2000/quality,q_90/watermark,image_d2F0ZXJtYXJrLnBuZw,g_se,x_10,y_10">
+<meta property="og:image" content="https://image.gcores.com/e8379f35-90bb-4c5f-acc1-8345f013e539.jpg?x-oss-process=image/resize,limit_1,m_lfit,w_700,h_2000/quality,q_90/watermark,image_d2F0ZXJtYXJrLnBuZw,g_se,x_10,y_10">
+<meta property="og:image" content="https://image.gcores.com/6d8da677-3026-46d9-acf0-d5cbe204a6ac.gif?x-oss-process=image/resize,limit_1,m_lfit,w_700,h_2000">
+<meta property="og:image" content="https://image.gcores.com/18ed46cf-e15d-404d-98e1-9acd68fbd850.gif?x-oss-process=image/resize,limit_1,m_lfit,w_700,h_2000">
+<meta property="article:published_time" content="2020-07-23T07:07:10.000Z">
+<meta property="article:modified_time" content="2021-03-26T10:02:10.303Z">
+<meta property="article:author" content="StarDustLoong">
+<meta property="article:tag" content="只狼">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://image.gcores.com/7a19340d-bdef-4bdb-9bdd-abaee8bffd6f.JPG?x-oss-process=image/resize,limit_1,m_lfit,w_700,h_2000/quality,q_90/watermark,image_d2F0ZXJtYXJrLnBuZw,g_se,x_10,y_10">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://www.ashjian.xyz/从传统东方园林的造园思路，看《只狼》的场景设计/"/>
+
+
+
+
+
+  <title>从传统东方园林的造园思路，看《只狼》的场景设计 | </title>
+  
+
+
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?d7bf52f45e24a0e6f2951901a7a97864";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+<meta name="generator" content="Hexo 4.2.1"></head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title"></span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off"
+             placeholder="搜索..." spellcheck="false"
+             type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://www.ashjian.xyz/%E4%BB%8E%E4%BC%A0%E7%BB%9F%E4%B8%9C%E6%96%B9%E5%9B%AD%E6%9E%97%E7%9A%84%E9%80%A0%E5%9B%AD%E6%80%9D%E8%B7%AF%EF%BC%8C%E7%9C%8B%E3%80%8A%E5%8F%AA%E7%8B%BC%E3%80%8B%E7%9A%84%E5%9C%BA%E6%99%AF%E8%AE%BE%E8%AE%A1/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="StarDustLoong">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/uploads/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">从传统东方园林的造园思路，看《只狼》的场景设计</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-07-23T15:07:10+08:00">
+                2020-07-23
+              </time>
+            
+
+            
+              <span class="post-meta-divider">|</span>
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-check-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">更新于&#58;</span>
+              
+              <time title="更新于" itemprop="dateModified" datetime="2021-03-26T18:02:10+08:00">
+                2021-03-26
+              </time>
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E6%B8%B8%E6%88%8F/" itemprop="url" rel="index">
+                    <span itemprop="name">游戏</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/%E4%BB%8E%E4%BC%A0%E7%BB%9F%E4%B8%9C%E6%96%B9%E5%9B%AD%E6%9E%97%E7%9A%84%E9%80%A0%E5%9B%AD%E6%80%9D%E8%B7%AF%EF%BC%8C%E7%9C%8B%E3%80%8A%E5%8F%AA%E7%8B%BC%E3%80%8B%E7%9A%84%E5%9C%BA%E6%99%AF%E8%AE%BE%E8%AE%A1/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/%E4%BB%8E%E4%BC%A0%E7%BB%9F%E4%B8%9C%E6%96%B9%E5%9B%AD%E6%9E%97%E7%9A%84%E9%80%A0%E5%9B%AD%E6%80%9D%E8%B7%AF%EF%BC%8C%E7%9C%8B%E3%80%8A%E5%8F%AA%E7%8B%BC%E3%80%8B%E7%9A%84%E5%9C%BA%E6%99%AF%E8%AE%BE%E8%AE%A1/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  6.2k
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  20
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+      
+      
+
+      
+        <p>非本人原创，用于个人收藏，转载：<a href="https://www.gcores.com/articles/118473" target="_blank" rel="noopener">https://www.gcores.com/articles/118473</a><br>恭喜只狼拿到年度游戏了，老贼陪跑多年这次也算实至名归，心疼我秀夫一秒，两个月前分析过一篇只狼的场景设计。这次从另外的角度聊一聊，可能对现在的游戏场景设计有另外一些启发。</p>
+<p><strong>本篇6800字，并且有些理论需要一定时间消化，请找一个合适的时间进行阅读。</strong></p>
+<h1 id="如画构成"><a href="#如画构成" class="headerlink" title="如画构成"></a><strong>如画构成</strong></h1><p>欧洲造园的如画式风格，被视为受到过中国园林造型的影响，但康德却更愿意将其视为欧洲近代风景绘画的分支，其“如画”的名称，却也恰如其分-人们争论如画造园，到底是该再现普桑画中的风景构图，还是应该模仿洛兰画中的风景构图，继而决定植物选型，应该临摹洛兰画中常见的丛林茂密，还是刻画浦桑画中的单株古木。</p>
+<p>——摘自董豫赣《玖章造园》<br><a href="https://image.gcores.com/7a19340d-bdef-4bdb-9bdd-abaee8bffd6f.JPG?x-oss-process=image/quality,q_90/watermark,image_d2F0ZXJtYXJrLnBuZw,g_se,x_10,y_10" target="_blank" rel="noopener"><img src="https://image.gcores.com/7a19340d-bdef-4bdb-9bdd-abaee8bffd6f.JPG?x-oss-process=image/resize,limit_1,m_lfit,w_700,h_2000/quality,q_90/watermark,image_d2F0ZXJtYXJrLnBuZw,g_se,x_10,y_10" alt="《牧羊人洋桥景观》画作"></a><br>《牧羊人洋桥景观》画作</p>
+<p><a href="https://image.gcores.com/4d7d8525-068c-4aea-ac43-c474cd8d4ae9.jpg?x-oss-process=image/quality,q_90/watermark,image_d2F0ZXJtYXJrLnBuZw,g_se,x_10,y_10" target="_blank" rel="noopener"><img src="https://image.gcores.com/4d7d8525-068c-4aea-ac43-c474cd8d4ae9.jpg?x-oss-process=image/resize,limit_1,m_lfit,w_700,h_2000/quality,q_90/watermark,image_d2F0ZXJtYXJrLnBuZw,g_se,x_10,y_10" alt="英国斯杜海园林"></a></p>
+<p>英国斯杜海园林</p>
+<p>前景的大树，中景的石桥，远景的建筑，斯杜海园林都在模仿牧羊人洋桥景观这张画作现代游戏场景的制作流程也大致遵循这一方法，先由2D的原画气氛/效果图决定大概的场景意向，然后细化单体设计建模，在引擎里组合渲染后得到最终的实际画面。</p>
+<p><a href="https://image.gcores.com/0b5f8331-3230-4169-9c49-a86d5c1d2b2c.jpg?x-oss-process=image/quality,q_90/watermark,image_d2F0ZXJtYXJrLnBuZw,g_se,x_10,y_10" target="_blank" rel="noopener"><img src="https://image.gcores.com/0b5f8331-3230-4169-9c49-a86d5c1d2b2c.jpg?x-oss-process=image/resize,limit_1,m_lfit,w_700,h_2000/quality,q_90/watermark,image_d2F0ZXJtYXJrLnBuZw,g_se,x_10,y_10" alt="破旧寺庙原画"></a></p>
+<p>破旧寺庙原画</p>
+<p><a href="https://image.gcores.com/a7d44b6b-4cb5-44fc-befb-3acc2ca6049b.jpg?x-oss-process=image/quality,q_90/watermark,image_d2F0ZXJtYXJrLnBuZw,g_se,x_10,y_10" target="_blank" rel="noopener"><img src="https://image.gcores.com/a7d44b6b-4cb5-44fc-befb-3acc2ca6049b.jpg?x-oss-process=image/resize,limit_1,m_lfit,w_700,h_2000/quality,q_90/watermark,image_d2F0ZXJtYXJrLnBuZw,g_se,x_10,y_10" alt="破旧寺庙实机图"></a></p>
+<p>破旧寺庙实机图</p>
+<p><a href="https://image.gcores.com/026089fe-7734-4f68-b05f-d409bd890dcc.jpg?x-oss-process=image/quality,q_90/watermark,image_d2F0ZXJtYXJrLnBuZw,g_se,x_10,y_10" target="_blank" rel="noopener"><img src="https://image.gcores.com/026089fe-7734-4f68-b05f-d409bd890dcc.jpg?x-oss-process=image/resize,limit_1,m_lfit,w_700,h_2000/quality,q_90/watermark,image_d2F0ZXJtYXJrLnBuZw,g_se,x_10,y_10" alt="苇名城主城前台阶原画图"></a></p>
+<p>苇名城主城前台阶原画图</p>
+<p><a href="https://image.gcores.com/fa0bc3ee-c209-4981-b938-15db06d9adef.jpg?x-oss-process=image/quality,q_90/watermark,image_d2F0ZXJtYXJrLnBuZw,g_se,x_10,y_10" target="_blank" rel="noopener"><img src="https://image.gcores.com/fa0bc3ee-c209-4981-b938-15db06d9adef.jpg?x-oss-process=image/resize,limit_1,m_lfit,w_700,h_2000/quality,q_90/watermark,image_d2F0ZXJtYXJrLnBuZw,g_se,x_10,y_10" alt="苇名城主城前台阶实机图  只狼的场景原画与实机，FS很多时候实机是要好于2d原画阶段的。"></a></p>
+<p>苇名城主城前台阶实机图  只狼的场景原画与实机，FS很多时候实机是要好于2d原画阶段的。</p>
+<h1 id="成画而不成景"><a href="#成画而不成景" class="headerlink" title="成画而不成景"></a><strong>成画而不成景</strong></h1><p>我们假设能够想上面那种方式将效果图（原画），平立剖，细节大样，所有还原，将某一个角度的景观设计无限美好，那么可能会出现什么问题呢？ </p>
+<p><a href="https://image.gcores.com/2b21d911-7014-4c0f-81a3-8d17788ff435.jpg?x-oss-process=image/quality,q_90/watermark,image_d2F0ZXJtYXJrLnBuZw,g_se,x_10,y_10" target="_blank" rel="noopener"><img src="https://image.gcores.com/2b21d911-7014-4c0f-81a3-8d17788ff435.jpg?x-oss-process=image/resize,limit_1,m_lfit,w_700,h_2000/quality,q_90/watermark,image_d2F0ZXJtYXJrLnBuZw,g_se,x_10,y_10" alt="苏州博物馆假山"></a></p>
+<p>苏州博物馆假山</p>
+<p>贝聿铭的苏州博物馆的假山设计:贝先生通过石材本身的颜色深浅和纹理来体现远近（近处的石头有着明显的褶皱），并且用火烧石材的边缘来模拟水墨渲染的笔触，以白墙做画布，极尽去还原中国山水画意向，从正面去观察确实无懈可击，但如果换个角度去看这堆假山却是溃不成军。 </p>
+<p><a href="https://image.gcores.com/96da26e1-a99f-4508-81e6-a817741ca49f.jpg?x-oss-process=image/quality,q_90/watermark,image_d2F0ZXJtYXJrLnBuZw,g_se,x_10,y_10" target="_blank" rel="noopener"><img src="https://image.gcores.com/96da26e1-a99f-4508-81e6-a817741ca49f.jpg?x-oss-process=image/resize,limit_1,m_lfit,w_700,h_2000/quality,q_90/watermark,image_d2F0ZXJtYXJrLnBuZw,g_se,x_10,y_10" alt="假山的另外角度"></a></p>
+<p>假山的另外角度</p>
+<p>我们移动到另外一个角度去看这堆假山，已经无法成画或者成景，问题在哪儿呢？</p>
+<h1 id="眼睛的镜头是连续的"><a href="#眼睛的镜头是连续的" class="headerlink" title="眼睛的镜头是连续的"></a>眼睛<strong>的镜头是连续的</strong></h1><p> 我们看下面这组镜头，都是以屋顶奔跑为主题：</p>
+<p><a href="https://image.gcores.com/83168fe6-0f6c-42f8-bce6-be68f2677496.gif" target="_blank" rel="noopener"><img src="https://image.gcores.com/83168fe6-0f6c-42f8-bce6-be68f2677496.gif?x-oss-process=image/resize,limit_1,m_lfit,w_700,h_2000" alt="武侠  镜头有明显的切分，每个镜头的景别，运镜的方式都有很大差别"></a></p>
+<p>武侠  镜头有明显的切分，每个镜头的景别，运镜的方式都有很大差别</p>
+<p><a href="https://image.gcores.com/6ffcf43b-147d-4de5-af4e-dbea5ee9bd73.gif" target="_blank" rel="noopener"><img src="https://image.gcores.com/6ffcf43b-147d-4de5-af4e-dbea5ee9bd73.gif?x-oss-process=image/resize,limit_1,m_lfit,w_700,h_2000" alt="邪不压正  长镜头，镜头虽然没有切分，但是镜头与主体的距离一直在产生变化"></a></p>
+<p>邪不压正  长镜头，镜头虽然没有切分，但是镜头与主体的距离一直在产生变化</p>
+<p><a href="https://image.gcores.com/82030587-e111-42de-b4c4-dfeb9c9dbc2d.gif" target="_blank" rel="noopener"><img src="https://image.gcores.com/82030587-e111-42de-b4c4-dfeb9c9dbc2d.gif?x-oss-process=image/resize,limit_1,m_lfit,w_700,h_2000" alt="只狼  一般第三人称游戏的经典视角，固定的摄像机距离与连续运镜。"></a></p>
+<p>只狼  一般第三人称游戏的经典视角，固定的摄像机距离与连续运镜。</p>
+<p><a href="https://image.gcores.com/899a8d59-5a9a-4fd4-9b12-af48a0cf978a.gif" target="_blank" rel="noopener"><img src="https://image.gcores.com/899a8d59-5a9a-4fd4-9b12-af48a0cf978a.gif?x-oss-process=image/resize,limit_1,m_lfit,w_700,h_2000" alt="进击的巨人第一季13集  也是长镜头，仔细对比上面只狼的镜头，有没有感觉很像，摄像机几乎一直在跟随主角周围，看这段的时候代入感超强的有没有，但这种高速运动的镜头也只有CG和动画才能实现。"></a></p>
+<p>进击的巨人第一季13集  也是长镜头，仔细对比上面只狼的镜头，有没有感觉很像，摄像机几乎一直在跟随主角周围，看这段的时候代入感超强的有没有，但这种高速运动的镜头也只有CG和动画才能实现。</p>
+<p>影视类镜头拥有非常灵活的镜头切换以及应用，但游戏正常游玩的时候不可能做过多的镜头切换，切换过多发生操作和具体范围认知的错位等等各种问题的出现，所以游戏镜头几乎都是固定的。</p>
+<p><strong>“镜头固定并且连续，你可以想象第三人称其实就是有个人端着摄像机在你后面跑，并且距离固定，第一人称则是你自己头戴摄像机，3d游戏的镜头特征也是人类正常的视觉习惯，距离固定的超长镜头”。</strong></p>
+<p>连续的镜头，让我们体验到的是空间的变化而不是静帧的画面，就像上面苏州博物馆的假山，我们可以固定在正面观察，但因为你的移动，你一定会看到他的其他角度，拍电影或许你只要取正面假山的镜头就好，假山的侧面不需要去考虑，但游戏场景设计却不行，你的位置稍加移动就会看到其他角度。</p>
+<h1 id="既成画也成景"><a href="#既成画也成景" class="headerlink" title="既成画也成景"></a>既<strong>成画也成景</strong></h1><p>那么如果场景的一个角度不行，是不是进行多个角度进行同时控制是不是就可以了？</p>
+<p>现代景观和建筑的的做法是进行平立剖的设计与细节大样的设计，越复杂则相关的图纸就会越多，并且施工以及建造误差与现场突发情况也会难以控制，因为单体相对来说好做平立剖，但一个城市或者山林景观要做平立剖一是不好控制，二是不好表达。</p>
+<p><a href="https://image.gcores.com/4312916f-d475-45fb-8179-72af7dd5852d.jpg?x-oss-process=image/quality,q_90/watermark,image_d2F0ZXJtYXJrLnBuZw,g_se,x_10,y_10" target="_blank" rel="noopener"><img src="https://image.gcores.com/4312916f-d475-45fb-8179-72af7dd5852d.jpg?x-oss-process=image/resize,limit_1,m_lfit,w_700,h_2000/quality,q_90/watermark,image_d2F0ZXJtYXJrLnBuZw,g_se,x_10,y_10" alt="吴彬的《十面灵璧图》  从不同的角度观看同一石头，几乎没有东南西北立面之说，单纯以建筑单体的方式来表达景观的立面明显是不可行的。"></a></p>
+<p>吴彬的《十面灵璧图》  从不同的角度观看同一石头，几乎没有东南西北立面之说，单纯以建筑单体的方式来表达景观的立面明显是不可行的。</p>
+<p><a href="https://image.gcores.com/70a3e4d3-349a-40bf-b1e1-2d15ed4477c8.jpg?x-oss-process=image/quality,q_90/watermark,image_d2F0ZXJtYXJrLnBuZw,g_se,x_10,y_10" target="_blank" rel="noopener"><img src="https://image.gcores.com/70a3e4d3-349a-40bf-b1e1-2d15ed4477c8.jpg?x-oss-process=image/resize,limit_1,m_lfit,w_700,h_2000/quality,q_90/watermark,image_d2F0ZXJtYXJrLnBuZw,g_se,x_10,y_10" alt="仙峰寺的幻境树  "></a></p>
+<p>仙峰寺的幻境树  </p>
+<p>以只狼中的幻境为例，幻境中间的树，我从周边一圈的围廊对他几个不同的角度进行截图，明显这颗树在各个角度都已经被调整过构成了，不然很难看起来如此自然生长，是不是有点像上面的十面灵璧图，我们能从一圈的围廊，以及树上的几个勾爪点进行观察，这几乎已经是一个单个景点设计的极限了，几乎上下左右没有任何死角的去观察一个景点。</p>
+<p>园林建造的时候造园者一定需要各个角度去观察和控制，从某个窗洞里看，从某个台阶上俯瞰，从另外的亭子上看来决定这部分。</p>
+<p> <strong>同时控制景点与其可游走的路线作为设计骨架进行展开。</strong> </p>
+<p><a href="https://image.gcores.com/6433f96c-6f16-430a-91ad-3ac0af041b4d.jpg?x-oss-process=image/quality,q_90/watermark,image_d2F0ZXJtYXJrLnBuZw,g_se,x_10,y_10" target="_blank" rel="noopener"><img src="https://image.gcores.com/6433f96c-6f16-430a-91ad-3ac0af041b4d.jpg?x-oss-process=image/resize,limit_1,m_lfit,w_700,h_2000/quality,q_90/watermark,image_d2F0ZXJtYXJrLnBuZw,g_se,x_10,y_10" alt="苇名城城邑与苇名城主城总平面  这个平面应该最开始就拿来控制景点与游走路线，黄色为前进路线。 "></a></p>
+<p>苇名城城邑与苇名城主城总平面  这个平面应该最开始就拿来控制景点与游走路线，黄色为前进路线。 </p>
+<p>我在总平面上标了几个重要的节点，仔细观察苇名城主城的位置，城邑部分几乎是围绕着主城分布，并且城邑部分的分布弯折有致，使主城被建筑或者植物遮挡若隐若现，大部分时间因为遮挡你感觉不到主城存在，但几个关键节点却都一直在强调主城，比较明显的就是刚出破旧寺庙你第一眼看到的就是苇名城主城（图1）还有桥下山谷鬼佛处和鬼刑部的大广场，你都能从不同距离不同角度看到主城。无处不在却又若隐若现的主城，你甚至能在仙峰寺主堂看到苇名城主城。</p>
+<p><a href="https://image.gcores.com/8bf09192-2a99-4191-b4fb-b5bf250695b3.jpg?x-oss-process=image/quality,q_90/watermark,image_d2F0ZXJtYXJrLnBuZw,g_se,x_10,y_10" target="_blank" rel="noopener"><img src="https://image.gcores.com/8bf09192-2a99-4191-b4fb-b5bf250695b3.jpg?x-oss-process=image/resize,limit_1,m_lfit,w_700,h_2000/quality,q_90/watermark,image_d2F0ZXJtYXJrLnBuZw,g_se,x_10,y_10" alt="苇名城城邑节点看主城"></a></p>
+<p>苇名城城邑节点看主城</p>
+<p><a href="https://image.gcores.com/7990dd38-0571-47d9-86e3-d753b87b3a0f.jpg?x-oss-process=image/quality,q_90/watermark,image_d2F0ZXJtYXJrLnBuZw,g_se,x_10,y_10" target="_blank" rel="noopener"><img src="https://image.gcores.com/7990dd38-0571-47d9-86e3-d753b87b3a0f.jpg?x-oss-process=image/resize,limit_1,m_lfit,w_700,h_2000/quality,q_90/watermark,image_d2F0ZXJtYXJrLnBuZw,g_se,x_10,y_10" alt="仙峰寺主堂看苇名城主城"></a></p>
+<p>仙峰寺主堂看苇名城主城</p>
+<h1 id="相互成景"><a href="#相互成景" class="headerlink" title="相互成景"></a><strong>相互成景</strong></h1><p>上面我们讨论的是单个物件的与其路径的控制，那么如果出现多组景点呢？</p>
+<p>仙峰寺建筑较多，并且有横向的通天桥（铠甲武士处），竖向的五重塔（先锋脚秘籍处），这两者在整个场景里共同统领了整个场景，你在场景的各个位置都能较明显的看到这两个建筑，在场景最初规划的时候应该就已经设计过这些视点的设计。</p>
+<p><strong>同一个场景能够保证可以从其他的角度去观察，在造景的同时，也在为另一个场景添加远景。一旦景点众多，视点的控制就会变得极为复杂，此时限制人物的可移动范围就显得尤为重要。</strong></p>
+<p> 这是以通天桥为参照物进行截图： </p>
+<p><a href="https://image.gcores.com/b3290faf-965a-4ba8-8540-d580fd002693.jpg?x-oss-process=image/quality,q_90/watermark,image_d2F0ZXJtYXJrLnBuZw,g_se,x_10,y_10" target="_blank" rel="noopener"><img src="https://image.gcores.com/b3290faf-965a-4ba8-8540-d580fd002693.jpg?x-oss-process=image/resize,limit_1,m_lfit,w_700,h_2000/quality,q_90/watermark,image_d2F0ZXJtYXJrLnBuZw,g_se,x_10,y_10" alt="img"></a></p>
+<ul>
+<li>从主堂看通天桥</li>
+<li>从寺院境内看通天桥</li>
+<li>从通天桥看寺院境内</li>
+</ul>
+<p><a href="https://image.gcores.com/a6a441df-e2ac-4121-8dea-0a4cf1df5b2b.jpg?x-oss-process=image/quality,q_90/watermark,image_d2F0ZXJtYXJrLnBuZw,g_se,x_10,y_10" target="_blank" rel="noopener"><img src="https://image.gcores.com/a6a441df-e2ac-4121-8dea-0a4cf1df5b2b.jpg?x-oss-process=image/resize,limit_1,m_lfit,w_700,h_2000/quality,q_90/watermark,image_d2F0ZXJtYXJrLnBuZw,g_se,x_10,y_10" alt="img"></a></p>
+<ul>
+<li>通天桥看主堂</li>
+<li>从寺院境内看通天桥</li>
+<li>从五重塔看通天桥</li>
+</ul>
+<h1 id="装折如画：出幕若分别院，连墙拟越深斋"><a href="#装折如画：出幕若分别院，连墙拟越深斋" class="headerlink" title="装折如画：出幕若分别院，连墙拟越深斋"></a><strong>装折如画：</strong>出幕若分别院，连墙拟越深斋</h1><p>此篇章需要切身玩过只狼与死亡搁浅这两款游戏才能体会其中之情趣。</p>
+<p><strong>便径他居，复成别馆。砖墙留夹，可通不断之房廊，板壁常空，隐出别壶之天地。亭台影罅，楼阁虚邻。绝处犹开，低方忽上，楼梯仅乎室侧，台级藉矣山阿。-《园冶》装折篇</strong></p>
+<p>园冶中的装折并非讨论的是大木作的结构之事，也不是小木作装修之事，其强调的是景与空间这些体验之间的关系与变化，其装折中的“装”在于设置的时机，而合适的时机在于前后的关系，“折”在于变化，空间，景观和体验的变化，而变化本身在于感知之奇，不落俗套但又合乎情理。</p>
+<p><strong>低方乎上，楼梯仅乎室侧，台级籍矣山阿：</strong>从道理而言，爬楼与攀梯类似，因为人的行动都是向上的，但是从感知上却又有区别，爬楼是日常起居行为，而爬山却是山水行乐之事，两者相互错置，却又能得感知之奇却又合乎常理。</p>
+<p> <strong>装折如画：看的风景之间的变化</strong> </p>
+<p><a href="https://image.gcores.com/04fe6beb-4ab1-4c4a-90a5-adac5bece146.gif" target="_blank" rel="noopener"><img src="https://image.gcores.com/04fe6beb-4ab1-4c4a-90a5-adac5bece146.gif?x-oss-process=image/resize,limit_1,m_lfit,w_700,h_2000" alt="平田宅邸："></a></p>
+<p>平田宅邸：</p>
+<p>在经历过前面竹林部分到后面着火的主宅部分，这一场景在前面几乎都是被完全遮挡住的，我们只能隐隐约约看到一些浓雾，在完全进入宅院内部后，是与前面的灰暗竹林形成强烈对比的一片火海，关键不在于火海，也不在于竹林，而是竹林与火海之间的关系，变化是如何产生的才是关键，并且这个地方刚好也是整个关卡的中部位置，，能够看到义父和拿隐藏佛堂钥匙，算是整个关卡的一个重要节点。</p>
+<p><a href="https://image.gcores.com/644d9c9d-0f1c-4a20-8f25-39f50a135214.gif" target="_blank" rel="noopener"><img src="https://image.gcores.com/644d9c9d-0f1c-4a20-8f25-39f50a135214.gif?x-oss-process=image/resize,limit_1,m_lfit,w_700,h_2000" alt="还是平田宅邸"></a></p>
+<p>还是平田宅邸</p>
+<p>蝴蝶夫人见面前，不知各位是否有印象，蚺蛇重藏的位置是几乎是没有火的，宅邸内部也是没有火，隐藏佛堂在设定初期也是不着火的，我猜想是为了要和前面的场景形成对比与变化，作为整个关卡的最后一战，最后选择让屋顶着火，这里的燃烧的屋顶简直用的恰到好处，形成光源的同时也让整体地下的氛围显得与前面的场景有足够的区别，作为最后的高潮结尾。</p>
+<p><strong>所以平田宅邸的这两个场景变化其实非常明显，而且这两个场景变化最剧烈的位置刚好位于关卡的中部与结尾，其装折中“装”的位置恰到好处，但整个场景里并不缺少灰暗色调与大火燃烧的场景，关键在于变化之情趣，假使整个宅邸都处于燃烧的状态，则隐藏佛堂熊熊燃烧的火焰就不会给人如此震撼。</strong></p>
+<p><a href="https://image.gcores.com/b13409cf-9865-4fc6-88c6-a1caffa43401.jpg?x-oss-process=image/quality,q_90/watermark,image_d2F0ZXJtYXJrLnBuZw,g_se,x_10,y_10" target="_blank" rel="noopener"><img src="https://image.gcores.com/b13409cf-9865-4fc6-88c6-a1caffa43401.jpg?x-oss-process=image/resize,limit_1,m_lfit,w_700,h_2000/quality,q_90/watermark,image_d2F0ZXJtYXJrLnBuZw,g_se,x_10,y_10" alt="隐藏佛堂初期设定稿"></a></p>
+<p>隐藏佛堂初期设定稿</p>
+<p><a href="https://image.gcores.com/56a151f6-6e92-48ea-8bbd-d319884de96f.gif" target="_blank" rel="noopener"><img src="https://image.gcores.com/56a151f6-6e92-48ea-8bbd-d319884de96f.gif?x-oss-process=image/resize,limit_1,m_lfit,w_700,h_2000" alt="初入仙峰寺"></a></p>
+<p>初入仙峰寺</p>
+<p>在经历过地牢一连串灰暗的地下水沟进入这样如画风景所带来的震撼不亚于死亡搁浅里“bones”响起的瞬间，但其变化的关系与上述平田宅邸的两个场景变化并无二异，关键在于变化之间的关系与时机。</p>
+<p><strong>装折入画：整体体验上的区别变化</strong> </p>
+<p><a href="https://image.gcores.com/102023df-ad5a-4413-9a2a-8b49fcf1194b.jpg?x-oss-process=image/quality,q_90/watermark,image_d2F0ZXJtYXJrLnBuZw,g_se,x_10,y_10" target="_blank" rel="noopener"><img src="https://image.gcores.com/102023df-ad5a-4413-9a2a-8b49fcf1194b.jpg?x-oss-process=image/resize,limit_1,m_lfit,w_700,h_2000/quality,q_90/watermark,image_d2F0ZXJtYXJrLnBuZw,g_se,x_10,y_10" alt="苇名城平面图  "></a></p>
+<p>苇名城平面图  </p>
+<p>我们看下游玩的顺序：赤鬼-山内典善-大蛇-鬼刑部-火牛-进入主城，城邑-山谷-城邑。</p>
+<p>桥下山谷这个场景打断了城邑连续的场景节奏，应该是故意为之的，大蛇的出现在城邑地图的中间段，在经历过一段密集建筑群以及敌人的城邑场景，忽然转到廖无人烟的白色山谷，并且玩法上也从打铁变成了以潜行为主。此为装折之情趣，断桥不通而行山下，空间的变化和体验上的变化增加了些游戏上的情趣。 </p>
+<p><strong>这里选择机核有关《死亡搁浅》的一段评论：</strong></p>
+<p>满载着货物的我骑着机车赶往下一个大关卡港结市，按照刚做好表示路线前行，马上到达了满是石子的山谷，不远处有一个拱形的石洞，很明显那就是必经之路。 石子越来越多，而且不出所料，天开始下雨，接着bt立刻出现，更糟糕的是，因为脚下的石子实在太多，只能靠牺牲耐久撞着石头卡过去，不料，当我正想用雷达的时候，一直bt马上就出现在旁边并接近了我，而此时我急于将车卡过去，但事与愿违，下车取血雷已经来不及，于是我被拖入了二阶段，也是游戏进行到现在第一次攻击那个大乌贼。 虽然付出了不小的代价，但还是干掉了他，心里想着幸好多带了几颗差点不够了，然后继续找回我的车子往前开，发现马上出现了一段平坦的路直通目的地，便想着如果当时石子路那有座桥，就应该很顺利的通过了吧，于是我拿出了建造台开始寻找合适的位置，跑了挺久找到好位置结果发现没有信号不能建造，而且居然又下起了雨。  不幸的事再次发生，就在我急着跑回去骑车时，我又被抓住了，挣脱后在黑水里想着赶紧骑车跑路，没想到刚骑上去就又被抓住了，舍不得车子的我又被拉入了第二阶段。即便有支援的弹药，我的弹药还是不足以杀死那只乌贼，同时，机车也报废了，货物也遭到损坏，而且因为东西太多可能连命都要交代，只好拿了任务需要的箱子赶紧跑路。劫后余生，啥都没了，穿过石洞，视野一片平坦，想着当时如果没有考虑去为人造桥，我现在应该是开心的在这片旷野上骑行去往目的地吧？ 我带着心酸、懊悔、遗憾、犹豫的心情背着残破的箱子走在这旷野上，平坦的山谷下方港结市出现在眼前，突然 Asylums For the feeling feat响起，随着音乐我开始颤栗，心里只想着卧槽卧槽卧槽！！！！！等这片区域的网络解锁我tmd一定要去造那座桥！我想这一切只有真正在玩游戏的人才能体会吧。</p>
+<p>无意想放这么长的一段文字，但因为情绪之间的变化缺一不可，在经历过一路坎坷，躲避BT，劫后余生，天气逐渐变晴，在山顶看到宽阔的景色然后慢慢地在耳边响起音乐这时的心情与在网易云听死亡搁浅的歌单是完全不一样的。</p>
+<p>装折中的“折”就是打完bt之后雨过天气，经历过坎坷山路后的壮阔风景，劫后余生后响起空灵音乐，变化，为什么选择这样的变化，变化之间的关系是否足够有情趣是折之关键。</p>
+<p>装折中的“装”就是什么时候出现这样的变化，是我在经历过一段苇名城城邑打过几个精英怪之后出现大蛇，还是在打过鬼刑部之后出现大蛇，这是“装”在时机上的选择。</p>
+<p>装折入画在于整体体验上的区别变化，其“折”的内容不再局限于视觉层面上，更加强调的是整体的情绪体验，视听与心理与玩法同时“折”，当然是否成功还是得看“折”得是否足够有情趣。 </p>
+<h1 id="如画构成与动态入画"><a href="#如画构成与动态入画" class="headerlink" title="如画构成与动态入画"></a><strong>如画构成与动态入画</strong></h1><p>如画构成是什么开头已经讲过，这里不再赘述，其本身并无好坏，只是一个设计的基础手段，但在一些小范围的场景里，如画构成会成为主要的设计手段，比如破旧寺庙，隐藏佛堂这类场景会经常使用。那什么是动态入画呢？这里先解释下园林设计因借中“因”的概念：</p>
+<p>“‘因’者：随基势之高下，体形之端正，碍木删桠，泉流石注，互相借资;宜亭斯亭，宜榭斯榭，不妨偏径，顿置婉转，斯谓‘精而合宜’者也。园林中的“因”是要根据远景来做调整的，其中的亭榭因为是人为而做所以易于调整，然而借来之景却无法调试，因此我们只能控制近景的亭榭林木来配合远景的远山高塔。</p>
+<p>上述这是园林的“因”，那么游戏里的“因”是什么呢，我们能操控的是什么呢，只有一个就是我们控制的主角，“借”则是我们已经做好的如画构成的舞台，那么怎么动态入画呢？</p>
+<p><strong>动态入画</strong>：</p>
+<p>一个好的场景构成与移动范围的控制，结合boss战的攻击招式与微小的镜头控制能够很好营造出电影般体验。场景是基础的舞台，提供基础的近中远三景，而你和另外一个对象则完善了近景和中景。</p>
+<p> <strong>破戒僧BOSS战</strong> </p>
+<p><a href="https://image.gcores.com/e0b3e143-c575-4034-b923-e2b88c1798a2.gif" target="_blank" rel="noopener"><img src="https://image.gcores.com/e0b3e143-c575-4034-b923-e2b88c1798a2.gif?x-oss-process=image/resize,limit_1,m_lfit,w_700,h_2000" alt="机核小五试玩视频录"></a></p>
+<p>机核小五试玩视频录</p>
+<p><a href="https://image.gcores.com/ce25e153-9ed0-4780-9c80-31f756621f88.gif" target="_blank" rel="noopener"><img src="https://image.gcores.com/ce25e153-9ed0-4780-9c80-31f756621f88.gif?x-oss-process=image/resize,limit_1,m_lfit,w_700,h_2000" alt="img"></a></p>
+<p>如画构成是一个场景基础几何图形构成上的控制，两侧的巨大红树的枝干与朱桥上的栏杆在构图上进行了很好的引导，将视觉中心点都集中在破戒僧身上。</p>
+<p>场景的移动范围只限制在朱桥这一线型空间内，结合破戒僧大开大合的招式，主角和对象的距离一直在进行变化，在出招和躲招的时候就很容易出现上面的这类镜头，破戒僧出招，只狼后退，视平线被拉高，在场景舞台上，距离拉开到一定程度后，只狼与破戒僧共同成为了画内的近景与中景。</p>
+<p> PS:试玩版之所以选择破戒僧这场战斗我想应该是因为这是所有战斗中电影感最强的一段，并且试玩版中明显针对这段做过视觉优化，正式版的这一场景是没有光影的！不知道为什么明明已经做了却在正式版取消了光影！对比起来的话效果差很多，好想玩一遍试玩版~！ </p>
+<p><a href="https://image.gcores.com/536d4b83-010e-45c0-aec2-7ee266bbfb86.JPG?x-oss-process=image/quality,q_90/watermark,image_d2F0ZXJtYXJrLnBuZw,g_se,x_10,y_10" target="_blank" rel="noopener"><img src="https://image.gcores.com/536d4b83-010e-45c0-aec2-7ee266bbfb86.JPG?x-oss-process=image/resize,limit_1,m_lfit,w_700,h_2000/quality,q_90/watermark,image_d2F0ZXJtYXJrLnBuZw,g_se,x_10,y_10" alt="正式版的阉割画面"></a></p>
+<p>正式版的阉割画面</p>
+<p> <strong>苇名弦一郎BOSS战</strong> </p>
+<p><a href="https://image.gcores.com/cb57d2a3-50ce-4eab-b1d2-fdd80be1314a.gif" target="_blank" rel="noopener"><img src="https://image.gcores.com/cb57d2a3-50ce-4eab-b1d2-fdd80be1314a.gif?x-oss-process=image/resize,limit_1,m_lfit,w_700,h_2000" alt="img"></a></p>
+<p>只狼里我最喜欢的一场boss战！天守阁望楼这个场景是三面透空，并且顺带框了三个景，一旦和弦一郎拉开距离喝药的时候弦一郎就会拉弓射箭，完美弹反后镜头会微微下移，这个时候前景的只狼，中景的弦一郎，远景的山与天空刚好构成一幅动态画面，和弦一郎对战中我几次会出现在看电影的错觉，通过与boss间的距离变化与一些微小的镜头移动，游戏画面会重新构图，时不时会出现电影般的打斗画面，但和底特律变人的那种互动电影或者大表哥2的暴力的电影模式不同，只狼角色几乎是一直被我所控制的，并且镜头是一直连续可控的，这给我感觉是我不是在看电影，而是电影的一部分，因为你（只狼）随时都可能成为景中的一部分。 </p>
+<p>天守阁望楼的如画构成：天守阁望楼开了超大的三个横向落地窗，之所以说超大是因为其并不符合建筑结构，这么大跨度正还需要在每品方向上要增加4根以上的立柱才有可能成立，但取消立柱这一手段可以有几个效果，完整的框景，为了让远景的山更加连续。弦一郎的轮廓更加清晰，这一层几乎没有任何明显的立柱，这也是游戏的优势，为了表现让一切看起来合理即可。 </p>
+<p><a href="https://image.gcores.com/dcdc051d-2e54-4bdf-844a-a8e735c62952.jpg?x-oss-process=image/quality,q_90/watermark,image_d2F0ZXJtYXJrLnBuZw,g_se,x_10,y_10" target="_blank" rel="noopener"><img src="https://image.gcores.com/dcdc051d-2e54-4bdf-844a-a8e735c62952.jpg?x-oss-process=image/resize,limit_1,m_lfit,w_700,h_2000/quality,q_90/watermark,image_d2F0ZXJtYXJrLnBuZw,g_se,x_10,y_10" alt="img"></a></p>
+<p><a href="https://image.gcores.com/e8379f35-90bb-4c5f-acc1-8345f013e539.jpg?x-oss-process=image/quality,q_90/watermark,image_d2F0ZXJtYXJrLnBuZw,g_se,x_10,y_10" target="_blank" rel="noopener"><img src="https://image.gcores.com/e8379f35-90bb-4c5f-acc1-8345f013e539.jpg?x-oss-process=image/resize,limit_1,m_lfit,w_700,h_2000/quality,q_90/watermark,image_d2F0ZXJtYXJrLnBuZw,g_se,x_10,y_10" alt="从预告片中也能看出，宫崎英高英高应该是想创造一种画中战斗的感觉，上面的布帘，地面的阴影，两侧立柱所构成的画框。"></a></p>
+<p>从预告片中也能看出，宫崎英高英高应该是想创造一种画中战斗的感觉，上面的布帘，地面的阴影，两侧立柱所构成的画框。</p>
+<p> <strong>蝴蝶夫人BOSS战</strong> </p>
+<p><a href="https://image.gcores.com/6d8da677-3026-46d9-acf0-d5cbe204a6ac.gif" target="_blank" rel="noopener"><img src="https://image.gcores.com/6d8da677-3026-46d9-acf0-d5cbe204a6ac.gif?x-oss-process=image/resize,limit_1,m_lfit,w_700,h_2000" alt="img"></a></p>
+<p><a href="https://image.gcores.com/18ed46cf-e15d-404d-98e1-9acd68fbd850.gif" target="_blank" rel="noopener"><img src="https://image.gcores.com/18ed46cf-e15d-404d-98e1-9acd68fbd850.gif?x-oss-process=image/resize,limit_1,m_lfit,w_700,h_2000" alt="蝴蝶夫人这个走钢丝的设定实在太帅了！在锁定情况下，蝴蝶夫人跳上钢丝时镜头会微微上抬，能够看到蝴蝶夫人的位置并且也能看到大佛，瞬间成景。"></a></p>
+<p>蝴蝶夫人这个走钢丝的设定实在太帅了！在锁定情况下，蝴蝶夫人跳上钢丝时镜头会微微上抬，能够看到蝴蝶夫人的位置并且也能看到大佛，瞬间成景。</p>
+<p>美中不足的是蝴蝶夫人的战斗场景其实有点大了，并且场景两侧能够不太能够成景，唯一可以成景的就是背后的大佛，但实际游玩更多时候是把蝴蝶夫人窝在角落里打，或者到处追着打，蝴蝶夫人走钢丝的机会并不多。因此上述的两个镜头在实际游玩的时候并不常见，在观赏性上是一场比较可惜的boss战，但是充满潜力的一个boss战。 </p>
+<p>移动范围与成景是相互关联的两件事，越大的移动范围则观景的角度越多，能看到的东西也越多，所要设计的景观也越多，破戒僧的朱桥限制了一定的移动范围，并在前后方向成景，天守阁望楼虽然偏向正形平面，但却是三面成景，移动的范围与景的设计相互关联和影响，最终也会影响到游戏中的boss招式的设计与主角之间的镜头的关系。</p>
+<h1 id="中国的游戏场景设计应该是什么样子的？"><a href="#中国的游戏场景设计应该是什么样子的？" class="headerlink" title="中国的游戏场景设计应该是什么样子的？"></a><strong>中国的游戏场景设计应该是什么样子的？</strong></h1><p>中国建筑汉唐到明清建筑的样式并没有发生过剧烈的变化，因为改朝换代与耐久问题，中国的建筑为了能够快速建造练图纸几乎都是固定的，因此才有了样式雷这样的建造家族。中国建筑形制的剧烈变化并非是由时间造成的，而是地域环境，中国有6个不同的气候带，不同的地域环境诞生的建筑形制有天然的差别。多样的环境特征产生了多样的建筑形制，但大多游戏中设计单体单体阶段完全不考虑环境对建筑的影响几乎是不合理的。</p>
+<p>和西方不同，堆砌一堆的建筑符号和形式这类做法其实在中国很少见，中国从3000多年前的四合院开始就已经有了空间序列的概念，到后期的由文人执笔的古典园林对于空间的巧妙运用达到相当高的境界。并且中国园林其实一直有一个非常清晰的前进脉络：“魏晋的山水诗，宋元的山水画，明清的山水园，从文字到图像到具体场景实现几乎是非常完整的脉络，并且中国造园的都是文人，因此在对意境的理解和重现上并非普通花匠可比。在几亩地内不断通过掇山理水，林木装折，追求自然山水景观，深远不尽的意向，像不像今天我们对着20来寸的屏幕却想横穿整个美利坚？</p>
+<p>如何在有限的资源，面积下，去在游戏中追求深远不尽，在中国的园林设计里会有答案。上面所有理论基于中国古典园林，但有大量个人理解存在，但请理性讨论。 </p>
+<p><strong>参考资料：</strong></p>
+<p>计成：园冶 董豫赣：造园九章 田朝阳：中国古典园林与现代转译 汉宝德：中国园林的物象与心境 只狼原画设定集 只狼实机截图以及录屏</p>
+
+      
+    </div>
+    
+    
+    
+
+     <!-- 文章末尾统一添加“本文结束”标记 -->
+    <div>
+      
+        <div>
+    
+        <div style="text-align:center;color: #555;font-size:24px;"><-------------The End-------------></div>
+    
+</div>
+
+      
+    </div>
+    
+
+    
+      <div>
+        <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+  <div>坚持原创分享，你的支持就是我最大的动力！</div>
+  <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+    <span>打赏</span>
+  </button>
+  <div id="QR" style="display: none;">
+
+    
+      <div id="wechat" style="display: inline-block">
+        <img id="wechat_qr" src="/uploads/weixin_cash_code.png" alt="StarDustLoong 微信支付"/>
+        <p>微信支付</p>
+      </div>
+    
+
+    
+      <div id="alipay" style="display: inline-block">
+        <img id="alipay_qr" src="/uploads/alipay_cash_code.png" alt="StarDustLoong 支付宝"/>
+        <p>支付宝</p>
+      </div>
+    
+
+    
+
+  </div>
+</div>
+
+      </div>
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/%E5%8F%AA%E7%8B%BC/" rel="tag"># 只狼</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/BUG%EF%BC%9Agithub%E7%9A%84%E5%9B%BE%E7%89%87%E9%93%BE%E6%8E%A5%E6%97%A0%E6%B3%95%E6%98%BE%E7%A4%BA/" rel="next" title="BUG：github的图片链接无法显示">
+                <i class="fa fa-chevron-left"></i> BUG：github的图片链接无法显示
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/%E8%81%8A%E8%81%8A%E3%80%8A%E5%8F%AA%E7%8B%BC%E3%80%8B%E4%B8%AD%E7%9A%84%E5%9C%BA%E6%99%AF%E8%AE%BE%E8%AE%A1%E8%A7%84%E5%88%92/" rel="prev" title="聊聊《只狼》中的场景设计规划">
+                聊聊《只狼》中的场景设计规划 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+    </div>
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/uploads/avatar.png"
+                alt="StarDustLoong" />
+            
+              <p class="site-author-name" itemprop="name">StarDustLoong</p>
+              <p class="site-description motion-element" itemprop="description">人类如风一般的自由</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">2409</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">12</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">146</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+	   
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/StarDustLoong" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:13671474528@163.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://www.zhihu.com/people/ashjian-ar15" target="_blank" title="知乎">
+                      
+                        <i class="fa fa-fw fa-globe"></i>知乎</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://me.csdn.net/ashjian" target="_blank" title="CSDN">
+                      
+                        <i class="fa fa-fw fa-codiepie"></i>CSDN</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+            <div class="links-of-blogroll motion-element links-of-blogroll-inline">
+              <div class="links-of-blogroll-title">
+                <i class="fa  fa-fw fa-link"></i>
+                Links
+              </div>
+              <ul class="links-of-blogroll-list">
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="http://mp.weixin.qq.com/user1" title="OpenInfo" target="_blank">OpenInfo</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="http://mp.weixin.qq.com/user2" title="stormzhang" target="_blank">stormzhang</a>
+                  </li>
+                
+              </ul>
+            </div>
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#如画构成"><span class="nav-number">1.</span> <span class="nav-text">如画构成</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#成画而不成景"><span class="nav-number">2.</span> <span class="nav-text">成画而不成景</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#眼睛的镜头是连续的"><span class="nav-number">3.</span> <span class="nav-text">眼睛的镜头是连续的</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#既成画也成景"><span class="nav-number">4.</span> <span class="nav-text">既成画也成景</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#相互成景"><span class="nav-number">5.</span> <span class="nav-text">相互成景</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#装折如画：出幕若分别院，连墙拟越深斋"><span class="nav-number">6.</span> <span class="nav-text">装折如画：出幕若分别院，连墙拟越深斋</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#如画构成与动态入画"><span class="nav-number">7.</span> <span class="nav-text">如画构成与动态入画</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#中国的游戏场景设计应该是什么样子的？"><span class="nav-number">8.</span> <span class="nav-text">中国的游戏场景设计应该是什么样子的？</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">StarDustLoong</span>
+
+  
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-area-chart"></i>
+    </span>
+    
+      <span class="post-meta-item-text">本站总字数&#58;</span>
+    
+    <span title="本站总字数">635.5k</span>
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Pisces</a> v5.1.4</div>
+
+
+
+
+#<!-- 百度自动推送 -->
+#<script>
+#(function(){
+#    var bp = document.createElement('script');
+#    var curProtocol = window.location.protocol.split(':')[0];
+#    if (curProtocol === 'https') {
+#        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+#    }
+#    else {
+#        bp.src = 'http://push.ashjian.baidu.com/push.js';
+#    }
+#    var s = document.getElementsByTagName("script")[0];
+#    s.parentNode.insertBefore(bp, s);
+#})();
+#</script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aplayer/dist/APlayer.min.css">
+
+<script src="https://cdn.jsdelivr.net/npm/aplayer/dist/APlayer.min.js"></script>
+<!-- require MetingJS -->
+
+<script src="https://cdn.jsdelivr.net/npm/meting@2.0.1/dist/Meting.min.js"></script>
+<div> 
+<meting-js  
+    server="netease" 
+    type="playlist"  
+    id="5281251057" 
+    fixed="true"  
+    autoplay="false" 
+    loop="all" 
+    order="random"
+    preload="auto" 
+    list-folded="ture" 
+    list-max-height="500px" 
+    lrc-type="1">
+</meting-js>	 
+</div>
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv">
+      本站访客数
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+      人次
+    </span>
+  
+
+  
+    <span class="site-pv">
+      本站总访问量
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+      次
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+  <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+  <script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+  
+  <script type="text/javascript">
+    var GUEST = ['nick','mail','link'];
+    var guest = 'nick,mail,link';
+    guest = guest.split(',').filter(item=>{
+      return GUEST.indexOf(item)>-1;
+    });
+    new Valine({
+        el: '#comments' ,
+        verify: false,
+        notify: false,
+        appId: 'Gp5xxuBGmRxC9yeJHf5wlLpN-gzGzoHsz',
+        appKey: 'wo0eDJonJrnuUrCCCU7EnH1n',
+        placeholder: '欢迎评论',
+        avatar:'mm',
+        guest_info:guest,
+        pageSize:'20' || 10,
+    });
+  </script>
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"jsonPath":"/live2dw/assets/dsr50_lifu_normal.model.json"},"display":{"position":"right","width":700,"height":800,"hOffset":-250,"vOffset":-150},"mobile":{"show":true,"scale":0.7},"log":false});</script></body>
+</html>

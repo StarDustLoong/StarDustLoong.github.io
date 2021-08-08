@@ -1,0 +1,1951 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="网络," />
+
+
+
+
+  
+
+
+  <link rel="alternate" href="/atom.xml" title="" type="application/atom+xml" />
+
+
+
+
+
+
+<meta name="description" content="转载：https:&#x2F;&#x2F;blog.csdn.net&#x2F;weixin_34049948&#x2F;article&#x2F;details&#x2F;92724568 本章内容 ​     IP地址配置 ​     路由管理 ​     配置文件管理 ​     DNS配置 ​      基本网络配置 ​        将linux主机接入到网络，需要配置网络相关设置。 ​        一般包括如下操作： ​">
+<meta property="og:type" content="article">
+<meta property="og:title" content="网络linux操作">
+<meta property="og:url" content="http://www.ashjian.xyz/%E7%BD%91%E7%BB%9Clinux%E6%93%8D%E4%BD%9C/index.html">
+<meta property="og:site_name">
+<meta property="og:description" content="转载：https:&#x2F;&#x2F;blog.csdn.net&#x2F;weixin_34049948&#x2F;article&#x2F;details&#x2F;92724568 本章内容 ​     IP地址配置 ​     路由管理 ​     配置文件管理 ​     DNS配置 ​      基本网络配置 ​        将linux主机接入到网络，需要配置网络相关设置。 ​        一般包括如下操作： ​">
+<meta property="article:published_time" content="2020-08-26T13:28:20.000Z">
+<meta property="article:modified_time" content="2021-03-26T10:02:03.248Z">
+<meta property="article:author" content="StarDustLoong">
+<meta property="article:tag" content="网络">
+<meta name="twitter:card" content="summary">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://www.ashjian.xyz/网络linux操作/"/>
+
+
+
+
+
+  <title>网络linux操作 | </title>
+  
+
+
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?d7bf52f45e24a0e6f2951901a7a97864";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+<meta name="generator" content="Hexo 4.2.1"></head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title"></span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off"
+             placeholder="搜索..." spellcheck="false"
+             type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://www.ashjian.xyz/%E7%BD%91%E7%BB%9Clinux%E6%93%8D%E4%BD%9C/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="StarDustLoong">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/uploads/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">网络linux操作</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-08-26T21:28:20+08:00">
+                2020-08-26
+              </time>
+            
+
+            
+              <span class="post-meta-divider">|</span>
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-check-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">更新于&#58;</span>
+              
+              <time title="更新于" itemprop="dateModified" datetime="2021-03-26T18:02:03+08:00">
+                2021-03-26
+              </time>
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/linux/" itemprop="url" rel="index">
+                    <span itemprop="name">linux</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/%E7%BD%91%E7%BB%9Clinux%E6%93%8D%E4%BD%9C/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/%E7%BD%91%E7%BB%9Clinux%E6%93%8D%E4%BD%9C/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  4.5k
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  19
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+      
+      
+
+      
+        <p>转载：<a href="https://blog.csdn.net/weixin_34049948/article/details/92724568" target="_blank" rel="noopener">https://blog.csdn.net/weixin_34049948/article/details/92724568</a></p>
+<p>本章内容</p>
+<p>​     IP地址配置</p>
+<p>​     路由管理</p>
+<p>​     配置文件管理</p>
+<p>​     DNS配置</p>
+<p>​     </p>
+<p>基本网络配置</p>
+<p>​        将linux主机接入到网络，需要配置网络相关设置。</p>
+<p>​        一般包括如下操作：</p>
+<p>​           主机名</p>
+<p>​           IP/netmask</p>
+<p>​           路由：默认网关</p>
+<p>​           DNS服务器</p>
+<p>​              主DNS服务器</p>
+<p>​              次DNS服务器</p>
+<p>​              第三DNS服务器</p>
+<p>​        </p>
+<p>centos6网卡名称：</p>
+<p>​        接口命名方式：centos 6</p>
+<p>​           以太网：eth[0,1,2,…]</p>
+<p>​           ppp: ppp[0,1,2,…]</p>
+<p>​        网络接口识别并命名相关的udev配置文件：</p>
+<p>​            /etc/udev/rules.d/70-persistent-net.rules</p>
+<p>​        查看网卡驱动：</p>
+<p>dmesg      dmesg | grep -i eth      </p>
+<p>ethtool      ethtool -i eth0</p>
+<p>​        卸载网卡驱动：</p>
+<p>modprobe    modprobe -r e1000</p>
+<p>rmmod     rmmod e1000</p>
+<p>​        装载网卡驱动：</p>
+<p>​           modprobe e1000</p>
+<p>​          </p>
+<p>网络配置方式：</p>
+<p>​        静态指定：</p>
+<p>​           ifconfig，route，netstat</p>
+<p>​           ip：object{link,addr.route},ss,rc</p>
+<p>system-config-network-tui,setup</p>
+<p>​           配置文件</p>
+<p>​        动态分配：</p>
+<p>​           DHCP：Dynamic Host Configuration Protlcol</p>
+<p>​          </p>
+<p>ifconfig：</p>
+<p>​        ifconfig [interface] 查看网络接口</p>
+<p>​           ifconfig -a          显示所有网络接口（包含状态为down）</p>
+<p>​           ifconfig InterFace  [up|down]    启用、关闭网络接口（网卡）</p>
+<p>​        ifconfig interface [aftype] options | address</p>
+<p>​           ifconfig IFACE IP/netmask  [up]</p>
+<p>​           ifconfig IFACE IP netmask  NETMASK 配置IP地址</p>
+<p>​        注意：</p>
+<p>​           修改立即生效</p>
+<p>​        启用混杂模式：[-]promisc</p>
+<p>route:</p>
+<p>​        路由记录类型：</p>
+<p>​           主机路由 -host</p>
+<p>​           网络路由 -net  netmask</p>
+<p>​           默认路由</p>
+<p>​        查看：</p>
+<p>​           route -n</p>
+<p>​        添加路由：route add</p>
+<p>​           route add [-host|-net]  target [netmask NM] [gw GW] [dev IFACE]</p>
+<p>​        </p>
+<p>​           添加主机路由：</p>
+<p>​              目标192.168.1.3 网关 172.16.0.1</p>
+<p>​                  route add  -host 192.168.1.3 gw 172.16.0.1 [dev eth0]</p>
+<p>​          </p>
+<p>​           添加网络路由：  </p>
+<p>​              目标：192.168.0.0 网关 172.16.0.1  </p>
+<p>​                  route add  -net 192.168.0.0/24 gw 172.16.0.1</p>
+<p>​                  route add  -net 192.168.0.0 netmask 255.255.255.0 gw 172.16.0.1</p>
+<p>​                 </p>
+<p>​           添加默认路由：</p>
+<p>​              默认路由网关：172.16.0.1</p>
+<p>​                  route add  -net 0.0.0.0 netmask 0.0.0.0 gw 172.16.0.1</p>
+<p>​                  route add  default gw 172.16.0.1</p>
+<p>​        </p>
+<p>​        删除路由：route del</p>
+<p>​              route del  [-host|-net] target [gw GW] [netmask NM] [dev IF]</p>
+<p>​           删除主机路由：</p>
+<p>​              目标：192.168.1.3 网关 172.16.0.1</p>
+<p>​                  route del  -hos 192.168.1.3 gw 172.16.0.1</p>
+<p>​           删除网路路由：</p>
+<p>​              目标：192.168.0.0 网关 172.16.0.1</p>
+<p>​                  route -net  192.168.0.0 netmask 255.255.255.0</p>
+<p>​           删除默认路由：</p>
+<p>​                  route del  default gw 172.16.0.1</p>
+<p>​        </p>
+<p>​        ###配置动态路由：</p>
+<p>​           通过守护进程获取动态路由</p>
+<p>​        ###    安装quagga包</p>
+<p>​        ###    主持多种路由协议：rip，ospf。bgp</p>
+<p>​        ###    命令vtysh配置</p>
+<p>​     </p>
+<p>netstat：</p>
+<p>​        print network connections，routing  tables,interface statistics,</p>
+<p>​        masquerade connections,and multicast  memberships</p>
+<p>​        显示网路连接：</p>
+<p>​        netstat [–tcp|-t][–udp|-u][–raw|-w][–listening|-l][–all|-a]</p>
+<p>​              [–numeric|-n][–extend|-e][–program|-p]</p>
+<p>​           -t|–tcp     tcp协议</p>
+<p>​           -u|–udp    udp协议</p>
+<p>​           -w|–raw       raw socket相关</p>
+<p>​           -l|–listen       处于监听状态</p>
+<p>​           -a|–all     所有状态</p>
+<p>​           -n|–numeric    以数字显示IP和端口</p>
+<p>​           -e|–extend 扩展格式</p>
+<p>​           -p|–program    显示相关进程及PID</p>
+<p>​        常用组合：</p>
+<p>​           -tan ，-uan，-tnl -unl</p>
+<p>​        显示路由表：</p>
+<p>​           netstat {–route|-r}[–numeric|-n]</p>
+<p>​              -r  显示内核路由表</p>
+<p>​              -n  数字格式</p>
+<p>​        显示接口统计数据：</p>
+<p>​           netstat {–interface|-l}[iface][–all|-a][–extend|-e]</p>
+<p>​                   [–program|-p][–numeric|-n]</p>
+<p>​              netstat  -i</p>
+<p>​              netstat  -I=IFACE</p>
+<p>​              ifconfig -s  iface</p>
+<p>​        </p>
+<p>ip:</p>
+<p>​        配置Linux网络属性：ip命令</p>
+<p>​           ip - show / manipulate  routing,devices,policy routing and tunnels</p>
+<p>​              显示/操作路由、设备、策略路由和隧道</p>
+<p>​        格式：</p>
+<p>​           ip [options] objecet  {command|help}</p>
+<p>​              object:  {link|addr|route..}</p>
+<p>​          </p>
+<p>​        PS:  centos6 默认不支持ip等命令补全，需安装辅助包 epel源中</p>
+<p>​              yum install  bash-completion</p>
+<p>​          </p>
+<p>​        </p>
+<p>​        ip link：  </p>
+<p>​           ip link -network  device configuration 网络设备配置</p>
+<p>​              ip link set IFACE  up|down  == ifconfig IFACE  up|down</p>
+<p>​                   down掉之后ifconfig 需要加-a选项查看，ip a, ip link 可直接看到状态down</p>
+<p>ifup/ifdown:</p>
+<p>​                   需要由配置文件，且down掉之后ifconfig可以查看网卡</p>
+<p>​                  ip link  状态也依然up</p>
+<p>​                 </p>
+<p>​              ip link show  iface  单独查看某一网卡</p>
+<p>​        ip addr：</p>
+<p>​              address|ad|a…：</p>
+<p>​           ip addr {add | del} IFADDR  dev STRING</p>
+<p>​              [label LABEL]            添加地址时指明网卡别名如（:#）</p>
+<p>​               [scope{global,link,host}]     指明作用域</p>
+<p>​                   globel:全局可用</p>
+<p>​                   link：仅链接可用</p>
+<p>​                   host：本机可用</p>
+<p>​              </p>
+<p>​           ip addr show|flush dev  IFACE   查看清空IP地址</p>
+<p>​     </p>
+<p>​        ip route:</p>
+<p>​            ip route add     添加路由</p>
+<p>​              ip route add TARGET  via GW dev IFACE src SOURCE-IP</p>
+<p>​                      TARGET:</p>
+<p>​                          主机路由：IP</p>
+<p>​                          网络路由：NET/MASK</p>
+<p>​              ip route add  192.168.0.0/24 via 172.16.0.1</p>
+<p>​              ip route add  192.168.6.6   via 172.16.0.1</p>
+<p>​              添加网关：</p>
+<p>​                  ip route add  default via GW</p>
+<p>​              ip route add default  via 172.16.0.1</p>
+<p>​          </p>
+<p>​           ip route delete       删除路由</p>
+<p>​              ip route delete  TARGET</p>
+<p>​          </p>
+<p>​           ip route show|list 显示路由</p>
+<p>​              </p>
+<p>​           ip route flush [dev IFACE][via PREFIX]</p>
+<p>​                             清除路由</p>
+<p>​        </p>
+<p>ss：命令</p>
+<p>​        格式：ss [option]…[FILTER]</p>
+<p>​        netstat 通过遍历proc来获取socket信息，ss使用netlink与内核tcp_diag模块</p>
+<p>​           通信获取socket信息</p>
+<p>​        选项：</p>
+<p>​              -t      tcp协议先关</p>
+<p>​              -u     udp协议相关</p>
+<p>​              -w     裸套接字相关</p>
+<p>​              -l      listen状态的连接</p>
+<p>​              -a      所有</p>
+<p>​              -n      数字格式</p>
+<p>​              -p      相关的程序及PID</p>
+<p>​              -e      扩展的信息</p>
+<p>​              -m     内存用量</p>
+<p>​              -o      计时器信息</p>
+<p>​              -s      列出当前socket的详细信息</p>
+<p>​              </p>
+<p>​        FILTER：[state TCP-STATE][EXPRESSION]</p>
+<p>​           TCP 的常见状态：</p>
+<p>​              tcp finite state  machine：</p>
+<p>​                  LISTEN:     监听</p>
+<p>​                   ESTABLISHED:已建立的链接</p>
+<p>​                   FIN_WAIT_1 </p>
+<p>​                   FIN_WAIT_2</p>
+<p>​                   SYN_SENT</p>
+<p>​                   SYN_RECV</p>
+<p>​                   CLOSED</p>
+<p>​           EXPRESSION:</p>
+<p>​              dport=</p>
+<p>​              sport=</p>
+<p>​              示例：  ‘(dport =  :ssh or sport = :ssh)’</p>
+<p>​                     ss  state ESTABLISHED sport = :ssh</p>
+<p>​        常用组合：   </p>
+<p>​           -tan ，-tanl， -tanlp，-uan</p>
+<p>​          </p>
+<p>​        常见用法：</p>
+<p>​           ss -l        显示本地打开的所有端口</p>
+<p>​           ss -pl       显示每个进程具体打开的socket</p>
+<p>​           ss -ta       显示所有的tcp  socket</p>
+<p>​           ss -ua      显示所有的udp  socket</p>
+<p>​           ss -o state established  ‘( dport = :ssh or sport = :ssh )’</p>
+<p>​                      显示所有已建立的ssh连接</p>
+<p>​           ss -o state established  ‘( dport = :http or spout = :http )’</p>
+<p>​                      显示所有已建立的http连接</p>
+<p>​           ss -s       列出当前socket的详细信息</p>
+<p>网络配置文件：</p>
+<p>​        ip，mask，gw，dns相关配置文件：</p>
+<p>​            /etc/sysconfig/network-scripts/ifcfg-IFACE</p>
+<p>​        路由相关的配置文件：</p>
+<p>​            /etc/sysconfig/network-scripts/route-IFACE</p>
+<p>​        NDS配置文件：</p>
+<p>​           /etc/resolv.conf</p>
+<p>​        参考说明：</p>
+<p>​           centos6.9  /usr/share/doc/initscripts-9.03.58/sysconfig.txt</p>
+<p>​           centos7.4  /usr/share/doc/initscripts-9.49.39/sysconfig.txt</p>
+<p>​          </p>
+<p>​     ifcfg-IFACE:</p>
+<p>​           DEVICE     此配置文件应用到的设备</p>
+<p>​           HWADDR       对应的设备的MAC地址，如修改，可改为MACADDR=</p>
+<p>​           BOOTPROTO 激活此设备时使用的地址配置协议，常用的dhcp，static，none，bootp</p>
+<p>​           NM_CONTROLLED:   NM为：NetworkManager的简写，此网卡是否接受NM控制</p>
+<p>​           ONBOOT       在系统引导时是否激活此设备</p>
+<p>​           TYPE       接口类型；常见的有Ethernet，Bridge</p>
+<p>​           UUID       uuid</p>
+<p>​           IPADDR     ip地址</p>
+<p>​           NETMASK       子网掩码</p>
+<p>​           PREFIX      netmask 使用/24  写法</p>
+<p>​           GATEWAY      默认网关</p>
+<p>​           DNS1       第一个DNS服务器指向</p>
+<p>​           DNS2       第二个DNS服务器指向</p>
+<p>​           USERCTL    普通用户是否可控制此设备</p>
+<p>​           PEERDNS       如果BOOTPROTO的值为dhcp ，是否允许dhcp server分配的dns</p>
+<p>​                      服务器指向信息直接覆盖/etc/resolv.conf</p>
+<p>​           DEFROUTE   是否把这个eth设置为默认路由       </p>
+<p>​           PEERROUTES 是否从DHCP服务器获取用于定义接口的默认网关的信息的路由表条目</p>
+<p>​           IPV6INIT 是否启用IPv6接口</p>
+<p>​           IPV4_FAILURE_FATAL=yes      如果ipv4配置失败禁用设备</p>
+<p>​           IPV6_FAILURE_FATAL=yes      如果ipv6配置失败禁用设备   </p>
+<p>​          </p>
+<p>​     route-IFACE:</p>
+<p>​        两种书写风格：</p>
+<p>​           \1.   TARGET via GW  </p>
+<p>​           如：192.167.10.0/24 via 192.168.65.1</p>
+<p>​              192.168.8.8 via  192.168.65.1</p>
+<p>​          </p>
+<p>​           \2.   每三行定义一条路由</p>
+<p>​               ADDRESS#=ip</p>
+<p>​               NETMASK#=mask</p>
+<p>​              GATEWAY#=gw  </p>
+<p>​           PS: #：为数字 必须从0开始</p>
+<p>​              如需添加主机路由 mask 255.255.255.255</p>
+<p>​              如需添加默认路由 ip 和mask 都为  0.0.0.0  </p>
+<p>​     </p>
+<p>​     配置文件修改之后生效：</p>
+<p>​        service network restart      centos6</p>
+<p>​        systemctl restart network    centos7</p>
+<p>​        </p>
+<p>​        </p>
+<p>主机名和本地解析器：</p>
+<p>​        配置当前主机的主机名：</p>
+<p>hostname HOSTNAME</p>
+<p>​            立即生效，如果想要提示符修改需重新登录，重启失效</p>
+<p>​            /etc/sysconfig/network</p>
+<p>​           重启生效</p>
+<p>​          </p>
+<p>​        解析器执行正向和逆向查询</p>
+<p>​        /etc/hosts</p>
+<p>​           本地主机名数据库和ip地址的映像</p>
+<p>​           对小型独立网络有用</p>
+<p>​           通常，在使用DNS前检查</p>
+<p>​           getent hosts     查看/etc/hosts内容</p>
+<p>​          </p>
+<p>dns名字解析：</p>
+<p>​        /etc/resolv.conf    DNS记录配置文件</p>
+<p>​           nameserver  DNS-SERVER-ip1</p>
+<p>​           nameserver  DNS-SERVER-ip2</p>
+<p>​           nameserver  DNS-SERVER-ip3</p>
+<p>​          </p>
+<p>​        /etc/nsswitch.conf</p>
+<p>​           优先于/etc/hosts 且可以设置/etc/hosts 优先级</p>
+<p>​            38 hosts:    files dns  </p>
+<p>​                  将files 和 dns  跟换顺序即可降低hosts优先级</p>
+<p>​     </p>
+<p>​        正向解析：name–&gt; ip</p>
+<p>dig        dig [-t A] name  [+trace]</p>
+<p>host     host -t A name</p>
+<p>​        反向解析：ip–&gt; name</p>
+<p>​           dig -x ip</p>
+<p>​           host -t PTR ip</p>
+<p>网卡别名：</p>
+<p>​        对虚拟主机有用</p>
+<p>​        将多个IP地址绑定到一个网卡（NIC）上</p>
+<p>​           eth0:1 ， eth0:2 ，eth0:3</p>
+<p>​        </p>
+<p>​        使用ifconfig添加：</p>
+<p>​           ifconfig eth0:1  192.168.8.8/24   </p>
+<p>​           ifconfig eth0:1  down</p>
+<p>​        </p>
+<p>​        使用ip命令添加：</p>
+<p>​           ip add add 172.16.1.2/24  dev eth0</p>
+<p>​           ip a a 172.16.1.3/16 dev eth0 label eth0:1</p>
+<p>​           ip addr del 172.16.1.2/24  dev eth0</p>
+<p>​           ip a flush dev eth0 label  eth0:0</p>
+<p>​          </p>
+<p>设备别名：</p>
+<p>​        为每个设备别名生成独立的接口配置文件：</p>
+<p>​           关闭NetworkManager服务</p>
+<p>​           ifcfg-ethX:xxx</p>
+<p>​           必须使用静态联网</p>
+<p>​              DEVICE=eth0:xxx</p>
+<p>​              IPADDR=ip</p>
+<p>​               NETMASK=mask</p>
+<p>​                   PREFIX=</p>
+<p>​              ONPARENT=yes 表明从属关系</p>
+<p>网络接口配置-bonding</p>
+<p>​        bonding</p>
+<p>​           将多块网卡绑定同一IP地址对外提供服务，可以实现高可用或者负载均衡。</p>
+<p>​           直接给两块网卡设置同一IP地址是不可以的。通过bonding，虚拟一块网卡对</p>
+<p>​           外提供连接，物理网卡被修改为相同的MAC地址</p>
+<p>​        </p>
+<p>​        bonding工作模式：</p>
+<p>​           Mode 0 （balance-rr）</p>
+<p>​              轮转（round-robin）策略：从头到尾顺序的在每一个slave</p>
+<p>​               接口上面发送数据包。本模式提供负载均衡和容错的能力</p>
+<p>​           Mode 1 （active-backup）</p>
+<p>​              活动-备份（主备）策略：只有一个slave被激活，当且仅当活动的slave</p>
+<p>​               接口失败时才会激活其他slave。为了避免交换机发生混乱，此时绑定的</p>
+<p>​               MAC地址只有一个外部端口上可见</p>
+<p>​           Mode 3（broadcast）</p>
+<p>​               广播策略：在所有的slave接口上传送所有的报文，提供容错能力</p>
+<p>​          </p>
+<p>​           active-backup、balance-tlb和balance-alb模式不需要交换机的任何特殊配置。</p>
+<p>​            其他绑定模式需要配置交换机以便整合链接。如：</p>
+<p>​               Cisco交换机需要在模式0、2、3中使用EtherChannel，但在模式4中需要LACP</p>
+<p>​              和EtherChannel</p>
+<p>​              </p>
+<p>​        创建bonding设备的配置文件：</p>
+<p>​            /etc/sysconfig/network-scripts/ifcfg-bond0</p>
+<p>​               DEVICE=bond0</p>
+<p>​               BOOTPROTO=none</p>
+<p>​               BONDING_OPTS=”miimon=100 mode=0”</p>
+<p>​            /etc/sysconfig/network-scripts/ifcfg-eth0</p>
+<p>​               DEVICE=eht0</p>
+<p>​               BOOTPROTO=none</p>
+<p>​               MASTE=bond0</p>
+<p>​              SLAVE=yes</p>
+<p>​               USERCTL=no</p>
+<p>​           查看bond0状态： /proc/net/bonding/bond0</p>
+<p>​          </p>
+<p>​        miimon是用来进行链路监测的。如果miimon=100，那么系统每100ms监测一次链路</p>
+<p>​        状态，如果一条线路不通就转入另一条线路</p>
+<p>​        </p>
+<p>​        删除bond0</p>
+<p>​           ifconfig bond0  down</p>
+<p>rmmod     rmmod bonding</p>
+<p>​        </p>
+<p>​        详细帮助：</p>
+<p>​            <a href="https://www.kernel.org/doc/Documentation/networking/bonding.txt" target="_blank" rel="noopener">https://www.kernel.org/doc/Documentation/networking/bonding.txt</a></p>
+<p>​          </p>
+<p>CentOS 7 网络属性配置</p>
+<p>​        Centos 6之前，网络接口使用连续号码命名:eth0、eth1等，当增加或删除网卡时，名称</p>
+<p>​        可能会发生变化</p>
+<p>​        CentOS7使用基于硬件，设备拓扑和设置类型命名</p>
+<p>​           1 网卡命名机制：</p>
+<p>​               systemd对网络设备的命名方式：</p>
+<p>​              a   如果Fireware或BIOS为主板上集成的设备提供的索引信息可用，且</p>
+<p>​                   且可预测，则根据此索引进行命名，例如eno1</p>
+<p>​              b   如果Fireware或BIOS 为PCI-E扩展槽提供的索引信息可用，且可预测，则</p>
+<p>​                   根据此索引进行命名，例如ens1</p>
+<p>​              c   如果硬件接口的物理位置信息可用，则根据此信息进行命名，例如enp2s0</p>
+<p>​              d   如果用户显示启动，也可根据MAC地址进行命名，如enx2387…</p>
+<p>​              e   上述均不可用时，则使用传统命名机制</p>
+<p>​        </p>
+<p>​              基于BIOS支持启用biosdevname软件：</p>
+<p>​                   内置网卡：   em1，em2</p>
+<p>​                   pci卡：      pYpX   Y：slot，X：port        </p>
+<p>​          </p>
+<p>​           2   名称组成格式：</p>
+<p>​                   en：     Ethernet 有限局域网</p>
+<p>​                   wl： wlan 无限局域网</p>
+<p>​                   ww：    wwan   无线广域网</p>
+<p>​              名称类型：</p>
+<p>​                  o  <index>:   集成设备的设备索引号</p>
+<p>​                  s  <soft>: 扩展槽的索引号</p>
+<p>​                  x  <MAC>:   基于MAC地址的命名</p>
+<p>​                   p<bus>s<slot>:   enp2s1</p>
+<p>​          </p>
+<p>​        采用传统命名方式：</p>
+<p>​           1   编辑/etc/default/grub配置文件</p>
+<p>​               GRUB_CMDLINE_LINUX=”crashkernel=auto rhgb  quiet net.ifnames=0</p>
+<p>​           2   为grub2生成其配置文件</p>
+<p>​              grub2-mkconfig -o  /etc/grub2.cfg</p>
+<p>​           3   重启系统</p>
+<p>​          </p>
+<p>​           或者直接修改/boot/grub2/grub.cfg</p>
+<p>​              在linux16.* 行尾添加 net.ifnames=0</p>
+<p>​          </p>
+<p>Centos 7修改主机名：</p>
+<p>​        配置文件：/etc/hostname,默认没有此文件，通过DNS反向解析获取主机名，</p>
+<p>​           默认为：localhost.localdomain</p>
+<p>​        显示主机名信息：</p>
+<p>​           hostname</p>
+<p>​           hostamectl  status</p>
+<p>​        设置主机名：</p>
+<p>​           hostnamectl set-hostname  centos7.4</p>
+<p>​              </p>
+<p>Centos7网络配置工具：</p>
+<p>nm-connection-editor    图形工具：nm-connection-editor</p>
+<p>nmtui                     字符配置tui工具：nmtui  </p>
+<p>nmcli                      命令行工具：nmcli</p>
+<p>​          </p>
+<p>nmcli：</p>
+<p>​        由NetworkManager 提供的地址配置工具，必须开启NM服务</p>
+<p>​        设备（device）即网络接口</p>
+<p>​        连接（connection）是对网络接口的配置。</p>
+<p>​        添加连接（nmcli con  add）使一个网络接口可有多个连接配置，但同时只有一个连接配置生效</p>
+<p>​     </p>
+<p>​        格式：   </p>
+<p>​        nmcli []options] object  {command|help}</p>
+<p>​              device - show and  manage network interface</p>
+<p>​              connection - start,stop,and manager network connections</p>
+<p>​           nmcli device help | show |  modify|..</p>
+<p>​               配置网卡属性，现在进行</p>
+<p>​           nmcil connection help  | show |add |modify |del|up|down|..</p>
+<p>​     </p>
+<p>​        PS：使用nmcli dev status 查看之后最后一项 CONNECTION 值，即为连接的</p>
+<p>​           connection名称，</p>
+<p>​              使用nmcli con modify CONNECTION</p>
+<p>​                   或者 nmcli con show CONNECTION</p>
+<p>​              需注意</p>
+<p>​          </p>
+<p>​        修改ip地址等属性：</p>
+<p>​           nmcli connection|device  modify CONNECTION [+|-]setting.property  value</p>
+<p>​              setting.property</p>
+<p>​                   ipv4.addresses</p>
+<p>​                   ipv4.gateway</p>
+<p>​                   ipv4.dns1|2</p>
+<p>​                  ipv4.method  值为：manual（静态）|auto（dhcp）</p>
+<p>​              +|- 用于多条记录情况</p>
+<p>​                 </p>
+<p>​        直接修改配置文件之后执行生效：</p>
+<p>​              systemctl restart  network</p>
+<p>​              nmcli con|connection  reload   </p>
+<p>​          </p>
+<p>​           nmcli命令生效：</p>
+<p>​              nmcli con down  eth0；nmcli con up eth0</p>
+<p>​              </p>
+<p>​           显示所有连接：</p>
+<p>​              nmcli connection  show</p>
+<p>​           显示所有活动连接：</p>
+<p>​              nmcli con show  –active</p>
+<p>​           显示网络连接配置：</p>
+<p>​              nmcli con show  “System eth0” | CONNECTION</p>
+<p>​           显示设备状态：</p>
+<p>​              nmcli dev  status</p>
+<p>​           显示网络接口属性：</p>
+<p>​              nmcli dev show  IFACE</p>
+<p>​        </p>
+<p>​        创建新连接：</p>
+<p>​              nmcli con add  con-name NAME type Ethernet ifname ens37</p>
+<p>​                   添加连接NAME，ip自动通过dhcp获取，配置在ens37网卡接口下</p>
+<p>​              </p>
+<p>​              nmcli con add  con-name STATIC ifname ens37 autoconnect no type</p>
+<p>​           Ethernet ipv4.addresses  IP/MASK ipv4.gateway GW</p>
+<p>​                  添加新连接STATIC ，指定静态ip 不自动连接</p>
+<p>​          </p>
+<p>​           删除连接：</p>
+<p>​              nmcli con del  NAME</p>
+<p>​              </p>
+<p>​           切换连接：</p>
+<p>​              nmcli con up  STATIC|NAME</p>
+<p>​          </p>
+<p>​           DNS和路由相关setting.property</p>
+<p>​              ipv6.ignore-auto-dns  yes      相当于PEERDNS</p>
+<p>​               ipv6.ignore-auto-routes yes        相当于PEERROUTES</p>
+<p>​        网络配置文件：   </p>
+<p>​           使用nmcli con add 添加连接会生成新的网卡配置文件：</p>
+<p>​               ifcfg-<ifname></p>
+<p>​            修改连接配置文件之后，需要重新加载配置：</p>
+<p>​              nmcli con  reload</p>
+<p>​              nmcli con down/up  CONNECTION 可被自动激活</p>
+<p>​              nmcli dev  dis|diconnect eth0    禁用网卡，防止被自动激活</p>
+<p>​                                           然而实测无效，还是可以被up激活</p>
+<p>​        </p>
+<p>​        nmcli实现bonding： </p>
+<p>​           添加bonding接口：</p>
+<p>​              nmcli con add type  bond con-name mybond0 ifname mybond0 mode active-backup、balance-tlb和balance-alb模式不需要交换机的任何特殊配置。</p>
+<p>​           添加从属接口：</p>
+<p>​              nmcli con add type  bond-slave ifname ens33 master mybond0</p>
+<p>​              nmcli con add type  bond-slave ifname ens37 master mybond0</p>
+<p>​            要启动绑定，则必须首先启动从属接口</p>
+<p>​              nmcli con up  bond-slave-ens33</p>
+<p>​              nmcli con up  bond-slave-ens37</p>
+<p>​           启动绑定：</p>
+<p>​              nmcli con up  mybond0</p>
+<p>​              </p>
+<p>网络组Networking Teaming</p>
+<p>​        网络组：是将多个网卡聚合在一起的方式，从而实现容错和提供吞吐量</p>
+<p>​        网络组不同于旧版中bonding技术，提供更好的性能和扩展性</p>
+<p>​        网络组由内核驱动和teamd守护进程实现</p>
+<p>​        多种方式runner</p>
+<p>​              broadcast</p>
+<p>​               roundrobin</p>
+<p>​               activebackup</p>
+<p>​               loadbalance</p>
+<p>​              lacp(implements the 802.3ad Link Aggregation Control  Protocol)</p>
+<p>​              </p>
+<p>​        网络组：</p>
+<p>​              启动网络组接口（team0）不会自动启动网络组中的port接口（team0-ens37）</p>
+<p>​               启动网络组接口中的port接口总会自动启动网络组接口</p>
+<p>​               禁用网络组接口会自动禁用网络组中的port接口</p>
+<p>​              没有port接口的网络组接口可以启动静态ip链接</p>
+<p>​              启用dhcp连接时，没有port接口的网络组会等待port接口的加入</p>
+<p>​          </p>
+<p>​        创建网络组接口：</p>
+<p>​              nmcli con add type  team con-name CNAME ifname INAME [config JSON]</p>
+<p>​                  CNAME  连接名，INAME 接口名</p>
+<p>​                   JOSN:指定runner方式</p>
+<p>​                      格式 ‘{“runner”:{“name”:”METHOD”}}’</p>
+<p>​                   METHOD：broadcast, roundrobin,activebackup, loadbalance, lacp</p>
+<p>​          </p>
+<p>​              nmcli con add type  team con-name team0 ipv4.addresses</p>
+<p>​                   185.170.161.160/16 ipv4.method manual config ‘{“runner”:{“name”:”activebackup”}}’</p>
+<p>​                 </p>
+<p>​        创建port接口：</p>
+<p>​              nmcli con type  team-slave con-name CNAME ifname INAME master TEAM</p>
+<p>​                  CNAME: 连接名（如team0-ens37）</p>
+<p>​                  INAME:  接口名（指明网卡如  ens37）</p>
+<p>​                  TEAM:   组接口名 （如team0）</p>
+<p>​          </p>
+<p>​           例：nmcli connection add type team-slave con-name team0-ens37</p>
+<p>​              ifname ens37 master  team0</p>
+<p>​              nmcli connection add  type team-slave con-name team0-ens38</p>
+<p>​              ifname ens38 master  team0</p>
+<p>​                 </p>
+<p>​           连接名若不指定，默认为team-slave-IFACE</p>
+<p>​          </p>
+<p>​        启动网络组：</p>
+<p>​              nmcli con up  team0</p>
+<p>​              nmcli con up  team0-ens37</p>
+<p>​              nmcli con up  team0-ens38</p>
+<p>​        </p>
+<p>​        查看网络组：</p>
+<p>teamdctl        teamdctl team0 state</p>
+<p>​          </p>
+<p>​        关闭网络组：</p>
+<p>​              nmcli con down  team0 可再次开启</p>
+<p>​              </p>
+<p>​        删除网络组</p>
+<p>​              先down</p>
+<p>​              nmcli con del  team0</p>
+<p>​              nmcli con del  team0-ens37</p>
+<p>​              nmcli con del  team0-ens38</p>
+<p>​              </p>
+<p>​        PS:   创建或删除，会自动生成或删除配置文件       </p>
+<p>​              </p>
+<p>nmcli-实现网桥：</p>
+<p>​        此小段为复制粘贴内容，以便后期查找，没有操作复现。</p>
+<p>​        桥接：</p>
+<p>​           把一台机器上的若干个网络接口“连接”起来。其结果是，其中一个网</p>
+<p>​            口收到的报文会被复制给其他网口并发送出去。以使得网口之间的报文能够互</p>
+<p>​            相转发。网桥就是这样一个设备，它有若干个网口，并且这些网口是桥接起来</p>
+<p>​            的。与网桥相连的主机就能通过交换机的报文转发而互相通信。</p>
+<p>​            主机A发送的报文被送到交换机S1的eth0口，由于eth0与eth1、eth2桥接在一</p>
+<p>​           起，故而报文被复制到eth1和eth2，并且发送出去，然后被主机B和交换机S2</p>
+<p>​           接收到。而S2又会将报文转发给主机C、D。              </p>
+<p>​                      </p>
+<p>​        配置实现网桥</p>
+<p>​         创建软件网桥</p>
+<p>​           nmcli con add type bridge  con-name br0 ifname br0</p>
+<p>​           nmcli connection modify br0  ipv4.addresses 192.168.74.100/24</p>
+<p>​           ipv4.method  manuall</p>
+<p>​           nmcli con add type  bridge-slave con-name br0-port0 ifname eth0 master</p>
+<p>​           br0</p>
+<p>​        查看网桥</p>
+<p>​           cat /etc/sysconfig/network  -scripts/ifcfg-br0</p>
+<p>​           cat /etc/sysconfig/network  -scripts/ifcfg-br0-port0</p>
+<p>​           brctl show</p>
+<p>​        删除网桥 brctl delbr br0</p>
+<p>​        删除网桥中网卡 brctl delif eth0</p>
+<p>​        注意：NetworkManager只支持以太网接口接口连接到网桥，不支持聚合接口</p>
+<p>​              </p>
+<p>​              </p>
+<p>测试网络工具：</p>
+<p>​        </p>
+<p>hostname          显示主机名         </p>
+<p>ping               测试网络连通性</p>
+<p>​        -s 65507         最大包</p>
+<p>​        -f              强制发送，不等回复包</p>
+<p>​        -c 5        几次</p>
+<p>​        -w 5            指定时间</p>
+<p>mtr               测试网路连通性</p>
+<p>​        </p>
+<p>nslookup       确定名称服务器使用</p>
+<p>host</p>
+<p>dig        </p>
+<p>traceroute          跟踪路由</p>
+<p>tracepath</p>
+<p>tcmdump icmp -nn   抓包</p>
+<p>tcpdump -i eth1</p>
+<p>网络客户端工具：</p>
+<p>ftp         默认账号ftp  或者anonymous</p>
+<p>lftp        子命令：get（下载）、put 、mget（同时下载多个）、ls、cd、help  </p>
+<p>​                  !cmd表示执行本机命令</p>
+<p>lftpget    URL    下载ftp资源</p>
+<p>wget[options] URL</p>
+<p>​     -q     静默模式</p>
+<p>​     -c      断点续传</p>
+<p>​     -P      保存在指定目录</p>
+<p>​     -O     保存为指定的文件名</p>
+<p>​     –limit-rate=      指定传输速率,K,M 默认为Byte</p>
+<p>​     </p>
+<p>links URL    字符版浏览器</p>
+<p>​     –dump     查看文字</p>
+<p>​     –source 查看源码   </p>
+
+      
+    </div>
+    
+    
+    
+
+     <!-- 文章末尾统一添加“本文结束”标记 -->
+    <div>
+      
+        <div>
+    
+        <div style="text-align:center;color: #555;font-size:24px;"><-------------The End-------------></div>
+    
+</div>
+
+      
+    </div>
+    
+
+    
+      <div>
+        <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+  <div>坚持原创分享，你的支持就是我最大的动力！</div>
+  <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+    <span>打赏</span>
+  </button>
+  <div id="QR" style="display: none;">
+
+    
+      <div id="wechat" style="display: inline-block">
+        <img id="wechat_qr" src="/uploads/weixin_cash_code.png" alt="StarDustLoong 微信支付"/>
+        <p>微信支付</p>
+      </div>
+    
+
+    
+      <div id="alipay" style="display: inline-block">
+        <img id="alipay_qr" src="/uploads/alipay_cash_code.png" alt="StarDustLoong 支付宝"/>
+        <p>支付宝</p>
+      </div>
+    
+
+    
+
+  </div>
+</div>
+
+      </div>
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/%E7%BD%91%E7%BB%9C/" rel="tag"># 网络</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/02-%E7%A3%81%E7%9B%98%E9%98%B5%E5%88%97%EF%BC%88RAID%EF%BC%89/" rel="next" title="02-磁盘阵列（RAID）">
+                <i class="fa fa-chevron-left"></i> 02-磁盘阵列（RAID）
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/%E7%BD%91%E7%BB%9C%E6%A8%A1%E5%9E%8B/" rel="prev" title="网络模型">
+                网络模型 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+    </div>
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+
+      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/uploads/avatar.png"
+                alt="StarDustLoong" />
+            
+              <p class="site-author-name" itemprop="name">StarDustLoong</p>
+              <p class="site-description motion-element" itemprop="description">人类如风一般的自由</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">2409</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">12</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">146</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+	   
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/StarDustLoong" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:13671474528@163.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://www.zhihu.com/people/ashjian-ar15" target="_blank" title="知乎">
+                      
+                        <i class="fa fa-fw fa-globe"></i>知乎</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://me.csdn.net/ashjian" target="_blank" title="CSDN">
+                      
+                        <i class="fa fa-fw fa-codiepie"></i>CSDN</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+            <div class="links-of-blogroll motion-element links-of-blogroll-inline">
+              <div class="links-of-blogroll-title">
+                <i class="fa  fa-fw fa-link"></i>
+                Links
+              </div>
+              <ul class="links-of-blogroll-list">
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="http://mp.weixin.qq.com/user1" title="OpenInfo" target="_blank">OpenInfo</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="http://mp.weixin.qq.com/user2" title="stormzhang" target="_blank">stormzhang</a>
+                  </li>
+                
+              </ul>
+            </div>
+          
+
+          
+
+        </div>
+      </section>
+
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">StarDustLoong</span>
+
+  
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-area-chart"></i>
+    </span>
+    
+      <span class="post-meta-item-text">本站总字数&#58;</span>
+    
+    <span title="本站总字数">635.5k</span>
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Pisces</a> v5.1.4</div>
+
+
+
+
+#<!-- 百度自动推送 -->
+#<script>
+#(function(){
+#    var bp = document.createElement('script');
+#    var curProtocol = window.location.protocol.split(':')[0];
+#    if (curProtocol === 'https') {
+#        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+#    }
+#    else {
+#        bp.src = 'http://push.ashjian.baidu.com/push.js';
+#    }
+#    var s = document.getElementsByTagName("script")[0];
+#    s.parentNode.insertBefore(bp, s);
+#})();
+#</script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aplayer/dist/APlayer.min.css">
+
+<script src="https://cdn.jsdelivr.net/npm/aplayer/dist/APlayer.min.js"></script>
+<!-- require MetingJS -->
+
+<script src="https://cdn.jsdelivr.net/npm/meting@2.0.1/dist/Meting.min.js"></script>
+<div> 
+<meting-js  
+    server="netease" 
+    type="playlist"  
+    id="5281251057" 
+    fixed="true"  
+    autoplay="false" 
+    loop="all" 
+    order="random"
+    preload="auto" 
+    list-folded="ture" 
+    list-max-height="500px" 
+    lrc-type="1">
+</meting-js>	 
+</div>
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv">
+      本站访客数
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+      人次
+    </span>
+  
+
+  
+    <span class="site-pv">
+      本站总访问量
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+      次
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+  <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+  <script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+  
+  <script type="text/javascript">
+    var GUEST = ['nick','mail','link'];
+    var guest = 'nick,mail,link';
+    guest = guest.split(',').filter(item=>{
+      return GUEST.indexOf(item)>-1;
+    });
+    new Valine({
+        el: '#comments' ,
+        verify: false,
+        notify: false,
+        appId: 'Gp5xxuBGmRxC9yeJHf5wlLpN-gzGzoHsz',
+        appKey: 'wo0eDJonJrnuUrCCCU7EnH1n',
+        placeholder: '欢迎评论',
+        avatar:'mm',
+        guest_info:guest,
+        pageSize:'20' || 10,
+    });
+  </script>
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"jsonPath":"/live2dw/assets/dsr50_lifu_normal.model.json"},"display":{"position":"right","width":700,"height":800,"hOffset":-250,"vOffset":-150},"mobile":{"show":true,"scale":0.7},"log":false});</script></body>
+</html>

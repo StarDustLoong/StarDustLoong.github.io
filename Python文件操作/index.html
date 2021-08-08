@@ -1,0 +1,1622 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="python文件操作序," />
+
+
+
+
+  
+
+
+  <link rel="alternate" href="/atom.xml" title="" type="application/atom+xml" />
+
+
+
+
+
+
+<meta name="description" content="冯诺依曼体系架构  CPU由运算 器和控制器组成  运算器，完成各    种算数运算、逻辑运算、数据传输等数据加工处理 控制器，控 制程序的执行 存储器，用 千记忆程序和数据， 例如内存 输入设备，将数据或者      程序输入到计算机中，例如键盘   、鼠标 输出设备，将数据或     程序的处理结果展示给用户，例如显   示器、打印机等  一般说10 操作   ，指的是   文件10 , 如果">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Python文件操作">
+<meta property="og:url" content="http://www.ashjian.xyz/Python%E6%96%87%E4%BB%B6%E6%93%8D%E4%BD%9C/index.html">
+<meta property="og:site_name">
+<meta property="og:description" content="冯诺依曼体系架构  CPU由运算 器和控制器组成  运算器，完成各    种算数运算、逻辑运算、数据传输等数据加工处理 控制器，控 制程序的执行 存储器，用 千记忆程序和数据， 例如内存 输入设备，将数据或者      程序输入到计算机中，例如键盘   、鼠标 输出设备，将数据或     程序的处理结果展示给用户，例如显   示器、打印机等  一般说10 操作   ，指的是   文件10 , 如果">
+<meta property="og:image" content="https://raw.githubusercontent.com/ashjian/picBed02/main/20210507130335.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/ashjian/picBed02/main/20210507130336.png">
+<meta property="article:published_time" content="2021-05-29T07:46:15.417Z">
+<meta property="article:modified_time" content="2021-06-12T14:09:44.519Z">
+<meta property="article:author" content="StarDustLoong">
+<meta property="article:tag" content="python文件操作序">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://raw.githubusercontent.com/ashjian/picBed02/main/20210507130335.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://www.ashjian.xyz/Python文件操作/"/>
+
+
+
+
+
+  <title>Python文件操作 | </title>
+  
+
+
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?d7bf52f45e24a0e6f2951901a7a97864";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+<meta name="generator" content="Hexo 4.2.1"></head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title"></span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off"
+             placeholder="搜索..." spellcheck="false"
+             type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://www.ashjian.xyz/Python%E6%96%87%E4%BB%B6%E6%93%8D%E4%BD%9C/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="StarDustLoong">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/uploads/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Python文件操作</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2021-05-29T15:46:15+08:00">
+                2021-05-29
+              </time>
+            
+
+            
+              <span class="post-meta-divider">|</span>
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-check-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">更新于&#58;</span>
+              
+              <time title="更新于" itemprop="dateModified" datetime="2021-06-12T22:09:44+08:00">
+                2021-06-12
+              </time>
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/python/" itemprop="url" rel="index">
+                    <span itemprop="name">python</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/Python%E6%96%87%E4%BB%B6%E6%93%8D%E4%BD%9C/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/Python%E6%96%87%E4%BB%B6%E6%93%8D%E4%BD%9C/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  4k
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  17
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+      
+      
+
+      
+        <h2 id="冯诺依曼体系架构"><a href="#冯诺依曼体系架构" class="headerlink" title="冯诺依曼体系架构"></a>冯诺依曼体系架构</h2><p><img src="https://raw.githubusercontent.com/ashjian/picBed02/main/20210507130335.png" alt="image-20210424104544869"></p>
+<ul>
+<li><p>CPU由运算 器和控制器组成</p>
+<ul>
+<li>运算器，完成各    种算数运算、逻辑运算、数据传输等数据加工处理</li>
+<li>控制器，控 制程序的执行</li>
+<li>存储器，用 千记忆程序和数据， 例如内存</li>
+<li>输入设备，将数据或者      程序输入到计算机中，例如键盘   、鼠标</li>
+<li>输出设备，将数据或     程序的处理结果展示给用户，例如显   示器、打印机等</li>
+</ul>
+<p>一般说10 操作   ，指的是   文件10 , 如果指的是网络10   ,  都 会直接说网络10</p>
+</li>
+</ul>
+<h3 id="文件10-常用操作"><a href="#文件10-常用操作" class="headerlink" title="文件10 常用操作"></a>文件10 常用操作</h3><table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody><tr>
+<td>open</td>
+<td>打开</td>
+</tr>
+<tr>
+<td>read</td>
+<td>读取</td>
+</tr>
+<tr>
+<td>write</td>
+<td>写入</td>
+</tr>
+<tr>
+<td>close</td>
+<td>关闭</td>
+</tr>
+<tr>
+<td>readline</td>
+<td>行读取</td>
+</tr>
+<tr>
+<td>readlines</td>
+<td>多行读取</td>
+</tr>
+<tr>
+<td>seek</td>
+<td>文件指针操作</td>
+</tr>
+<tr>
+<td>tell</td>
+<td>指针位置</td>
+</tr>
+</tbody></table>
+<h3 id="打开操作"><a href="#打开操作" class="headerlink" title="打开操作"></a>打开操作</h3><p>open(file, mode二 ‘r’, buffe「 ing=-1, encoding 二 None, e「「0「 s=None, newline=None, closefd二 True,<br>opene「 =None )</p>
+<p>打开一个文件，返回一个文件对象（流对象）和文件描述符。打开文件失败，则返回异常</p>
+<p>基本使用：</p>
+<p>创建一个文件test , 然后打开它，用完关闭</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs plain">f &#x3D; open(&quot;test&quot;)     #file对象<br>#  windows &lt;_io.TextIOWrapper name &#x3D;&#39;test&#39; mode&#x3D;&#39;r&#39; encoding&#x3D;&#39;cp936&#39;&gt;<br># linux  &lt;_io.TextWrapper name&#x3D;&#39;test&#39; mode&#x3D;&#39;r&#39; encoding&#x3D;&#39;UTF-8&#39;&gt;<br>print(f .read())   #读取文件<br>f.close()  	   #关闭文件<br></code></pre></td></tr></table></figure>
+
+<p>文件操作中，最常用的操作</p>
+<p>有两种：文本模式和二制模式。不模式下，操作函数不尽相同，表现的结果</p>
+<p>也不一样。</p>
+<h3 id="open的参数"><a href="#open的参数" class="headerlink" title="open的参数"></a>open的参数</h3><ul>
+<li>file<ul>
+<li>打开或者要创建的文件名。如果不指定路径， 默 认是当前路径</li>
+</ul>
+</li>
+</ul>
+<p>mode模式</p>
+<p><img src="https://raw.githubusercontent.com/ashjian/picBed02/main/20210507130336.png" alt="image-20210424154547696"></p>
+<p>在上面列子中，可以看到默认是文本打开模式，且是只读的。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><code class="hljs plain">#  r模式<br><br>f &#x3D; open(&#39;test&#39;)  #只读还是只写？<br>f.read()<br>f.writ e (&#39;abc&#39;) <br>f.close()<br><br>f &#x3D; open(&#39;test&#39;,&#39;r&#39;)<br>f . write (&#39;abc&#39;)<br>f .close()<br><br>f &#x3D; open(&#39;testl&#39;,&#39;r&#39;) #只读，文件不存在<br><br>#w模式<br>f &#x3D; open(&#39;test&#39;,&#39;w&#39;)  #只写打开<br>f.write (&#39;abc&#39;) <br>f.close()<br><br>»&gt; cat test  #看看内容<br><br>f &#x3D; open(&#39;test&#39;,mode&#x3D;&#39;w&#39;)<br>f .close()<br><br>»&gt; cat  t est  #  看看内容<br><br>f &#x3D; open(&#39;testl&#39; ,mode&#x3D;&#39;w&#39;) <br>f.write (&#39;123&#39;)<br>f.close()<br><br>»&gt; cat test1 # 看看内容<br></code></pre></td></tr></table></figure>
+
+<p>open默认是只读模式r，打开已经存在的文件。</p>
+<p>r</p>
+<p>只读打开文件，如果使用write方法，会抛异常。</p>
+<p>如果文件不存在， 抛出FileNotFoundError异常</p>
+<p>w</p>
+<p>表示只写方式打开，如果读取则抛出异常</p>
+<p>如果文件不存在，则直接创建文件</p>
+<p>如果文件存在，则清空文件内容</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs plain">f &#x3D; open(&#39;test2&#39;,&#39;x&#39;) <br>f.read()  #<br>f.write (&#39;abed&#39;) <br>f.close()<br><br>f &#x3D; open(&#39;test2&#39;,&#39;x&#39;)  #<br></code></pre></td></tr></table></figure>
+
+<p>x</p>
+<p>文件不存在，创建文件，并只写方式打开</p>
+<p>文件存在，抛出FileExistsError</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><code class="hljs plain">f &#x3D; open(&#39;test2&#39;,&#39;a&#39;)<br>f .read()  #<br><br>f.write(&#39;abcde&#39;) <br>f.close()<br><br>&gt;&gt;&gt;cat test2<br><br>f &#x3D; open(&#39;test2&#39;,&#39;a&#39;) <br>f.write (&#39;\n hello&#39;)<br>f.close()<br><br>&gt;&gt;&gt;cat test2<br><br>f &#x3D; open(&#39;test3&#39;,&#39;a&#39;)<br>f.write(&#39;test3&#39;) <br>f.close()<br></code></pre></td></tr></table></figure>
+
+<p>a</p>
+<p>文件存在，只写打开，追加内容</p>
+<p>文件不存在，则创建后，只写打开，追加内容</p>
+<p>r是只读 ， wxa 都是只写。</p>
+<p>wxa都 可以产生新文件， W不管 文件存在与否，都 会生成全新内容的文件； a不管文件是否存   在，都能  在打开的文件尾部追加； x必须要求文件事先不存在，自己造一个新文件</p>
+<p>文本模式t</p>
+<p>字符流， 将文件的字节按照某种字符编码理解，按照字符操作。open的默认mode就是rt</p>
+<p>二进制模式b</p>
+<p>字节流， 将文件就按照字节理解，与字 符编码无关。二进制模式操作时，字节操作使用bytes类型</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs plain">f &#x3D; open(&quot;test3&quot;,&#39;rb&#39;)  #二进制只读<br>s &#x3D; f.read() <br>print(type(s))  #bytes <br>print(s)<br>f.close()  # 关闭文件<br><br>f &#x3D; open( &quot;test 3&quot;,&#39;wb&#39;)  #IO对象<br>s &#x3D; f.write(&quot;马哥教育&quot;.encode())<br>print(s)  # 是什么 f.close()<br>f.close()<br></code></pre></td></tr></table></figure>
+
+<p>思考： windows 下 ，执行下面的代码</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><code class="hljs plain">f &#x3D; open(&quot;test3&quot;,&#39;rw&#39;)  #<br>f &#x3D; open( &quot;test3&quot;,&#39;r+&#39; ) <br>s &#x3D; f.read()<br>f .write ( &quot; 马哥教育&quot;)<br>print(f.read())  #没有显示，为什么<br>f.close()<br><br>f &#x3D; open( &quot;test3&quot;,&#39;r+&#39;) <br>s  &#x3D;  f.write(&quot;magedu&quot;)  #<br>print(f.read()) <br>f.close()<br><br>&gt;&gt;&gt;cat test3<br><br>f &#x3D; writ e (&#39;test3&#39;,&#39;w+&#39;)<br>r.read()  #<br>f.close()<br><br>&gt;&gt;&gt;cat test3<br>f &#x3D; open(&#39;test3&#39;,&#39;a+&#39;)<br>f.write (&#39;mag&#39;) <br>f.read&#123;)<br>f .close()<br><br>&gt;&gt;&gt;cat test3<br><br>f &#x3D; open(&#39;test3&#39;,&#39;a+&#39;)<br>f.write (&#39;edu&#39;) <br>f.close()<br><br>&gt;&gt;&gt;cat test3<br><br>f &#x3D; open(&#39;test3&#39;,&#39;x+&#39;) #<br>f &#x3D; open(&#39;test4&#39;,&#39;x+&#39;) #<br><br>f.write (&#39;python&#39;) <br>f.read&#123;)<br>f.close()<br><br>&gt;&gt;&gt; cat test4＋<br></code></pre></td></tr></table></figure>
+
+<p>+</p>
+<p>为r、w、a、x提供缺失的读写功能，但是，获取文件对象依旧按照r、w、a、X自 己的特征。</p>
+<p>＋不能单独使用，可以认为它是为前面的模式字符做增强功能的。</p>
+<h2 id="文件指针"><a href="#文件指针" class="headerlink" title="文件指针"></a>文件指针</h2><p>上面的例子中，已经说明了有一个指针。</p>
+<p><strong>文件指针，指向当前字节位置</strong></p>
+<p>mode =r，指针起始在0</p>
+<p>mode=a , 指针起始在EOF</p>
+<p>tell() 显示指针当前位置</p>
+<p>seek(offset[, whence])</p>
+<p>移动文件指针位置。offest偏移多少字节，whence从哪里开始。</p>
+<p>文本模式下</p>
+<p>whence 0 缺省值 ， 表示从头开始，offset只能正整数</p>
+<p>whence 1 表示从当前位置，off est只 接受0</p>
+<p>whence 2 表示从EOF 开始，off est只 接受0</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><code class="hljs plain">＃文本模式<br>f &#x3D; open(&#39;test4&#39;,&#39;r+&#39;)<br>f.tell()  #起始<br>f.read()<br>f.tell()  # EOF<br>f.seek(  0 )  #起始<br>f.read()<br>f.seek( 2, 0)<br>f.read()<br>f.seek( 2, 0)<br>f.seek( 2, 1 )  #offset必须为0<br>f.seek( 2, 2)   #offset必须为0 <br>f.close()<br><br>＃中文<br>f &#x3D; open(&#39;test4&#39;,<br>f.write( &#39;马哥教育‘）<br>f.tell()<br>f.close()<br>f &#x3D; open(&#39;test4&#39;,&#39;r+&#39;) <br>f.read(3)<br>f.seek(l)<br>f.tell()<br>f.read()  #<br>f.seek( 2)  #  f.seek(3) <br>f.close()<br></code></pre></td></tr></table></figure>
+
+<p>文本模式支持从开头向后偏移的方式。</p>
+<p>whence为1表示从当前位置开始偏移 ， 但是只支持偏移0 ，相当于原地不动，所以 没什么用。</p>
+<p>whence为2表示从 EOF 开始，只支持偏移0，相当于移动文件指针到EOF 。</p>
+<p>seek是按照字节偏移的。</p>
+<p>二进制模式下</p>
+<p>whence 0 缺省值 ， 表示从头开始，offset只能正整数 </p>
+<p>whence 1 表示从当前位置，offset可正可负</p>
+<p>whence 2 表示从EOF开始，offset可正可负</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><code class="hljs plain">＃ 二进制模式<br>f &#x3D; open(&#39;test4&#39;,‘r+&#39;)<br>f.tell()  #起始<br>f.read()<br>f.tell()  #EOF<br>f.write(b&#39;abc&#39;) <br>f.seek(0)  #起始<br>f.seek(2,1)  # 从当前指针开始，向后2<br>f.read()<br>f.seek(-2,1)  # 从当前指针开始， 向前2<br><br>f.seek&#123; 2, 2)  # 从EOF开始，向后2<br>f.seek&#123;0 )<br>f.seek(-2,2)  #从EOF开始，向前2<br>f.read()<br><br>f.seek(-20,2)  #OSErrof<br>f.close()<br></code></pre></td></tr></table></figure>
+
+<p>二进制模式支持任意起点的位移，从头、从尾、从中间位置开始。</p>
+<p>向后seek可以超界 ，但是向前seek的时候，不能超界，否则抛异常。</p>
+<h2 id="buffering-缓冲区"><a href="#buffering-缓冲区" class="headerlink" title="buffering:缓冲区"></a>buffering:缓冲区</h2><p>-1 表示使用缺省大小的buffer。如果是二进制模式，使用io.DEFAULT_BUFFER_SIZE值 ，默认是4096或者 8192。如果是文本模式，如果是终端设备，是行 缓存方式，如果不是，则使用二进制模式的策略。</p>
+<ul>
+<li>0 只 在二进制模式使用， 表示关buffer</li>
+<li>1 只在文本模式使用， 表示使用行缓冲。意思就是见到换行符就flush</li>
+<li>大于 1 用于指定buffer的大小</li>
+</ul>
+<p>buffer缓冲区</p>
+<p>缓冲区一个内存空间，一 般来说是一个FI FO队列 ，到缓冲区满了或者达到阔值，数据才会flus h到磁盘。</p>
+<p>flush() 将 缓冲区数据写入磁盘</p>
+<p>close() 关闭前会调用flush()</p>
+<p>io.DEFAULT_BUFFER_SIZE 缺省缓冲区大小，字节</p>
+<p>先看二进制模式</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><code class="hljs plain">import  io<br><br>f &#x3D; open(&#39;test4&#39;,&#39;w+b&#39;) <br>print(io.DEFAULT_BUFFER_SIZE)  <br>f.write(&quot;mageclu.com&quot;.encode( )) <br>#cat test4<br>f.seek(0)<br>#cat test4<br>f.write(&quot;www.magedu.com&quot;.encode( )) <br>f.flush()<br>f.close()<br><br>f &#x3D; open(&#39;test4&#39;,&#39;w+b&#39;,4) <br>f.write(b&quot;mag&quot;)<br>#cat test4<br>f.write(b&#39;edu&#39;)<br># cat test4 <br>f.close()<br></code></pre></td></tr></table></figure>
+
+<p>文本模式</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><code class="hljs plain">#buffering&#x3D;1，使用行缓冲<br><br>f &#x3D; open(&#39;test4&#39;,&#39;w+&#39;,1)<br>f.write(&quot;mag&quot;) #cat test4<br>f.write(&quot;magedu&quot;*4)  #cat test4 <br>f.write(&#39;\n&#39;)  #cat test4<br>f.write (&#39;Hello\nPython&#39;)  #cat test4 <br>f.close()<br><br>#buffering&gt;1，使用指定大小的缓冲区<br>f &#x3D; open(&#39;test4&#39;,&#39;w+&#39;,15)<br>f.write(&quot;mag&quot;)  #cat test4 <br>f.write(&#39;edu&#39;)  <br><br># cat test4<br><br>f.write(&#39;Hello\n&#39;)  # cat test4<br>f. writ e (&#39;\nPython&#39;)  # cat test4<br>f.write (&#39;a&#39; * (io.DEFAULT_BUFFER_SIZE - 20))   # 设置为大千1,没什么用<br>f .write (&#39;\nwwwm.magedu.com&#x2F;python&#39;)<br>f.close()<br></code></pre></td></tr></table></figure>
+
+<p>buffering= 0</p>
+<p>这是一种特殊的二进制模式，不需要内存的buffre，可以看做是一个FIFO的文件。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs plain">f &#x3D; open(&#39;test4&#39;,&#39;wb+&#39;, 0) <br>f.write(b&quot;m&quot;)   #cat test4 <br>f.write(b&quot;a&quot;)  #cat test4 <br>f.write(b&quot;g&quot;)  #cat test4<br>f .write(b&quot;magedu&quot; * 4)  # cat test4 <br>f.write(b&#39;\n&#39;)  #cat test4<br>f .write(b&#39;Hello\nPython&#39;) <br>f.close()<br></code></pre></td></tr></table></figure>
+
+<table>
+<thead>
+<tr>
+<th>buffering</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>buffering=-1</td>
+<td>t和b都是io.DEFAULT_BUFFER_SIZE</td>
+</tr>
+<tr>
+<td>buffering=0</td>
+<td>b关闭缓冲区，t不支持</td>
+</tr>
+<tr>
+<td>buffering=1</td>
+<td>b就1个字节，t行缓冲，遇到换行符才flush</td>
+</tr>
+<tr>
+<td>buffering&gt;1</td>
+<td>b模式表示行缓冲区大小，缓冲区的值可以超过io.DEFAULT_BUFFER_SIZE，直到设定的值超过后才把缓冲区flush；t模式是io.DEFAULT_BUFFER_SIZE,flush完后把当前字符串也写入磁盘</td>
+</tr>
+</tbody></table>
+<p>似乎看起来很麻烦，一般来说，只需要记得：</p>
+<ol>
+<li><p>文本模式，一般都用默认缓冲区大小</p>
+</li>
+<li><p>二进制模式，是一 个个字节的操作，可以指定buffer 的大小</p>
+</li>
+<li><p>一般来说，默认缓冲区大小是个比较好的选择，除非明确知道，否则不调整它</p>
+</li>
+<li><p>一般编程中，明确知道需要写磁盘了，都会手动调用一次flush，而不是等到自动flush或者close的时候</p>
+</li>
+</ol>
+<p><strong>encoding : 编码，仅文本模式使用</strong></p>
+<p>None 表示使用缺省编码，依赖操作系统。windows、linux下测试如下代码</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs plain">f &#x3D; open(&#39;testl&#39;,&#39;w&#39;) <br>f.write(&#39;啊’）<br>f.close()<br></code></pre></td></tr></table></figure>
+
+<p>windows 下缺省 GBK  (0xBOA1)，Linux下缺省  UTF-8 (0xE5 95 BA)</p>
+<h3 id="其它参数"><a href="#其它参数" class="headerlink" title="其它参数"></a>其它参数</h3><p><strong>errors</strong></p>
+<p>什么样的编码错误将被捕获</p>
+<p>None和static表示有编码错误将抛出ValueError阿异常；ignore表示忽略</p>
+<p><strong>newline</strong></p>
+<p>文本模式中，换行的转换.可以为None、”空串”、’\r’、 ‘\n’ 、’\r\n’</p>
+<p>读时， None表示\r’、’\n’、’\r\n’ 都 被转换为’\n’ ;表示不会自动转换通用换行符；其它合法字符表示换行符就是指定字符，就会按照指定字符分行</p>
+<p>写时，None表示\n’都会 被替换为系统缺省行分隔符os.linesep  ;  ‘\n’ 或’’表示\n’不替 换； 其它合法字符表示\n’会被替换为指定的字符</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs plain">f &#x3D; open(&#39;o:&#x2F;test&#39;,&#39;w&#39;)<br>f.write(&#39;python\rwww.python.org\nwww.mageclu.corn\r\npython3&#39;) <br>f.close()<br>newlines&#x3D;  [None,&#39;&#39;,&#39;\n&#39;,&#39;\r\n&#39;]<br>for nl in newline:<br>	f &#x3D; open(&#39;o:&#x2F;test&#39;,&#39;r+&#39;,newline&#x3D;n1) #缺省替换所有换行符<br>	print(f.readlines())<br>	f .close()<br></code></pre></td></tr></table></figure>
+
+<p>closefd</p>
+<p>关闭文件描述符，True表示关闭它。False 会在文件关闭后保持这个描述符。fileobj.fileno ()查看</p>
+<p><strong>read</strong></p>
+<p>read(size=-1)</p>
+<p>size表示读取的多少个字符或字节；负数或者None表示读取到EOF</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><code class="hljs plain">f &#x3D; open(&#39;o:&#x2F;test4&#39;, &#39;r+&#39;, 0) <br>f.write( &quot;magedu&quot;)<br>f.write(&#39;\n&#39;)<br>f.write(&#39;马哥教育＇）<br>f.seek(0)<br>f.read(7)<br>f.close()<br><br>＃二进制<br>f &#x3D; open(&#39;test4&#39;,&#39;rb+&#39;) <br>f.read (7)<br>f.read(l)<br>f.close()<br></code></pre></td></tr></table></figure>
+
+<h2 id="行读取"><a href="#行读取" class="headerlink" title="行读取"></a>行读取</h2><p>readline( size =-1)</p>
+<p>一行行读取文件内容。size设置一次能读取行内几个字符或字节。</p>
+<p>readlines(hint=-1)</p>
+<p>读取所有行的列表。指定hint则返回指定的行数。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs plain">＃按行迭代<br>f &#x3D; open(&#39;test&#39;) #返回可迭代对象<br><br>for line in f:<br>	print(line) <br>	<br>f.close()<br></code></pre></td></tr></table></figure>
+
+<p><strong>write</strong></p>
+<p>write(s)  , 把字符串s写入到文件中并返回字符的个数</p>
+<p>writelines(lines) , 将字符串列表写入文件。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs plain">f &#x3D; open(&#39;test&#39;,&#39;w+&#39;)<br><br>lines  &#x3D;  [&#39;abc&#39;,&#39;123\n&#39;,&#39;magedu&#39;]  #提供换行符 <br>f.writelines(lines)<br><br>f.seek(0) <br>print(f.read()) <br>f.close()<br></code></pre></td></tr></table></figure>
+
+<h3 id="close"><a href="#close" class="headerlink" title="close"></a>close</h3><p>flush并 关闭文件对象。</p>
+<p>文件已经关闭，再次关闭没有任何效果。</p>
+<h3 id="其他"><a href="#其他" class="headerlink" title="其他"></a>其他</h3><p>seekable() 是否可 </p>
+<p>seek eadable () 是否 可读</p>
+<p>writable () 是否可写</p>
+<p>closed是否已 经关闭</p>
+<h3 id="上下文管理"><a href="#上下文管理" class="headerlink" title="上下文管理"></a>上下文管理</h3><p><strong>问题的引出</strong></p>
+<p>在Linux中 ，执行</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs plain">＃ 下面必须这么写<br>1st&#x3D;[]<br>for _ in range(2000) :<br>	lst.append(open(&#39;test&#39;))<br><br>#OSError:[Errno 24] Too many open files:&#39;test&#39;<br><br>print(len(lst))<br></code></pre></td></tr></table></figure>
+
+<p>lsof 列出打开的文件。没有就     # yum install lsof</p>
+<p>$ lsof-p 14271 g「ep test I we -I </p>
+<p>lsof -p 进程号</p>
+<p>ulimit -a 查看所有限制。其中open files就是打开文件数的限制，默认1024</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs plain">for x in 1st:<br>	x.close()<br></code></pre></td></tr></table></figure>
+
+<p>将文件一次关闭，然后就   可以继续打开了。再看一次lsof。</p>
+<p>如何解决？</p>
+<p>1、异常处理</p>
+<p>当出现异常的时候， 拦截异常。但是，因为很多代码都可能出现OSError阿异常 ， 还不好判断异常就是应为资源限制产生的。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs plain">f &#x3D; open(&#39;test&#39;) <br>try:<br>	f.write(&quot;abc&quot;)  #文件只读，写入失败<br><br>finall  y:<br>	f.close()  #这样才行<br></code></pre></td></tr></table></figure>
+
+<p>使用fina lly 可以 保证打开的文件可以被关闭。</p>
+<p>2、上下文管理</p>
+<p>一种特殊的语法，交给解释器去释放文件对象</p>
+<p><strong>上下文管理</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs plain">del   f<br><br>with  open(&#39;test&#39;) <br>f.write(&quot;abc&quot;)<br><br>＃ 测试f 是否关闭<br><br>f.closed # f的作用<br></code></pre></td></tr></table></figure>
+
+<p>上下文管理</p>
+<ol>
+<li><p>使用with … as 关键字</p>
+</li>
+<li><p>上下文管理的语句块并不会开启新的作用域</p>
+</li>
+<li><p>with语句块执行完的时候，会自动关闭文件对象另一种写法</p>
+</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs plain">fl &#x3D; open(&#39;test&#39;) <br>with  fl:<br>	fl write (&quot;abc&quot; )  #文件只读，写入失败<br>	<br>＃ 测试f是否关闭<br>fl.closed  # fl的作用域<br></code></pre></td></tr></table></figure>
+
+<p>对千类似千文件对象的10对象，一 般来说都需要在不使用的时候关闭、注销，以释放资源。</p>
+<p>10被打开的时候，会获得一个文件描述符。计算机资源是有限的，所以操作系统都会做限制。就</p>
+<p>是为了保护计算机的资源不要被完全耗尽，计算资源是共享的，不是独占的。</p>
+<p>一般清况下，除非特别明确的知道资淙情况，否则不要提高资源的限制值来解决问题。</p>
+<h2 id="练习"><a href="#练习" class="headerlink" title="练习"></a>练习</h2><h4 id="指定一个源文件，实现copy到目标目录。"><a href="#指定一个源文件，实现copy到目标目录。" class="headerlink" title="指定一个源文件，实现copy到目标目录。"></a>指定一个源文件，实现copy到目标目录。</h4><p>例如把/tmp /test.txt 拷贝到/tmp/test1.txt</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs plain">import os<br><br>pwd &#x3D; os.getcwd() #查看当前目录<br>print(pwd)<br><br>with open(&#39;test1.txt&#39;) as f1:<br>    with open(&#39;test2.txt&#39;,&#39;w&#39;) as f2:<br>        s &#x3D; f1.read()<br>        f2.write(s)<br></code></pre></td></tr></table></figure>
+
+
+
+<h4 id="有一个文件，对其进行单词统计，不区分大小写，井显示单词重复最多的10个单词。"><a href="#有一个文件，对其进行单词统计，不区分大小写，井显示单词重复最多的10个单词。" class="headerlink" title="有一个文件，对其进行单词统计，不区分大小写，井显示单词重复最多的10个单词。"></a>有一个文件，对其进行单词统计，不区分大小写，井显示单词重复最多的10个单词。</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><code class="hljs plain">简单处理后， 大概的得数如下：<br>the,  136<br>is,   60<br>a,   54<br>path,  52<br>if,    42<br>and,  39<br>to,   34<br>of,   33<br>on,  32<br>return,  30<br>实际上有效的path很多， 作为合法的单词path统计应该有100多个。<br>对单词做进一步处理后， 统计如下：<br>path,  137<br>the,  136<br>is,   60<br>a,   59<br>os,  50<br>if,    43<br>and,  40<br>to,   34<br>of,   33<br>on,  33<br></code></pre></td></tr></table></figure>
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><code class="hljs plain">def wordcount(filename&#x3D;&#39;pathHelp.txt&#39;):<br>    word_count &#x3D; &#123;&#125;<br>    chars &#x3D; &#39;&#39;&#39;&#39;~!#$%^&amp;*()_+&#96;&#x3D;[]&#123;&#125;&lt;&gt;,.?&#x2F;&#39;&quot;|&quot;\\&#39;&#39;&#39;<br>    charset &#x3D; set(chars)<br><br>    #打开文件<br>    with open(filename) as f:<br>        for line in f: # 读取每一行<br>            wordlist &#x3D; line.split()  #空格分开字符串<br>            for word in wordlist:<br>                k &#x3D; word.strip(chars) #去掉左右两边的特殊字符<br>                if len(k) &lt; 1:<br>                    continue<br>                # print(key)<br>                #再次分割特殊字符串在中间的字符串<br>                start &#x3D; 0<br>                k &#x3D; k.lower()<br>                for i,c in enumerate(k):<br>                    if c in charset:<br>                        if start &#x3D;&#x3D; i:<br>                            start &#x3D; i + 1<br>                            continue<br>                        key &#x3D;k[start:i]<br>                        word_count[key] &#x3D; word_count.get(key,0) + 1<br>                        start &#x3D; i + 1<br>                else:<br>                    key &#x3D; k[start:]<br>                    word_count[key] &#x3D; word_count.get(key,0) + 1<br>                #字典将单词作为key，value默认值为0，统计重复出现次数逐渐加一<br>                word_count[key] &#x3D; word_count.get(key,0) + 1<br><br>    #用sorted按照字典value大小反序打印<br>    print(&quot;Start To Print&quot;)<br>    lst &#x3D; sorted(word_count.items(),key&#x3D;lambda  x:x[1],reverse&#x3D;True)<br>    for i in range(10):<br>        k,v &#x3D; lst[i]<br>        print(k,v)<br><br>wordcount()<br></code></pre></td></tr></table></figure>
+
+
+      
+    </div>
+    
+    
+    
+
+     <!-- 文章末尾统一添加“本文结束”标记 -->
+    <div>
+      
+        <div>
+    
+        <div style="text-align:center;color: #555;font-size:24px;"><-------------The End-------------></div>
+    
+</div>
+
+      
+    </div>
+    
+
+    
+      <div>
+        <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+  <div>坚持原创分享，你的支持就是我最大的动力！</div>
+  <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+    <span>打赏</span>
+  </button>
+  <div id="QR" style="display: none;">
+
+    
+      <div id="wechat" style="display: inline-block">
+        <img id="wechat_qr" src="/uploads/weixin_cash_code.png" alt="StarDustLoong 微信支付"/>
+        <p>微信支付</p>
+      </div>
+    
+
+    
+      <div id="alipay" style="display: inline-block">
+        <img id="alipay_qr" src="/uploads/alipay_cash_code.png" alt="StarDustLoong 支付宝"/>
+        <p>支付宝</p>
+      </div>
+    
+
+    
+
+  </div>
+</div>
+
+      </div>
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/python%E6%96%87%E4%BB%B6%E6%93%8D%E4%BD%9C%E5%BA%8F/" rel="tag"># python文件操作序</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/Python%E8%B7%AF%E5%BE%84%E6%93%8D%E4%BD%9C/" rel="next" title="Python路径操作">
+                <i class="fa fa-chevron-left"></i> Python路径操作
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/Python%E6%96%87%E4%BB%B6%E6%93%8D%E4%BD%9C%E7%BB%83%E4%B9%A0/" rel="prev" title="Python文件操作练习">
+                Python文件操作练习 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+    </div>
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/uploads/avatar.png"
+                alt="StarDustLoong" />
+            
+              <p class="site-author-name" itemprop="name">StarDustLoong</p>
+              <p class="site-description motion-element" itemprop="description">人类如风一般的自由</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">2409</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">12</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">146</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+	   
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/StarDustLoong" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:13671474528@163.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://www.zhihu.com/people/ashjian-ar15" target="_blank" title="知乎">
+                      
+                        <i class="fa fa-fw fa-globe"></i>知乎</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://me.csdn.net/ashjian" target="_blank" title="CSDN">
+                      
+                        <i class="fa fa-fw fa-codiepie"></i>CSDN</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+            <div class="links-of-blogroll motion-element links-of-blogroll-inline">
+              <div class="links-of-blogroll-title">
+                <i class="fa  fa-fw fa-link"></i>
+                Links
+              </div>
+              <ul class="links-of-blogroll-list">
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="http://mp.weixin.qq.com/user1" title="OpenInfo" target="_blank">OpenInfo</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="http://mp.weixin.qq.com/user2" title="stormzhang" target="_blank">stormzhang</a>
+                  </li>
+                
+              </ul>
+            </div>
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#冯诺依曼体系架构"><span class="nav-number">1.</span> <span class="nav-text">冯诺依曼体系架构</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#文件10-常用操作"><span class="nav-number">1.1.</span> <span class="nav-text">文件10 常用操作</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#打开操作"><span class="nav-number">1.2.</span> <span class="nav-text">打开操作</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#open的参数"><span class="nav-number">1.3.</span> <span class="nav-text">open的参数</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#文件指针"><span class="nav-number">2.</span> <span class="nav-text">文件指针</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#buffering-缓冲区"><span class="nav-number">3.</span> <span class="nav-text">buffering:缓冲区</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#其它参数"><span class="nav-number">3.1.</span> <span class="nav-text">其它参数</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#行读取"><span class="nav-number">4.</span> <span class="nav-text">行读取</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#close"><span class="nav-number">4.1.</span> <span class="nav-text">close</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#其他"><span class="nav-number">4.2.</span> <span class="nav-text">其他</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#上下文管理"><span class="nav-number">4.3.</span> <span class="nav-text">上下文管理</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#练习"><span class="nav-number">5.</span> <span class="nav-text">练习</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#指定一个源文件，实现copy到目标目录。"><span class="nav-number">5.0.1.</span> <span class="nav-text">指定一个源文件，实现copy到目标目录。</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#有一个文件，对其进行单词统计，不区分大小写，井显示单词重复最多的10个单词。"><span class="nav-number">5.0.2.</span> <span class="nav-text">有一个文件，对其进行单词统计，不区分大小写，井显示单词重复最多的10个单词。</span></a></li></ol></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">StarDustLoong</span>
+
+  
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-area-chart"></i>
+    </span>
+    
+      <span class="post-meta-item-text">本站总字数&#58;</span>
+    
+    <span title="本站总字数">635.5k</span>
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Pisces</a> v5.1.4</div>
+
+
+
+
+#<!-- 百度自动推送 -->
+#<script>
+#(function(){
+#    var bp = document.createElement('script');
+#    var curProtocol = window.location.protocol.split(':')[0];
+#    if (curProtocol === 'https') {
+#        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+#    }
+#    else {
+#        bp.src = 'http://push.ashjian.baidu.com/push.js';
+#    }
+#    var s = document.getElementsByTagName("script")[0];
+#    s.parentNode.insertBefore(bp, s);
+#})();
+#</script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aplayer/dist/APlayer.min.css">
+
+<script src="https://cdn.jsdelivr.net/npm/aplayer/dist/APlayer.min.js"></script>
+<!-- require MetingJS -->
+
+<script src="https://cdn.jsdelivr.net/npm/meting@2.0.1/dist/Meting.min.js"></script>
+<div> 
+<meting-js  
+    server="netease" 
+    type="playlist"  
+    id="5281251057" 
+    fixed="true"  
+    autoplay="false" 
+    loop="all" 
+    order="random"
+    preload="auto" 
+    list-folded="ture" 
+    list-max-height="500px" 
+    lrc-type="1">
+</meting-js>	 
+</div>
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv">
+      本站访客数
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+      人次
+    </span>
+  
+
+  
+    <span class="site-pv">
+      本站总访问量
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+      次
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+  <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+  <script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+  
+  <script type="text/javascript">
+    var GUEST = ['nick','mail','link'];
+    var guest = 'nick,mail,link';
+    guest = guest.split(',').filter(item=>{
+      return GUEST.indexOf(item)>-1;
+    });
+    new Valine({
+        el: '#comments' ,
+        verify: false,
+        notify: false,
+        appId: 'Gp5xxuBGmRxC9yeJHf5wlLpN-gzGzoHsz',
+        appKey: 'wo0eDJonJrnuUrCCCU7EnH1n',
+        placeholder: '欢迎评论',
+        avatar:'mm',
+        guest_info:guest,
+        pageSize:'20' || 10,
+    });
+  </script>
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"jsonPath":"/live2dw/assets/dsr50_lifu_normal.model.json"},"display":{"position":"right","width":700,"height":800,"hOffset":-250,"vOffset":-150},"mobile":{"show":true,"scale":0.7},"log":false});</script></body>
+</html>

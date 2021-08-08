@@ -1,0 +1,1336 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Hexo, NexT" />
+
+
+
+
+  
+
+
+  <link rel="alternate" href="/atom.xml" title="" type="application/atom+xml" />
+
+
+
+
+
+
+<meta name="description" content="今天一道面试题就是关于ngnix下的TCP_NODELAY 和 TCP_NOPUSH就提到这个问题Nginx 有两个配置项： TCP_NODELAY 和 TCP_NOPUSH ，请说明它们的用途及注意事项。  通俗来说Nagle：假如需要频繁的发送一些小包数据，比如说1个字节，以IPv4为例的话，则每个包都要附带40字节的头，也就是说，总计41个字节的数据里，其中只有1个字节是我们需要的数据。为了">
+<meta property="og:type" content="article">
+<meta property="og:title" content="nagle的tpc_nopush和ctp_nodelay">
+<meta property="og:url" content="http://www.ashjian.xyz/nagle%E7%9A%84tpc-nopush%E5%92%8Cctp-nodelay/index.html">
+<meta property="og:site_name">
+<meta property="og:description" content="今天一道面试题就是关于ngnix下的TCP_NODELAY 和 TCP_NOPUSH就提到这个问题Nginx 有两个配置项： TCP_NODELAY 和 TCP_NOPUSH ，请说明它们的用途及注意事项。  通俗来说Nagle：假如需要频繁的发送一些小包数据，比如说1个字节，以IPv4为例的话，则每个包都要附带40字节的头，也就是说，总计41个字节的数据里，其中只有1个字节是我们需要的数据。为了">
+<meta property="article:published_time" content="2020-12-03T04:16:16.000Z">
+<meta property="article:modified_time" content="2021-03-26T10:02:15.254Z">
+<meta property="article:author" content="StarDustLoong">
+<meta property="article:tag" content="linux">
+<meta property="article:tag" content="python">
+<meta property="article:tag" content="运维">
+<meta name="twitter:card" content="summary">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://www.ashjian.xyz/nagle的tpc-nopush和ctp-nodelay/"/>
+
+
+
+
+
+  <title>nagle的tpc_nopush和ctp_nodelay | </title>
+  
+
+
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?d7bf52f45e24a0e6f2951901a7a97864";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+<meta name="generator" content="Hexo 4.2.1"></head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title"></span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off"
+             placeholder="搜索..." spellcheck="false"
+             type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://www.ashjian.xyz/nagle%E7%9A%84tpc-nopush%E5%92%8Cctp-nodelay/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="StarDustLoong">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/uploads/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">nagle的tpc_nopush和ctp_nodelay</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-12-03T12:16:16+08:00">
+                2020-12-03
+              </time>
+            
+
+            
+              <span class="post-meta-divider">|</span>
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-check-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">更新于&#58;</span>
+              
+              <time title="更新于" itemprop="dateModified" datetime="2021-03-26T18:02:15+08:00">
+                2021-03-26
+              </time>
+            
+          </span>
+
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/nagle%E7%9A%84tpc-nopush%E5%92%8Cctp-nodelay/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/nagle%E7%9A%84tpc-nopush%E5%92%8Cctp-nodelay/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  5.1k
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  17
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+      
+      
+
+      
+        <p>今天一道面试题就是关于ngnix下的TCP_NODELAY 和 TCP_NOPUSH就提到这个问题<br>Nginx 有两个配置项： TCP_NODELAY 和 TCP_NOPUSH ，请说明它们的用途及注意事项。</p>
+<p> 通俗来说<br>Nagle：<br>假如需要频繁的发送一些小包数据，比如说1个字节，以IPv4为例的话，则每个包都要附带40字节的头，也就是说，总计41个字节的数据里，其中只有1个字节是我们需要的数据。<br>为了解决这个问题，出现了Nagle算法。它规定：如果包的大小满足MSS，那么可以立即发送，否则数据会被放到缓冲区，等到已经发送的包被确认了之后才能继续发送。<br>通过这样的规定，可以降低网络里小包的数量，从而提升网络性能。</p>
+<p>再看看DelayedAcknowledgment：<br>假如需要单独确认每一个包的话，那么网络中将会充斥着无数的ACK，从而降低了网络性能。<br>为了解决这个问题，DelayedAcknowledgment规定：不再针对单个包发送ACK，而是一次确认两个包，或者在发送响应数据的同时捎带着发送ACK，又或者触发超时时间后再发送ACK。<br>通过这样的规定，可以降低网络里ACK的数量，从而提升网络性能。</p>
+<p>3、Nagle和DelayedAcknowledgment是如何影响性能的<br>Nagle和DelayedAcknowledgment虽然都是好心，但是它们在一起的时候却会办坏事。<br>如果一个 TCP 连接的一端启用了 Nagle‘s Algorithm，而另一端启用了 TCP Delayed Ack，而发送的数据包又比较小，则可能会出现这样的情况：<br>发送端在等待接收端对上一个packet 的 Ack 才发送当前的 packet，而接收端则正好延迟了此 Ack 的发送，那么这个正要被发送的 packet 就会同样被延迟。<br>当然 Delayed Ack 是有个超时机制的，而默认的超时正好就是 40ms。 </p>
+<p>现代的 TCP/IP 协议栈实现，默认几乎都启用了这两个功能，你可能会想，按我上面的说法，当协议报文很小的时候，岂不每次都会触发这个延迟问题？<br>事实不是那样的。仅当协议的交互是发送端连续发送两个 packet，然后立刻 read 的 时候才会出现问题。</p>
+<p>现在让我们假设某个应用程序发出了一个请求，希望发送小块数据。我们可以选择立即发送数据或者等待产生更多的数据然后再一次发送两种策略。<br>如果我们马上发送数据，那么交互性的以及客户/服务器型的应用程序将极大地受益。<br>例如，当我们正在发送一个较短的请求并且等候较大的响应时，相关过载与传输的数据总量相比就会比较低，而且，如果请求立即发出那么响应时间也会快一些。<br>以上操作可以通过设置套接字的TCP_NODELAY选项来完成，这样就禁用了Nagle 算法。 </p>
+<p>另外一种情况则需要我们等到数据量达到最大时才通过网络一次发送全部数据，这种数据传输方式有益于大量数据的通信性能，典型的应用就是文件服务器。<br>应用Nagle算法在这种情况下就会产生问题。但是，如果你正在发送大量数据，你可以设置TCP_CORK选项禁用Nagle化，其方式正好同 TCP_NODELAY相反（TCP_CORK 和 TCP_NODELAY 是互相排斥的）。</p>
+<p>假设客户端的请求发生需要等待服务端的应答后才能继续发生下一包，即串行执行，<br>好比在用ab性能测试时只有一个并发做10k的压力测试，测试地址返回的内容只有Hello world；ab发出的request需要等待服务器返回response时，才能发生下一个request；<br>此时ab只会发生一个get请求，请求的相关内容包含在header中；而服务器需要返回两个数据，一个是response头，另一个是html body；</p>
+<p>服务器发送端发送的第一个 write 是不会被缓冲起来，而是立刻发送的（response header），<br>这时ab接收端收到对应的数据，但它还期待更多数据（html）才进行处理，所以不会往回发送数据，因此也没机会把 Ack 给带回去，根据Delayed Ack 机制， 这个 Ack 会被 Hold 住。<br>这时服务器发送端发送第二个包，而队列里还有未确认的数据包（response header），这个 packet（html） 会被缓冲起来。<br>此时，服务器发送端在等待ab接收端的 Ack；ab接收端则在 Delay 这个 Ack，所以都在等待，<br>直到ab接收端 Deplayed Ack 超时（40ms），此 Ack 被发送回去，发送端缓冲的这个 packet（html） 才会被真正送到接收端，<br>此时ab才接受到完整的数据，进行对应的应用层处理，处理完成后才继续发生下一个request，因此服务器端才会在read时出现40ms的阻塞。</p>
+<p>4、tcp_nodelay为什么只在keep-alive才启作用<br>TCP中的Nagle算法默认是启用的，但是它并不是适合任何情况，对于telnet或rlogin这样的远程登录应用的确比较适合（原本就是为此而设计），但是在某些应用场景下我们却又需要关闭它。<br>在Apache对HTTP持久连接（Keep-Alive，Prsistent-Connection）处理时凸现的奇数包&amp;结束小包问题（The Odd/Short-Final-Segment Problem），<br>这是一个并的关系，即问题是由于已有奇数个包发出，并且还有一个结束小包（在这里，结束小包并不是指带FIN旗标的包，而是指一个HTTP请求或响应的结束包）等待发出而导致的。</p>
+<p>我们来看看具体的问题详情，以3个包+1个结束小包为例，可能发生的发包情况：<br>服务器向客户端发出两个大包；客户端在接受到两个大包时，必须回复ack；<br>接着服务器向客户端发送一个中包或小包，但服务器由于Delayed Acknowledgment并没有马上ack；<br>由于发生队列中有未被ack的包，因此最后一个结束的小包被阻塞等待。</p>
+<p>最后一个小包包含了整个响应数据的最后一些数据，所以它是结束小包，如果当前HTTP是非持久连接，那么在连接关闭时，最后这个小包会立即发送出去，这不会出现问题；<br>但是，如果当前HTTP是持久连接（非pipelining处理，pipelining仅HTTP 1.1支持，nginx目前对pipelining的支持很弱，它必须是前一个请求完全处理完后才能处理后一个请求），<br>即进行连续的Request/Response、Request/Response、…，处理，那么由于最后这个小包受到Nagle算法影响无法及时的发送出去<br>（具体是由于客户端在未结束上一个请求前不会发出新的request数据，导致无法携带ACK而延迟确认，进而导致服务器没收到客户端对上一个小包的的确认导致最后一个小包无法发送出来），<br>导致第n次请求/响应未能结束，从而客户端第n+1次的Request请求数据无法发出。</p>
+<p>在http长连接中，服务器的发生类似于：Write-Write-Read，即返回response header、返回html、读取下一个request<br>而在http短连接中，服务器的发生类似于：write-read-write-read，即返回处理结果后，就主动关闭连接，短连接中的close之前的小包会立即发生，不会阻塞 </p>
+<p>我的理解是这样的：因为第一个 write 不会被缓冲，会立刻到达接收端，如果是 write-read-write-read 模式，此时接收端应该已经得到所有需要的数据以进行下一步处理。<br>接收端此时处理完后发送结果，同时也就可以把上一个packet 的 Ack 可以和数据一起发送回去，不需要 delay，从而不会导致任何问题。 </p>
+<p>我做了一个简单的试验，注释掉了 HTTP Body 的发送，仅仅发送 Headers， Content-Length 指定为 0。<br>这样就不会有第二个 write，变成了 write-read-write-read 模式。此时再用 ab 测试，果然没有 40ms 的延迟了。</p>
+<p>因此在短连接中并不存在小包阻塞的问题，而在长连接中需要做tcp_nodelay开启。</p>
+<p>5、那tcp_nopush又是什么？<br>TCP_CORK选项的功能类似于在发送数据管道出口处插入一个“塞子”，使得发送数据全部被阻塞，直到取消TCP_CORK选项（即拔去塞子）或被阻塞数据长度已超过MSS才将其发送出去。</p>
+<p>选项TCP_NODELAY是禁用Nagle算法，即数据包立即发送出去，而选项TCP_CORK与此相反，可以认为它是Nagle算法的进一步增强，即阻塞数据包发送，<br>具体点说就是：TCP_CORK选项的功能类似于在发送数据管道出口处插入一个“塞子”，使得发送数据全部被阻塞，<br>直到取消TCP_CORK选项（即拔去塞子）或被阻塞数据长度已超过MSS才将其发送出去。<br>举个对比示例，比如收到接收端的ACK确认后，Nagle算法可以让当前待发送数据包发送出去，即便它的当前长度仍然不够一个MSS，<br>但选项TCP_CORK则会要求继续等待，这在前面的tcp_nagle_check()函数分析时已提到这一点，即如果包数据长度小于当前MSS &amp;&amp;（（加塞 || …）|| …），那么缓存数据而不立即发送：</p>
+<p>在TCP_NODELAY模式下，假设有3个小包要发送，第一个小包发出后，接下来的小包需要等待之前的小包被ack，在这期间小包会合并，直到接收到之前包的ack后才会发生；<br>而在TCP_CORK模式下，第一个小包都不会发生成功，因为包太小，发生管道被阻塞，同一目的地的小包彼此合并后组成一个大于mss的包后，才会被发生</p>
+<p>TCP_CORK选项“堵塞”特性的最终目的无法是为了提高网络利用率，既然反正是要发一个数据包（零窗口探测包），<br>如果有实际数据等待发送，那么干脆就直接发送一个负载等待发送数据的数据包岂不是更好？</p>
+<p>我们已经知道，TCP_CORK选项的作用主要是阻塞小数据发送，所以在nginx内的用处就在对响应头的发送处理上。<br>一般而言，处理一个客户端请求之后的响应数据包括有响应头和响应体两部分，那么利用TCP_CORK选项就能让这两部分数据一起发送：</p>
+<p>假设我们需要等到数据量达到最大时才通过网络一次发送全部数据，这种数据传输方式有益于大量数据的通信性能，典型的应用就是文件服务器。<br>应用Nagle算法在这种情况下就会产生问题。因为TCP_NODELAY在发生小包时不再等待之前的包有没有ack，网络中会存在较多的小包，但这会影响网络的传输能力；<br>但是，如果你正在发送大量数据，你可以设置TCP_CORK选项禁用Nagle化，其方式正好同 TCP_NODELAY相反（TCP_CORK 和 TCP_NODELAY 是互相排斥的）。</p>
+<p>下面就让我们仔细分析下其工作原理。<br>假设应用程序使用sendfile()函数来转移大量数据。应用协议通常要求发送某些信息来预先解释数据，这些信息其实就是报头内容。<br>典型情况下报头很小，而且套接字上设置了TCP_NODELAY。有报头的包将被立即传输，在某些情况下（取决于内部的包计数器），因为这个包成功地被对方收到后需要请求对方确认。<br>这样，大量数据的传输就会被推迟而且产生了不必要的网络流量交换。</p>
+<p>但是，如果我们在套接字上设置了TCP_CORK（可以比喻为在管道上插入“塞子”）选项，具有报头的包就会填补大量的数据，所有的数据都根据大小自动地通过包传输出去。<br>当数据传输完成时，最好取消TCP_CORK 选项设置给连接“拔去塞子”以便任一部分的帧都能发送出去。这同“塞住”网络连接同等重要。 </p>
+<p>总而言之，如果你肯定能一起发送多个数据集合（例如HTTP响应的头和正文），那么我们建议你设置TCP_CORK选项，这样在这些数据之间不存在延迟。<br>能极大地有益于WWW、FTP以及文件服务器的性能，同时也简化了你的工作。</p>
+<p>6、sendfile<br>从技术角度来看，sendfile()是磁盘和传输控制协议（TCP）之间的一种系统呼叫，但是sendfile()还能够用来在两个文件夹之间移动数据。<br>在各种不同的操作系统上实现sendfile()都会有所不同，当然这种不同只是极为细微的差别。通常来说，我们会假定所使用的操作系统是Linux核心2.4版本。<br>系统呼叫的原型有如下几种：<br>ssize_t sendfile(int out_fd, int in_fd, off_t *offset, size_t count)<br>in_fd 是一种用来读文件的文件描述符。<br>out_fd 是一种用来写文件的描述符。<br>Offset 是一种指向被输入文件变量位置的指针，sendfile()将会从它所指向的位置开始数据的读取。<br>Count 表示的是两个文件描述符之间数据拷贝的字节数。</p>
+<p>sendfile()的威力在于，它为大家提供了一种访问当前不断膨胀的Linux网络堆栈的机制。<br>这种机制叫做“零拷贝(zero-copy)”,这种机制可以把“传输控制协议（TCP）”框架直接的从主机存储器中传送到网卡的缓存块（network card buffers）中去。</p>
+<p>为了更好的理解“零拷贝（zero-copy）”以及sendfile()，让我们回忆一下以前我们在传送文件时所需要执行的那些步骤。<br>首先，一块在用户机器存储器内用于数据缓冲的位置先被确定了下来。<br>然后，我们必须使用read()这条系统呼叫来把数据从文件中拷贝到前边已经准备好的那个缓冲区中去。<br>（在通常的情况下，这个操做会把数据从磁盘上拷贝到操作系统的高速缓冲存储器中去，然后才会把数据从高速缓冲存储器中拷贝至用户空间中去，这种过程就是所谓的“上下文切换”。）<br>在完成了上述的那些步骤之后，我们得使用write()系统呼叫来将缓冲区中的内容发送到网络上去，程序段如下所示：<br>intout_fd, intin_fd;<br>char buffer[BUFLEN];<br>…<br>/* unsubstantial code skipped for clarity <em>/<br>…<br>read(in_fd, buffer, BUFLEN); /</em> syscall, make context switch <em>/<br>write(out_fd, buffer, BUFLEN); /</em> syscall, make context switch */</p>
+<p>操作系统核心不得不把所有的数据至少都拷贝两次：先是从核心空间到用户空间的拷贝，然后还得再从用户空间拷贝回核心空间。<br>每一次操做都需要上下文切换（context-switch）的这个步骤，其中包含了许多复杂的高度占用CPU的操作。<br>系统自带的工具vmstat能够用来在绝大多数UNIX以及与其类似的操作系统上显示当前的“上下文切换（context-switch）”速率。<br>请看叫做“CS”的那一栏，有相当一部分的上下文切换是发生在取样期间的。用不同类型的方式进行装载可以让使用者清楚的看到使用这些参数进行装载时的不同效果。</p>
+<p>在有了sendfile()零拷贝（zero-copy）之后，如果可能的话，通过使用直接存储器访问（Direct Memory Access）的硬件设备，数据从磁盘读取到操作系统高速缓冲存储器中会变得非常之迅速。<br>而TLB高速缓冲存储器则被完整无缺的放在那里，没有充斥任何有关数据传输的文件。<br>应用软件在使用sendfile() primitive的时候会有很高的性能表现，这是因为系统呼叫没有直接的指向存储器，因此，就提高了传输数据的性能。<br>通常来说，要被传输的数据都是从系统缓冲存储器中直接读取的，其间并没有进行上下文切换的操作，也没有垃圾数据占据高速缓冲存储器。<br>因此，在服务器应用程序中使用sendfile()能够显著的减少对CPU的占用。</p>
+<p>TCP/IP网络的数据传输通常建立在数据块的基础之上。从程序员的观点来看，发送数据意味着发出（或者提交）一系列“发送数据块”的请求。<br>在系统级，发送单个数据块可以通过调用系统函数write() 或者sendfile() 来完成。<br>因为在网络连接中是由程序员来选择最适当的应用协议，所以网络包的长度和顺序都在程序员的控制之下。同样的，程序员还必须选择这个协议在软件中得以实现的方式。<br>TCP/IP协议自身已经有了多种可互操作的实现，所以在双方通信时，每一方都有它自身的低级行为，这也是程序员所应该知道的情况。</p>
+<p>尽管有许多TCP选项可供程序员操作，而我们却最关注如何处置其中的两个选项，它们是TCP_NODELAY 和 TCP_CORK，这两个选项都对网络连接的行为具有重要的作用。<br>许多UNIX系统都实现了TCP_NODELAY选项，但是，TCP_CORK则是Linux系统所独有的而且相对较新；它首先在内核版本2.4上得以实现。<br>此外，其他UNIX系统版本也有功能类似的选项，值得注意的是，在某种由BSD派生的系统上的TCP_NOPUSH选项其实就是TCP_CORK的一部分具体实现。</p>
+<p>三、总结<br>你的数据传输并不需要总是准确地遵守某一选项或者其它选择。在那种情况下，你可能想要采取更为灵活的措施来控制网络连接：<br>在发送一系列当作单一消息的数据之前设置TCP_CORK，而且在发送应立即发出的短消息之前设置TCP_NODELAY。</p>
+<p>如果需要提供网络的传输效率，应该减少小包的传输，使用TCP_CORK来做汇总传输，在利用sendfile来提高效率；<br>但如果是交互性的业务，那应该让任意小包可以快速传输，关闭Nagle算法，提高包的传输效率。</p>
+<p>TCP_CORK优化了传输的bits效率，tcp_nodelay优化了传输的packet效率。</p>
+<p>语法: tcp_nodelay on | off;<br>默认值:<br>tcp_nodelay on;<br>上下文: http, server, location<br>开启或关闭nginx使用TCP_NODELAY选项的功能。 这个选项仅在将连接转变为长连接的时候才被启用。（译者注，在upstream发送响应到客户端时也会启用）。</p>
+<p>语法: tcp_nopush on | off;<br>默认值:<br>tcp_nopush off;<br>上下文: http, server, location<br>开启或者关闭nginx在FreeBSD上使用TCP_NOPUSH套接字选项， 在Linux上使用TCP_CORK套接字选项。 选项仅在使用sendfile的时候才开启。</p>
+<p>总结：打开tcp_nopush后，将会在发送响应时，把整个响应头放在一个tcp包中发送，能够达到优化吞吐的效果，建议打开。tcp_nodelay该参数打开后，会关闭Nagle算法，保证高频发送小数据报文的实时性，建议打开。</p>
+
+      
+    </div>
+    
+    
+    
+
+     <!-- 文章末尾统一添加“本文结束”标记 -->
+    <div>
+      
+        <div>
+    
+        <div style="text-align:center;color: #555;font-size:24px;"><-------------The End-------------></div>
+    
+</div>
+
+      
+    </div>
+    
+
+    
+      <div>
+        <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+  <div>坚持原创分享，你的支持就是我最大的动力！</div>
+  <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+    <span>打赏</span>
+  </button>
+  <div id="QR" style="display: none;">
+
+    
+      <div id="wechat" style="display: inline-block">
+        <img id="wechat_qr" src="/uploads/weixin_cash_code.png" alt="StarDustLoong 微信支付"/>
+        <p>微信支付</p>
+      </div>
+    
+
+    
+      <div id="alipay" style="display: inline-block">
+        <img id="alipay_qr" src="/uploads/alipay_cash_code.png" alt="StarDustLoong 支付宝"/>
+        <p>支付宝</p>
+      </div>
+    
+
+    
+
+  </div>
+</div>
+
+      </div>
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/10-ngx-stream-modul%E8%AF%A6%E8%A7%A3/" rel="next" title="10-ngx_stream_modul详解">
+                <i class="fa fa-chevron-left"></i> 10-ngx_stream_modul详解
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/nginx/" rel="prev" title="nginx">
+                nginx <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+    </div>
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+
+      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/uploads/avatar.png"
+                alt="StarDustLoong" />
+            
+              <p class="site-author-name" itemprop="name">StarDustLoong</p>
+              <p class="site-description motion-element" itemprop="description">人类如风一般的自由</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">2409</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">12</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">146</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+	   
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/StarDustLoong" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:13671474528@163.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://www.zhihu.com/people/ashjian-ar15" target="_blank" title="知乎">
+                      
+                        <i class="fa fa-fw fa-globe"></i>知乎</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://me.csdn.net/ashjian" target="_blank" title="CSDN">
+                      
+                        <i class="fa fa-fw fa-codiepie"></i>CSDN</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+            <div class="links-of-blogroll motion-element links-of-blogroll-inline">
+              <div class="links-of-blogroll-title">
+                <i class="fa  fa-fw fa-link"></i>
+                Links
+              </div>
+              <ul class="links-of-blogroll-list">
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="http://mp.weixin.qq.com/user1" title="OpenInfo" target="_blank">OpenInfo</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="http://mp.weixin.qq.com/user2" title="stormzhang" target="_blank">stormzhang</a>
+                  </li>
+                
+              </ul>
+            </div>
+          
+
+          
+
+        </div>
+      </section>
+
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">StarDustLoong</span>
+
+  
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-area-chart"></i>
+    </span>
+    
+      <span class="post-meta-item-text">本站总字数&#58;</span>
+    
+    <span title="本站总字数">635.5k</span>
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Pisces</a> v5.1.4</div>
+
+
+
+
+#<!-- 百度自动推送 -->
+#<script>
+#(function(){
+#    var bp = document.createElement('script');
+#    var curProtocol = window.location.protocol.split(':')[0];
+#    if (curProtocol === 'https') {
+#        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+#    }
+#    else {
+#        bp.src = 'http://push.ashjian.baidu.com/push.js';
+#    }
+#    var s = document.getElementsByTagName("script")[0];
+#    s.parentNode.insertBefore(bp, s);
+#})();
+#</script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aplayer/dist/APlayer.min.css">
+
+<script src="https://cdn.jsdelivr.net/npm/aplayer/dist/APlayer.min.js"></script>
+<!-- require MetingJS -->
+
+<script src="https://cdn.jsdelivr.net/npm/meting@2.0.1/dist/Meting.min.js"></script>
+<div> 
+<meting-js  
+    server="netease" 
+    type="playlist"  
+    id="5281251057" 
+    fixed="true"  
+    autoplay="false" 
+    loop="all" 
+    order="random"
+    preload="auto" 
+    list-folded="ture" 
+    list-max-height="500px" 
+    lrc-type="1">
+</meting-js>	 
+</div>
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv">
+      本站访客数
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+      人次
+    </span>
+  
+
+  
+    <span class="site-pv">
+      本站总访问量
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+      次
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+  <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+  <script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+  
+  <script type="text/javascript">
+    var GUEST = ['nick','mail','link'];
+    var guest = 'nick,mail,link';
+    guest = guest.split(',').filter(item=>{
+      return GUEST.indexOf(item)>-1;
+    });
+    new Valine({
+        el: '#comments' ,
+        verify: false,
+        notify: false,
+        appId: 'Gp5xxuBGmRxC9yeJHf5wlLpN-gzGzoHsz',
+        appKey: 'wo0eDJonJrnuUrCCCU7EnH1n',
+        placeholder: '欢迎评论',
+        avatar:'mm',
+        guest_info:guest,
+        pageSize:'20' || 10,
+    });
+  </script>
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"jsonPath":"/live2dw/assets/dsr50_lifu_normal.model.json"},"display":{"position":"right","width":700,"height":800,"hOffset":-250,"vOffset":-150},"mobile":{"show":true,"scale":0.7},"log":false});</script></body>
+</html>

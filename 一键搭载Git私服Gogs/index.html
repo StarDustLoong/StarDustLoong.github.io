@@ -1,0 +1,1432 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="git," />
+
+
+
+
+  
+
+
+  <link rel="alternate" href="/atom.xml" title="" type="application/atom+xml" />
+
+
+
+
+
+
+<meta name="description" content="Gogs的网页界面和GitHub十分相近，并提供MySQL，PostgreSQL和SQLite数据库支持。gogs具有轻量级、易安装、跨平台的优点。 https:&#x2F;&#x2F;gogs.io   # go语言开发的git服务器； https:&#x2F;&#x2F;www.percona.com&#x2F;downloads&#x2F;   #mysql咨询和软件包装，比mysql性能强 http:&#x2F;&#x2F;vault.centos.org&#x2F;">
+<meta property="og:type" content="article">
+<meta property="og:title" content="一键搭载Git私服Gogs">
+<meta property="og:url" content="http://www.ashjian.xyz/%E4%B8%80%E9%94%AE%E6%90%AD%E8%BD%BDGit%E7%A7%81%E6%9C%8DGogs/index.html">
+<meta property="og:site_name">
+<meta property="og:description" content="Gogs的网页界面和GitHub十分相近，并提供MySQL，PostgreSQL和SQLite数据库支持。gogs具有轻量级、易安装、跨平台的优点。 https:&#x2F;&#x2F;gogs.io   # go语言开发的git服务器； https:&#x2F;&#x2F;www.percona.com&#x2F;downloads&#x2F;   #mysql咨询和软件包装，比mysql性能强 http:&#x2F;&#x2F;vault.centos.org&#x2F;">
+<meta property="og:image" content="https://gitee.com/ashjian/picBed/raw/master/20210712131749.png">
+<meta property="og:image" content="https://gitee.com/ashjian/picBed/raw/master/20210712131750.png">
+<meta property="og:image" content="https://gitee.com/ashjian/picBed/raw/master/20210712131751.png">
+<meta property="og:image" content="https://gitee.com/ashjian/picBed/raw/master/20210712131752.png">
+<meta property="og:image" content="https://gitee.com/ashjian/picBed/raw/master/20210712131753.png">
+<meta property="og:image" content="https://gitee.com/ashjian/picBed/raw/master/20210712131754.png">
+<meta property="og:image" content="https://gitee.com/ashjian/picBed/raw/master/20210712131755.png">
+<meta property="article:published_time" content="2021-07-12T05:49:08.028Z">
+<meta property="article:modified_time" content="2021-07-12T05:37:37.718Z">
+<meta property="article:author" content="StarDustLoong">
+<meta property="article:tag" content="git">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://gitee.com/ashjian/picBed/raw/master/20210712131749.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://www.ashjian.xyz/一键搭载Git私服Gogs/"/>
+
+
+
+
+
+  <title>一键搭载Git私服Gogs | </title>
+  
+
+
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?d7bf52f45e24a0e6f2951901a7a97864";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+<meta name="generator" content="Hexo 4.2.1"></head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title"></span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off"
+             placeholder="搜索..." spellcheck="false"
+             type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://www.ashjian.xyz/%E4%B8%80%E9%94%AE%E6%90%AD%E8%BD%BDGit%E7%A7%81%E6%9C%8DGogs/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="StarDustLoong">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/uploads/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">一键搭载Git私服Gogs</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2021-07-12T13:49:08+08:00">
+                2021-07-12
+              </time>
+            
+
+            
+              <span class="post-meta-divider">|</span>
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-check-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">更新于&#58;</span>
+              
+              <time title="更新于" itemprop="dateModified" datetime="2021-07-12T13:37:37+08:00">
+                2021-07-12
+              </time>
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Git/" itemprop="url" rel="index">
+                    <span itemprop="name">Git</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/%E4%B8%80%E9%94%AE%E6%90%AD%E8%BD%BDGit%E7%A7%81%E6%9C%8DGogs/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/%E4%B8%80%E9%94%AE%E6%90%AD%E8%BD%BDGit%E7%A7%81%E6%9C%8DGogs/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  3.4k
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  18
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+      
+      
+
+      
+        <p>Gogs的网页界面和GitHub十分相近，并提供MySQL，PostgreSQL和SQLite数据库支持。gogs具有轻量级、易安装、跨平台的优点。</p>
+<p><a href="https://links.jianshu.com/go?to=https%3A%2F%2Fgogs.io" target="_blank" rel="noopener">https://gogs.io</a>   # go语言开发的git服务器；<br> <a href="https://links.jianshu.com/go?to=https%3A%2F%2Fwww.percona.com%2Fdownloads%2F" target="_blank" rel="noopener">https://www.percona.com/downloads/</a>   #mysql咨询和软件包装，比mysql性能强<br> <a href="https://links.jianshu.com/go?to=http%3A%2F%2Fvault.centos.org%2F" target="_blank" rel="noopener">http://vault.centos.org/</a>          # centos 文件下载</p>
+<h4 id="所需环境"><a href="#所需环境" class="headerlink" title="所需环境"></a>所需环境</h4><p>•<strong>系统:Linux \ Centos 7.4-1708</strong><br> •<strong>数据库：MySQL   Percona-Server-5.5.45-37.4-r042e02b-el6-x86_64-bundle.tar</strong><br> •反向代理：nginx<br> •git<br> •<strong>gogs     gogs_0.11.66_linux_amd64.tar.gz</strong></p>
+<blockquote>
+<p><strong>git</strong><br> yum install git -y</p>
+</blockquote>
+<p><strong>1. MySQL安装</strong><br> Percona-Server-5.5.45-37.4-r042e02b-el6-x86_64-bundle.tar</p>
+<figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br></pre></td><td class="code"><pre><code class="hljs ruby"><span class="hljs-comment"># tar xf 解压</span><br>tar xf Percona-Server-<span class="hljs-number">5.5</span>.<span class="hljs-number">45</span>-<span class="hljs-number">37.4</span>-r042e02b-el6-x86_64-bundle.tar<br><br><span class="hljs-comment"># 按照顺序安装包 share-server-client;</span><br>yum install Percona-Server-shared-<span class="hljs-number">55</span>-<span class="hljs-number">5.5</span>.<span class="hljs-number">45</span>-rel37.<span class="hljs-number">4</span>.el6.x86_64.rpm Percona-Server-server-<span class="hljs-number">55</span>-<span class="hljs-number">5.5</span>.<span class="hljs-number">45</span>-rel37.<span class="hljs-number">4</span>.el6.x86_64.rpm Percona-Server-client-<span class="hljs-number">55</span>-<span class="hljs-number">5.5</span>.<span class="hljs-number">45</span>-rel37.<span class="hljs-number">4</span>.el6.x86_64.rpm <br><br><span class="hljs-comment"># 查看etc/init.d/目录下安装好的mysql</span><br>[root@centos7 Desktop]<span class="hljs-comment"># cd /etc/init.d/</span><br>[root@centos7 init.d]<span class="hljs-comment"># ll</span><br>total <span class="hljs-number">52</span><br>-rw-r--r--. <span class="hljs-number">1</span> root root <span class="hljs-number">18281</span> Aug <span class="hljs-number">24</span>  <span class="hljs-number">2018</span> functions<br>-rwxr-xr-x. <span class="hljs-number">1</span> root root <span class="hljs-number">11056</span> Aug <span class="hljs-number">31</span>  <span class="hljs-number">2015</span> mysql            <span class="hljs-comment"># 数据库安装好了；</span><br>-rwxr-xr-x. <span class="hljs-number">1</span> root root  <span class="hljs-number">4569</span> Aug <span class="hljs-number">24</span>  <span class="hljs-number">2018</span> netconsole<br>-rwxr-xr-x. <span class="hljs-number">1</span> root root  <span class="hljs-number">7923</span> Aug <span class="hljs-number">24</span>  <span class="hljs-number">2018</span> network<br>-rw-r--r--. <span class="hljs-number">1</span> root root  <span class="hljs-number">1160</span> Oct <span class="hljs-number">31</span>  <span class="hljs-number">2018</span> README<br><br><span class="hljs-comment"># 启动数据库</span><br>[root@centos7 init.d]<span class="hljs-comment"># service mysql start</span><br>Starting MySQL (Percona Server).. SUCCESS!<br><br><span class="hljs-comment"># 查看端口：3306所有的地址都可以用</span><br>[root@centos7 init.d]<span class="hljs-comment"># ss -tanl</span><br>State       Recv-Q Send-Q        Local <span class="hljs-symbol">Address:</span>Port                       Peer <span class="hljs-symbol">Address:</span>Port              <br>LISTEN      <span class="hljs-number">0</span>      <span class="hljs-number">50</span>                        *<span class="hljs-symbol">:</span><span class="hljs-number">3306</span>                                  *<span class="hljs-symbol">:*</span>                  <br>LISTEN      <span class="hljs-number">0</span>      <span class="hljs-number">128</span>                       *<span class="hljs-symbol">:</span><span class="hljs-number">111</span>                                   *<span class="hljs-symbol">:*</span>                  <br>LISTEN      <span class="hljs-number">0</span>      <span class="hljs-number">128</span>                       *<span class="hljs-symbol">:</span><span class="hljs-number">6000</span>                                  *<span class="hljs-symbol">:*</span>                  <br>LISTEN      <span class="hljs-number">0</span>      <span class="hljs-number">5</span>             <span class="hljs-number">192.168</span>.<span class="hljs-number">122.1</span><span class="hljs-symbol">:</span><span class="hljs-number">53</span>                                    *<span class="hljs-symbol">:*</span>                  <br>LISTEN      <span class="hljs-number">0</span>      <span class="hljs-number">128</span>                       *<span class="hljs-symbol">:</span><span class="hljs-number">22</span>                                    *<span class="hljs-symbol">:*</span>                  <br>LISTEN      <span class="hljs-number">0</span>      <span class="hljs-number">128</span>               <span class="hljs-number">127.0</span>.<span class="hljs-number">0</span>.<span class="hljs-number">1</span><span class="hljs-symbol">:</span><span class="hljs-number">631</span>                                   *<span class="hljs-symbol">:*</span>                  <br>LISTEN      <span class="hljs-number">0</span>      <span class="hljs-number">128</span>                      <span class="hljs-symbol">:</span><span class="hljs-symbol">:</span><span class="hljs-symbol">:</span><span class="hljs-number">111</span>                                  <span class="hljs-symbol">:</span><span class="hljs-symbol">:</span><span class="hljs-symbol">:*</span>                  <br>LISTEN      <span class="hljs-number">0</span>      <span class="hljs-number">128</span>                      <span class="hljs-symbol">:</span><span class="hljs-symbol">:</span><span class="hljs-symbol">:</span><span class="hljs-number">6000</span>                                 <span class="hljs-symbol">:</span><span class="hljs-symbol">:</span><span class="hljs-symbol">:*</span>                  <br>LISTEN      <span class="hljs-number">0</span>      <span class="hljs-number">128</span>                      <span class="hljs-symbol">:</span><span class="hljs-symbol">:</span><span class="hljs-symbol">:</span><span class="hljs-number">22</span>                                   <span class="hljs-symbol">:</span><span class="hljs-symbol">:</span><span class="hljs-symbol">:*</span>                  <br>LISTEN      <span class="hljs-number">0</span>      <span class="hljs-number">128</span>                     <span class="hljs-symbol">:</span><span class="hljs-symbol">:</span><span class="hljs-number">1</span><span class="hljs-symbol">:</span><span class="hljs-number">631</span>                                  <span class="hljs-symbol">:</span><span class="hljs-symbol">:</span><span class="hljs-symbol">:*</span>  <br><br><span class="hljs-comment"># mysql安全安装</span><br>[root@centos7 init.d]<span class="hljs-comment"># mysql_secure_installation</span><br><span class="hljs-symbol">NOTE:</span> RUNNING ALL PARTS OF THIS SCRIPT IS RECOMMENDED FOR ALL MySQL<br>      SERVERS IN PRODUCTION USE!  PLEASE READ EACH STEP CAREFULLY!<br><br>In order to log into MySQL to secure it, we<span class="hljs-string">'ll need the current</span><br><span class="hljs-string">password for the root user.  If you'</span>ve just installed MySQL, <span class="hljs-keyword">and</span><br>you haven<span class="hljs-string">'t set the root password yet, the password will be blank,</span><br><span class="hljs-string">so you should just press enter here.</span><br><span class="hljs-string"></span><br><span class="hljs-string">Enter current password for root (enter for none): </span><br><span class="hljs-string">OK, successfully used password, moving on...</span><br><span class="hljs-string"></span><br><span class="hljs-string">Setting the root password ensures that nobody can log into the MySQL</span><br><span class="hljs-string">root user without the proper authorisation.</span><br><span class="hljs-string"></span><br><span class="hljs-string"># 设置密码</span><br><span class="hljs-string">Set root password? [Y/n] y</span><br><span class="hljs-string">New password: </span><br><span class="hljs-string">Re-enter new password: </span><br><span class="hljs-string">Sorry, you can'</span>t use an empty password here.<br><br>New <span class="hljs-symbol">password:</span> <br>Re-enter new <span class="hljs-symbol">password:</span> <br>Password updated successfully!<br>Reloading privilege tables..<br> ... Success!<br><br>By default, a MySQL installation has an anonymous user, allowing anyone<br>to log into MySQL without having to have a user account created <span class="hljs-keyword">for</span><br>them.  This is intended only <span class="hljs-keyword">for</span> testing, <span class="hljs-keyword">and</span> to make the installation<br>go a bit smoother.  You should remove them before moving into a<br>production environment.<br><span class="hljs-comment"># 移除其他用户</span><br>Remove anonymous users? [Y/n] y<br> ... Success!<br><br>Normally, root should only be allowed to connect from <span class="hljs-string">'localhost'</span>.  This<br>ensures that someone cannot guess at the root password from the network.<br><span class="hljs-comment"># 是否禁止远程登陆/否</span><br>Disallow root login remotely? [Y/n] n<br> ... skipping.<br><br>By default, MySQL comes with a database named <span class="hljs-string">'test'</span> that anyone can<br>access.  This is also intended only <span class="hljs-keyword">for</span> testing, <span class="hljs-keyword">and</span> should be removed<br>before moving into a production environment.<br><span class="hljs-comment"># 要不要一处test库文件</span><br>Remove test database <span class="hljs-keyword">and</span> access to it? [Y/n] <br><span class="hljs-comment"># 要不要刷新权限；要，要是万一不能用了不就麻烦了吗</span><br>Reload privilege tables now? [Y/n] y<br> ... Success!<br><br>Cleaning up...<br><br>All done!  If you<span class="hljs-string">'ve completed all of the above steps, your MySQL</span><br><span class="hljs-string">installation should now be secure.</span><br><span class="hljs-string"></span><br><span class="hljs-string">Thanks for using MySQL!</span><br></code></pre></td></tr></table></figure>
+
+<p><strong>2. MySQL配置</strong></p>
+<figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><code class="hljs ruby"><span class="hljs-comment"># 现在直接敲 mysql就不能这样用了；</span><br>[root@centos7 init.d]<span class="hljs-comment"># mysql</span><br>ERROR <span class="hljs-number">1045</span> (<span class="hljs-number">28000</span>): Access denied <span class="hljs-keyword">for</span> user <span class="hljs-string">'root'</span>@<span class="hljs-string">'localhost'</span> (using <span class="hljs-symbol">password:</span> NO)<br><br><span class="hljs-comment"># root账户登录；</span><br>[root@centos7 init.d]<span class="hljs-comment"># mysql -u root -p</span><br>Enter <span class="hljs-symbol">password:</span> <br>Welcome to the MySQL monitor.  Commands <span class="hljs-keyword">end</span> with ; <span class="hljs-keyword">or</span> \g.<br>Your MySQL connection id is <span class="hljs-number">10</span><br>Server <span class="hljs-symbol">version:</span> <span class="hljs-number">5.5</span>.<span class="hljs-number">45</span>-<span class="hljs-number">37.4</span> Percona Server (GPL), Release <span class="hljs-number">37.4</span>, Revision <span class="hljs-number">042</span>e02b<br><br>Copyright (c) <span class="hljs-number">2009</span>-<span class="hljs-number">2015</span> Percona LLC <span class="hljs-keyword">and</span>/<span class="hljs-keyword">or</span> its affiliates<br>Copyright (c) <span class="hljs-number">2000</span>, <span class="hljs-number">2015</span>, Oracle <span class="hljs-keyword">and</span>/<span class="hljs-keyword">or</span> its affiliates. All rights reserved.<br><br>Oracle is a registered trademark of Oracle Corporation <span class="hljs-keyword">and</span>/<span class="hljs-keyword">or</span> its<br>affiliates. Other names may be trademarks of their respective<br>owners.<br><br>Type <span class="hljs-string">'help;'</span> <span class="hljs-keyword">or</span> <span class="hljs-string">'\h'</span> <span class="hljs-keyword">for</span> help. Type <span class="hljs-string">'\c'</span> to clear the current input statement.<br>mysql&gt; show databases;   <span class="hljs-comment"># 查看数据据库</span><br>+--------------------+<br><span class="hljs-params">| Database           |</span><br>+--------------------+<br><span class="hljs-params">| information_schema |</span><br><span class="hljs-params">| mysql              |</span>   <span class="hljs-comment"># 系统库，由管理员权限从才可以看到；</span><br><span class="hljs-params">| performance_schema |</span><br>+--------------------+<br><span class="hljs-number">3</span> rows <span class="hljs-keyword">in</span> set (<span class="hljs-number">0</span>.<span class="hljs-number">00</span> sec)<br></code></pre></td></tr></table></figure>
+
+<p><strong>3. win本地查看登录虚拟机IP</strong><br> 常见的私网IP有 192.168.0.X ,192.168.1.1,172.16.X.X，10.X.X.X 这样的IP地址当初就规定好了，在公网上是看不到的，是不会分配给用户的。</p>
+<p>NAT（Network Address Translation）是网络地址转换，它实现内  拓扑结构 网的IP地址与公网的地址之间的相互转换，将大量的内网IP地址转换为一个或少量的公网IP地址，减少对公网IP地址的占用。NAT的最典型应用是：在一个局域网内，只需要一台计算机连接上Internet，就可以利用NAT共享Internet连接，使局域网内其他计算机也可以上网。使用NAT协议，局域网内的计算机可以访问Internet上的计算机，但Internet上的计算机无法访问局域网内的计算机。</p>
+<p>简单粗暴式：在Bash中直接输入ifconfig</p>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><code class="hljs kotlin"><span class="hljs-comment">//查看本地ＩＰ地址</span><br>[<span class="hljs-symbol">root@</span>centos7 <span class="hljs-keyword">init</span>.d]# ifconfig | grep -w inet | awk <span class="hljs-string">'&#123; print $2&#125;'</span><br><span class="hljs-number">192.168</span><span class="hljs-number">.116</span><span class="hljs-number">.130</span>     # 虚拟机中IP地址；<br><span class="hljs-number">127.0</span><span class="hljs-number">.0</span><span class="hljs-number">.1</span><br><span class="hljs-number">192.168</span><span class="hljs-number">.122</span><span class="hljs-number">.1</span><br>[<span class="hljs-symbol">root@</span>centos7 <span class="hljs-keyword">init</span>.d]# ip a s | grep -w inet | awk <span class="hljs-string">'&#123; print $2&#125;'</span><br><span class="hljs-number">127.0</span><span class="hljs-number">.0</span><span class="hljs-number">.1</span>/<span class="hljs-number">8</span><br><span class="hljs-number">192.168</span><span class="hljs-number">.116</span><span class="hljs-number">.130</span>/<span class="hljs-number">24</span><br><span class="hljs-number">192.168</span><span class="hljs-number">.122</span><span class="hljs-number">.1</span>/<span class="hljs-number">24</span><br><br>[<span class="hljs-symbol">root@</span>centos7 <span class="hljs-keyword">init</span>.d]# ifconfig<br>ens33: flags=<span class="hljs-number">4163</span>&lt;UP,BROADCAST,RUNNING,MULTICAST&gt;  mtu <span class="hljs-number">1500</span><br>        inet <span class="hljs-number">192.168</span><span class="hljs-number">.116</span><span class="hljs-number">.130</span>  netmask <span class="hljs-number">255.255</span><span class="hljs-number">.255</span><span class="hljs-number">.0</span>  broadcast <span class="hljs-number">192.168</span><span class="hljs-number">.116</span><span class="hljs-number">.255</span><br>        inet6 fe80::<span class="hljs-number">31</span>da:<span class="hljs-number">42e9</span>:edf2:<span class="hljs-number">898</span>a  prefixlen <span class="hljs-number">64</span>  scopeid <span class="hljs-number">0x20</span>&lt;link&gt;<br>        ether <span class="hljs-number">00</span>:<span class="hljs-number">0</span>c:<span class="hljs-number">29</span>:<span class="hljs-number">78</span>:f3:fe  txqueuelen <span class="hljs-number">1000</span>  (Ethernet)<br>        RX packets <span class="hljs-number">23503</span>  bytes <span class="hljs-number">34721214</span> (<span class="hljs-number">33.1</span> MiB)<br>        RX errors <span class="hljs-number">0</span>  dropped <span class="hljs-number">0</span>  overruns <span class="hljs-number">0</span>  frame <span class="hljs-number">0</span><br>        TX packets <span class="hljs-number">3381</span>  bytes <span class="hljs-number">224379</span> (<span class="hljs-number">219.1</span> KiB)<br>        TX errors <span class="hljs-number">0</span>  dropped <span class="hljs-number">0</span> overruns <span class="hljs-number">0</span>  carrier <span class="hljs-number">0</span>  collisions <span class="hljs-number">0</span><br><br>lo: flags=<span class="hljs-number">73</span>&lt;UP,LOOPBACK,RUNNING&gt;  mtu <span class="hljs-number">65536</span><br>        inet <span class="hljs-number">127.0</span><span class="hljs-number">.0</span><span class="hljs-number">.1</span>  netmask <span class="hljs-number">255.0</span><span class="hljs-number">.0</span><span class="hljs-number">.0</span><br>        inet6 ::<span class="hljs-number">1</span>  prefixlen <span class="hljs-number">128</span>  scopeid <span class="hljs-number">0x10</span>&lt;host&gt;<br>        loop  txqueuelen <span class="hljs-number">1000</span>  (Local Loopback)<br>        RX packets <span class="hljs-number">324</span>  bytes <span class="hljs-number">37236</span> (<span class="hljs-number">36.3</span> KiB)<br>        RX errors <span class="hljs-number">0</span>  dropped <span class="hljs-number">0</span>  overruns <span class="hljs-number">0</span>  frame <span class="hljs-number">0</span><br>        TX packets <span class="hljs-number">324</span>  bytes <span class="hljs-number">37236</span> (<span class="hljs-number">36.3</span> KiB)<br>        TX errors <span class="hljs-number">0</span>  dropped <span class="hljs-number">0</span> overruns <span class="hljs-number">0</span>  carrier <span class="hljs-number">0</span>  collisions <span class="hljs-number">0</span><br><br>virbr0: flags=<span class="hljs-number">4099</span>&lt;UP,BROADCAST,MULTICAST&gt;  mtu <span class="hljs-number">1500</span><br>        inet <span class="hljs-number">192.168</span><span class="hljs-number">.122</span><span class="hljs-number">.1</span>  netmask <span class="hljs-number">255.255</span><span class="hljs-number">.255</span><span class="hljs-number">.0</span>  broadcast <span class="hljs-number">192.168</span><span class="hljs-number">.122</span><span class="hljs-number">.255</span><br>        ether <span class="hljs-number">52</span>:<span class="hljs-number">54</span>:<span class="hljs-number">00</span>:<span class="hljs-number">46</span>:d2:ed  txqueuelen <span class="hljs-number">1000</span>  (Ethernet)<br>        RX packets <span class="hljs-number">0</span>  bytes <span class="hljs-number">0</span> (<span class="hljs-number">0.0</span> B)<br>        RX errors <span class="hljs-number">0</span>  dropped <span class="hljs-number">0</span>  overruns <span class="hljs-number">0</span>  frame <span class="hljs-number">0</span><br>        TX packets <span class="hljs-number">0</span>  bytes <span class="hljs-number">0</span> (<span class="hljs-number">0.0</span> B)<br>        TX errors <span class="hljs-number">0</span>  dropped <span class="hljs-number">0</span> overruns <span class="hljs-number">0</span>  carrier <span class="hljs-number">0</span>  collisions <span class="hljs-number">0</span><br></code></pre></td></tr></table></figure>
+
+<p><strong>4. 账户配置</strong></p>
+<figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><code class="hljs ruby">[root@centos7 /]<span class="hljs-comment"># useradd git            # 添加一个git账户；</span><br>[root@centos7 /]<span class="hljs-comment"># id git                 # 查看账户属主、属组</span><br>uid=<span class="hljs-number">1001</span>(git) gid=<span class="hljs-number">1001</span>(git) groups=<span class="hljs-number">1001</span>(git)<br><br><span class="hljs-comment">#安装gogs(gogs是对外的，安装过gogs权限太大不好)； 转换用户git;</span><br>[root@centos7 /]<span class="hljs-comment"># su git  # 到git用户下； </span><br>[git@centos7 home]$ cd git/<br>[git@centos7 ~]$ ll<br>total <span class="hljs-number">19932</span><br>-rwxrw-rw-. <span class="hljs-number">1</span> dell root <span class="hljs-number">20407040</span> Jan <span class="hljs-number">14</span>  <span class="hljs-number">2019</span> gogs_<span class="hljs-number">0</span>.<span class="hljs-number">11.66_</span>linux_amd64.tar.gz<br>[git@centos7 ~]$ tar xf gogs_<span class="hljs-number">0</span>.<span class="hljs-number">11.66_</span>linux_amd64.tar.gz <br>[git@centos7 ~]$ ll<br>total <span class="hljs-number">19932</span><br>drwxr-xr-x. <span class="hljs-number">5</span> git  git       <span class="hljs-number">116</span> Sep <span class="hljs-number">17</span>  <span class="hljs-number">2018</span> gogs<br>-rwxrw-rw-. <span class="hljs-number">1</span> dell root <span class="hljs-number">20407040</span> Jan <span class="hljs-number">14</span>  <span class="hljs-number">2019</span> gogs_<span class="hljs-number">0</span>.<span class="hljs-number">11.66_</span>linux_amd64.tar.gz<br>[git@centos7 ~]$ cd gogs/      <span class="hljs-comment"># 直接运行是没有问题的；</span><br>[git@centos7 gogs]$ ll<br>total <span class="hljs-number">36352</span><br>-rwxr-xr-x.  <span class="hljs-number">1</span> git git <span class="hljs-number">37201803</span> Sep <span class="hljs-number">17</span>  <span class="hljs-number">2018</span> gogs<br>-rw-r--r--.  <span class="hljs-number">1</span> git git     <span class="hljs-number">1054</span> Jun  <span class="hljs-number">5</span>  <span class="hljs-number">2018</span> LICENSE<br>drwxr-xr-x.  <span class="hljs-number">8</span> git git      <span class="hljs-number">101</span> Sep <span class="hljs-number">17</span>  <span class="hljs-number">2018</span> public<br>-rw-r--r--.  <span class="hljs-number">1</span> git git     <span class="hljs-number">7978</span> Sep <span class="hljs-number">17</span>  <span class="hljs-number">2018</span> README.md<br>-rw-r--r--.  <span class="hljs-number">1</span> git git     <span class="hljs-number">5278</span> Sep <span class="hljs-number">17</span>  <span class="hljs-number">2018</span> README_ZH.md<br>drwxr-xr-x.  <span class="hljs-number">7</span> git git      <span class="hljs-number">195</span> Sep <span class="hljs-number">17</span>  <span class="hljs-number">2018</span> scripts<br>drwxr-xr-x. <span class="hljs-number">11</span> git git      <span class="hljs-number">174</span> Sep <span class="hljs-number">17</span>  <span class="hljs-number">2018</span> templates<br></code></pre></td></tr></table></figure>
+
+<p><strong>配置文件</strong><br> 自定义配置，否则运行缺省配置；<br> 在gogs目录下建立custom/conf/app.ini配置文件</p>
+<figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs ruby">$ mkdir -p custom/conf<br>$ cd custom/conf<br>$ touch app.ini<br>$ vi app.ini<br></code></pre></td></tr></table></figure>
+
+<p>custom/conf/app.ini内容如下</p>
+<figure class="highlight csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><code class="hljs csharp">APP_NAME = magedu<br>RUN_USER = git<br>RUN_MODE = dev<br>[<span class="hljs-meta">server</span>]<br>HTTP_ADDR = <span class="hljs-number">0.0</span><span class="hljs-number">.0</span><span class="hljs-number">.0</span><br>HTTP_PORT = <span class="hljs-number">3000</span><br><br>[<span class="hljs-meta">database</span>]<br>DB_TYPE = mysql<br>HOST = <span class="hljs-number">127.0</span><span class="hljs-number">.0</span><span class="hljs-number">.1</span>:<span class="hljs-number">3306</span><br>NAME = gogs<br>USER = gogs<br>PASSWD = gogs<br><br>[<span class="hljs-meta">security</span>]<br>INSTALL_LOCK = <span class="hljs-literal">false</span><br>SECRET_KEY = www.magedu.com.(python).GIT:gogs<br></code></pre></td></tr></table></figure>
+
+
+
+<figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br></pre></td><td class="code"><pre><code class="hljs ruby"><span class="hljs-comment"># 数据库root账户登录，不是系统root;</span><br>[git@centos7 conf]$ mysql -u root -p<br><br><span class="hljs-comment"># /gogs/scripts目录下mysql.sql叫脚本输出重定向 mysql</span><br>[root@centos7 scripts]<span class="hljs-comment"># mysql -uroot -p &lt; mysql.sql</span><br><br>[root@centos7 scripts]<span class="hljs-comment"># cat mysql.sql </span><br>SET GLOBAL innodb_file_per_table = ON,<br>           innodb_file_format = Barracuda,<br>           innodb_large_prefix = ON;<br>DROP DATABASE IF EXISTS gogs;<br>CREATE DATABASE IF NOT EXISTS gogs CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci;<br><br><span class="hljs-comment"># 创建一个gogs的库；</span><br>[git@Centos7 gogs]$ mysql -uroot -p &lt; scripts/mysql.sql   <br><br><span class="hljs-comment"># 查看数据库，多了一个gogs；</span><br>mysql&gt; show databases;<br>+--------------------+<br><span class="hljs-params">| Database           |</span><br>+--------------------+<br><span class="hljs-params">| information_schema |</span><br><span class="hljs-params">| gogs               |</span><br><span class="hljs-params">| mysql              |</span><br><span class="hljs-params">| performance_schema |</span><br>+--------------------+<br><span class="hljs-number">4</span> rows <span class="hljs-keyword">in</span> set (<span class="hljs-number">0</span>.<span class="hljs-number">00</span> sec)<br><br>mysql&gt; use gogs<br>Database changed<br>mysql&gt; show tables;<br>Empty set (<span class="hljs-number">0</span>.<span class="hljs-number">00</span> sec)<br><br><span class="hljs-comment"># 设置数据据库账户密码：  % 所有IP地址；</span><br>mysql&gt; grant all on gogs.* to <span class="hljs-string">'gogs'</span>@<span class="hljs-string">'%'</span> identified by <span class="hljs-string">'gogs'</span>;<br>Query OK, <span class="hljs-number">0</span> rows affected (<span class="hljs-number">0</span>.<span class="hljs-number">01</span> sec)<br><br>mysql&gt; exit<br>Bye<br>[git@centos7 conf]$ mysql<br>ERROR <span class="hljs-number">1045</span> (<span class="hljs-number">28000</span>): Access denied <span class="hljs-keyword">for</span> user <span class="hljs-string">'root'</span>@<span class="hljs-string">'localhost'</span> (using <span class="hljs-symbol">password:</span> NO)<br><span class="hljs-comment"># gogs账户查看数据库；只有gogs,root账户才可以看到mysql系统库；</span><br>[git@centos7 conf]$ mysql -u gogs -p<br>Enter <span class="hljs-symbol">password:</span> <br>Welcome to the MySQL monitor.  Commands <span class="hljs-keyword">end</span> with ; <span class="hljs-keyword">or</span> \g.<br>Your MySQL connection id is <span class="hljs-number">17</span><br>Server <span class="hljs-symbol">version:</span> <span class="hljs-number">5.5</span>.<span class="hljs-number">45</span>-<span class="hljs-number">37.4</span> Percona Server (GPL), Release <span class="hljs-number">37.4</span>, Revision <span class="hljs-number">042</span>e02b<br><br>Copyright (c) <span class="hljs-number">2009</span>-<span class="hljs-number">2015</span> Percona LLC <span class="hljs-keyword">and</span>/<span class="hljs-keyword">or</span> its affiliates<br>Copyright (c) <span class="hljs-number">2000</span>, <span class="hljs-number">2015</span>, Oracle <span class="hljs-keyword">and</span>/<span class="hljs-keyword">or</span> its affiliates. All rights reserved.<br><br>Oracle is a registered trademark of Oracle Corporation <span class="hljs-keyword">and</span>/<span class="hljs-keyword">or</span> its<br>affiliates. Other names may be trademarks of their respective<br>owners.<br><br>Type <span class="hljs-string">'help;'</span> <span class="hljs-keyword">or</span> <span class="hljs-string">'\h'</span> <span class="hljs-keyword">for</span> help. Type <span class="hljs-string">'\c'</span> to clear the current input statement.<br><br><span class="hljs-comment"># 只有gogs,root账户才可以看到mysql系统库；</span><br>mysql&gt; show databases;<br>+--------------------+<br><span class="hljs-params">| Database           |</span><br>+--------------------+<br><span class="hljs-params">| information_schema |</span><br><span class="hljs-params">| gogs               |</span><br>+--------------------+<br><span class="hljs-number">2</span> rows <span class="hljs-keyword">in</span> set (<span class="hljs-number">0</span>.<span class="hljs-number">00</span> sec)<br></code></pre></td></tr></table></figure>
+
+<p><strong>5. 启动gogs</strong></p>
+<blockquote>
+<p>gogs呈现绿色（启动中）,使用gogs命令启动<br> $ ./gogs web<br> 但是这样用不方便，使用scripts目录下的服务脚本</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><code class="hljs tsx">[git@centos7 gogs]$ ls<br>custom  gogs  LICENSE  public  README.md  README_ZH.md  scripts  templates<br>[git@centos7 gogs]$ .&#x2F;gogs web<br>2020&#x2F;01&#x2F;08 21:06:19 [TRACE] Custom path: &#x2F;home&#x2F;git&#x2F;gogs&#x2F;custom<br>2020&#x2F;01&#x2F;08 21:06:19 [TRACE] Log path: &#x2F;home&#x2F;git&#x2F;gogs&#x2F;log<br>2020&#x2F;01&#x2F;08 21:06:19 [TRACE] Log Mode: Console (Trace)<br>2020&#x2F;01&#x2F;08 21:06:19 [ INFO] Gogs 0.11.66.0916<br>2020&#x2F;01&#x2F;08 21:06:19 [ INFO] Cache Service Enabled<br>2020&#x2F;01&#x2F;08 21:06:19 [ INFO] Session Service Enabled<br>2020&#x2F;01&#x2F;08 21:06:19 [ INFO] SQLite3 Supported<br>2020&#x2F;01&#x2F;08 21:06:19 [ INFO] Run Mode: Development<br>2020&#x2F;01&#x2F;08 21:06:19 [ INFO] Listen: http:&#x2F;&#x2F;0.0.0.0:3000<br></code></pre></td></tr></table></figure>
+
+<p><strong>6. 访问Gogs（默认端口3000）</strong><br> root权限下防火墙放行 3000端口访问；</p>
+<figure class="highlight csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs csharp">[<span class="hljs-meta">root@centos7 dell</span>]<span class="hljs-meta"># firewall-cmd --permanent --add-port=3000/tcp  </span><br>success<br>[<span class="hljs-meta">root@centos7 dell</span>]<span class="hljs-meta"># firewall-cmd --reload  </span><br>success<br></code></pre></td></tr></table></figure>
+
+<p>打开浏览器访问本机IP+端口，如下图所示6.</p>
+<p><img src="https://gitee.com/ashjian/picBed/raw/master/20210712131749.png" alt="img"></p>
+<p><img src="https://gitee.com/ashjian/picBed/raw/master/20210712131750.png" alt="img"></p>
+<p>注册一个新账号(第一个用户是管理员)；</p>
+<p><img src="https://gitee.com/ashjian/picBed/raw/master/20210712131751.png" alt="img"></p>
+<p>管理员 用户的面板；</p>
+<p><img src="https://gitee.com/ashjian/picBed/raw/master/20210712131752.png" alt="img"></p>
+<p><img src="https://gitee.com/ashjian/picBed/raw/master/20210712131753.png" alt="img"></p>
+<p>普通用户的管理页面；接下来我们就可以用git来进行项目的版本控制了；</p>
+<p><img src="https://gitee.com/ashjian/picBed/raw/master/20210712131754.png" alt="img"></p>
+<p>可以看到配置文件中 变成了生产模式prod；</p>
+<p><img src="https://gitee.com/ashjian/picBed/raw/master/20210712131755.png" alt="img"></p>
+<p>到这里，git私服就搭建成功了！</p>
+<h3 id="参考："><a href="#参考：" class="headerlink" title="参考："></a>参考：</h3><h4 id="Linux-系统问题集锦"><a href="#Linux-系统问题集锦" class="headerlink" title="Linux 系统问题集锦"></a>Linux 系统问题集锦</h4><p><strong>1. centos7.2重新安装yum</strong></p>
+<p>yum install git -y   # 安装软件报错如下；</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs bash">[root@zf-test-web01-4 ~]<span class="hljs-comment"># yum install rng-tools</span><br>Loaded plugins: fastestmirror<br>Loading mirror speeds from cached hostfile<br>There are no enabled repos.<br> Run <span class="hljs-string">"yum repolist all"</span> to see the repos you have.<br> You can <span class="hljs-built_in">enable</span> repos with yum-config-manager --<span class="hljs-built_in">enable</span> &lt;repo&gt;<br></code></pre></td></tr></table></figure>
+
+<p>红色部分Loading mirror speeds from cached hostfile<strong>问题解决如下：</strong></p>
+<blockquote>
+<p><strong>进入修改 fastestmirror.conf ，把enabled=1改为enabled=0</strong></p>
+</blockquote>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><code class="hljs bash">-bash-4.2<span class="hljs-comment"># vi /etc/yum/pluginconf.d/fastestmirror.conf </span><br><br>[main]<br>enabled=0<br>verbose=0<br>always_print_best_host = <span class="hljs-literal">true</span><br>socket_timeout=3<br><span class="hljs-comment">#  Relative paths are relative to the cachedir (and so works for users as well</span><br><span class="hljs-comment"># as root).</span><br>hostfilepath=timedhosts.txt<br>maxhostfileage=10<br>maxthreads=15<br><span class="hljs-comment">#exclude=.gov, facebook</span><br><br>把enabled=1改为enabled=0<br></code></pre></td></tr></table></figure>
+
+<blockquote>
+<p><strong>蓝色部分There are no enabled repos.，解决办法：</strong></p>
+</blockquote>
+<figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br></pre></td><td class="code"><pre><code class="hljs ruby"><span class="hljs-number">1</span>. 查看centos7.<span class="hljs-number">2</span>系统本身所安装的那些yum 软件包<br><br>[root@zf-test-web01-<span class="hljs-number">4</span> ~]<span class="hljs-comment"># rpm -qa|grep yum</span><br>yum-plugin-fastestmirror-<span class="hljs-number">1.1</span>.<span class="hljs-number">31</span>-<span class="hljs-number">34</span>.el7.noarch<br>yum-metadata-parser-<span class="hljs-number">1.1</span>.<span class="hljs-number">4</span>-<span class="hljs-number">10</span>.el7.x86_64<br>yum-<span class="hljs-number">3.4</span>.<span class="hljs-number">3</span>-<span class="hljs-number">132</span>.el7.centos.<span class="hljs-number">0</span>.<span class="hljs-number">1</span>.noarch<br><br>[root@zf-test-web01-<span class="hljs-number">4</span> ~]<span class="hljs-comment"># </span><br><br><br><span class="hljs-number">2</span>. 卸载这些软件包<br><br>[root@zf-test-web01-<span class="hljs-number">4</span> ~]<span class="hljs-comment"># rpm -e yum-plugin-fastestmirror-1.1.31-34.el7.noarch --nodeps</span><br><span class="hljs-symbol">warning:</span> /etc/yum/pluginconf.d/fastestmirror.conf saved as /etc/yum/pluginconf.d/fastestmirror.conf.rpmsave<br>[root@zf-test-web01-<span class="hljs-number">4</span> ~]<span class="hljs-comment"># rpm -e yum-metadata-parser-1.1.4-10.el7.x86_64 --nodeps</span><br>[root@zf-test-web01-<span class="hljs-number">4</span> ~]<span class="hljs-comment"># rpm -e yum-3.4.3-132.el7.centos.0.1.noarch --nodeps</span><br>[root@zf-test-web01-<span class="hljs-number">4</span> ~]<span class="hljs-comment"># </span><br><br><br><span class="hljs-number">3</span>. 进入centos镜像网站找到自己对应系统需要的yum包<br><br>    查看系统的命令：<br><br>[root@zf-test-web01-<span class="hljs-number">4</span> ~]<span class="hljs-comment"># cat /etc/redhat-release</span><br>CentOS Linux release <span class="hljs-number">7.6</span>.<span class="hljs-number">1810</span> (Core) <br><br>   查看系统的位数：<br><br>[root@zf-test-web01-<span class="hljs-number">4</span> ~]<span class="hljs-comment"># file /bin/ls</span><br>/bin/<span class="hljs-symbol">ls:</span> ELF <span class="hljs-number">64</span>-bit LSB executable, x86-<span class="hljs-number">64</span>, version <span class="hljs-number">1</span> (SYSV), dynamically linked (uses shared libs), <span class="hljs-keyword">for</span> GNU/Linux <span class="hljs-number">2.6</span>.<span class="hljs-number">32</span>, BuildID[sha1]=aa7ff68f13de25936a098016243ce57c3c982e06, stripped<br><br><br><span class="hljs-symbol">http:</span>/<span class="hljs-regexp">/vault.centos.org/</span><br><br><br><span class="hljs-number">4</span>. 下载这些yum包<br><br>wget <span class="hljs-symbol">http:</span>/<span class="hljs-regexp">/vault.centos.org/</span><span class="hljs-number">7.6</span>.<span class="hljs-number">1810</span>/os/x86_64/Packages/yum-plugin-fastestmirror-<span class="hljs-number">1.1</span>.<span class="hljs-number">31</span>-<span class="hljs-number">50</span>.el7.noarch.rpm<br>wget <span class="hljs-symbol">http:</span>/<span class="hljs-regexp">/vault.centos.org/</span><span class="hljs-number">7.6</span>.<span class="hljs-number">1810</span>/os/x86_64/Packages/yum-metadata-parser-<span class="hljs-number">1.1</span>.<span class="hljs-number">4</span>-<span class="hljs-number">10</span>.el7.x86_64.rpm<br>wget <span class="hljs-symbol">http:</span>/<span class="hljs-regexp">/vault.centos.org/</span><span class="hljs-number">7.6</span>.<span class="hljs-number">1810</span>/os/x86_64/Packages/yum-<span class="hljs-number">3.4</span>.<span class="hljs-number">3</span>-<span class="hljs-number">161</span>.el7.centos.noarch.rpm<br><br><br><span class="hljs-number">5</span>. 安装下载的这些yum包<br><br>[root@zf-test-web01-<span class="hljs-number">4</span> ~]<span class="hljs-comment"># rpm -ivh yum-*</span><br>Preparing...                          <span class="hljs-comment">################################# [100%]</span><br>Updating / installing...<br>   <span class="hljs-number">1</span><span class="hljs-symbol">:yum-metadata-parser-</span><span class="hljs-number">1.1</span>.<span class="hljs-number">4</span>-<span class="hljs-number">10</span>.el7 <span class="hljs-comment">################################# [ 33%]</span><br>   <span class="hljs-number">2</span><span class="hljs-symbol">:yum-plugin-fastestmirror-</span><span class="hljs-number">1.1</span>.<span class="hljs-number">31</span>-<span class="hljs-number">3</span><span class="hljs-comment">################################# [ 67%]</span><br>   <span class="hljs-number">3</span><span class="hljs-symbol">:yum-</span><span class="hljs-number">3.4</span>.<span class="hljs-number">3</span>-<span class="hljs-number">132</span>.el7.centos.<span class="hljs-number">0</span>.<span class="hljs-number">1</span>     <span class="hljs-comment">################################# [100%]</span><br>[root@zf-test-web01-<span class="hljs-number">4</span> ~]<span class="hljs-comment"># </span><br><br><br><span class="hljs-number">6</span>. 更新centos系统的repo文件<br><br><span class="hljs-symbol">http:</span>/<span class="hljs-regexp">/mirrors.163.com/</span>.help/centos.html<br><br><span class="hljs-number">1</span>）首先备份/etc/yum.repos.d/CentOS-Base.repo<br><br>[root@zf-test-web01-<span class="hljs-number">4</span> yum.repos.d]<span class="hljs-comment"># mv /etc/yum.repos.d/CentOS-Base.repo /etc/yum.repos.d/CentOS-Base.repo.backup</span><br><br><span class="hljs-number">2</span>）下载对应版本repo文件, 放入/etc/yum.repos.d/(操作前请做好相应备份)<br><br><span class="hljs-number">3</span>）运行以下命令生成缓存<br><br>[root@zf-test-web01-<span class="hljs-number">4</span> yum.repos.d]<span class="hljs-comment"># yum clean all</span><br>Loaded <span class="hljs-symbol">plugins:</span> fastestmirror<br>Repodata is over <span class="hljs-number">2</span> weeks old. Install yum-cron? Or <span class="hljs-symbol">run:</span> yum makecache fast<br>Cleaning <span class="hljs-symbol">repos:</span> base extras updates<br>Cleaning up everything<br>Cleaning up list of fastest mirrors<br>[root@zf-test-web01-<span class="hljs-number">4</span> yum.repos.d]<span class="hljs-comment"># yum makecache</span><br>Loaded <span class="hljs-symbol">plugins:</span> fastestmirror<br>base                                                             <span class="hljs-params">| 3.6 kB  00:00:00     </span><br><span class="hljs-params">extras                                                           |</span> <span class="hljs-number">3.4</span> kB  <span class="hljs-number">00</span><span class="hljs-symbol">:</span><span class="hljs-number">00</span><span class="hljs-symbol">:</span><span class="hljs-number">00</span>     <br>updates                                                          <span class="hljs-params">| 3.4 kB  00:00:00     </span><br><span class="hljs-params">(1/12): base/7/x86_64/group_gz                                   |</span> <span class="hljs-number">156</span> kB  <span class="hljs-number">00</span><span class="hljs-symbol">:</span><span class="hljs-number">00</span><span class="hljs-symbol">:</span><span class="hljs-number">00</span>     <br>(<span class="hljs-number">2</span>/<span class="hljs-number">12</span>): base/<span class="hljs-number">7</span>/x86_64/filelists_db                               <span class="hljs-params">| 6.7 MB  00:00:01     </span><br><span class="hljs-params">(3/12): extras/7/x86_64/prestodelta                              |</span>  <span class="hljs-number">71</span> kB  <span class="hljs-number">00</span><span class="hljs-symbol">:</span><span class="hljs-number">00</span><span class="hljs-symbol">:</span><span class="hljs-number">00</span>     <br>(<span class="hljs-number">4</span>/<span class="hljs-number">12</span>): extras/<span class="hljs-number">7</span>/x86_64/primary_db                               <span class="hljs-params">| 145 kB  00:00:00     </span><br><span class="hljs-params">(5/12): extras/7/x86_64/filelists_db                             |</span> <span class="hljs-number">528</span> kB  <span class="hljs-number">00</span><span class="hljs-symbol">:</span><span class="hljs-number">00</span><span class="hljs-symbol">:</span><span class="hljs-number">00</span>     <br>(<span class="hljs-number">6</span>/<span class="hljs-number">12</span>): extras/<span class="hljs-number">7</span>/x86_64/other_db                                 <span class="hljs-params">|  97 kB  00:00:00     </span><br><span class="hljs-params">(7/12): updates/7/x86_64/prestodelta                             |</span> <span class="hljs-number">589</span> kB  <span class="hljs-number">00</span><span class="hljs-symbol">:</span><span class="hljs-number">00</span><span class="hljs-symbol">:</span><span class="hljs-number">00</span>     <br>(<span class="hljs-number">8</span>/<span class="hljs-number">12</span>): base/<span class="hljs-number">7</span>/x86_64/primary_db                                 <span class="hljs-params">| 5.7 MB  00:00:01     </span><br><span class="hljs-params">(9/12): base/7/x86_64/other_db                                   |</span> <span class="hljs-number">2.5</span> MB  <span class="hljs-number">00</span><span class="hljs-symbol">:</span><span class="hljs-number">00</span><span class="hljs-symbol">:</span><span class="hljs-number">00</span>     <br>(<span class="hljs-number">10</span>/<span class="hljs-number">12</span>): updates/<span class="hljs-number">7</span>/x86_64/primary_db                             <span class="hljs-params">| 4.5 MB  00:00:00     </span><br><span class="hljs-params">(11/12): updates/7/x86_64/other_db                               |</span> <span class="hljs-number">490</span> kB  <span class="hljs-number">00</span><span class="hljs-symbol">:</span><span class="hljs-number">00</span><span class="hljs-symbol">:</span><span class="hljs-number">00</span>     <br>(<span class="hljs-number">12</span>/<span class="hljs-number">12</span>): updates/<span class="hljs-number">7</span>/x86_64/filelists_db                           <span class="hljs-params">| 2.7 MB  00:00:01     </span><br><span class="hljs-params">Determining fastest mirrors</span><br><span class="hljs-params">Metadata Cache Created</span><br><span class="hljs-params"></span><br><span class="hljs-params"></span><br><span class="hljs-params">7. 重新运用yum安装软件,成功；</span><br></code></pre></td></tr></table></figure>
+
+<p><strong>2. <a href="https://links.jianshu.com/go?to=https%3A%2F%2Fwww.cnblogs.com%2Fchuijingjing%2Fp%2F10005922.html" target="_blank" rel="noopener">Linux rpm包安装MySQL数据库问题总结</a></strong></p>
+<p><strong>2.1 系统已经安装其他版本的mysql</strong></p>
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs jsx">file /usr/lib64/mysql/plugin/dialog.so <span class="hljs-keyword">from</span> install <span class="hljs-keyword">of</span> Percona-Server-server<span class="hljs-number">-56</span><span class="hljs-number">-5.6</span><span class="hljs-number">.24</span>-rel72<span class="hljs-number">.2</span>.el6.x86_64 conflicts <span class="hljs-keyword">with</span> file <span class="hljs-keyword">from</span> package mariadb-libs<span class="hljs-number">-1</span>:<span class="hljs-number">5.5</span><span class="hljs-number">.60</span><span class="hljs-number">-1.</span>el7_5.x86_64<br></code></pre></td></tr></table></figure>
+
+<p>原因：系统已经安装了其他版本的mysql-libs包和mysql数据库文件导致不兼容。<br> 解决：删除这个数据库</p>
+<figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs rust">root@centos7 Desktop]# yum remove mysql-libs<br>Loaded plugins: fastestmirror<br>Resolving Dependencies<br>--&gt; Running transaction check<br>---&gt; Package mariadb-libs.x86_64 <span class="hljs-number">1</span>:<span class="hljs-number">5.5</span>.<span class="hljs-number">60</span>-<span class="hljs-number">1</span>.el7_5 will be erased<br>--&gt; Processing Dependency: libmysqlclient.so.<span class="hljs-number">18</span>()(<span class="hljs-number">64</span>bit) <span class="hljs-keyword">for</span> package: <span class="hljs-number">2</span>:postfix-<span class="hljs-number">2.10</span>.<span class="hljs-number">1</span>-<span class="hljs-number">7</span>.el7.x86_64<br>--&gt; Processing Dependency: libmysqlclient.so.<span class="hljs-number">18</span>(libmysqlclient_18)(<span class="hljs-number">64</span>bit) <span class="hljs-keyword">for</span> package: <span class="hljs-number">2</span>:postfix-<span class="hljs-number">2.10</span>.<span class="hljs-number">1</span>-<span class="hljs-number">7</span>.el7.x86_64<br>--&gt; Running transaction check<br>---&gt; Package postfix.x86_64 <span class="hljs-number">2</span>:<span class="hljs-number">2.10</span>.<span class="hljs-number">1</span>-<span class="hljs-number">7</span>.el7 will be erased<br>--&gt; Finished Dependency Resolution<br></code></pre></td></tr></table></figure>
+
+<p><strong>3. web服务网页访问失败</strong></p>
+<figure class="highlight csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs csharp">[<span class="hljs-meta">root@centos7 dell</span>]<span class="hljs-meta"># firewall-cmd --permanent --add-port=3000/tcp  </span><br>success<br>[<span class="hljs-meta">root@centos7 dell</span>]<span class="hljs-meta"># firewall-cmd --reload  </span><br>success<br></code></pre></td></tr></table></figure>
+      
+    </div>
+    
+    
+    
+
+     <!-- 文章末尾统一添加“本文结束”标记 -->
+    <div>
+      
+        <div>
+    
+        <div style="text-align:center;color: #555;font-size:24px;"><-------------The End-------------></div>
+    
+</div>
+
+      
+    </div>
+    
+
+    
+      <div>
+        <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+  <div>坚持原创分享，你的支持就是我最大的动力！</div>
+  <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+    <span>打赏</span>
+  </button>
+  <div id="QR" style="display: none;">
+
+    
+      <div id="wechat" style="display: inline-block">
+        <img id="wechat_qr" src="/uploads/weixin_cash_code.png" alt="StarDustLoong 微信支付"/>
+        <p>微信支付</p>
+      </div>
+    
+
+    
+      <div id="alipay" style="display: inline-block">
+        <img id="alipay_qr" src="/uploads/alipay_cash_code.png" alt="StarDustLoong 支付宝"/>
+        <p>支付宝</p>
+      </div>
+    
+
+    
+
+  </div>
+</div>
+
+      </div>
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/git/" rel="tag"># git</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/Summer%20Days%20Game%20Hentai%20Scenes%20Sc18/" rel="next" title="Summer Days Game Hentai Scenes Sc18">
+                <i class="fa fa-chevron-left"></i> Summer Days Game Hentai Scenes Sc18
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/Python%E6%8F%92%E4%BB%B6%E5%8C%96%E5%BC%80%E5%8F%91/" rel="prev" title="Python插件化开发">
+                Python插件化开发 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+    </div>
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/uploads/avatar.png"
+                alt="StarDustLoong" />
+            
+              <p class="site-author-name" itemprop="name">StarDustLoong</p>
+              <p class="site-description motion-element" itemprop="description">人类如风一般的自由</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">2409</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">12</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">146</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+	   
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/StarDustLoong" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:13671474528@163.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://www.zhihu.com/people/ashjian-ar15" target="_blank" title="知乎">
+                      
+                        <i class="fa fa-fw fa-globe"></i>知乎</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://me.csdn.net/ashjian" target="_blank" title="CSDN">
+                      
+                        <i class="fa fa-fw fa-codiepie"></i>CSDN</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+            <div class="links-of-blogroll motion-element links-of-blogroll-inline">
+              <div class="links-of-blogroll-title">
+                <i class="fa  fa-fw fa-link"></i>
+                Links
+              </div>
+              <ul class="links-of-blogroll-list">
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="http://mp.weixin.qq.com/user1" title="OpenInfo" target="_blank">OpenInfo</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="http://mp.weixin.qq.com/user2" title="stormzhang" target="_blank">stormzhang</a>
+                  </li>
+                
+              </ul>
+            </div>
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#所需环境"><span class="nav-number">1.</span> <span class="nav-text">所需环境</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#参考："><span class="nav-number"></span> <span class="nav-text">参考：</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Linux-系统问题集锦"><span class="nav-number">1.</span> <span class="nav-text">Linux 系统问题集锦</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">StarDustLoong</span>
+
+  
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-area-chart"></i>
+    </span>
+    
+      <span class="post-meta-item-text">本站总字数&#58;</span>
+    
+    <span title="本站总字数">635.5k</span>
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Pisces</a> v5.1.4</div>
+
+
+
+
+#<!-- 百度自动推送 -->
+#<script>
+#(function(){
+#    var bp = document.createElement('script');
+#    var curProtocol = window.location.protocol.split(':')[0];
+#    if (curProtocol === 'https') {
+#        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+#    }
+#    else {
+#        bp.src = 'http://push.ashjian.baidu.com/push.js';
+#    }
+#    var s = document.getElementsByTagName("script")[0];
+#    s.parentNode.insertBefore(bp, s);
+#})();
+#</script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aplayer/dist/APlayer.min.css">
+
+<script src="https://cdn.jsdelivr.net/npm/aplayer/dist/APlayer.min.js"></script>
+<!-- require MetingJS -->
+
+<script src="https://cdn.jsdelivr.net/npm/meting@2.0.1/dist/Meting.min.js"></script>
+<div> 
+<meting-js  
+    server="netease" 
+    type="playlist"  
+    id="5281251057" 
+    fixed="true"  
+    autoplay="false" 
+    loop="all" 
+    order="random"
+    preload="auto" 
+    list-folded="ture" 
+    list-max-height="500px" 
+    lrc-type="1">
+</meting-js>	 
+</div>
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv">
+      本站访客数
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+      人次
+    </span>
+  
+
+  
+    <span class="site-pv">
+      本站总访问量
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+      次
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+  <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+  <script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+  
+  <script type="text/javascript">
+    var GUEST = ['nick','mail','link'];
+    var guest = 'nick,mail,link';
+    guest = guest.split(',').filter(item=>{
+      return GUEST.indexOf(item)>-1;
+    });
+    new Valine({
+        el: '#comments' ,
+        verify: false,
+        notify: false,
+        appId: 'Gp5xxuBGmRxC9yeJHf5wlLpN-gzGzoHsz',
+        appKey: 'wo0eDJonJrnuUrCCCU7EnH1n',
+        placeholder: '欢迎评论',
+        avatar:'mm',
+        guest_info:guest,
+        pageSize:'20' || 10,
+    });
+  </script>
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"jsonPath":"/live2dw/assets/dsr50_lifu_normal.model.json"},"display":{"position":"right","width":700,"height":800,"hOffset":-250,"vOffset":-150},"mobile":{"show":true,"scale":0.7},"log":false});</script></body>
+</html>

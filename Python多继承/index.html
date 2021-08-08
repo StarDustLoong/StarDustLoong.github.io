@@ -1,0 +1,1532 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="python多继承," />
+
+
+
+
+  
+
+
+  <link rel="alternate" href="/atom.xml" title="" type="application/atom+xml" />
+
+
+
+
+
+
+<meta name="description" content="Python不同版本的类 Python2.2之前类是没有共同的祖先的，之后引入object类，它是所有类的共同祖先类object。 Python2中为了兼容，分为古典类（旧式类）和新式类。 Python3中全部都是新式类。 新式类都是继承自object的，新式类可以使用super。  1234567891011121314151617181920212223242526# 以下代码在python2">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Python多继承">
+<meta property="og:url" content="http://www.ashjian.xyz/Python%E5%A4%9A%E7%BB%A7%E6%89%BF/index.html">
+<meta property="og:site_name">
+<meta property="og:description" content="Python不同版本的类 Python2.2之前类是没有共同的祖先的，之后引入object类，它是所有类的共同祖先类object。 Python2中为了兼容，分为古典类（旧式类）和新式类。 Python3中全部都是新式类。 新式类都是继承自object的，新式类可以使用super。  1234567891011121314151617181920212223242526# 以下代码在python2">
+<meta property="og:image" content="https://gitee.com/ashjian/picBed/raw/master/20210625095701.png">
+<meta property="og:image" content="https://gitee.com/ashjian/picBed/raw/master/20210625095702.png">
+<meta property="og:image" content="https://gitee.com/ashjian/picBed/raw/master/20210625095647.png">
+<meta property="article:published_time" content="2021-06-29T03:14:59.344Z">
+<meta property="article:modified_time" content="2021-06-27T14:56:32.580Z">
+<meta property="article:author" content="StarDustLoong">
+<meta property="article:tag" content="python多继承">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://gitee.com/ashjian/picBed/raw/master/20210625095701.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://www.ashjian.xyz/Python多继承/"/>
+
+
+
+
+
+  <title>Python多继承 | </title>
+  
+
+
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?d7bf52f45e24a0e6f2951901a7a97864";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+<meta name="generator" content="Hexo 4.2.1"></head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title"></span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off"
+             placeholder="搜索..." spellcheck="false"
+             type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://www.ashjian.xyz/Python%E5%A4%9A%E7%BB%A7%E6%89%BF/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="StarDustLoong">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/uploads/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Python多继承</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2021-06-29T11:14:59+08:00">
+                2021-06-29
+              </time>
+            
+
+            
+              <span class="post-meta-divider">|</span>
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-check-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">更新于&#58;</span>
+              
+              <time title="更新于" itemprop="dateModified" datetime="2021-06-27T22:56:32+08:00">
+                2021-06-27
+              </time>
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/python/" itemprop="url" rel="index">
+                    <span itemprop="name">python</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/Python%E5%A4%9A%E7%BB%A7%E6%89%BF/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/Python%E5%A4%9A%E7%BB%A7%E6%89%BF/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  3.7k
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  18
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+      
+      
+
+      
+        <h2 id="Python不同版本的类"><a href="#Python不同版本的类" class="headerlink" title="Python不同版本的类"></a>Python不同版本的类</h2><ul>
+<li>Python2.2之前类是没有共同的祖先的，之后引入object类，它是所有类的共同祖先类object。</li>
+<li>Python2中为了兼容，分为古典类（旧式类）和新式类。</li>
+<li>Python3中全部都是新式类。</li>
+<li>新式类都是继承自object的，新式类可以使用super。</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><code class="hljs plain"># 以下代码在python2.x中运行<br># 古典类（旧式类）<br>class A:pass<br><br><br><br># 新式类<br>class B(object):pass<br><br><br>print(dir(A))<br>print(dir(B))<br>print(A.__bases__)<br>print(B.__bases__)<br><br><br># 古典类<br>a &#x3D; A()<br>print(a.__class__)<br>print(type(a))<br><br><br># 新式类<br>b &#x3D; B()<br>print(b.__class__)<br>print(type(b))<br></code></pre></td></tr></table></figure>
+
+<h2 id="多继承"><a href="#多继承" class="headerlink" title="多继承"></a>多继承</h2><ul>
+<li>OCP原则：多用”继承”、少修改</li>
+<li>继承的用途：增强基类、实现多态</li>
+<li>多态<ul>
+<li>在面向对象中，父类、子类通过继承联系在一起，如果可以通过一套方法，就可以实现不同表现，就是多态。</li>
+</ul>
+</li>
+<li>一个类继承自多个类就是多继承，它将具有多个类的持征。</li>
+</ul>
+<h2 id="多继承弊端"><a href="#多继承弊端" class="headerlink" title="多继承弊端"></a>多继承弊端</h2><ul>
+<li><p>多继承很好的模拟了世界，因为事物很少是单一继承，但是舍弃简单，然引入复杂性，带来了冲突。</p>
+</li>
+<li><p>如同一个孩子继承了来自父母双方的特征。那么到底眼睛像爸爸还是妈妈呢？孩了究竟该像谁多一点呢？</p>
+</li>
+<li><p>多继承的实现会导致编译器设计的复杂度增加，所以现在很多语言也舍弃了类的多继承。</p>
+</li>
+<li><p>C++支持多继承；Java舍弃了多继承。</p>
+<ul>
+<li>Java中，一个类可以实现多个接口一个接口也可以继承多个接口。Java的接口很纯粹，只是方法的声明，继承者之须实现这些方法，就貝有了这些能力后就能干什么。</li>
+</ul>
+</li>
+<li><p>多继承可能会带来二义性，例如，猫和狗都继承自动物类，现在如果一个类多继承了猫和狗类，猫和狗都有shout方法，子类究竟继承谁的shout呢？</p>
+</li>
+<li><p>解决方案</p>
+<ul>
+<li>实现多继承的浯言，要解决二义性0深度优先或者广度优先。</li>
+</ul>
+</li>
+</ul>
+<h2 id="Python多继承实现"><a href="#Python多继承实现" class="headerlink" title="Python多继承实现"></a>Python多继承实现</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">ClassName</span><span class="hljs-params">(基类列表)</span>:</span><br>    类体<br></code></pre></td></tr></table></figure>
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs plain">digraph G &#123;<br>    Myclass -&gt; D<br>    Myclass -&gt; C<br>    D -&gt; B<br>    C -&gt; A<br>    B -&gt; A<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs plain">digraph G &#123;<br>    Myclass -&gt; D<br>    D -&gt; C<br>    C -&gt; B<br>    B -&gt; A<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<ul>
+<li><p>上图是多继承，下图是单一继承</p>
+</li>
+<li><p>多继承带来路径选择问题，究竟继承哪个父类的特征呢</p>
+</li>
+<li><p>Python使用MRO（method esolution order）解决基类搜索顺序问题</p>
+</li>
+<li><p>历史原因，MRO有三个搜索算法：</p>
+<ul>
+<li>经典算法，按照定义从左到右，深度优先策。2.2之前上图的MRO是MyClass,D,B,A,C,A<br>。</li>
+<li>新式类算法，经典算法的升级，重复的只保留最后一个。2.2上图的MRO是MyClass,D,B,C,A,object</li>
+<li>C3算法，在类被创建出来的时候，就计算出一个MRO有序列表。2.3之后，Python30唯一支持的算法<ul>
+<li>左图中的MROEMyCIass,D,B,C,A,object的列表</li>
+<li>C3算法解决多继承的二义性</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h2 id="多继承的缺点"><a href="#多继承的缺点" class="headerlink" title="多继承的缺点"></a>多继承的缺点</h2><ul>
+<li><p>当类很多，继承复杂的情况下，继承路径太多，很难说清什么样的继承路径。</p>
+</li>
+<li><p>python语法去是允许多继承，但python代码是解释执行，只有执行到的时候，才发现错误。</p>
+</li>
+<li><p>团队协作开发，如果引入多继承，那代码将不可控。</p>
+</li>
+<li><p>不管编程语言是否支持多继承，都应当避免多继承。</p>
+</li>
+<li><p>Python的面向对象，我们看到的太灵活了，太开放了，所以要团队守规矩。</p>
+</li>
+</ul>
+<h2 id="Mixin（重要）"><a href="#Mixin（重要）" class="headerlink" title="Mixin（重要）"></a>Mixin（重要）</h2><ul>
+<li><p>类有下面的继承关系</p>
+<p><img src="https://gitee.com/ashjian/picBed/raw/master/20210625095701.png" alt="image-20210625004825688"></p>
+</li>
+<li><p>文档Document子类提供打印能力</p>
+</li>
+<li><p>Word, Pdf类是Document子类提供打印能力</p>
+</li>
+</ul>
+<h3 id="思路："><a href="#思路：" class="headerlink" title="思路："></a>思路：</h3><h4 id="在Document中提供print方法"><a href="#在Document中提供print方法" class="headerlink" title="在Document中提供print方法"></a>在Document中提供print方法</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs plain">class Document:<br>    def __int__(self, content):<br>        self.content &#x3D; content<br><br><br>    def print(self):<br>        raise NotImplementedError()<br><br><br>class Word(Document): pass<br>class Pdf(Document): pass<br></code></pre></td></tr></table></figure>
+
+<ul>
+<li>基类提供的方法不应该具体实现，因为它未必适合子类的打印，子类中需要盖重写。</li>
+<li>print是一种能力——打印功能，不是所有的Document的子类都需要的，所以，从这个角度出发，有点问题。</li>
+</ul>
+<h4 id="需要打印的子类上增加"><a href="#需要打印的子类上增加" class="headerlink" title="需要打印的子类上增加"></a>需要打印的子类上增加</h4><ul>
+<li>如果在现有子类上直接增加，违反了OCP的原则，所以应该继承后增加。因此有下图</li>
+</ul>
+<p><img src="https://gitee.com/ashjian/picBed/raw/master/20210625095702.png" alt="image-20210625004910133"></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><code class="hljs plain">class Printable:<br>    def print(self):<br>        print(self.content)<br><br><br>class Document:  # 第三方库，不允许修改<br>    def __init__(self, content):<br>        self.content &#x3D; content<br><br><br>class Word(Document): pass  # 第三方库，不允许修改<br>class Pdf(Document): pass  # 第三方库，不允许修改<br><br><br>class PrintableWord(Printable, Word): pass<br><br>print(PrintableWord.__dict__)<br>print(PrintableWord.mro())<br><br>pw &#x3D; PrintableWord(&#39;test string&#39;)<br>pw.print()<br>~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~<br>&#123;&#39;__module__&#39;: &#39;__main__&#39;, &#39;__doc__&#39;: None&#125;<br>[&lt;class &#39;__main__.PrintableWord&#39;&gt;, &lt;class &#39;__main__.Printable&#39;&gt;, &lt;class &#39;__main__.Word&#39;&gt;, &lt;class &#39;__main__.Document&#39;&gt;, &lt;class &#39;object&#39;&gt;]<br>test string<br></code></pre></td></tr></table></figure>
+
+<ul>
+<li><p>看似不错，如果需要还要提供其他能力，如何继承？</p>
+</li>
+<li><p>应用于网络，文档应该具备序列化的能力，类上就应该实现序列化。</p>
+</li>
+<li><p>可序列化还可能分为使用pickle、json、messagepack等.。</p>
+</li>
+<li><p>这个时候发现，类可能太多了，继承的方式不是很好了·</p>
+</li>
+<li><p>功能太多，A类需要某几样功能，B类需要另几样功能，很繁琐。</p>
+</li>
+</ul>
+<h4 id="装饰器"><a href="#装饰器" class="headerlink" title="装饰器"></a>装饰器</h4><ul>
+<li>用装饰器增强一个类，把功能给类附加上去，那个类需要，就装饰它</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><code class="hljs plain">def printable(cls):<br>    def _print(self):<br>        print(self.content, &#39;装饰器&#39;)<br>    cls.print &#x3D; _print<br>    return cls<br><br>class Document:  # 第三方库，不允许修改<br>    def __init__(self, content):<br>        self.content &#x3D; content<br><br><br>class Word(Document): pass  # 第三方库，不允许修改<br>class Pdf(Document): pass  # 第三方库，不允许修改<br><br><br>@printable  # 先继承，后装饰<br>class PrintableWord(Word): pass<br><br>print(PrintableWord.__dict__)<br>print(PrintableWord.mro())<br><br>pw &#x3D; PrintableWord(&#39;test string&#39;)<br>pw.print()<br><br><br>@printable<br>class PrintablePdf(Word): pass<br>~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~<br>&#123;&#39;__doc__&#39;: None, &#39;__module__&#39;: &#39;__main__&#39;, &#39;print&#39;: &lt;function printable.&lt;locals&gt;._print at 0x00000290683E19D8&gt;&#125;<br>[&lt;class &#39;__main__.PrintableWord&#39;&gt;, &lt;class &#39;__main__.Word&#39;&gt;, &lt;class &#39;__main__.Document&#39;&gt;, &lt;class &#39;object&#39;&gt;]<br>test string 装饰器<br></code></pre></td></tr></table></figure>
+
+<ul>
+<li>优点：</li>
+<li>简单方便，在需要的地方动态增加，直接使用装饰器</li>
+</ul>
+<h4 id="Mixin"><a href="#Mixin" class="headerlink" title="Mixin"></a>Mixin</h4><ul>
+<li>先看代码</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><code class="hljs plain">class Document:  # 第三方库，不允许修改<br>    def __init__(self, content):<br>        self.content &#x3D; content<br><br><br>class Word(Document): pass  # 第三方库，不允许修改<br>class Pdf(Document): pass  # 第三方库，不允许修改<br><br><br>class PrintableMixin:<br>    def print(self):<br>        print(self.content, &#39;Mixin&#39;)<br><br><br>class PrintableWord(PrintableMixin, Word): pass<br><br>print(1, PrintableWord.__dict__)<br>print(2, PrintableWord.mro())<br><br>def printable(cls):<br>    def _print(self):<br>        print(self.content, &#39;装饰器&#39;)<br>    cls.print &#x3D; _print<br>    return cls<br><br><br>@printable<br>class PrintablePdf(Word): pass<br>print(3, PrintablePdf.__dict__)<br>print(4, PrintablePdf.mro())<br>~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~<br>1 &#123;&#39;__module__&#39;: &#39;__main__&#39;, &#39;__doc__&#39;: None&#125;<br>2 [&lt;class &#39;__main__.PrintableWord&#39;&gt;, &lt;class &#39;__main__.PrintableMixin&#39;&gt;, &lt;class &#39;__main__.Word&#39;&gt;, &lt;class &#39;__main__.Document&#39;&gt;, &lt;class &#39;object&#39;&gt;]<br>3 &#123;&#39;print&#39;: &lt;function printable.&lt;locals&gt;._print at 0x000001C50E361AE8&gt;, &#39;__module__&#39;: &#39;__main__&#39;, &#39;__doc__&#39;: None&#125;<br>4 [&lt;class &#39;__main__.PrintablePdf&#39;&gt;, &lt;class &#39;__main__.Word&#39;&gt;, &lt;class &#39;__main__.Document&#39;&gt;, &lt;class &#39;object&#39;&gt;]<br></code></pre></td></tr></table></figure>
+
+<ul>
+<li>Mixin就是其他类混合进来，同时带来了类的属性和方法。</li>
+<li>这里看来Mixin类和装饰器效果一样，也没有什么特别的。但是Mixin是类，就可以继承。</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br></pre></td><td class="code"><pre><code class="hljs plain">class Document:  # 第三方库，不允许修改<br>    def __init__(self, content):<br>        self.content &#x3D; content<br><br><br>class Word(Document): pass  # 第三方库，不允许修改<br>class Pdf(Document): pass  # 第三方库，不允许修改<br><br><br>class PrintableMixin:<br>    def print(self):<br>        print(self.content, &#39;Mixin&#39;)<br><br><br>class PrintableWord(PrintableMixin, Word): pass<br><br>print(1, PrintableWord.__dict__)<br>print(2, PrintableWord.mro())<br><br>pw &#x3D; PrintableWord(&#39;test string&#39;)<br>pw.print()<br><br><br>class SuperPrintableMixin(PrintableMixin):<br>    def print(self):<br>        print(&#39;~&#39; * 20)  # 打印增强<br>        super().print()<br>        print(&#39;~&#39; * 20)  # 打印增强<br><br># PrintableMixin 类的增强<br>class SuperPrintablePdf(SuperPrintableMixin, Pdf): pass<br><br>print(3, SuperPrintablePdf.__dict__)<br>print(4, SuperPrintablePdf.mro())<br><br><br>spp &#x3D; SuperPrintablePdf(&#39;super print pdf&#39;)<br>spp.print()<br>~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~<br>1 &#123;&#39;__doc__&#39;: None, &#39;__module__&#39;: &#39;__main__&#39;&#125;<br>2 [&lt;class &#39;__main__.PrintableWord&#39;&gt;, &lt;class &#39;__main__.PrintableMixin&#39;&gt;, &lt;class &#39;__main__.Word&#39;&gt;, &lt;class &#39;__main__.Document&#39;&gt;, &lt;class &#39;object&#39;&gt;]<br>test string Mixin<br>3 &#123;&#39;__doc__&#39;: None, &#39;__module__&#39;: &#39;__main__&#39;&#125;<br>4 [&lt;class &#39;__main__.SuperPrintablePdf&#39;&gt;, &lt;class &#39;__main__.SuperPrintableMixin&#39;&gt;, &lt;class &#39;__main__.PrintableMixin&#39;&gt;, &lt;class &#39;__main__.Pdf&#39;&gt;, &lt;class &#39;__main__.Document&#39;&gt;, &lt;class &#39;object&#39;&gt;]<br>~~~~~~~~~~~~~~~~~~~~<br>super print pdf Mixin<br>~~~~~~~~~~~~~~~~~~~~<br></code></pre></td></tr></table></figure>
+
+<h2 id="Mixin类"><a href="#Mixin类" class="headerlink" title="Mixin类"></a>Mixin类</h2><ul>
+<li><p>Mixin本质上就是多继承实现的。（通过多继承改变mro的搜索顺序列表，引入Mixin类来添加或覆盖新功能）</p>
+</li>
+<li><p>Mixin体现的是一种组合的设计模式。</p>
+</li>
+<li><p>在面向对象的设计中，一个复杂的类，往往需要很多功能，而这些功能有来自不同的类提供，这就需要很多的类组合在一起。</p>
+</li>
+<li><p>从设计模式的角度来说，多组合，少继承。（组合优于继承，虽然Mixin也是通过继承来使用的，但视为组合)（在python中，组合是通过多继承来实现的）</p>
+</li>
+<li><p>Mixin类的使用原则</p>
+<ul>
+<li>Mixin类中不应该显式的出现<strong>init</strong>初始化方法</li>
+<li>Mixin类通常不能独立工作，因为它是准备混入别的类中的部分功能实现</li>
+<li>Mixin类的祖先类也应是Mixin类</li>
+</ul>
+</li>
+<li><p>使用时，Mixin类通常在继承列表的第一个位置，例如class PrintableWord(PrintableMixin,Word):pass</p>
+</li>
+<li><p>Mixin类和装饰器</p>
+<ul>
+<li>这两种方式都可以使用，看个人喜好。</li>
+<li>如果还需要继承就得使用Mixin类的方式。</li>
+</ul>
+</li>
+</ul>
+<h2 id="练习"><a href="#练习" class="headerlink" title="练习"></a>练习</h2><h3 id="Shape基类，要求所有子类都必须提供面积的计算，子类有三角形、矩形、圆"><a href="#Shape基类，要求所有子类都必须提供面积的计算，子类有三角形、矩形、圆" class="headerlink" title="Shape基类，要求所有子类都必须提供面积的计算，子类有三角形、矩形、圆"></a>Shape基类，要求所有子类都必须提供面积的计算，子类有三角形、矩形、圆</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">import</span> math<br><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Shape</span>:</span><br><span class="hljs-meta">    @property</span><br>    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">area</span><span class="hljs-params">(self)</span>:</span><span class="hljs-keyword">pass</span><br><br><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Circle</span><span class="hljs-params">(Shape)</span>:</span><br>    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">__init__</span><span class="hljs-params">(self, radius)</span>:</span><br>        self.radius = radius<br><br><span class="hljs-meta">    @property</span><br>    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">area</span><span class="hljs-params">(self)</span>:</span><br>        <span class="hljs-keyword">return</span> self.radius**<span class="hljs-number">2</span> * <span class="hljs-number">3.14</span><br><br><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Triangle</span><span class="hljs-params">(Shape)</span>:</span><br>    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">__init__</span><span class="hljs-params">(self, x, y, z)</span>:</span><br>        self.x = x<br>        self.y = y<br>        self.z = z<br><br><span class="hljs-meta">    @property</span><br>    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">area</span><span class="hljs-params">(self)</span>:</span><br>        x, y, z = self.x, self.y, self.z<br>        p = (x + y + z) / <span class="hljs-number">2</span><br>        area = math.sqrt((p - x) * (p - y) * (p - z))<br>        <span class="hljs-keyword">return</span> area<br><br><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Rectangle</span><span class="hljs-params">(Shape)</span>:</span><br>    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">__init__</span><span class="hljs-params">(self, length, width)</span>:</span><br>        self.length = length<br>        self.width = width<br><br><span class="hljs-meta">    @property</span><br>    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">area</span><span class="hljs-params">(self)</span>:</span><br>        <span class="hljs-keyword">return</span> self.length * self.width<br><br>c = Circle(<span class="hljs-number">5</span>)<br>print(c.area)<br><br>t = Triangle(<span class="hljs-number">3</span>, <span class="hljs-number">4</span>, <span class="hljs-number">5</span>)<br>print(t.area)<br><br>r = Rectangle(<span class="hljs-number">4</span>, <span class="hljs-number">5</span>)<br>print(r.area)<br></code></pre></td></tr></table></figure>
+
+<h3 id="上题圆类的数据可序列化"><a href="#上题圆类的数据可序列化" class="headerlink" title="上题圆类的数据可序列化"></a>上题圆类的数据可序列化</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">import</span> math<br><span class="hljs-keyword">import</span> pickle<br><br><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Shape</span>:</span><br><span class="hljs-meta">    @property</span><br>    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">area</span><span class="hljs-params">(self)</span>:</span><span class="hljs-keyword">pass</span><br><br><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Circle</span><span class="hljs-params">(Shape)</span>:</span><br>    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">__init__</span><span class="hljs-params">(self, radius)</span>:</span><br>        self.radius = radius<br><br><span class="hljs-meta">    @property</span><br>    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">area</span><span class="hljs-params">(self)</span>:</span><br>        <span class="hljs-keyword">return</span> self.radius**<span class="hljs-number">2</span> * <span class="hljs-number">3.14</span><br><br><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Triangle</span><span class="hljs-params">(Shape)</span>:</span><br>    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">__init__</span><span class="hljs-params">(self, x, y, z)</span>:</span><br>        self.x = x<br>        self.y = y<br>        self.z = z<br><br><span class="hljs-meta">    @property</span><br>    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">area</span><span class="hljs-params">(self)</span>:</span><br>        x, y, z = self.x, self.y, self.z<br>        p = (x + y + z) / <span class="hljs-number">2</span><br>        area = math.sqrt((p - x) * (p - y) * (p - z))<br>        <span class="hljs-keyword">return</span> area<br><br><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Rectangle</span><span class="hljs-params">(Shape)</span>:</span><br>    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">__init__</span><span class="hljs-params">(self, length, width)</span>:</span><br>        self.length = length<br>        self.width = width<br><br><span class="hljs-meta">    @property</span><br>    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">area</span><span class="hljs-params">(self)</span>:</span><br>        <span class="hljs-keyword">return</span> self.length * self.width<br><br><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">SerialCircle</span><span class="hljs-params">(Circle)</span>:</span>  <span class="hljs-comment">#使用继承过于死板，建议使用装饰函数或Mixin组合功能</span><br>    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">serial</span><span class="hljs-params">(self, file)</span>:</span>	<span class="hljs-comment">#支持的格式过于单一，而且序列化应该支持内存不落地序列化</span><br>        <span class="hljs-keyword">with</span> open(file, <span class="hljs-string">'wb'</span>) <span class="hljs-keyword">as</span> f:<br>            pickle.dump(self, f)  <span class="hljs-comment">#序列化不支持自定义类，只支持内建类</span><br><br><br>filename = <span class="hljs-string">'D:/MyMD/Python/08-Python面向对象/serialCircle.txt'</span><br>c = SerialCircle(<span class="hljs-number">5</span>)<br>c.serial(filename)<br></code></pre></td></tr></table></figure>
+
+
+
+<h2 id="作业"><a href="#作业" class="headerlink" title="作业"></a>作业</h2><ul>
+<li>用面向对象实现LinkList链表<ul>
+<li>单向链表实现append, iternodes方法</li>
+<li>双向链表实现append, pop, insert, remove, iternoders方法</li>
+</ul>
+</li>
+</ul>
+<p><img src="https://gitee.com/ashjian/picBed/raw/master/20210625095647.png" alt="image-20210625011155851"></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">LinkList</span>:</span><br>    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">__init__</span><span class="hljs-params">(self)</span>:</span><br>        self.lst = []<br><br>    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">append</span><span class="hljs-params">(self, item)</span>:</span><br>        self.lst.append(item)  <span class="hljs-comment">#在类的方法能和内置函数同名，不会像在方法中内嵌函数和内置函数同名造成递归</span><br><br>    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">iternodes</span><span class="hljs-params">(self)</span>:</span><br>        <span class="hljs-keyword">yield</span> <span class="hljs-keyword">from</span> self.lst<br><br>    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">__repr__</span><span class="hljs-params">(self)</span>:</span><br>        <span class="hljs-keyword">return</span> str(self.lst)<br><br>l = LinkList()<br>l.append(<span class="hljs-number">5</span>)<br>l.append(<span class="hljs-number">7</span>)<br>l.append(<span class="hljs-number">8</span>)<br>print(l)<br><span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> l.iternodes():<br>    print(i)<br></code></pre></td></tr></table></figure>
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br></pre></td><td class="code"><pre><code class="hljs plain">class SingleNode:<br>    &quot;&quot;&quot;<br>    这是一个节点<br>    &quot;&quot;&quot;<br>    def __init__(self, value, next &#x3D; None):<br>        self.value &#x3D; value<br>        self.next &#x3D; next<br>        self.prev &#x3D; None<br><br>    def __repr__(self):<br>        return str(self.value)<br><br>class LinkedList:<br>    &quot;&quot;&quot;<br>    这是链表<br>    &quot;&quot;&quot;<br>    def __init__(self):<br>        self.nodes &#x3D; []<br>        self.head &#x3D; None<br>        self.tail &#x3D; None<br><br>    def append(self, value):<br>        node &#x3D; SingleNode(value)<br>        self.nodes.append(node)<br>        prev &#x3D; self.tail<br>        if prev is None:<br>            self.head &#x3D; node<br>        else:<br>            prev.next &#x3D; node<br>        self.tail &#x3D; node<br><br><br>    def iternodes(self):<br>        current &#x3D; self.head<br>        while current:<br>            yield current<br>            current &#x3D; current.next<br><br>    def __repr__(self):<br>        return str(self.nodes)<br><br>l &#x3D; LinkedList()<br>l.append(5)<br>l.append(6)<br>l.append(4)<br>print(l)<br>for i in l.iternodes():<br>    print(i)<br></code></pre></td></tr></table></figure>
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br></pre></td><td class="code"><pre><code class="hljs pyton">class SingleNode:<br>    &quot;&quot;&quot;<br>    这是一个节点<br>    &quot;&quot;&quot;<br>    def __init__(self, value, next &#x3D; None, prev &#x3D; None):<br>        self.value &#x3D; value<br>        self.next &#x3D; next<br>        self.prev &#x3D; prev<br><br>    def __repr__(self):<br>        return str(self.value)<br><br>    def __str__(self):<br>        return str(self.value)<br><br>class LinkedList:<br>    &quot;&quot;&quot;<br>    这是链表<br>    &quot;&quot;&quot;<br>    def __init__(self):<br>        self.nodes &#x3D; []<br>        self.head &#x3D; None<br>        self.tail &#x3D; None<br><br>    def append(self, value):<br>        node &#x3D; SingleNode(value)<br>        self.nodes.append(node)<br>        prev &#x3D; self.tail<br>        if self.head is None:<br>            self.head &#x3D; node<br>        else:<br>            self.tail.next &#x3D; node<br>            node.prev &#x3D; self.tail<br>        self.tail &#x3D; node<br><br><br>    def iternodes(self, reverse&#x3D;False):<br>        current &#x3D; self.tail if reverse else self.head<br>        while current:<br>            yield current<br>            current &#x3D; current.prev if reverse else current.next<br><br>    def pop(self):<br>        if self.tail is None:<br>            raise Exception(&quot;Empty&quot;)<br>        tail &#x3D; self.tail<br>        head &#x3D; self.head<br>        prev &#x3D; tail.prev<br>        if head is None:<br>            self.head &#x3D; None<br>            self.tail &#x3D; None<br>        else:<br>            self.tail &#x3D; prev<br>            prev.next &#x3D; None<br>            self.nodes.pop()<br>        return tail.value<br><br>    # def getitem(self, index):<br>    #     return self.nodes[index]<br><br>    def getitem(self, index):<br>        if index &lt; 0:<br>            return<br>        for i, node in enumerate(self.iternodes()):<br>            if i &#x3D;&#x3D; index:<br>                return node<br><br>    def insert(self, index, value):<br>        node &#x3D; SingleNode(value)<br>        if index &lt; 0:<br>            return<br>        current &#x3D; None<br>        for i, item in enumerate(self.iternodes()):<br>            if i &#x3D;&#x3D; index:<br>                current &#x3D; item<br>        if current is None:<br>            self.append(node)<br>            return<br>        elif self.head &#x3D;&#x3D; current:<br>            self.head &#x3D; node<br>            node.prev &#x3D; current.prev<br>            node.next &#x3D; current<br>            current.prev &#x3D; node<br>            self.nodes.insert(index, node)<br>        else:<br>            node.prev &#x3D; current.prev<br>            node.next &#x3D; current<br>            current.prev.next &#x3D; node<br>            current.prev &#x3D; node<br>            self.nodes.insert(index, node)<br><br>    def remove(self, index):<br>        if index &lt; 0:<br>            return<br>        current &#x3D; None<br>        for i, item in enumerate(self.iternodes()):<br>            if i &#x3D;&#x3D; index:<br>                current &#x3D; item<br>                self.nodes.pop(index)<br>        if current is None:<br>            return<br>        elif self.head &#x3D;&#x3D; current:<br>            next &#x3D; current.next<br>            next.prev &#x3D; None<br>            self.head &#x3D; next<br>        elif self.tail &#x3D;&#x3D; current:<br>            prev &#x3D; current.prev<br>            prev.next &#x3D; None<br>            self.tail &#x3D; prev<br>        else:<br>            prev &#x3D; current.prev<br>            next &#x3D; current.next<br>            prev.next &#x3D; next<br>            next.prev &#x3D; prev<br>        del current<br><br>    def __repr__(self):<br>        return str(self.nodes)<br><br>    def __str__(self):<br>        return str(self.nodes)<br><br>    def __getitem__(self, index):<br>        return self.nodes[index]<br><br>l &#x3D; LinkedList()<br>l.append(0)<br>l.append(1)<br>l.append(2)<br>l.append(3)<br>l.append(4)<br>l.append(5)<br>print(l)<br>for i in l.iternodes():<br>    print(i)<br><br>print(l[0])<br>l.pop()<br>print(l)<br>for i in l.iternodes():<br>    print(i)<br><br>print(l.getitem(2))<br><br>l.insert(0,&#39;abc&#39;)<br>l.insert(2,&#39;xyz&#39;)<br>print(l)<br>for i in l.iternodes():<br>    print(i)<br><br>l.remove(2)<br>l.remove(0)<br>print(l)<br>for i in l.iternodes(reverse&#x3D;True):<br>    print(i)<br></code></pre></td></tr></table></figure>
+
+
+
+<h2 id="作业参考"><a href="#作业参考" class="headerlink" title="作业参考"></a>作业参考</h2><h3 id="Shape基类，要求所有子类都必须提供面积的计算，子类有三角形、矩形、圆-1"><a href="#Shape基类，要求所有子类都必须提供面积的计算，子类有三角形、矩形、圆-1" class="headerlink" title="Shape基类，要求所有子类都必须提供面积的计算，子类有三角形、矩形、圆"></a>Shape基类，要求所有子类都必须提供面积的计算，子类有三角形、矩形、圆</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br></pre></td><td class="code"><pre><code class="hljs plain">import math<br><br><br>class Shape:<br>    @property<br>    def area(self):<br>        raise NotImplementedError(&#39;基类未实现&#39;)<br><br><br>class Triangle(Shape):<br>    def __init__(self, a, b, c):<br>        self.a &#x3D; a<br>        self.b &#x3D; b<br>        self.c &#x3D; c<br><br><br>    @property<br>    def area(self):<br>        a, b, c &#x3D; self.a, self.b, self.c<br>        p &#x3D; (a + b + c) &#x2F; 2<br>        return math.sqrt(p * (p - a) * (p - b) * (p - c))<br><br><br>class Rectangle(Shape):<br>    def __init__(self, width, height):<br>        self.width &#x3D; width<br>        self.height &#x3D; height<br><br><br>    @property<br>    def area(self):<br>        width, height &#x3D; self.width, self.height<br>        return width * height<br><br><br>class Circle(Shape):<br>    def __init__(self, radius):<br>        self.radius &#x3D; radius<br>        # self.d &#x3D; redius * 2<br><br><br>    @property<br>    def area(self):<br>        radius &#x3D; self.radius<br>        return math.pi * math.pow(radius, 2)<br>        # return math.pi * self.d * self.d * 0.25<br><br><br>shapes &#x3D; [Triangle(3, 4, 5), Rectangle(3, 4), Circle(4)]<br>for s in shapes:<br>    print(&#39;The area of &#123;&#125; &#x3D; &#123;&#125;&#39;.format(s.__class__.__name__, s.area))<br></code></pre></td></tr></table></figure>
+
+<h3 id="上题圆类的数据可序列化-1"><a href="#上题圆类的数据可序列化-1" class="headerlink" title="上题圆类的数据可序列化"></a>上题圆类的数据可序列化</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><code class="hljs plain">import json<br># import msgpack<br><br><br>class SerizlizableMixin:<br>    def dumps(self, t&#x3D;&#39;json&#39;):<br>        if t &#x3D;&#x3D; &#39;json&#39;:<br>            return json.dumps(self.__dict__)<br>        # elif t &#x3D;&#x3D; &#39;msgpack&#39;:<br>        #     return msgpack.packb(self.__dict__)<br>        else:<br>            raise NotImplementedError(&#39;没有实现的序列化&#39;)<br><br><br>class SerializableCircleMixin(SerizlizableMixin, Circle):<br>    pass<br><br><br>scm &#x3D; SerializableCircleMixin(4)<br>print(scm.area)<br>s &#x3D; scm.dumps(&#39;json&#39;)<br>print(s)<br>~~~~~~~~~~~~~~~~~~~~~~~<br>50.26548245743669<br>&#123;&quot;radius&quot;: 4&#125;<br></code></pre></td></tr></table></figure>
+
+<p>链表是连续的，但不是在内存中连续，而是通过某种方式连接在一起，而List是在内存中连续的。</p>
+
+      
+    </div>
+    
+    
+    
+
+     <!-- 文章末尾统一添加“本文结束”标记 -->
+    <div>
+      
+        <div>
+    
+        <div style="text-align:center;color: #555;font-size:24px;"><-------------The End-------------></div>
+    
+</div>
+
+      
+    </div>
+    
+
+    
+      <div>
+        <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+  <div>坚持原创分享，你的支持就是我最大的动力！</div>
+  <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+    <span>打赏</span>
+  </button>
+  <div id="QR" style="display: none;">
+
+    
+      <div id="wechat" style="display: inline-block">
+        <img id="wechat_qr" src="/uploads/weixin_cash_code.png" alt="StarDustLoong 微信支付"/>
+        <p>微信支付</p>
+      </div>
+    
+
+    
+      <div id="alipay" style="display: inline-block">
+        <img id="alipay_qr" src="/uploads/alipay_cash_code.png" alt="StarDustLoong 支付宝"/>
+        <p>支付宝</p>
+      </div>
+    
+
+    
+
+  </div>
+</div>
+
+      </div>
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/python%E5%A4%9A%E7%BB%A7%E6%89%BF/" rel="tag"># python多继承</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1/" rel="next" title="面向对象">
+                <i class="fa fa-chevron-left"></i> 面向对象
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/Python%E7%B1%BB%E7%9A%84%E7%BB%A7%E6%89%BF/" rel="prev" title="Python类的继承">
+                Python类的继承 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+    </div>
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/uploads/avatar.png"
+                alt="StarDustLoong" />
+            
+              <p class="site-author-name" itemprop="name">StarDustLoong</p>
+              <p class="site-description motion-element" itemprop="description">人类如风一般的自由</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">2409</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">12</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">146</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+	   
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/StarDustLoong" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:13671474528@163.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://www.zhihu.com/people/ashjian-ar15" target="_blank" title="知乎">
+                      
+                        <i class="fa fa-fw fa-globe"></i>知乎</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://me.csdn.net/ashjian" target="_blank" title="CSDN">
+                      
+                        <i class="fa fa-fw fa-codiepie"></i>CSDN</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+            <div class="links-of-blogroll motion-element links-of-blogroll-inline">
+              <div class="links-of-blogroll-title">
+                <i class="fa  fa-fw fa-link"></i>
+                Links
+              </div>
+              <ul class="links-of-blogroll-list">
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="http://mp.weixin.qq.com/user1" title="OpenInfo" target="_blank">OpenInfo</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="http://mp.weixin.qq.com/user2" title="stormzhang" target="_blank">stormzhang</a>
+                  </li>
+                
+              </ul>
+            </div>
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Python不同版本的类"><span class="nav-number">1.</span> <span class="nav-text">Python不同版本的类</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#多继承"><span class="nav-number">2.</span> <span class="nav-text">多继承</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#多继承弊端"><span class="nav-number">3.</span> <span class="nav-text">多继承弊端</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Python多继承实现"><span class="nav-number">4.</span> <span class="nav-text">Python多继承实现</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#多继承的缺点"><span class="nav-number">5.</span> <span class="nav-text">多继承的缺点</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Mixin（重要）"><span class="nav-number">6.</span> <span class="nav-text">Mixin（重要）</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#思路："><span class="nav-number">6.1.</span> <span class="nav-text">思路：</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#在Document中提供print方法"><span class="nav-number">6.1.1.</span> <span class="nav-text">在Document中提供print方法</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#需要打印的子类上增加"><span class="nav-number">6.1.2.</span> <span class="nav-text">需要打印的子类上增加</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#装饰器"><span class="nav-number">6.1.3.</span> <span class="nav-text">装饰器</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Mixin"><span class="nav-number">6.1.4.</span> <span class="nav-text">Mixin</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Mixin类"><span class="nav-number">7.</span> <span class="nav-text">Mixin类</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#练习"><span class="nav-number">8.</span> <span class="nav-text">练习</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Shape基类，要求所有子类都必须提供面积的计算，子类有三角形、矩形、圆"><span class="nav-number">8.1.</span> <span class="nav-text">Shape基类，要求所有子类都必须提供面积的计算，子类有三角形、矩形、圆</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#上题圆类的数据可序列化"><span class="nav-number">8.2.</span> <span class="nav-text">上题圆类的数据可序列化</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#作业"><span class="nav-number">9.</span> <span class="nav-text">作业</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#作业参考"><span class="nav-number">10.</span> <span class="nav-text">作业参考</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Shape基类，要求所有子类都必须提供面积的计算，子类有三角形、矩形、圆-1"><span class="nav-number">10.1.</span> <span class="nav-text">Shape基类，要求所有子类都必须提供面积的计算，子类有三角形、矩形、圆</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#上题圆类的数据可序列化-1"><span class="nav-number">10.2.</span> <span class="nav-text">上题圆类的数据可序列化</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">StarDustLoong</span>
+
+  
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-area-chart"></i>
+    </span>
+    
+      <span class="post-meta-item-text">本站总字数&#58;</span>
+    
+    <span title="本站总字数">635.5k</span>
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Pisces</a> v5.1.4</div>
+
+
+
+
+#<!-- 百度自动推送 -->
+#<script>
+#(function(){
+#    var bp = document.createElement('script');
+#    var curProtocol = window.location.protocol.split(':')[0];
+#    if (curProtocol === 'https') {
+#        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+#    }
+#    else {
+#        bp.src = 'http://push.ashjian.baidu.com/push.js';
+#    }
+#    var s = document.getElementsByTagName("script")[0];
+#    s.parentNode.insertBefore(bp, s);
+#})();
+#</script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aplayer/dist/APlayer.min.css">
+
+<script src="https://cdn.jsdelivr.net/npm/aplayer/dist/APlayer.min.js"></script>
+<!-- require MetingJS -->
+
+<script src="https://cdn.jsdelivr.net/npm/meting@2.0.1/dist/Meting.min.js"></script>
+<div> 
+<meting-js  
+    server="netease" 
+    type="playlist"  
+    id="5281251057" 
+    fixed="true"  
+    autoplay="false" 
+    loop="all" 
+    order="random"
+    preload="auto" 
+    list-folded="ture" 
+    list-max-height="500px" 
+    lrc-type="1">
+</meting-js>	 
+</div>
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv">
+      本站访客数
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+      人次
+    </span>
+  
+
+  
+    <span class="site-pv">
+      本站总访问量
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+      次
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+  <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+  <script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+  
+  <script type="text/javascript">
+    var GUEST = ['nick','mail','link'];
+    var guest = 'nick,mail,link';
+    guest = guest.split(',').filter(item=>{
+      return GUEST.indexOf(item)>-1;
+    });
+    new Valine({
+        el: '#comments' ,
+        verify: false,
+        notify: false,
+        appId: 'Gp5xxuBGmRxC9yeJHf5wlLpN-gzGzoHsz',
+        appKey: 'wo0eDJonJrnuUrCCCU7EnH1n',
+        placeholder: '欢迎评论',
+        avatar:'mm',
+        guest_info:guest,
+        pageSize:'20' || 10,
+    });
+  </script>
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"jsonPath":"/live2dw/assets/dsr50_lifu_normal.model.json"},"display":{"position":"right","width":700,"height":800,"hOffset":-250,"vOffset":-150},"mobile":{"show":true,"scale":0.7},"log":false});</script></body>
+</html>

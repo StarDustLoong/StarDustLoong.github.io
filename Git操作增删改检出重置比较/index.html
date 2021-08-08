@@ -1,0 +1,1452 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Git操作," />
+
+
+
+
+  
+
+
+  <link rel="alternate" href="/atom.xml" title="" type="application/atom+xml" />
+
+
+
+
+
+
+<meta name="description" content="总结：  不要随意git checkout，会清空前面写的代码；   1. 文件的生命周期文件add后，就成为可跟踪文件的未修改状态unmodiﬁed，修改后，文件就变成modiﬁed状态。再次add后，将变化提交到索引，状态变为staged，这才能提交。提交成功，文件状态从staged变回unmodiﬁed。 2. git的提交git的提交分为两个步骤： 暂存变更：add作用是把新文件或者文件">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Git操作增删改检出重置比较">
+<meta property="og:url" content="http://www.ashjian.xyz/Git%E6%93%8D%E4%BD%9C%E5%A2%9E%E5%88%A0%E6%94%B9%E6%A3%80%E5%87%BA%E9%87%8D%E7%BD%AE%E6%AF%94%E8%BE%83/index.html">
+<meta property="og:site_name">
+<meta property="og:description" content="总结：  不要随意git checkout，会清空前面写的代码；   1. 文件的生命周期文件add后，就成为可跟踪文件的未修改状态unmodiﬁed，修改后，文件就变成modiﬁed状态。再次add后，将变化提交到索引，状态变为staged，这才能提交。提交成功，文件状态从staged变回unmodiﬁed。 2. git的提交git的提交分为两个步骤： 暂存变更：add作用是把新文件或者文件">
+<meta property="article:published_time" content="2021-07-12T15:14:29.288Z">
+<meta property="article:modified_time" content="2021-07-12T12:18:37.010Z">
+<meta property="article:author" content="StarDustLoong">
+<meta property="article:tag" content="Git操作">
+<meta name="twitter:card" content="summary">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://www.ashjian.xyz/Git操作增删改检出重置比较/"/>
+
+
+
+
+
+  <title>Git操作增删改检出重置比较 | </title>
+  
+
+
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?d7bf52f45e24a0e6f2951901a7a97864";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+<meta name="generator" content="Hexo 4.2.1"></head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title"></span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off"
+             placeholder="搜索..." spellcheck="false"
+             type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://www.ashjian.xyz/Git%E6%93%8D%E4%BD%9C%E5%A2%9E%E5%88%A0%E6%94%B9%E6%A3%80%E5%87%BA%E9%87%8D%E7%BD%AE%E6%AF%94%E8%BE%83/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="StarDustLoong">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/uploads/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Git操作增删改检出重置比较</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2021-07-12T23:14:29+08:00">
+                2021-07-12
+              </time>
+            
+
+            
+              <span class="post-meta-divider">|</span>
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-check-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">更新于&#58;</span>
+              
+              <time title="更新于" itemprop="dateModified" datetime="2021-07-12T20:18:37+08:00">
+                2021-07-12
+              </time>
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Git/" itemprop="url" rel="index">
+                    <span itemprop="name">Git</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/Git%E6%93%8D%E4%BD%9C%E5%A2%9E%E5%88%A0%E6%94%B9%E6%A3%80%E5%87%BA%E9%87%8D%E7%BD%AE%E6%AF%94%E8%BE%83/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/Git%E6%93%8D%E4%BD%9C%E5%A2%9E%E5%88%A0%E6%94%B9%E6%A3%80%E5%87%BA%E9%87%8D%E7%BD%AE%E6%AF%94%E8%BE%83/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  1.9k
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  8
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+      
+      
+
+      
+        <blockquote>
+<p><strong>总结：</strong></p>
+<ol>
+<li>不要随意git checkout，会清空前面写的代码；</li>
+</ol>
+</blockquote>
+<h4 id="1-文件的生命周期"><a href="#1-文件的生命周期" class="headerlink" title="1. 文件的生命周期"></a>1. 文件的生命周期</h4><p>文件add后，就成为可跟踪文件的未修改状态unmodiﬁed，修改后，文件就变成<strong>modiﬁed状态</strong>。再次add后，将变化提交到索引，状态变为<strong>staged</strong>，这才能提交。提交成功，文件状态从staged变回unmodiﬁed。</p>
+<h4 id="2-git的提交"><a href="#2-git的提交" class="headerlink" title="2. git的提交"></a>2. <strong>git的提交</strong></h4><p><strong>git的提交</strong>分为两个步骤：</p>
+<p><strong>暂存变更</strong>：add作用是把新文件或者文件新的改动添加到一个暂存区stage，也就是加入到index中<br> <strong>提交变更</strong>：commit提交的是暂存区中的改动，而不是物理文件目前的改动，提交到当前分支，默认是master分支</p>
+<p>也可以使用下面命令，将两步合成一步</p>
+<figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs ruby">$ git commit index.htm<br></code></pre></td></tr></table></figure>
+
+<p>如果改动了一批文件，一个个写名字很麻烦，使用下面的命令</p>
+<figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs ruby">$ git commit -a<br></code></pre></td></tr></table></figure>
+
+<p>-a，–all 会把所有<strong>跟踪的文件</strong>的改动自动暂存，然后commit。上面命令未提交message，会出现一个类似vi命令的操作界面，需要编写message之后，才行。</p>
+<p>也可以使用下面的命令，把message信息一并填写了。</p>
+<figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs ruby">$ git commit -a -m <span class="hljs-string">"message"</span><br></code></pre></td></tr></table></figure>
+
+<p><strong>增补</strong></p>
+<p>第二次提交后，忘记加入一个文件about.htm</p>
+<figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs ruby">$ touch about.htm<br>$ git add about.htm<br>$ git commit --amend<br></code></pre></td></tr></table></figure>
+
+<p>–amend 修改，通过创建一个新的commit来replace当前分支的顶部；也可以在命令中继续使用-m选项直接提交message；</p>
+<table>
+<thead>
+<tr>
+<th>提交历史</th>
+<th></th>
+</tr>
+</thead>
+<tbody><tr>
+<td>git log</td>
+<td>查看一下版本库里面提交的历史纪录；</td>
+</tr>
+<tr>
+<td>git reflog</td>
+<td># 查看提交历史；</td>
+</tr>
+</tbody></table>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><code class="hljs kotlin">$ git reflog<br><span class="hljs-number">4</span>d51b75 (HEAD -&gt; master, origin/master, origin/HEAD) <span class="hljs-symbol">HEAD@</span>&#123;<span class="hljs-number">0</span>&#125;: commit: <span class="hljs-number">9</span><br>bcca591 <span class="hljs-symbol">HEAD@</span>&#123;<span class="hljs-number">1</span>&#125;: pull: Fast-forward<br><span class="hljs-number">825f</span>026 <span class="hljs-symbol">HEAD@</span>&#123;<span class="hljs-number">2</span>&#125;: commit: test file_md<br><span class="hljs-number">3297749</span> <span class="hljs-symbol">HEAD@</span>&#123;<span class="hljs-number">3</span>&#125;: commit: test md_file<br><span class="hljs-number">648</span>bb5f <span class="hljs-symbol">HEAD@</span>&#123;<span class="hljs-number">4</span>&#125;: pull: Fast-forward<br><span class="hljs-number">4</span>eb72af <span class="hljs-symbol">HEAD@</span>&#123;<span class="hljs-number">5</span>&#125;: commit: the seven homework<br>a11d140 <span class="hljs-symbol">HEAD@</span>&#123;<span class="hljs-number">6</span>&#125;: commit: the seven homework<br><span class="hljs-number">08f</span>e34b <span class="hljs-symbol">HEAD@</span>&#123;<span class="hljs-number">7</span>&#125;: pull: Fast-forward<br><span class="hljs-number">06</span>abc1c <span class="hljs-symbol">HEAD@</span>&#123;<span class="hljs-number">8</span>&#125;: pull: Merge made <span class="hljs-keyword">by</span> the <span class="hljs-string">'recursive'</span> strategy.<br><span class="hljs-number">7</span>af876a <span class="hljs-symbol">HEAD@</span>&#123;<span class="hljs-number">9</span>&#125;: commit: 第<span class="hljs-number">6</span>周作业<br><span class="hljs-number">1</span>dab54e <span class="hljs-symbol">HEAD@</span>&#123;<span class="hljs-number">10</span>&#125;: commit: 第<span class="hljs-number">5</span>周作业<br><span class="hljs-number">3</span>b4ffe8 <span class="hljs-symbol">HEAD@</span>&#123;<span class="hljs-number">11</span>&#125;: pull: Fast-forward<br><span class="hljs-number">3</span>aa27ba <span class="hljs-symbol">HEAD@</span>&#123;<span class="hljs-number">12</span>&#125;: commit: 作业补充<br>b618170 <span class="hljs-symbol">HEAD@</span>&#123;<span class="hljs-number">13</span>&#125;: pull: Fast-forward<br><span class="hljs-number">6366894</span> <span class="hljs-symbol">HEAD@</span>&#123;<span class="hljs-number">14</span>&#125;: commit: 第<span class="hljs-number">4</span>周作业<br>e7955f3 <span class="hljs-symbol">HEAD@</span>&#123;<span class="hljs-number">15</span>&#125;: clone: from https:<span class="hljs-comment">//github.com/magedu-python24/homework</span><br></code></pre></td></tr></table></figure>
+
+<h4 id="3-diﬀ比较"><a href="#3-diﬀ比较" class="headerlink" title="3. diﬀ比较"></a>3. diﬀ比较</h4><blockquote>
+<p><strong>查看各种差异</strong><br> git diff 查看被跟踪文件未暂存的修改，比较暂存区和工作区<br> git diff –cached 查看被跟踪文件暂存的修改，比较暂存区和上一次commit的差异<br> git diff HEAD ，查看被跟踪文件，比较工作区和上一次commit的差异。HEAD指代最后一次commit</p>
+</blockquote>
+<p><strong>HEAD</strong><br> HEAD可以看做是一个游标，指向当前分支最后一次提交。<br> HEAD的值存储在.git/HEAD中。<br> HEAD，指代最后一次commit<br> HEAD^，指代上一次提交<br> HEAD^^，指代上上一次提交；<br> 上n次提交，表示为HEAD~n</p>
+<p><strong>检出和重置</strong><br> checkout 用于切换分支，或 恢复工作区文件；<br> 注意，checkout会重写工作区，这个命令还是比较危险的；</p>
+<table>
+<thead>
+<tr>
+<th>命令</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>git checkout</td>
+<td>列出暂存区可以被检出的文件</td>
+</tr>
+<tr>
+<td>git checkout ﬁle</td>
+<td>从暂存区检出文件到工作区，就是覆盖工作区文件，可指定检出的文件。但是不清除stage</td>
+</tr>
+<tr>
+<td>git checkout commit bﬁle</td>
+<td>检出某个commit的指定文件到暂存区和工作区</td>
+</tr>
+<tr>
+<td>git checkout .</td>
+<td>检出暂存区的所有文件到工作区</td>
+</tr>
+</tbody></table>
+<figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs ruby">$ echo &gt; about.htm <span class="hljs-comment"># 清除工作区文件内容</span><br>$ git checkout about.htm <span class="hljs-comment"># 从暂存区检出到工作区，工作区文件有了内容</span><br>$ git checkout HEAD about.htm <span class="hljs-comment"># 使用当前分支的最后一次commit检出覆盖暂存区和工作区</span><br><span class="hljs-comment"># 下面3条命令结果一致了</span><br>$ git diff<br>$ git diff --cached<br>$ git diff HEAD<br></code></pre></td></tr></table></figure>
+
+<table>
+<thead>
+<tr>
+<th>命令</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>git reset</td>
+<td>列出将被reset的文件</td>
+</tr>
+<tr>
+<td>git reset ﬁle</td>
+<td>重置文件的暂存区，和上一次commit一致，工作区不影响</td>
+</tr>
+<tr>
+<td>git reset –hard</td>
+<td>重置暂存区与工作区，与上一次commit保持一致</td>
+</tr>
+</tbody></table>
+<figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs ruby">$ echo <span class="hljs-string">"&lt;html&gt;Welcom about&lt;/html&gt;"</span> &gt; about.htm<br>$ git add about.htm <span class="hljs-comment"># 添加到暂存区</span><br>$ git reset about.htm <span class="hljs-comment"># 使用最后一次提交覆盖暂存区</span><br>$ cat about.htm <span class="hljs-comment"># 工作区文件有内容</span><br>$ git add about.htm <span class="hljs-comment"># 添加到暂存区</span><br>$ git reset --hard <span class="hljs-comment"># 重置暂存区与工作区为上一次commit</span><br>$ cat about.htm <span class="hljs-comment"># 工作区文件无内容</span><br></code></pre></td></tr></table></figure>
+
+<h4 id="4-移动和删除-慎用"><a href="#4-移动和删除-慎用" class="headerlink" title="4. 移动和删除(慎用)"></a>4. 移动和删除(慎用)</h4><blockquote>
+<p>git mv src dest 改名，直接把改名的改动放入暂存区<br> git rm file 会同时在版本库和工作目录中删除文件，真删除<br> git rm –cached file 将文件从暂存转成未暂存，从版本库中删除，但不删除工作目录的该文件，<strong>即文件恢复成未追踪的状态</strong><br> 以上都算是改动，必须commit才算真改动了</p>
+</blockquote>
+<figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br></pre></td><td class="code"><pre><code class="hljs rust">C:\Users\Administrator\Desktop\homework (master -&gt; origin)<br>$ echo <span class="hljs-symbol">'print</span>(<span class="hljs-string">"hello,work"</span>)' &gt; python.py<br><br>C:\Users\Administrator\Desktop\homework (master -&gt; origin)<br>$ git add python.py<br><br>C:\Users\Administrator\Desktop\homework (master -&gt; origin)<br>$ git diff<br><br>C:\Users\Administrator\Desktop\homework (master -&gt; origin)<br>$ git diff --cached<br>diff --git a/python.py b/python.py<br>new file mode <span class="hljs-number">100644</span><br>index <span class="hljs-number">0000000</span>..<span class="hljs-number">7655786</span><br>--- /dev/null<br>+++ b/python.py<br>@@ -<span class="hljs-number">0</span>,<span class="hljs-number">0</span> +<span class="hljs-number">1</span> @@<br>+<span class="hljs-symbol">'print</span>(<span class="hljs-string">"hello,work"</span>)'<br><br>C:\Users\Administrator\Desktop\homework (master -&gt; origin)<br>$ ll<br><span class="hljs-symbol">'ll</span>' 不是内部或外部命令，也不是可运行的程序<br>或批处理文件。<br><br>C:\Users\Administrator\Desktop\homework (master -&gt; origin)<br>$ ls<br>python.py 第一周/<br><br>C:\Users\Administrator\Desktop\homework (master -&gt; origin)<br>$ git rm --cached python.py<br>rm <span class="hljs-symbol">'python</span>.py'<br><br>C:\Users\Administrator\Desktop\homework (master -&gt; origin)<br>$ git status<br>On branch master<br>Your branch is up to date with <span class="hljs-symbol">'origin</span>/master'.<br><br>Untracked files:    # 未跟踪状态文件<br>  (<span class="hljs-keyword">use</span> <span class="hljs-string">"git add &lt;file&gt;..."</span> to include <span class="hljs-keyword">in</span> what will be committed)<br><br>        <span class="hljs-string">"P24020-\345\255\231\346\257\205/\347\254\25410\345\221\250/"</span><br>        python.py<br><br>nothing added to commit but untracked files present (<span class="hljs-keyword">use</span> <span class="hljs-string">"git add"</span> to track)<br></code></pre></td></tr></table></figure>
+
+
+
+<figure class="highlight csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><code class="hljs csharp">Linux下 git代码提交<br>git pull     <span class="hljs-meta">#拉取最新的代码文件；</span><br>git <span class="hljs-keyword">add</span> .   <span class="hljs-meta"># 批量提交</span><br>git commit -m <span class="hljs-string">"第二周提交"</span>    <span class="hljs-meta">#本次提交的注释</span><br>git pull     <span class="hljs-meta">#提交之前，先同步下最新版的代码，避免冲突；</span><br>git push -u origin master    <span class="hljs-meta">#同步到远程服务器；</span><br><br>C:\Users\Administrator\Desktop\homework\P24020 (master -&gt; origin)<br>$ git <span class="hljs-keyword">add</span> .<br><br>C:\Users\Administrator\Desktop\homework\P24020 (master -&gt; origin)<br>$ git commit -m <span class="hljs-string">"第二周提交"</span><br>[<span class="hljs-meta">master 972b145</span>] 第二周提交<br> <span class="hljs-number">4</span> files changed, <span class="hljs-number">95</span> insertions(+)<br> rename <span class="hljs-string">"P24020-\345\255\231\346\257\205/\347\254\254\344\270\200\345\221\250_\346\255\243\345\274\217\344\275\234\344\270\232/\344\275\234\344\270\232_Linux\345\237\272\346\234\254\346\223\215\344\275\234.txt"</span> =&gt; <span class="hljs-string">"P24020-\345\255\231\346\257\205/\347\254\2541\345\221\250_\346\255\243\345\274\217\344\275\234\344\270\232/\344\275\234\344\270\232_Linux\345\237\272\346\234\254\346\223\215\344\275\234.txt"</span> (<span class="hljs-number">100</span>%)<br> rename <span class="hljs-string">"P24020-\345\255\231\346\257\205/\347\254\254\344\270\200\345\221\250_\346\255\243\345\274\217\344\275\234\344\270\232/\346\255\243\345\274\217\347\254\254\344\270\200\345\221\250\344\275\234\344\270\232\350\246\201\346\261\202.txt"</span> =&gt; <span class="hljs-string">"P24020-\345\255\231\346\257\205/\347\254\2541\345\221\250_\346\255\243\345\274\217\344\275\234\344\270\232/\346\255\243\345\274\217\347\254\254\344\270\200\345\221\250\344\275\234\344\270\232\350\246\201\346\261\202.txt"</span> (<span class="hljs-number">100</span>%)<br> create mode <span class="hljs-number">100644</span> <span class="hljs-string">"P24020-\345\255\231\346\257\205/\347\254\2542\345\221\250\344\275\234\344\270\232/\344\275\234\344\270\232\346\217\220\344\272\244.txt"</span><br> create mode <span class="hljs-number">100644</span> <span class="hljs-string">"P24020-\345\255\231\346\257\205/\347\254\2542\345\221\250\344\275\234\344\270\232/\344\275\234\344\270\232\350\246\201\346\261\202.txt"</span><br><br>C:\Users\Administrator\Desktop\homework\P24020 (master -&gt; origin)<br>$ git pull<br>Already up to date.<br><br>C:\Users\Administrator\Desktop\homework\P24020 (master -&gt; origin)<br>$ git push -u origin master<br>Enumerating objects: <span class="hljs-number">8</span>, done.<br>Counting objects: <span class="hljs-number">100</span>% (<span class="hljs-number">8</span>/<span class="hljs-number">8</span>), done.<br>Delta compression <span class="hljs-keyword">using</span> up to <span class="hljs-number">12</span> threads<br>Compressing objects: <span class="hljs-number">100</span>% (<span class="hljs-number">6</span>/<span class="hljs-number">6</span>), done.<br>Writing objects: <span class="hljs-number">100</span>% (<span class="hljs-number">6</span>/<span class="hljs-number">6</span>), <span class="hljs-number">2.22</span> KiB | <span class="hljs-number">2.22</span> MiB/s, done.<br>Total <span class="hljs-number">6</span> (delta <span class="hljs-number">2</span>), reused <span class="hljs-number">0</span> (delta <span class="hljs-number">0</span>)<br>remote: Resolving deltas: <span class="hljs-number">100</span>% (<span class="hljs-number">2</span>/<span class="hljs-number">2</span>), completed with <span class="hljs-number">1</span> local <span class="hljs-keyword">object</span>.<br>To https:<span class="hljs-comment">//github.com/magedu-python24/homework.git</span><br>   adbabe5.<span class="hljs-number">.972</span>b145  master -&gt; master<br>Branch <span class="hljs-string">'master'</span> <span class="hljs-keyword">set</span> up to track remote branch <span class="hljs-string">'master'</span> <span class="hljs-keyword">from</span> <span class="hljs-string">'origin'</span>.<br><span class="hljs-meta"># 提交成功</span><br>C:\Users\Administrator\Desktop\homework\P24020 (master -&gt; origin)<br></code></pre></td></tr></table></figure>
+
+      
+    </div>
+    
+    
+    
+
+     <!-- 文章末尾统一添加“本文结束”标记 -->
+    <div>
+      
+        <div>
+    
+        <div style="text-align:center;color: #555;font-size:24px;"><-------------The End-------------></div>
+    
+</div>
+
+      
+    </div>
+    
+
+    
+      <div>
+        <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+  <div>坚持原创分享，你的支持就是我最大的动力！</div>
+  <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+    <span>打赏</span>
+  </button>
+  <div id="QR" style="display: none;">
+
+    
+      <div id="wechat" style="display: inline-block">
+        <img id="wechat_qr" src="/uploads/weixin_cash_code.png" alt="StarDustLoong 微信支付"/>
+        <p>微信支付</p>
+      </div>
+    
+
+    
+      <div id="alipay" style="display: inline-block">
+        <img id="alipay_qr" src="/uploads/alipay_cash_code.png" alt="StarDustLoong 支付宝"/>
+        <p>支付宝</p>
+      </div>
+    
+
+    
+
+  </div>
+</div>
+
+      </div>
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Git%E6%93%8D%E4%BD%9C/" rel="tag"># Git操作</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/%E6%9C%AC%E5%BD%93%E3%81%AB%E3%81%82%E3%81%A3%E3%81%9F%20%E5%A5%B3%E5%AD%90%E2%97%8B%E7%94%9F%20%E3%81%84%E3%81%91%E3%81%AA%E3%81%84%E7%A7%98%E5%AF%86%E3%81%AE%E3%82%A2%E3%83%AB%E3%83%90%E3%82%A4%E3%83%88%20%E6%98%8E%E6%97%A5%E9%A6%99/" rel="next" title="本当にあった 女子○生 いけない秘密のアルバイト 明日香">
+                <i class="fa fa-chevron-left"></i> 本当にあった 女子○生 いけない秘密のアルバイト 明日香
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/Git%E7%9A%84Push%E5%92%8CClone/" rel="prev" title="Git的Push和Clone">
+                Git的Push和Clone <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+    </div>
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/uploads/avatar.png"
+                alt="StarDustLoong" />
+            
+              <p class="site-author-name" itemprop="name">StarDustLoong</p>
+              <p class="site-description motion-element" itemprop="description">人类如风一般的自由</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">2409</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">12</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">146</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+	   
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/StarDustLoong" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:13671474528@163.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://www.zhihu.com/people/ashjian-ar15" target="_blank" title="知乎">
+                      
+                        <i class="fa fa-fw fa-globe"></i>知乎</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://me.csdn.net/ashjian" target="_blank" title="CSDN">
+                      
+                        <i class="fa fa-fw fa-codiepie"></i>CSDN</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+            <div class="links-of-blogroll motion-element links-of-blogroll-inline">
+              <div class="links-of-blogroll-title">
+                <i class="fa  fa-fw fa-link"></i>
+                Links
+              </div>
+              <ul class="links-of-blogroll-list">
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="http://mp.weixin.qq.com/user1" title="OpenInfo" target="_blank">OpenInfo</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="http://mp.weixin.qq.com/user2" title="stormzhang" target="_blank">stormzhang</a>
+                  </li>
+                
+              </ul>
+            </div>
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-文件的生命周期"><span class="nav-number">1.</span> <span class="nav-text">1. 文件的生命周期</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-git的提交"><span class="nav-number">2.</span> <span class="nav-text">2. git的提交</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-diﬀ比较"><span class="nav-number">3.</span> <span class="nav-text">3. diﬀ比较</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4-移动和删除-慎用"><span class="nav-number">4.</span> <span class="nav-text">4. 移动和删除(慎用)</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">StarDustLoong</span>
+
+  
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-area-chart"></i>
+    </span>
+    
+      <span class="post-meta-item-text">本站总字数&#58;</span>
+    
+    <span title="本站总字数">635.5k</span>
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Pisces</a> v5.1.4</div>
+
+
+
+
+#<!-- 百度自动推送 -->
+#<script>
+#(function(){
+#    var bp = document.createElement('script');
+#    var curProtocol = window.location.protocol.split(':')[0];
+#    if (curProtocol === 'https') {
+#        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+#    }
+#    else {
+#        bp.src = 'http://push.ashjian.baidu.com/push.js';
+#    }
+#    var s = document.getElementsByTagName("script")[0];
+#    s.parentNode.insertBefore(bp, s);
+#})();
+#</script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aplayer/dist/APlayer.min.css">
+
+<script src="https://cdn.jsdelivr.net/npm/aplayer/dist/APlayer.min.js"></script>
+<!-- require MetingJS -->
+
+<script src="https://cdn.jsdelivr.net/npm/meting@2.0.1/dist/Meting.min.js"></script>
+<div> 
+<meting-js  
+    server="netease" 
+    type="playlist"  
+    id="5281251057" 
+    fixed="true"  
+    autoplay="false" 
+    loop="all" 
+    order="random"
+    preload="auto" 
+    list-folded="ture" 
+    list-max-height="500px" 
+    lrc-type="1">
+</meting-js>	 
+</div>
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv">
+      本站访客数
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+      人次
+    </span>
+  
+
+  
+    <span class="site-pv">
+      本站总访问量
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+      次
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+  <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+  <script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+  
+  <script type="text/javascript">
+    var GUEST = ['nick','mail','link'];
+    var guest = 'nick,mail,link';
+    guest = guest.split(',').filter(item=>{
+      return GUEST.indexOf(item)>-1;
+    });
+    new Valine({
+        el: '#comments' ,
+        verify: false,
+        notify: false,
+        appId: 'Gp5xxuBGmRxC9yeJHf5wlLpN-gzGzoHsz',
+        appKey: 'wo0eDJonJrnuUrCCCU7EnH1n',
+        placeholder: '欢迎评论',
+        avatar:'mm',
+        guest_info:guest,
+        pageSize:'20' || 10,
+    });
+  </script>
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"jsonPath":"/live2dw/assets/dsr50_lifu_normal.model.json"},"display":{"position":"right","width":700,"height":800,"hOffset":-250,"vOffset":-150},"mobile":{"show":true,"scale":0.7},"log":false});</script></body>
+</html>

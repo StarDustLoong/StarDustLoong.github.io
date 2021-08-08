@@ -1,0 +1,1518 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="python类的继承," />
+
+
+
+
+  
+
+
+  <link rel="alternate" href="/atom.xml" title="" type="application/atom+xml" />
+
+
+
+
+
+
+<meta name="description" content="基本概念 面向对象三要素之一，继承Inheritance  人类和猫类都继承自动物类。  个体继承自父母，继承了父母的一部分特征，但也可以有自己的个性。 在面向对象的世界中，从父类继承，就可以直接拥有父类的属性和方法，这样可以减少代码、多复用。子类可以定义自己的属性和方法。  看一个不用继承的例子    123456789101112131415161718class Animal:    def">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Python类的继承">
+<meta property="og:url" content="http://www.ashjian.xyz/Python%E7%B1%BB%E7%9A%84%E7%BB%A7%E6%89%BF/index.html">
+<meta property="og:site_name">
+<meta property="og:description" content="基本概念 面向对象三要素之一，继承Inheritance  人类和猫类都继承自动物类。  个体继承自父母，继承了父母的一部分特征，但也可以有自己的个性。 在面向对象的世界中，从父类继承，就可以直接拥有父类的属性和方法，这样可以减少代码、多复用。子类可以定义自己的属性和方法。  看一个不用继承的例子    123456789101112131415161718class Animal:    def">
+<meta property="article:published_time" content="2021-06-29T03:14:59.346Z">
+<meta property="article:modified_time" content="2021-06-24T13:43:44.832Z">
+<meta property="article:author" content="StarDustLoong">
+<meta property="article:tag" content="python类的继承">
+<meta name="twitter:card" content="summary">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://www.ashjian.xyz/Python类的继承/"/>
+
+
+
+
+
+  <title>Python类的继承 | </title>
+  
+
+
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?d7bf52f45e24a0e6f2951901a7a97864";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+<meta name="generator" content="Hexo 4.2.1"></head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title"></span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off"
+             placeholder="搜索..." spellcheck="false"
+             type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://www.ashjian.xyz/Python%E7%B1%BB%E7%9A%84%E7%BB%A7%E6%89%BF/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="StarDustLoong">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/uploads/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Python类的继承</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2021-06-29T11:14:59+08:00">
+                2021-06-29
+              </time>
+            
+
+            
+              <span class="post-meta-divider">|</span>
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-check-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">更新于&#58;</span>
+              
+              <time title="更新于" itemprop="dateModified" datetime="2021-06-24T21:43:44+08:00">
+                2021-06-24
+              </time>
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/python/" itemprop="url" rel="index">
+                    <span itemprop="name">python</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/Python%E7%B1%BB%E7%9A%84%E7%BB%A7%E6%89%BF/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/Python%E7%B1%BB%E7%9A%84%E7%BB%A7%E6%89%BF/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  2.7k
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  13
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+      
+      
+
+      
+        <h2 id="基本概念"><a href="#基本概念" class="headerlink" title="基本概念"></a>基本概念</h2><ul>
+<li><p>面向对象三要素之一，继承Inheritance</p>
+</li>
+<li><p>人类和猫类都继承自动物类。</p>
+</li>
+<li><p>个体继承自父母，继承了父母的一部分特征，但也可以有自己的个性。</p>
+<p>在面向对象的世界中，从父类继承，就可以直接拥有父类的属性和方法，这样可以减少代码、多复用。子类可以定义自己的属性和方法。</p>
+<blockquote>
+<p>看一个不用继承的例子</p>
+</blockquote>
+</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><code class="hljs plain">class Animal:<br>    def shout(self):<br>        print(&#39;Animal shouts&#39;)<br><br>a &#x3D; Animal()<br>a.shout()<br><br><br>class Cat:<br>    def shout(self):<br>        print(&#39;Cat shuts&#39;)<br><br><br>c &#x3D; Cat()<br>c.shout()<br>~~~~~~~~~~~~~~~~~~~~~~~~~<br>Animal shouts<br>Cat shuts<br></code></pre></td></tr></table></figure>
+
+<ul>
+<li>上面的2个类虽然有关系，但是定义时并没有简历这种关系，而是各自完成定义。</li>
+<li>动物类和毛类都有吃，但是他们的吃有区别，所以分别定义。</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><code class="hljs plain">class Animal:<br>    def __init__(self, name):<br>        self._name &#x3D; name<br><br>    def shout(self):<br>        print(&#39;&#123;&#125; shouts&#39;.format(self.__class__.__name__))<br><br>    @property<br>    def name(self):<br>        return self._name<br><br>a &#x3D; Animal(&#39;monster&#39;)<br>a.shout()<br><br>class Cat(Animal):<br>    pass<br><br>cat &#x3D; Cat(&#39;garfield&#39;)<br>cat.shout()<br>print(1, cat.name)<br><br>class Dog(Animal):<br>    pass<br><br>dog &#x3D; Dog(&#39;ahuang&#39;)<br>dog.shout()<br>print(2, dog.name)<br>~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~<br>Animal shouts<br>Cat shouts<br>1 garfield<br>Dog shouts<br>2 ahuang<br></code></pre></td></tr></table></figure>
+
+<ul>
+<li>上例可以看出，通过继承， 猫类、狗类不用写代码，直接继承了父亲的属性和方法。</li>
+</ul>
+<h3 id="基本概念总结"><a href="#基本概念总结" class="headerlink" title="基本概念总结"></a>基本概念总结</h3><ul>
+<li><p>继承</p>
+<ul>
+<li>class Cat(Animal)这种形式就是从父亲继承，括号中写上继承的类的列表。</li>
+<li>继承可以让子类从父亲获取特征（属性和方法）</li>
+</ul>
+</li>
+<li><p>父亲</p>
+<ul>
+<li>Animal就是Cat的父类，也称为基类，超类。</li>
+</ul>
+</li>
+<li><p>子类</p>
+<ul>
+<li>Cat就是Animal的子类，也称为派生类</li>
+</ul>
+</li>
+</ul>
+<h2 id="定义"><a href="#定义" class="headerlink" title="定义"></a>定义</h2><ul>
+<li>格式如下</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs plain">class 子类名(基类1[,基类2,...]):<br>    语句块<br></code></pre></td></tr></table></figure>
+
+<p>如果类定义时，没有基类列表，等同于继承自object。在Python3中，object类是所有对象的根基类。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">A</span>:</span><br>    <span class="hljs-keyword">pass</span><br><span class="hljs-comment"># 等价于</span><br><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">A</span><span class="hljs-params">(object)</span>:</span><br>    <span class="hljs-keyword">pass</span><br></code></pre></td></tr></table></figure>
+
+<ul>
+<li>注意，上例在Python2中，两种写法是不同的。</li>
+<li>Python支持多继承，继承也可以多级。</li>
+<li>查看继承的特殊属性和方法有</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>特殊属性和方法</th>
+<th>含义</th>
+<th>示例</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>base</strong></td>
+<td>类的基类</td>
+<td></td>
+</tr>
+<tr>
+<td><strong>bases</strong></td>
+<td>类的基类元组</td>
+<td></td>
+</tr>
+<tr>
+<td><strong>mro</strong></td>
+<td>显示方法查找顺序，基类的元组</td>
+<td></td>
+</tr>
+<tr>
+<td>mor()方法</td>
+<td>同上</td>
+<td>int.mro()</td>
+</tr>
+<tr>
+<td><strong>subclasses</strong>()</td>
+<td>类的子类列表</td>
+<td>int.<strong>subclasses</strong>()</td>
+</tr>
+</tbody></table>
+<h2 id="继承中的访问控制"><a href="#继承中的访问控制" class="headerlink" title="继承中的访问控制"></a>继承中的访问控制</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br></pre></td><td class="code"><pre><code class="hljs plain">class Animal:<br>    __COUNT &#x3D; 100<br>    HEIGHT &#x3D; 0<br><br><br>    def __init__(self, age, weight, height):<br>        self.__COUNT +&#x3D; 1<br>        self.age &#x3D; age<br>        self.__weight &#x3D; weight<br>        self.HEIGHT &#x3D; height<br><br><br>    def eat(self):<br>        print(&#39;&#123;&#125; eat&#39;.format(self.__class__.__name__))<br><br><br>    def __getweight(self):<br>        print(self.__weight)<br><br><br>    @classmethod<br>    def showcount1(cls):<br>        print(cls.__COUNT)<br><br><br>    @classmethod<br>    def __showcount2(cls):<br>        print(cls.__COUNT)<br><br><br>    def showcount3(self):<br>        print(self.__COUNT)<br><br><br>class Cat(Animal):<br>    NAME &#x3D; &#39;CAT&#39;<br>    __COUNT &#x3D; 200<br><br># c &#x3D; Cat()  # __init__函数参数错误<br>c &#x3D; Cat(3, 5, 15)<br>c.eat()<br>print(1, c.HEIGHT)<br># print(2, c.__COUNT)  # 私有的不可访问<br># c.__getweight()  # 私有的不可访问<br>c.showcount1()<br># c.__showcount2()  # 私有的不可访问<br>c.showcount3()<br>print(3, c.NAME)<br><br><br>print(10, &quot;&#123;&#125;&quot;.format(Animal.__dict__))<br>print(11, &quot;&#123;&#125;&quot;.format(Cat.__dict__))<br>print(12, c.__dict__)<br>print(13, c.__class__.mro())<br>~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~<br>Cat eat<br>1 15<br>100<br>101<br>3 CAT<br>10 &#123;&#39;_Animal__getweight&#39;: &lt;function Animal.__getweight at 0x000002B9DEEA1AE8&gt;, &#39;HEIGHT&#39;: 0, &#39;__init__&#39;: &lt;function Animal.__init__ at 0x000002B9DEEA19D8&gt;, &#39;showcount1&#39;: &lt;classmethod object at 0x000002B9DEEAAA20&gt;, &#39;showcount3&#39;: &lt;function Animal.showcount3 at 0x000002B9DEEA1C80&gt;, &#39;eat&#39;: &lt;function Animal.eat at 0x000002B9DEEA1A60&gt;, &#39;__doc__&#39;: None, &#39;_Animal__COUNT&#39;: 100, &#39;_Animal__showcount2&#39;: &lt;classmethod object at 0x000002B9DEEAAA58&gt;, &#39;__dict__&#39;: &lt;attribute &#39;__dict__&#39; of &#39;Animal&#39; objects&gt;, &#39;__module__&#39;: &#39;__main__&#39;, &#39;__weakref__&#39;: &lt;attribute &#39;__weakref__&#39; of &#39;Animal&#39; objects&gt;&#125;<br>11 &#123;&#39;__doc__&#39;: None, &#39;__module__&#39;: &#39;__main__&#39;, &#39;_Cat__COUNT&#39;: 200, &#39;NAME&#39;: &#39;CAT&#39;&#125;<br>12 &#123;&#39;age&#39;: 3, &#39;_Animal__weight&#39;: 5, &#39;_Animal__COUNT&#39;: 101, &#39;HEIGHT&#39;: 15&#125;<br>13 [&lt;class &#39;__main__.Cat&#39;&gt;, &lt;class &#39;__main__.Animal&#39;&gt;, &lt;class &#39;object&#39;&gt;]<br></code></pre></td></tr></table></figure>
+
+<ul>
+<li><p>从父类继承，自己没有的，就可以到父类中找。</p>
+</li>
+<li><p>私有的都是不可以访问的，但是本质上依然是改了名称放在这个属性所在类的了<strong>dict</strong>中。知道这个新名称就可以直接找到这个隐藏的变量孬这是个黑魔法技巧，慎用。</p>
+</li>
+<li><p>总结</p>
+<ul>
+<li>继承时，公有的，子类和实例都可以随意访问；私有成员被隐藏，子类和实例不可直接访问，当<br>私有变量所在的类内的方法中可以访问这个私有变量。</li>
+<li>Python通过自己一套实现，实现和其它语言一样的面向对象的继承机制。</li>
+</ul>
+</li>
+<li><p>属性查找顺序</p>
+<ul>
+<li>实例的<strong>dict</strong>》类<strong>dict</strong>如果有继承==》父类<strong>dict</strong></li>
+<li>如果搜索这些地方后没有找到就会抛异常，先找到就立即返回了。</li>
+</ul>
+</li>
+</ul>
+<h2 id="方法的重写、覆盖override"><a href="#方法的重写、覆盖override" class="headerlink" title="方法的重写、覆盖override"></a>方法的重写、覆盖override</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><code class="hljs plain">class Animal:<br>    def shout(self):<br>        print(&#39;Animal shouts&#39;)<br><br><br>class Cat(Animal):<br>    # 覆盖了父类方法<br>    def shout(self):<br>        print(&#39;miao&#39;)<br><br><br>a &#x3D; Animal()<br>a.shout()<br>c &#x3D; Cat()<br>c.shout()<br><br>print(1, a.__dict__)<br>print(2, c.__dict__)<br>print(3, Animal.__dict__)<br>print(4, Cat.__dict__)<br>~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~<br>Animal shouts<br>miao<br>1 &#123;&#125;<br>2 &#123;&#125;<br>3 &#123;&#39;__dict__&#39;: &lt;attribute &#39;__dict__&#39; of &#39;Animal&#39; objects&gt;, &#39;__weakref__&#39;: &lt;attribute &#39;__weakref__&#39; of &#39;Animal&#39; objects&gt;, &#39;__module__&#39;: &#39;__main__&#39;, &#39;__doc__&#39;: None, &#39;shout&#39;: &lt;function Animal.shout at 0x000001E62CAC19D8&gt;&#125;<br>4 &#123;&#39;__doc__&#39;: None, &#39;__module__&#39;: &#39;__main__&#39;, &#39;shout&#39;: &lt;function Cat.shout at 0x000001E62CAC1A60&gt;&#125;<br></code></pre></td></tr></table></figure>
+
+<ul>
+<li>Cat中能否覆盖自己的方法吗？</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><code class="hljs plain">class Animal:<br>    def shout(self):<br>        print(&#39;Animal shouts&#39;)<br><br><br>class Cat(Animal):<br>    # 覆盖了父类方法<br>    def shout(self):<br>        print(&#39;miao&#39;)<br>    # 覆盖了自己的方法，显示调用了父类的方法<br>    def shout(self):<br>        print(10, super())<br>        print(11, super(Cat, self))<br>        super().shout()<br>        super(Cat, self).shout()  # 等价于super()<br>        self.__class__.__base__.shout(self)  # 不推荐<br><br><br>a &#x3D; Animal()<br>a.shout()<br>c &#x3D; Cat()<br>c.shout()<br><br>print(1, a.__dict__)<br>print(2, c.__dict__)<br>print(3, Animal.__dict__)<br>print(4, Cat.__dict__)<br>~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~<br>Animal shouts<br>10 &lt;super: &lt;class &#39;Cat&#39;&gt;, &lt;Cat object&gt;&gt;<br>11 &lt;super: &lt;class &#39;Cat&#39;&gt;, &lt;Cat object&gt;&gt;<br>Animal shouts<br>Animal shouts<br>Animal shouts<br>1 &#123;&#125;<br>2 &#123;&#125;<br>3 &#123;&#39;__weakref__&#39;: &lt;attribute &#39;__weakref__&#39; of &#39;Animal&#39; objects&gt;, &#39;shout&#39;: &lt;function Animal.shout at 0x0000016DDBE519D8&gt;, &#39;__dict__&#39;: &lt;attribute &#39;__dict__&#39; of &#39;Animal&#39; objects&gt;, &#39;__module__&#39;: &#39;__main__&#39;, &#39;__doc__&#39;: None&#125;<br>4 &#123;&#39;shout&#39;: &lt;function Cat.shout at 0x0000016DDBE51AE8&gt;, &#39;__module__&#39;: &#39;__main__&#39;, &#39;__doc__&#39;: None&#125;<br></code></pre></td></tr></table></figure>
+
+<ul>
+<li>super()可以访问到父类的属性，其具体原理后面说。</li>
+<li>那对于类方法和静态方法呢？</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><code class="hljs plain">class Animal:<br>    @classmethod<br>    def class_method(cls):<br>        print(&#39;class_method_animal&#39;)<br><br><br>    @staticmethod<br>    def static_method():<br>        print(&#39;static_method_animal&#39;)<br><br><br>class Cat(Animal):<br>    @classmethod<br>    def class_method(cls):<br>        print(&#39;class_method_cat&#39;)<br><br><br>    @staticmethod<br>    def static_method():<br>        print(&#39;static_method_cat&#39;)<br><br>c &#x3D; Cat()<br>c.class_method()<br>c.static_method()<br>~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~<br>class_method_cat<br>static_method_cat<br></code></pre></td></tr></table></figure>
+
+<ul>
+<li>这些方法都可以覆盖，原理都一样，属性字典的搜索顺序。</li>
+</ul>
+<h2 id="继承中的初始化"><a href="#继承中的初始化" class="headerlink" title="继承中的初始化"></a>继承中的初始化</h2><ul>
+<li>先看下面一段代码，有没有问题</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><code class="hljs plain">class A:<br>    def __init__(self, a):<br>        self.a &#x3D; a<br><br><br>class B(A):<br>    def __init__(self, b, c):<br>        self.b &#x3D; b<br>        self.c &#x3D; c<br><br><br>    def printv(self):<br>        print(self.b)<br>        # print(self.a)  # 出错吗？AttributeError: &#39;B&#39; object has no attribute &#39;a&#39;<br><br><br>f &#x3D; B(200, 300)<br>print(1, f.__dict__)<br>print(2, f.__class__.__bases__)<br>f.printv()<br>~~~~~~~~~~~~~~~~~~~~~~~~~~~<br>1 &#123;&#39;b&#39;: 200, &#39;c&#39;: 300&#125;<br>2 (&lt;class &#39;__main__.A&#39;&gt;,)<br>200<br></code></pre></td></tr></table></figure>
+
+<ul>
+<li>上例代码可知:<ul>
+<li>如果类B定义时声明继承自类A，则在类B中<strong>bases</strong>中是可以看到类A。</li>
+<li>但是这和是否调用类A的构造方法是两回事。</li>
+<li>如果B中调了A的构造方法，就可以拥有父类的属性了。如何理解这一句话呢？</li>
+<li>观察B的实例f的<strong>dict</strong>中的属性。</li>
+</ul>
+</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><code class="hljs plain">class A:<br>    def __init__(self, a, d&#x3D;10):<br>        self.a &#x3D; a<br>        self.__d &#x3D; d<br><br><br>class B(A):<br>    def __init__(self, b, c):<br>        A.__init__(self, b + c, b - c)<br>        self.b &#x3D; b<br>        self.c &#x3D; c<br><br><br>    def printv(self):<br>        print(self.b)<br>        print(self.a)  # 出错吗？AttributeError: &#39;B&#39; object has no attribute &#39;a&#39;<br><br><br>f &#x3D; B(200, 300)<br>print(1, f.__dict__)<br>print(2, f.__class__.__bases__)<br>f.printv()<br>~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~<br>1 &#123;&#39;c&#39;: 300, &#39;b&#39;: 200, &#39;a&#39;: 500, &#39;_A__d&#39;: -100&#125;<br>2 (&lt;class &#39;__main__.A&#39;&gt;,)<br>200<br>500<br></code></pre></td></tr></table></figure>
+
+<p>上例代码可知：</p>
+<p>如果类 B定义时声明继承自类A , 则在类B中__bases__ 中是可以看到类A。但是这和是否调用类A的构造方法是两回事。</p>
+<p>如果B中调用了A的构造方法，就可以拥有父类的属性了。如何理解这一句话呢？</p>
+<p>观察B的实例 f的_ diet_ 中的属性。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><code class="hljs plain">class A:<br>    def __init__(self, a, d&#x3D;10):<br>        self.a &#x3D; a<br>        self.__d &#x3D; d<br><br>class B(A):<br>    def __init__(self, b, c):<br>        A.__init__(self, b + c, b - c)<br>        self.b &#x3D; b<br>        self.c &#x3D; c<br><br><br>    def printv(self):<br>        print(self.b)<br>        print(self.a)  # 出错吗？AttributeError: &#39;B&#39; object has no attribute &#39;a&#39;<br><br><br>f &#x3D; B(200, 300)<br>print(1, f.__dict__)<br>print(2, f.__class__.__bases__)<br>f.printv()<br><br>#输出：<br>1 &#123;&#39;a&#39;: 500, &#39;_A__d&#39;: -100, &#39;b&#39;: 200, &#39;c&#39;: 300&#125;<br>2 (&lt;class &#39;__main__.A&#39;&gt;,)<br>200<br>500<br></code></pre></td></tr></table></figure>
+
+<p>作为好的习惯，如果父类定义了 __init__ 方法 ，你就该在子类的 __init__ 中调 用 它。那子类什么时候自动调用父类的__init__方法呢？</p>
+<p>示例1</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><code class="hljs plain">class A:<br>    def __init__(self):<br>        self.a1 &#x3D; &#39;a1&#39;<br>        self.__a2 &#x3D; &#39;a2&#39;<br>        print(&#39;A init&#39;)<br><br>class B(A):<br>    pass<br><br>b &#x3D; B()<br>print(b.__dict__)<br><br>#输出：<br>A init<br>&#123;&#39;a1&#39;: &#39;a1&#39;, &#39;_A__a2&#39;: &#39;a2&#39;&#125;<br></code></pre></td></tr></table></figure>
+
+<p>B实例的 初始化 会自动调用基类 A的__init__方法</p>
+<p>示例2</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><code class="hljs plain">class A:<br>    def __init__(self):<br>        self.a1 &#x3D; &#39;a1&#39;<br>        self.__a2 &#x3D; &#39;a2&#39;<br>        print(&#39;A init&#39;)<br><br>class B(A):<br>    def __init__(self):<br>        self.b1 &#x3D; &#39;b1&#39;<br>        self.__a2 &#x3D; &#39;a2&#39;<br>        print(&#39;B init&#39;)<br><br>b &#x3D; B()<br>print(b.__dict__)<br><br>#输出<br>B init<br>&#123;&#39;b1&#39;: &#39;b1&#39;, &#39;_B__a2&#39;: &#39;a2&#39;&#125;<br></code></pre></td></tr></table></figure>
+
+<p>B实例的初始化时，类有本身的 __init__ 方法时，不会自动调用父类的 __init__ 方法，建议手动显式调用父类 __init__ 方法。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><code class="hljs plain">class A:<br>    def __init__(self):<br>        self.a1 &#x3D; &#39;a1&#39;<br>        self.__a2 &#x3D; &#39;a2&#39;<br>        print(&#39;A init&#39;)<br><br>class B(A):<br>    def __init__(self):<br>        self.b1 &#x3D; &#39;b1&#39;<br>        print(&#39;B init&#39;)<br>        A.__init__(self)<br><br>b &#x3D; B()<br>print(b.__dict__)<br>#输出：<br>B init<br>A init<br>&#123;&#39;b1&#39;: &#39;b1&#39;, &#39;a1&#39;: &#39;a1&#39;, &#39;_A__a2&#39;: &#39;a2&#39;&#125;<br></code></pre></td></tr></table></figure>
+
+<p>如何正确初始化</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><code class="hljs plain">class Animal:<br>    def __init__(self, age):<br>        print(&#39;Animal init&#39;)<br>        self.age &#x3D; age<br><br>    def show(self):<br>        print(self.age)<br><br><br>class Cat(Animal):<br>    def __init__(self, age, weight):<br>    	#调用父类的__init__方法的顺序位置决定了show()的不同结果<br>        super().__init__(age)<br>        print(&#39;Cat init&#39;)<br>        self.age &#x3D; age + 1<br>        self.weight &#x3D; weight<br>        #uper().__init__(age)<br><br>c &#x3D; Cat(10, 5)<br>c.show()<br>#输出：<br>Cat init<br>11<br></code></pre></td></tr></table></figure>
+
+<p>注意，调用 父类的__init__方法，出现在不同的位置，可能导致出现不同的结果。那么，直接将上例中所有的实例属性改成私有变星呢？</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><code class="hljs plain">class Animal:<br>    def __init__(self, age):<br>        print(&#39;Animal init&#39;)<br>        self.__age &#x3D; age<br><br>    def show(self):<br>        print(self.__age)<br><br><br>class Cat(Animal):<br>    def __init__(self, age, weight):<br>        #调用父类的__init__方法的顺序位置决定了show()的不同结果<br>        super().__init__(age)<br>        print(&#39;Cat init&#39;)<br>        self.__age &#x3D; age + 1<br>        self.__weight &#x3D; weight<br>        #uper().__init__(age)<br><br>c &#x3D; Cat(10, 5)<br>c.show()<br><br>print(c.__dict__)<br><br>#输出L<br>Animal init<br>Cat init<br>10<br>&#123;&#39;_Animal__age&#39;: 10, &#39;_Cat__age&#39;: 11, &#39;_Cat__weight&#39;: 5&#125;<br></code></pre></td></tr></table></figure>
+
+
+
+<p>上例中打印10，原因 看__dict__就知 道了。因为父类Animal的 show方法中__age__会被解释为</p>
+<p>_Animal__age__  , 因此显示的是10，而不是11。</p>
+<p>这样的设计不好， Ca t的实例c应该显示自己的属性值更好。</p>
+<p>解决的办法： 一 个原则，自己的私有属性 ，就该自己的方法读取和修改，不要 借助其他类的方法，即使是父类或者派生类的方法。</p>
+
+      
+    </div>
+    
+    
+    
+
+     <!-- 文章末尾统一添加“本文结束”标记 -->
+    <div>
+      
+        <div>
+    
+        <div style="text-align:center;color: #555;font-size:24px;"><-------------The End-------------></div>
+    
+</div>
+
+      
+    </div>
+    
+
+    
+      <div>
+        <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+  <div>坚持原创分享，你的支持就是我最大的动力！</div>
+  <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+    <span>打赏</span>
+  </button>
+  <div id="QR" style="display: none;">
+
+    
+      <div id="wechat" style="display: inline-block">
+        <img id="wechat_qr" src="/uploads/weixin_cash_code.png" alt="StarDustLoong 微信支付"/>
+        <p>微信支付</p>
+      </div>
+    
+
+    
+      <div id="alipay" style="display: inline-block">
+        <img id="alipay_qr" src="/uploads/alipay_cash_code.png" alt="StarDustLoong 支付宝"/>
+        <p>支付宝</p>
+      </div>
+    
+
+    
+
+  </div>
+</div>
+
+      </div>
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/python%E7%B1%BB%E7%9A%84%E7%BB%A7%E6%89%BF/" rel="tag"># python类的继承</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/Python%E5%A4%9A%E7%BB%A7%E6%89%BF/" rel="next" title="Python多继承">
+                <i class="fa fa-chevron-left"></i> Python多继承
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/Python%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1/" rel="prev" title="Python面向对象">
+                Python面向对象 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+    </div>
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/uploads/avatar.png"
+                alt="StarDustLoong" />
+            
+              <p class="site-author-name" itemprop="name">StarDustLoong</p>
+              <p class="site-description motion-element" itemprop="description">人类如风一般的自由</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">2409</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">12</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">146</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+	   
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/StarDustLoong" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:13671474528@163.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://www.zhihu.com/people/ashjian-ar15" target="_blank" title="知乎">
+                      
+                        <i class="fa fa-fw fa-globe"></i>知乎</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://me.csdn.net/ashjian" target="_blank" title="CSDN">
+                      
+                        <i class="fa fa-fw fa-codiepie"></i>CSDN</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+            <div class="links-of-blogroll motion-element links-of-blogroll-inline">
+              <div class="links-of-blogroll-title">
+                <i class="fa  fa-fw fa-link"></i>
+                Links
+              </div>
+              <ul class="links-of-blogroll-list">
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="http://mp.weixin.qq.com/user1" title="OpenInfo" target="_blank">OpenInfo</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="http://mp.weixin.qq.com/user2" title="stormzhang" target="_blank">stormzhang</a>
+                  </li>
+                
+              </ul>
+            </div>
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#基本概念"><span class="nav-number">1.</span> <span class="nav-text">基本概念</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#基本概念总结"><span class="nav-number">1.1.</span> <span class="nav-text">基本概念总结</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#定义"><span class="nav-number">2.</span> <span class="nav-text">定义</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#继承中的访问控制"><span class="nav-number">3.</span> <span class="nav-text">继承中的访问控制</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#方法的重写、覆盖override"><span class="nav-number">4.</span> <span class="nav-text">方法的重写、覆盖override</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#继承中的初始化"><span class="nav-number">5.</span> <span class="nav-text">继承中的初始化</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">StarDustLoong</span>
+
+  
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-area-chart"></i>
+    </span>
+    
+      <span class="post-meta-item-text">本站总字数&#58;</span>
+    
+    <span title="本站总字数">635.5k</span>
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Pisces</a> v5.1.4</div>
+
+
+
+
+#<!-- 百度自动推送 -->
+#<script>
+#(function(){
+#    var bp = document.createElement('script');
+#    var curProtocol = window.location.protocol.split(':')[0];
+#    if (curProtocol === 'https') {
+#        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+#    }
+#    else {
+#        bp.src = 'http://push.ashjian.baidu.com/push.js';
+#    }
+#    var s = document.getElementsByTagName("script")[0];
+#    s.parentNode.insertBefore(bp, s);
+#})();
+#</script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aplayer/dist/APlayer.min.css">
+
+<script src="https://cdn.jsdelivr.net/npm/aplayer/dist/APlayer.min.js"></script>
+<!-- require MetingJS -->
+
+<script src="https://cdn.jsdelivr.net/npm/meting@2.0.1/dist/Meting.min.js"></script>
+<div> 
+<meting-js  
+    server="netease" 
+    type="playlist"  
+    id="5281251057" 
+    fixed="true"  
+    autoplay="false" 
+    loop="all" 
+    order="random"
+    preload="auto" 
+    list-folded="ture" 
+    list-max-height="500px" 
+    lrc-type="1">
+</meting-js>	 
+</div>
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv">
+      本站访客数
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+      人次
+    </span>
+  
+
+  
+    <span class="site-pv">
+      本站总访问量
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+      次
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+  <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+  <script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+  
+  <script type="text/javascript">
+    var GUEST = ['nick','mail','link'];
+    var guest = 'nick,mail,link';
+    guest = guest.split(',').filter(item=>{
+      return GUEST.indexOf(item)>-1;
+    });
+    new Valine({
+        el: '#comments' ,
+        verify: false,
+        notify: false,
+        appId: 'Gp5xxuBGmRxC9yeJHf5wlLpN-gzGzoHsz',
+        appKey: 'wo0eDJonJrnuUrCCCU7EnH1n',
+        placeholder: '欢迎评论',
+        avatar:'mm',
+        guest_info:guest,
+        pageSize:'20' || 10,
+    });
+  </script>
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"jsonPath":"/live2dw/assets/dsr50_lifu_normal.model.json"},"display":{"position":"right","width":700,"height":800,"hOffset":-250,"vOffset":-150},"mobile":{"show":true,"scale":0.7},"log":false});</script></body>
+</html>

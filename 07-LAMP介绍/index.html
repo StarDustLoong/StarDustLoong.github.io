@@ -1,0 +1,1395 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="LAMP," />
+
+
+
+
+  
+
+
+  <link rel="alternate" href="/atom.xml" title="" type="application/atom+xml" />
+
+
+
+
+
+
+<meta name="description" content="LAMP：​        a: apache (httpd)​        m: mysql, mariadb​        p: php, perl, python​         ​    WEB资源类型：​        静态资源：原始形式与响应内容一致；​        动态资源：原始形式通常为程序文件，需要在服务器端执行之后，将执行结果返回给客户端； ​        客户端技术">
+<meta property="og:type" content="article">
+<meta property="og:title" content="07-LAMP介绍">
+<meta property="og:url" content="http://www.ashjian.xyz/07-LAMP%E4%BB%8B%E7%BB%8D/index.html">
+<meta property="og:site_name">
+<meta property="og:description" content="LAMP：​        a: apache (httpd)​        m: mysql, mariadb​        p: php, perl, python​         ​    WEB资源类型：​        静态资源：原始形式与响应内容一致；​        动态资源：原始形式通常为程序文件，需要在服务器端执行之后，将执行结果返回给客户端； ​        客户端技术">
+<meta property="article:published_time" content="2020-11-29T09:10:06.000Z">
+<meta property="article:modified_time" content="2021-03-26T10:02:12.997Z">
+<meta property="article:author" content="StarDustLoong">
+<meta property="article:tag" content="LAMP">
+<meta name="twitter:card" content="summary">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://www.ashjian.xyz/07-LAMP介绍/"/>
+
+
+
+
+
+  <title>07-LAMP介绍 | </title>
+  
+
+
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?d7bf52f45e24a0e6f2951901a7a97864";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+<meta name="generator" content="Hexo 4.2.1"></head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title"></span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off"
+             placeholder="搜索..." spellcheck="false"
+             type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://www.ashjian.xyz/07-LAMP%E4%BB%8B%E7%BB%8D/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="StarDustLoong">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/uploads/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">07-LAMP介绍</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-11-29T17:10:06+08:00">
+                2020-11-29
+              </time>
+            
+
+            
+              <span class="post-meta-divider">|</span>
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-check-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">更新于&#58;</span>
+              
+              <time title="更新于" itemprop="dateModified" datetime="2021-03-26T18:02:12+08:00">
+                2021-03-26
+              </time>
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/linux/" itemprop="url" rel="index">
+                    <span itemprop="name">linux</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/07-LAMP%E4%BB%8B%E7%BB%8D/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/07-LAMP%E4%BB%8B%E7%BB%8D/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  3.8k
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  18
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+      
+      
+
+      
+        <h2 id="LAMP："><a href="#LAMP：" class="headerlink" title="LAMP："></a>LAMP：</h2><p>​        a: apache (httpd)<br>​        m: mysql, mariadb<br>​        p: php, perl, python<br>​        </p>
+<p>​    WEB资源类型：<br>​        静态资源：原始形式与响应内容一致；<br>​        动态资源：原始形式通常为程序文件，需要在服务器端执行之后，将执行结果返回给客户端；</p>
+<p>​        客户端技术： javascript<br>​        服务器端技术：php, jsp<br>​        </p>
+<p>CGI：Common Gateway Interface<br>    可以让一个客户端，从网页浏览器向执行在网络服务器上的程序传输数据；CGI描述了客户端和服务器程序之间传输的一种标准；</p>
+<p>程序=指令+数据<br>    数据模型：<br>        层次模型<br>        网状模型<br>        关系模型：表（行+列）</p>
+<pre><code>关系模型：IngreSQL, Oracle, Sybase, Infomix, DB2, SQL Server, MySQL, PostgreSQL, MariaDB
+
+指令：代码文件
+数据：数据存储系统、文件</code></pre><p>请求流程：<br>    Client – (httpd) –&gt; httpd – (cgi) –&gt; application server (program file) – (mysql) –&gt; mysql </p>
+<p>php: 脚本编程语言、嵌入到html中的嵌入式web程序开发语言；<br>    基于zend编译成opcode（二进制格式的字节码，重复运行，可省略编译环境）</p>
+<h2 id="关于PHP"><a href="#关于PHP" class="headerlink" title="关于PHP"></a>关于PHP</h2><h3 id="一、PHP简介"><a href="#一、PHP简介" class="headerlink" title="一、PHP简介"></a>一、PHP简介</h3><p>​    PHP是通用服务器端脚本编程语言，其主要用于web开发以实现动态web页面，它也是最早实现将脚本嵌入HTML源码文档中的服务器端脚本语言之一。同时，php还提供了一个命令行接口，因此，其也可以在大多数系统上作为一个独立的shell来使用。</p>
+<p>​    Rasmus Lerdorf于1994年开始开发PHP，它是初是一组被Rasmus Lerdorf称作“Personal Home Page Tool” 的Perl脚本， 这些脚本可以用于显示作者的简历并记录用户对其网站的访问。后来，Rasmus Lerdorf使用C语言将这些Perl脚本重写为CGI程序，还为其增加了运行Web forms的能力以及与数据库交互的特性，并将其重命名为“Personal Home Page/Forms Interpreter”或“PHP/FI”。此时，PHP/FI已经可以用于开发简单的动态web程序了，这即是PHP 1.0。1995年6月，Rasmus Lerdorf把它的PHP发布于comp.infosystems.<a href="http://www.authoring.cgi" target="_blank" rel="noopener">www.authoring.cgi</a> Usenet讨论组，从此PHP开始走进人们的视野。1997年，其2.0版本发布。</p>
+<p>​    1997年，两名以色列程序员Zeev Suraski和Andi Gutmans重写的PHP的分析器(parser)成为PHP发展到3.0的基础，而且从此将PHP重命名为PHP: Hypertext Preprocessor。此后，这两名程序员开始重写整个PHP核心，并于1999年发布了Zend Engine 1.0，这也意味着PHP 4.0的诞生。2004年7月，Zend Engine 2.0发布，由此也将PHP带入了PHP 5时代。PHP5包含了许多重要的新特性，如增强的面向对象编程的支持、支持PDO(PHP Data Objects)扩展机制以及一系列对PHP性能的改进。</p>
+<h3 id="二、PHP-Zend-Engine"><a href="#二、PHP-Zend-Engine" class="headerlink" title="二、PHP Zend Engine"></a>二、PHP Zend Engine</h3><p>​    Zend Engine是开源的、PHP脚本语言的解释器，它最早是由以色列理工学院(Technion)的学生Andi Gutmans和Zeev Suraski所开发，Zend也正是此二人名字的合称。后来两人联合创立了Zend Technologies公司。</p>
+<p>​    Zend Engine 1.0于1999年随PHP 4发布，由C语言开发且经过高度优化，并能够做为PHP的后端模块使用。Zend Engine为PHP提供了内存和资源管理的功能以及其它的一些标准服务，其高性能、可靠性和可扩展性在促进PHP成为一种流行的语言方面发挥了重要作用。</p>
+<p>​    Zend Engine的出现将PHP代码的处理过程分成了两个阶段：首先是分析PHP代码并将其转换为称作Zend opcode的二进制格式(类似Java的字节码)，并将其存储于内存中；第二阶段是使用Zend Engine去执行这些转换后的Opcode。</p>
+<h3 id="三、PHP的Opcode"><a href="#三、PHP的Opcode" class="headerlink" title="三、PHP的Opcode"></a>三、PHP的Opcode</h3><p>​    Opcode是一种PHP脚本编译后的中间语言，就像Java的ByteCode,或者.NET的MSL。PHP执行PHP脚本代码一般会经过如下4个步骤(确切的来说，应该是PHP的语言引擎Zend)：<br>​    1、Scanning(Lexing) —— 将PHP代码转换为语言片段(Tokens)<br>​    2、Parsing —— 将Tokens转换成简单而有意义的表达式<br>​    3、Compilation —— 将表达式编译成Opocdes<br>​    4、Execution —— 顺次执行Opcodes，每次一条，从而实现PHP脚本的功能</p>
+<p>​        扫描–&gt;分析–&gt;编译–&gt;执行</p>
+<h3 id="四、php的加速器"><a href="#四、php的加速器" class="headerlink" title="四、php的加速器"></a>四、php的加速器</h3><p>​    基于PHP的特殊扩展机制如opcode缓存扩展也可以将opcode缓存于php的共享内存中，从而可以让同一段代码的后续重复执行时跳过编译阶段以提高性能。由此也可以看出，这些加速器并非真正提高了opcode的运行速度，而仅是通过分析opcode后并将它们重新排列以达到快速执行的目的。</p>
+<p>​    常见的php加速器有：</p>
+<p>​    1、APC (Alternative PHP Cache)<br>​    遵循PHP License的开源框架，PHP opcode缓存加速器，目前的版本不适用于PHP 5.4。项目地址，<a href="http://pecl.php.net/package/APC。" target="_blank" rel="noopener">http://pecl.php.net/package/APC。</a></p>
+<p>​    2、eAccelerator<br>​    源于Turck MMCache，早期的版本包含了一个PHP encoder和PHP loader，目前encoder已经不在支持。项目地址， <a href="http://eaccelerator.net/。" target="_blank" rel="noopener">http://eaccelerator.net/。</a></p>
+<p>​    3、XCache<br>​    快速而且稳定的PHP opcode缓存，经过严格测试且被大量用于生产环境。项目地址，<a href="http://xcache.lighttpd.net/" target="_blank" rel="noopener">http://xcache.lighttpd.net/</a></p>
+<p>​    4、Zend Optimizer和Zend Guard Loader<br>​    Zend Optimizer并非一个opcode加速器，它是由Zend Technologies为PHP5.2及以前的版本提供的一个免费、闭源的PHP扩展，其能够运行由Zend Guard生成的加密的PHP代码或模糊代码。 而Zend Guard Loader则是专为PHP5.3提供的类似于Zend Optimizer功能的扩展。项目地址，<a href="http://www.zend.com/en/products/guard/runtime-decoders" target="_blank" rel="noopener">http://www.zend.com/en/products/guard/runtime-decoders</a></p>
+<p>​    5、NuSphere PhpExpress<br>​    NuSphere的一款开源PHP加速器，它支持装载通过NuSphere PHP Encoder编码的PHP程序文件，并能够实现对常规PHP文件的执行加速。项目地址，<a href="http://www.nusphere.com/products/phpexpress.htm" target="_blank" rel="noopener">http://www.nusphere.com/products/phpexpress.htm</a></p>
+<p>​    五、PHP源码目录结构</p>
+<p>​    PHP的源码在结构上非常清晰。其代码根目录中主要包含了一些说明文件以及设计方案，并提供了如下子目录：</p>
+<p>​    1、build —— 顾名思义，这里主要放置一些跟源码编译相关的文件，比如开始构建之前的buildconf脚本及一些检查环境的脚本等。<br>​    2、ext —— 官方的扩展目录，包括了绝大多数PHP的函数的定义和实现，如array系列，pdo系列，spl系列等函数的实现。 个人开发的扩展在测试时也可以放到这个目录，以方便测试等。<br>​    3、main —— 这里存放的就是PHP最为核心的文件了，是实现PHP的基础设施，这里和Zend引擎不一样，Zend引擎主要实现语言最核心的语言运行环境。<br>​    4、Zend —— Zend引擎的实现目录，比如脚本的词法语法解析，opcode的执行以及扩展机制的实现等等。<br>​    5、pear —— PHP 扩展与应用仓库，包含PEAR的核心文件。<br>​    6、sapi —— 包含了各种服务器抽象层的代码，例如apache的mod_php，cgi，fastcgi以及fpm等等接口。<br>​    7、TSRM —— PHP的线程安全是构建在TSRM库之上的，PHP实现中常见的<em>G宏通常是对TSRM的封装，TSRM(Thread Safe Resource Manager)线程安全资源管理器。<br>​    8、tests —— PHP的测试脚本集合，包含PHP各项功能的测试文件。<br>​    9、win32 —— 这个目录主要包括Windows平台相关的一些实现，比如sokcet的实现在Windows下和</em>Nix平台就不太一样，同时也包括了Windows下编译PHP相关的脚本。</p>
+<p>LAMP：<br>    httpd：接收用户的web请求；静态资源则直接响应；动态资源为php脚本，对此类资源的请求将交由php来运行；<br>    php：运行php程序；<br>    MariaDB：数据管理系统； </p>
+<p>http与php结合的方式：<br>    CGI<br>    FastCGI<br>    modules (把php编译成为httpd的模块)<br>        MPM:<br>            prefork: libphp5.so<br>            event, worker: libphp5-zts.so</p>
+<p>安装lamp：<br>    CentOS 6: httpd, php, mysql-server, php-mysql</p>
+<p>​    service httpd  start</p>
+<p>​    service  mysqld  start</p>
+<p>​    CentOS 7: httpd, php, php-mysql, mariadb-server</p>
+<p>​      systemctl  start  httpd.service</p>
+<p>​     systemctl  start  mariadb.service</p>
+<p>​        MySQL的命令行客户端程序：mysql<br>​            -u<br>​            -h<br>​            -p<br>​<br>​            支持SQL语句对数据管理：<br>​                DDL，DML<br>​                    DDL： CREATE， ALTER， DROP， SHOW<br>​                    DML： INSERT， DELETE，SELECT， UPDATE<br>​<br>​            授权能远程的连接用户：<br>​                mysql&gt; GRANT  ALL  PRIVILEGES  ON  db_name.tbl_name TO  username@host  IDENTIFIED BY ‘password’;<br>​<br>​        php测试代码<br>​            &lt;php?<br>​                phpinfo();<br>​            ?&gt;<br>​<br>​        php连接mysql的测试代码：<br>​            <?php
+​                $conn = mysql_connect('172.16.100.67','testuser','testpass');
+​                if ($conn) 
+​                    echo "OK";
+​                else
+​                    echo "Failure";
+​            ?><br>​<br>实践作业：部署lamp，以虚拟主机安装wordpress, phpwind, discuz; </p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br><span class="line">167</span><br><span class="line">168</span><br><span class="line">169</span><br><span class="line">170</span><br><span class="line">171</span><br><span class="line">172</span><br><span class="line">173</span><br><span class="line">174</span><br><span class="line">175</span><br><span class="line">176</span><br><span class="line">177</span><br><span class="line">178</span><br><span class="line">179</span><br><span class="line">180</span><br><span class="line">181</span><br><span class="line">182</span><br><span class="line">183</span><br><span class="line">184</span><br><span class="line">185</span><br><span class="line">186</span><br><span class="line">187</span><br><span class="line">188</span><br><span class="line">189</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment">#centos7部署LAMP</span><br>[root@ashjian ~]<span class="hljs-comment">#yum install php php-mysql mariadb-server </span><br><span class="hljs-comment">#之前安装过httpd，我就不再安装了</span><br>Loaded plugins: fastestmirror, langpacks<br>Repository epel is listed more than once <span class="hljs-keyword">in</span> the configuration<br>Repository epel is listed more than once <span class="hljs-keyword">in</span> the configuration<br>Repository epel-debuginfo is listed more than once <span class="hljs-keyword">in</span> the configuration<br>Repository epel-source is listed more than once <span class="hljs-keyword">in</span> the configuration<br>Loading mirror speeds from cached hostfile<br> * base: mirrors.aliyun.com<br> * extras: mirrors.aliyun.com<br> * updates: mirrors.aliyun.com<br>base                                                                                | 3.6 kB  00:00:00     <br>epel                                                                                | 4.7 kB  00:00:00     <br>extras                                                                              | 2.9 kB  00:00:00     <br>updates                                                                             | 2.9 kB  00:00:00     <br>(1/2): epel/7/x86_64/updateinfo                                                     | 1.0 MB  00:00:00     <br>(2/2): epel/7/x86_64/primary_db                                                     | 6.9 MB  00:00:00     <br>Package 1:mariadb-server-5.5.65-1.el7.x86_64 already installed and latest version<br>Resolving Dependencies<br>--&gt; Running transaction check<br>---&gt; Package php.x86_64 0:5.4.16-48.el7 will be installed<br>--&gt; Processing Dependency: php-common(x86-64) = 5.4.16-48.el7 <span class="hljs-keyword">for</span> package: php-5.4.16-48.el7.x86_64<br>--&gt; Processing Dependency: php-cli(x86-64) = 5.4.16-48.el7 <span class="hljs-keyword">for</span> package: php-5.4.16-48.el7.x86_64<br>---&gt; Package php-mysql.x86_64 0:5.4.16-48.el7 will be installed<br>--&gt; Processing Dependency: php-pdo(x86-64) = 5.4.16-48.el7 <span class="hljs-keyword">for</span> package: php-mysql-5.4.16-48.el7.x86_64<br>--&gt; Running transaction check<br>---&gt; Package php-cli.x86_64 0:5.4.16-46.1.el7_7 will be updated<br>---&gt; Package php-cli.x86_64 0:5.4.16-48.el7 will be an update<br>---&gt; Package php-common.x86_64 0:5.4.16-46.1.el7_7 will be updated<br>--&gt; Processing Dependency: php-common(x86-64) = 5.4.16-46.1.el7_7 <span class="hljs-keyword">for</span> package: php-gd-5.4.16-46.1.el7_7.x86_64<br>--&gt; Processing Dependency: php-common(x86-64) = 5.4.16-46.1.el7_7 <span class="hljs-keyword">for</span> package: php-xml-5.4.16-46.1.el7_7.x86_64<br>--&gt; Processing Dependency: php-common(x86-64) = 5.4.16-46.1.el7_7 <span class="hljs-keyword">for</span> package: php-bcmath-5.4.16-46.1.el7_7.x86_64<br>--&gt; Processing Dependency: php-common(x86-64) = 5.4.16-46.1.el7_7 <span class="hljs-keyword">for</span> package: php-mbstring-5.4.16-46.1.el7_7.x86_64<br>---&gt; Package php-common.x86_64 0:5.4.16-48.el7 will be an update<br>---&gt; Package php-pdo.x86_64 0:5.4.16-46.1.el7_7 will be updated<br>---&gt; Package php-pdo.x86_64 0:5.4.16-48.el7 will be an update<br>--&gt; Running transaction check<br>---&gt; Package php-bcmath.x86_64 0:5.4.16-46.1.el7_7 will be updated<br>---&gt; Package php-bcmath.x86_64 0:5.4.16-48.el7 will be an update<br>---&gt; Package php-gd.x86_64 0:5.4.16-46.1.el7_7 will be updated<br>---&gt; Package php-gd.x86_64 0:5.4.16-48.el7 will be an update<br>---&gt; Package php-mbstring.x86_64 0:5.4.16-46.1.el7_7 will be updated<br>---&gt; Package php-mbstring.x86_64 0:5.4.16-48.el7 will be an update<br>---&gt; Package php-xml.x86_64 0:5.4.16-46.1.el7_7 will be updated<br>---&gt; Package php-xml.x86_64 0:5.4.16-48.el7 will be an update<br>--&gt; Finished Dependency Resolution<br><br>Dependencies Resolved<br><br>===========================================================================================================<br> Package                     Arch                  Version                       Repository           Size<br>===========================================================================================================<br>Installing:<br> php                         x86_64                5.4.16-48.el7                 base                1.4 M<br> php-mysql                   x86_64                5.4.16-48.el7                 base                102 k<br>Updating <span class="hljs-keyword">for</span> dependencies:<br> php-bcmath                  x86_64                5.4.16-48.el7                 base                 58 k<br> php-cli                     x86_64                5.4.16-48.el7                 base                2.7 M<br> php-common                  x86_64                5.4.16-48.el7                 base                565 k<br> php-gd                      x86_64                5.4.16-48.el7                 base                128 k<br> php-mbstring                x86_64                5.4.16-48.el7                 base                506 k<br> php-pdo                     x86_64                5.4.16-48.el7                 base                 99 k<br> php-xml                     x86_64                5.4.16-48.el7                 base                126 k<br><br>Transaction Summary<br>===========================================================================================================<br>Install  2 Packages<br>Upgrade             ( 7 Dependent packages)<br><br>Total download size: 5.6 M<br>Is this ok [y/d/N]: y<br>Downloading packages:<br>Delta RPMs disabled because /usr/bin/applydeltarpm not installed.<br>(1/9): php-5.4.16-48.el7.x86_64.rpm                                                 | 1.4 MB  00:00:00     <br>(2/9): php-bcmath-5.4.16-48.el7.x86_64.rpm                                          |  58 kB  00:00:00     <br>(3/9): php-common-5.4.16-48.el7.x86_64.rpm                                          | 565 kB  00:00:00     <br>(4/9): php-gd-5.4.16-48.el7.x86_64.rpm                                              | 128 kB  00:00:00     <br>(5/9): php-mbstring-5.4.16-48.el7.x86_64.rpm                                        | 506 kB  00:00:00     <br>(6/9): php-cli-5.4.16-48.el7.x86_64.rpm                                             | 2.7 MB  00:00:00     <br>(7/9): php-mysql-5.4.16-48.el7.x86_64.rpm                                           | 102 kB  00:00:00     <br>(8/9): php-pdo-5.4.16-48.el7.x86_64.rpm                                             |  99 kB  00:00:00     <br>(9/9): php-xml-5.4.16-48.el7.x86_64.rpm                                             | 126 kB  00:00:00     <br>-----------------------------------------------------------------------------------------------------------<br>Total                                                                       22 MB/s | 5.6 MB  00:00:00     <br>Running transaction check<br>Running transaction <span class="hljs-built_in">test</span><br>Transaction <span class="hljs-built_in">test</span> succeeded<br>Running transaction<br>  Updating   : php-common-5.4.16-48.el7.x86_64                                                        1/16 <br>  Updating   : php-cli-5.4.16-48.el7.x86_64                                                           2/16 <br>  Updating   : php-pdo-5.4.16-48.el7.x86_64                                                           3/16 <br>  Installing : php-mysql-5.4.16-48.el7.x86_64                                                         4/16 <br>  Installing : php-5.4.16-48.el7.x86_64                                                               5/16 <br>  Updating   : php-xml-5.4.16-48.el7.x86_64                                                           6/16 <br>  Updating   : php-mbstring-5.4.16-48.el7.x86_64                                                      7/16 <br>  Updating   : php-gd-5.4.16-48.el7.x86_64                                                            8/16 <br>  Updating   : php-bcmath-5.4.16-48.el7.x86_64                                                        9/16 <br>  Cleanup    : php-pdo-5.4.16-46.1.el7_7.x86_64                                                      10/16 <br>  Cleanup    : php-cli-5.4.16-46.1.el7_7.x86_64                                                      11/16 <br>  Cleanup    : php-bcmath-5.4.16-46.1.el7_7.x86_64                                                   12/16 <br>  Cleanup    : php-gd-5.4.16-46.1.el7_7.x86_64                                                       13/16 <br>  Cleanup    : php-mbstring-5.4.16-46.1.el7_7.x86_64                                                 14/16 <br>  Cleanup    : php-xml-5.4.16-46.1.el7_7.x86_64                                                      15/16 <br>  Cleanup    : php-common-5.4.16-46.1.el7_7.x86_64                                                   16/16 <br>  Verifying  : php-xml-5.4.16-48.el7.x86_64                                                           1/16 <br>  Verifying  : php-mbstring-5.4.16-48.el7.x86_64                                                      2/16 <br>  Verifying  : php-gd-5.4.16-48.el7.x86_64                                                            3/16 <br>  Verifying  : php-bcmath-5.4.16-48.el7.x86_64                                                        4/16 <br>  Verifying  : php-cli-5.4.16-48.el7.x86_64                                                           5/16 <br>  Verifying  : php-pdo-5.4.16-48.el7.x86_64                                                           6/16 <br>  Verifying  : php-mysql-5.4.16-48.el7.x86_64                                                         7/16 <br>  Verifying  : php-common-5.4.16-48.el7.x86_64                                                        8/16 <br>  Verifying  : php-5.4.16-48.el7.x86_64                                                               9/16 <br>  Verifying  : php-cli-5.4.16-46.1.el7_7.x86_64                                                      10/16 <br>  Verifying  : php-xml-5.4.16-46.1.el7_7.x86_64                                                      11/16 <br>  Verifying  : php-common-5.4.16-46.1.el7_7.x86_64                                                   12/16 <br>  Verifying  : php-mbstring-5.4.16-46.1.el7_7.x86_64                                                 13/16 <br>  Verifying  : php-bcmath-5.4.16-46.1.el7_7.x86_64                                                   14/16 <br>  Verifying  : php-gd-5.4.16-46.1.el7_7.x86_64                                                       15/16 <br>  Verifying  : php-pdo-5.4.16-46.1.el7_7.x86_64                                                      16/16 <br><br>Installed:<br>  php.x86_64 0:5.4.16-48.el7                        php-mysql.x86_64 0:5.4.16-48.el7                       <br><br>Dependency Updated:<br>  php-bcmath.x86_64 0:5.4.16-48.el7 php-cli.x86_64 0:5.4.16-48.el7      php-common.x86_64 0:5.4.16-48.el7<br>  php-gd.x86_64 0:5.4.16-48.el7     php-mbstring.x86_64 0:5.4.16-48.el7 php-pdo.x86_64 0:5.4.16-48.el7   <br>  php-xml.x86_64 0:5.4.16-48.el7   <br><br>Complete!<br><br>[root@ashjian ~]<span class="hljs-comment">#rpm -ql php</span><br>/etc/httpd/conf.d/php.conf<br>/etc/httpd/conf.modules.d/10-php.conf<br>/usr/lib64/httpd/modules/libphp5.so <span class="hljs-comment">#php作为httpd的模块</span><br>/usr/share/httpd/icons/php.gif<br>/var/lib/php/session<br>[root@ashjian ~]<span class="hljs-comment">#vim /etc/httpd/conf.d/php.conf</span><br><br><span class="hljs-comment"># Cause the PHP interpreter to handle files with a .php extension.</span><br><span class="hljs-comment">#</span><br>&lt;FilesMatch \.php$&gt; <span class="hljs-comment">#正则表达式，\起到转义作用匹配到.php结尾的文件</span><br>   SetHandler application/x-httpd-php <span class="hljs-comment">#SetHanlder是启动一个内建的处理器，，激活模块libphp5.so处理代码</span><br>&lt;/FilesMatch&gt;<br><br><span class="hljs-comment"># Allow php to handle Multiviews</span><br>AddType text/html .php <span class="hljs-comment">#处理器指定处理的文件类型和文件匹配名</span><br><span class="hljs-comment"># Add index.php to the list of files that will be served as directory</span><br><span class="hljs-comment"># indexes.</span><br><span class="hljs-comment">#</span><br>DirectoryIndex index.php <span class="hljs-comment">#指定一旦启动处理器处理文件，则目录主页变成哪个文件</span><br><br><span class="hljs-comment"># Apache specific PHP configuration options</span><br><span class="hljs-comment"># those can be override in each configured vhost</span><br><span class="hljs-comment">#</span><br>php_value session.save_handler <span class="hljs-string">"files"</span> <span class="hljs-comment">#定义了来存储和获取与会话关联的数据的处理器的名字。默认为 files。</span><br>php_value session.save_path    <span class="hljs-string">"/var/lib/php/session"</span><span class="hljs-comment">#php会话缓存文件的位置</span><br>[root@ashjian ~]<span class="hljs-comment">#httpd -t</span><br>Syntax OK<br>[root@ashjian ~]<span class="hljs-comment">#systemctl restart httpd.service </span><br>[root@ashjian html]<span class="hljs-comment">#systemctl start mariadb</span><br>[root@ashjian html]<span class="hljs-comment">#vim php-mysql-connectTest.php</span><br>&lt;html&gt;<br>    &lt;title&gt;测试mysql&lt;/title&gt;<br>    &lt;?php<br>        <span class="hljs-variable">$con</span> = mysql_connect(<span class="hljs-string">'127.0.0.1'</span>,<span class="hljs-string">'root'</span>,<span class="hljs-string">'m34s2q'</span>);<br>        <span class="hljs-keyword">if</span> (<span class="hljs-variable">$con</span>)<br>            <span class="hljs-built_in">echo</span> <span class="hljs-string">"connect is OK"</span>;<br>        <span class="hljs-keyword">else</span><br>            <span class="hljs-built_in">echo</span> <span class="hljs-string">"connect is failed"</span><br>    ?&gt;                                                                                                <br>&lt;/html&gt;<br><span class="hljs-comment">#访问该网页测试php连接mysql</span><br><br>[root@ashjian html]<span class="hljs-comment">#mysql -uroot -h127.0.0.1 -p</span><br>Enter password: <br>ERROR 1045 (28000): Access denied <span class="hljs-keyword">for</span> user <span class="hljs-string">'root'</span>@<span class="hljs-string">'localhost'</span> (using password: YES)<br><span class="hljs-comment">#mysql连接不仅限制用户名密码，还限制主机的ip地址，默认会将ip反向解析为主机名</span><br><br><span class="hljs-comment">#修改配置文件，关闭反向解析ip地址</span><br>[root@ashjian html]<span class="hljs-comment">#vim /etc/my.cnf.d/server.cnf </span><br>[mysqld]<br>datadir=/var/lib/mysql<br>socket=/var/lib/mysql/mysql.sock<br><span class="hljs-comment"># Disabling symbolic-links is recommended to prevent assorted security risks</span><br>symbolic-links=0<br><br>skip-name=resolve       <span class="hljs-comment">#修改配置文件，关闭反向解析ip地址</span><br></code></pre></td></tr></table></figure>
+
+
+
+      
+    </div>
+    
+    
+    
+
+     <!-- 文章末尾统一添加“本文结束”标记 -->
+    <div>
+      
+        <div>
+    
+        <div style="text-align:center;color: #555;font-size:24px;"><-------------The End-------------></div>
+    
+</div>
+
+      
+    </div>
+    
+
+    
+      <div>
+        <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+  <div>坚持原创分享，你的支持就是我最大的动力！</div>
+  <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+    <span>打赏</span>
+  </button>
+  <div id="QR" style="display: none;">
+
+    
+      <div id="wechat" style="display: inline-block">
+        <img id="wechat_qr" src="/uploads/weixin_cash_code.png" alt="StarDustLoong 微信支付"/>
+        <p>微信支付</p>
+      </div>
+    
+
+    
+      <div id="alipay" style="display: inline-block">
+        <img id="alipay_qr" src="/uploads/alipay_cash_code.png" alt="StarDustLoong 支付宝"/>
+        <p>支付宝</p>
+      </div>
+    
+
+    
+
+  </div>
+</div>
+
+      </div>
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/LAMP/" rel="tag"># LAMP</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/06-httpd%E6%9C%8D%E5%8A%A1%E5%90%AF%E7%94%A8%E5%8E%8B%E7%BC%A9%E5%8A%9F%E8%83%BD/" rel="next" title="06-httpd服务启用压缩功能">
+                <i class="fa fa-chevron-left"></i> 06-httpd服务启用压缩功能
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/09-CGI/" rel="prev" title="09-CGI">
+                09-CGI <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+    </div>
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/uploads/avatar.png"
+                alt="StarDustLoong" />
+            
+              <p class="site-author-name" itemprop="name">StarDustLoong</p>
+              <p class="site-description motion-element" itemprop="description">人类如风一般的自由</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">2409</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">12</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">146</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+	   
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/StarDustLoong" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:13671474528@163.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://www.zhihu.com/people/ashjian-ar15" target="_blank" title="知乎">
+                      
+                        <i class="fa fa-fw fa-globe"></i>知乎</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://me.csdn.net/ashjian" target="_blank" title="CSDN">
+                      
+                        <i class="fa fa-fw fa-codiepie"></i>CSDN</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+            <div class="links-of-blogroll motion-element links-of-blogroll-inline">
+              <div class="links-of-blogroll-title">
+                <i class="fa  fa-fw fa-link"></i>
+                Links
+              </div>
+              <ul class="links-of-blogroll-list">
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="http://mp.weixin.qq.com/user1" title="OpenInfo" target="_blank">OpenInfo</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="http://mp.weixin.qq.com/user2" title="stormzhang" target="_blank">stormzhang</a>
+                  </li>
+                
+              </ul>
+            </div>
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#LAMP："><span class="nav-number">1.</span> <span class="nav-text">LAMP：</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#关于PHP"><span class="nav-number">2.</span> <span class="nav-text">关于PHP</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#一、PHP简介"><span class="nav-number">2.1.</span> <span class="nav-text">一、PHP简介</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#二、PHP-Zend-Engine"><span class="nav-number">2.2.</span> <span class="nav-text">二、PHP Zend Engine</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#三、PHP的Opcode"><span class="nav-number">2.3.</span> <span class="nav-text">三、PHP的Opcode</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#四、php的加速器"><span class="nav-number">2.4.</span> <span class="nav-text">四、php的加速器</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">StarDustLoong</span>
+
+  
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-area-chart"></i>
+    </span>
+    
+      <span class="post-meta-item-text">本站总字数&#58;</span>
+    
+    <span title="本站总字数">635.5k</span>
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Pisces</a> v5.1.4</div>
+
+
+
+
+#<!-- 百度自动推送 -->
+#<script>
+#(function(){
+#    var bp = document.createElement('script');
+#    var curProtocol = window.location.protocol.split(':')[0];
+#    if (curProtocol === 'https') {
+#        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+#    }
+#    else {
+#        bp.src = 'http://push.ashjian.baidu.com/push.js';
+#    }
+#    var s = document.getElementsByTagName("script")[0];
+#    s.parentNode.insertBefore(bp, s);
+#})();
+#</script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aplayer/dist/APlayer.min.css">
+
+<script src="https://cdn.jsdelivr.net/npm/aplayer/dist/APlayer.min.js"></script>
+<!-- require MetingJS -->
+
+<script src="https://cdn.jsdelivr.net/npm/meting@2.0.1/dist/Meting.min.js"></script>
+<div> 
+<meting-js  
+    server="netease" 
+    type="playlist"  
+    id="5281251057" 
+    fixed="true"  
+    autoplay="false" 
+    loop="all" 
+    order="random"
+    preload="auto" 
+    list-folded="ture" 
+    list-max-height="500px" 
+    lrc-type="1">
+</meting-js>	 
+</div>
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv">
+      本站访客数
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+      人次
+    </span>
+  
+
+  
+    <span class="site-pv">
+      本站总访问量
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+      次
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+  <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+  <script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+  
+  <script type="text/javascript">
+    var GUEST = ['nick','mail','link'];
+    var guest = 'nick,mail,link';
+    guest = guest.split(',').filter(item=>{
+      return GUEST.indexOf(item)>-1;
+    });
+    new Valine({
+        el: '#comments' ,
+        verify: false,
+        notify: false,
+        appId: 'Gp5xxuBGmRxC9yeJHf5wlLpN-gzGzoHsz',
+        appKey: 'wo0eDJonJrnuUrCCCU7EnH1n',
+        placeholder: '欢迎评论',
+        avatar:'mm',
+        guest_info:guest,
+        pageSize:'20' || 10,
+    });
+  </script>
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"jsonPath":"/live2dw/assets/dsr50_lifu_normal.model.json"},"display":{"position":"right","width":700,"height":800,"hOffset":-250,"vOffset":-150},"mobile":{"show":true,"scale":0.7},"log":false});</script></body>
+</html>

@@ -1,0 +1,1487 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="启动流程," />
+
+
+
+
+  
+
+
+  <link rel="alternate" href="/atom.xml" title="" type="application/atom+xml" />
+
+
+
+
+
+
+<meta name="description" content="转载：http:&#x2F;&#x2F;xsllqs.blog.51cto.com&#x2F;2308669&#x2F;1762422 一、POST加电自检  按下电源后ROM芯片中的CMOS程序执行并检测CPU、内存等设备是否存在并正常运行，CMOS中的程序叫BIOS，可以设置硬盘接口，网卡声卡开关之类的简单设置。一般PC机主板上有一个纽扣电池，这个电池就是给ROM供电的，可以保证主板断电后BIOS的一些基本设置不会重置。   下面是">
+<meta property="og:type" content="article">
+<meta property="og:title" content="CentOS 6的系统启动流程">
+<meta property="og:url" content="http://www.ashjian.xyz/CentOS-6%E7%9A%84%E7%B3%BB%E7%BB%9F%E5%90%AF%E5%8A%A8%E6%B5%81%E7%A8%8B/index.html">
+<meta property="og:site_name">
+<meta property="og:description" content="转载：http:&#x2F;&#x2F;xsllqs.blog.51cto.com&#x2F;2308669&#x2F;1762422 一、POST加电自检  按下电源后ROM芯片中的CMOS程序执行并检测CPU、内存等设备是否存在并正常运行，CMOS中的程序叫BIOS，可以设置硬盘接口，网卡声卡开关之类的简单设置。一般PC机主板上有一个纽扣电池，这个电池就是给ROM供电的，可以保证主板断电后BIOS的一些基本设置不会重置。   下面是">
+<meta property="og:image" content="https://raw.githubusercontent.com/ashjian/picBed/master/20200827123046.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/ashjian/picBed/master/20200827123059.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/ashjian/picBed/master/20200827131109.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/ashjian/picBed/master/20200827131109.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/ashjian/picBed/master/20200827131121.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/ashjian/picBed/master/20200827193002.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/ashjian/picBed/master/20200827193013.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/ashjian/picBed/master/20200827193021.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/ashjian/picBed/master/20200827194039.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/ashjian/picBed/master/20200827200430.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/ashjian/picBed/master/20200827194525.png">
+<meta property="article:published_time" content="2020-08-27T12:45:59.000Z">
+<meta property="article:modified_time" content="2021-03-26T10:02:11.349Z">
+<meta property="article:author" content="StarDustLoong">
+<meta property="article:tag" content="启动流程">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://raw.githubusercontent.com/ashjian/picBed/master/20200827123046.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://www.ashjian.xyz/CentOS-6的系统启动流程/"/>
+
+
+
+
+
+  <title>CentOS 6的系统启动流程 | </title>
+  
+
+
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?d7bf52f45e24a0e6f2951901a7a97864";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+<meta name="generator" content="Hexo 4.2.1"></head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title"></span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off"
+             placeholder="搜索..." spellcheck="false"
+             type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://www.ashjian.xyz/CentOS-6%E7%9A%84%E7%B3%BB%E7%BB%9F%E5%90%AF%E5%8A%A8%E6%B5%81%E7%A8%8B/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="StarDustLoong">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/uploads/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">CentOS 6的系统启动流程</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-08-27T20:45:59+08:00">
+                2020-08-27
+              </time>
+            
+
+            
+              <span class="post-meta-divider">|</span>
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-check-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">更新于&#58;</span>
+              
+              <time title="更新于" itemprop="dateModified" datetime="2021-03-26T18:02:11+08:00">
+                2021-03-26
+              </time>
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/linux/" itemprop="url" rel="index">
+                    <span itemprop="name">linux</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/CentOS-6%E7%9A%84%E7%B3%BB%E7%BB%9F%E5%90%AF%E5%8A%A8%E6%B5%81%E7%A8%8B/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/CentOS-6%E7%9A%84%E7%B3%BB%E7%BB%9F%E5%90%AF%E5%8A%A8%E6%B5%81%E7%A8%8B/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  3.4k
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  14
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+      
+      
+
+      
+        <p>转载：<a href="http://xsllqs.blog.51cto.com/2308669/1762422" target="_blank" rel="noopener">http://xsllqs.blog.51cto.com/2308669/1762422</a></p>
+<h2 id="一、POST加电自检"><a href="#一、POST加电自检" class="headerlink" title="一、POST加电自检"></a>一、POST加电自检</h2><p>  按下电源后ROM芯片中的CMOS程序执行并检测CPU、内存等设备是否存在并正常运行，CMOS中的程序叫BIOS，可以设置硬盘接口，网卡声卡开关之类的简单设置。一般PC机主板上有一个纽扣电池，这个电池就是给ROM供电的，可以保证主板断电后BIOS的一些基本设置不会重置。</p>
+<p>  下面是一个比较新的主板的BIOS，在老主板上一般只有英文不会有中文界面，老式主板只支持键盘操作不支持鼠标，现在很多新主板已经可以支持鼠标操作了。</p>
+<p><img src="https://raw.githubusercontent.com/ashjian/picBed/master/20200827123046.png" alt="img"></p>
+<h2 id="二、引导加载次序Boot-Sequence"><a href="#二、引导加载次序Boot-Sequence" class="headerlink" title="二、引导加载次序Boot Sequence"></a>二、引导加载次序Boot Sequence</h2><p>  在系统启动前计算机是不知道你系统在哪里的，需要按照设备启动顺序<strong>一次查找引导加载器器bootloader</strong>，这个查找次序可以自己在BIOS中设定，一般在boot选项中设置，【注意】不同厂商不同版本的主板设置方法是不同的，请以厂商的官方说明为准。</p>
+<p><img src="https://raw.githubusercontent.com/ashjian/picBed/master/20200827123059.png" alt="img"></p>
+<h2 id="三、引导加载器bootloader"><a href="#三、引导加载器bootloader" class="headerlink" title="三、引导加载器bootloader"></a>三、引导加载器bootloader</h2><p>  前面说了系计算机是不知道系统在哪里的，所以需要程序进行引导，这个引导的程序就叫bootloader，不同操作系统的bootloader是不同的，windows使用的<strong>bootloader程序是ntloader</strong>，只能对windows进行引导不能对其他系统进行引导，而<strong>Linux的bootloader叫GRUB</strong>，可以对其他操作系统进行引导（包括windows），正是因为这样，所以<strong>在装既有Windows又有Linux的双系统的时候，需要先装Windows，再装Linux</strong>。</p>
+<p>功能：提供一个菜单，允许用户选择要启动系统或不同的内核版本；把用户选定的内核装载到内存中的特定空间中，解压、展开，并把系统控制权移交给内核。</p>
+<p> bootloader的引导程序GRUB放在MBR中。</p>
+<h2 id="四、引导加载器程序GRUB"><a href="#四、引导加载器程序GRUB" class="headerlink" title="四、引导加载器程序GRUB"></a>四、引导加载器程序GRUB</h2><h3 id="1、grub-legacy"><a href="#1、grub-legacy" class="headerlink" title="1、grub legacy"></a>1、grub legacy</h3><p>  前面提到GRUB是bootloader阶段的一个程序，这是Centos中最常用的引导程序，CentOS 6安装的是grub legacy</p>
+<p>  下面是CentOS 6的grub legacy</p>
+<p> <img src="https://raw.githubusercontent.com/ashjian/picBed/master/20200827131109.png" alt="img"></p>
+<p>按e:进入编辑模式，用于编辑菜单；</p>
+<p><img src="https://raw.githubusercontent.com/ashjian/picBed/master/20200827131109.png" alt="img"></p>
+<p> 然后按c: 进入命令模式，交互式接口；</p>
+<p><img src="https://raw.githubusercontent.com/ashjian/picBed/master/20200827131121.png" alt="img"></p>
+<p>常用的命令有</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs plain">#help: 获取帮助列表<br>#help KEYWORD: 详细帮助信息<br>#find (hd#,#)&#x2F;PATH&#x2F;TO&#x2F;SOMEFILE：<br>#root (hd#,#)设定grub的根设备<br>#kernel &#x2F;PATH&#x2F;TO&#x2F;KERNEL_FILE: 设定本次启动时用到的内核文件；额外还可以添加许多内核支持使用的cmdline参数；<br>#例如：init&#x3D;&#x2F;path&#x2F;to&#x2F;init, selinux&#x3D;0<br>#initrd &#x2F;PATH&#x2F;TO&#x2F;INITRAMFS_FILE: 设定为选定的内核提供额外文件的ramdisk；<br>#boot: 引导启动选定的内核；<br></code></pre></td></tr></table></figure>
+
+<p>CentOS 6中grub的配置文件保存在/boot/grub/grub.conf中</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs plain">vim grub.conf<br></code></pre></td></tr></table></figure>
+
+
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><code class="hljs plain"># grub.conf generated by anaconda<br>#<br># Note that you do not have to rerun grub after making changes to this file<br># NOTICE: You have a &#x2F;boot partition. This means that<br>#     all kernel and initrd paths are relative to &#x2F;boot&#x2F;, eg.<br>#     root (hd0,0)<br>#     kernel &#x2F;vmlinuz-version ro root&#x3D;&#x2F;dev&#x2F;mapper&#x2F;VolGroup-lv_root<br>#     initrd &#x2F;initrd-[generic-]version.img<br>#boot&#x3D;&#x2F;dev&#x2F;sda<br>default&#x3D;0<br>timeout&#x3D;5<br>splashimage&#x3D;(hd0,0)&#96;&#96;&#x2F;grub&#x2F;splash&#96;&#96;.xpm.gz<br>hiddenmenu<br>title CentOS (2.6.32-431.el6.x86_64)<br>    &#96;&#96;root (hd0,0)<br>    &#96;&#96;kernel &#96;&#96;&#x2F;vmlinuz-2&#96;&#96;.6.32-431.el6.x86_64 ro root&#x3D;&#96;&#96;&#x2F;dev&#x2F;mapper&#x2F;VolGroup-lv_root&#96; &#96;rd_NO_LUKS rd_NO_MD rd_LVM_LV&#x3D;VolGroup&#96;&#96;&#x2F;lv_swap&#96; &#96;crashkernel&#x3D;auto LANG&#x3D;zh_CN.UTF-8 rd_LVM_LV&#x3D;VolGroup&#96;&#96;&#x2F;lv_root&#96; &#96;KEYBOARDTYPE&#x3D;pc KEYTABLE&#x3D;us rd_NO_DM rhgb quiet<br>    &#96;&#96;initrd &#96;&#96;&#x2F;initramfs-2&#96;&#96;.6.32-431.el6.x86_64.img<br></code></pre></td></tr></table></figure>
+
+<p> 其中常用的配置</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs plain">default&#x3D;&#96;&#96;#: 设定默认启动的菜单项；落单项(title)编号从0开始；<br>timeout&#x3D;&#96;&#96;#：指定菜单项等待选项选择的时长；<br>splashimage&#x3D;(hd&#96;&#96;#,#)&#x2F;PATH&#x2F;TO&#x2F;XPM_PIC_FILE：指明菜单背景图片文件路径；<br>hiddenmenu：隐藏菜单；<br>password [--md5] STRING: 菜单编辑认证；<br>title TITLE：定义菜单项“标题”, 可出现多次；<br>root (hd&#96;&#96;#,#)：grub查找stage2及kernel文件所在设备分区；为grub的“根”; <br>kernel &#96;&#96;&#x2F;PATH&#x2F;TO&#x2F;VMLINUZ_FILE&#96; &#96;[PARAMETERS]：启动的内核<br>initrd &#96;&#96;&#x2F;PATH&#x2F;TO&#x2F;INITRAMFS_FILE&#96;&#96;: 内核匹配的ramfs文件；<br>password --md5 STRING: 启动选定的内核或操作系统时进行认证；<br></code></pre></td></tr></table></figure>
+
+<h3 id=""><a href="#" class="headerlink" title=""></a></h3><h3 id="2、GRUB2"><a href="#2、GRUB2" class="headerlink" title="2、GRUB2"></a>2、GRUB2</h3><p> CentOS 7上安装的是gurb2</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs plain">[root@localhost ~]&#96;&#96;# rpm -q grub2<br>grub2-2.02-0.34.el7.centos.x86_64<br></code></pre></td></tr></table></figure>
+
+<p>下面是centos7的GRUB，如果什么都不选，在3秒后系统会进入默认设置的那一项系统。</p>
+<p><img src="https://raw.githubusercontent.com/ashjian/picBed/master/20200827193002.png" alt="img"></p>
+<p>按e进入GRUB编辑</p>
+<p><img src="https://raw.githubusercontent.com/ashjian/picBed/master/20200827193013.png" alt="img"></p>
+<p>按ctrl+c进入命令行模式</p>
+<p><img src="https://raw.githubusercontent.com/ashjian/picBed/master/20200827193021.png" alt="img"></p>
+<p>常用的命令行命令有下面这些：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br></pre></td><td class="code"><pre><code class="hljs plain">1. help<br>  &#96;&#96;查看命令用法，显示所有可用命令<br>  &#96;&#96;help search <br>  &#96;&#96;search 命令用法<br>2. &#96;&#96;ls<br>  &#96;&#96;列出当前的所有设备。如 (hd0) (hd0,1) (hd0,5) (hd1) (hd1,1) (hd1,2) .......<br>  &#96;&#96;ls&#96; &#96;-l<br>  &#96;&#96;详细列出当前的所有设备。对于分区，会显示其label及uuid。<br>  &#96;&#96;ls&#96; &#96;&#x2F;<br>  &#96;&#96;列出当前设为root的分区下的文件<br>  &#96;&#96;ls&#96; &#96;(hd1,1)&#x2F;<br>  &#96;&#96;列出(hd1,1)分区下文件<br>3. search<br>  &#96;&#96;search -f &#96;&#96;&#x2F;ntldr<br>  &#96;&#96;列出根目录里包含ntldr文件的分区，返回为分区号<br>  &#96;&#96;search -l LINUX<br>  &#96;&#96;搜索label是LINUX的分区。<br>  &#96;&#96;search --&#96;&#96;set&#96; &#96;-f &#96;&#96;&#x2F;ntldr<br>  &#96;&#96;搜索根目录包含ntldr文件的分区并设为root，注意如果多外分区含有ntldr文件，&#96;&#96;set&#96; &#96;失去作用<br>4. loopback<br>  &#96;&#96;loopback命令可用于建立回放设备，如<br>  &#96;&#96;loopback lo0 (hd1,1)&#96;&#96;&#x2F;abc&#96;&#96;.iso<br>  &#96;&#96;可以使用lo0设备来访问abc.iso里的内容，比如说，可以从abc.iso里的软盘映像中启动<br>  &#96;&#96;loopback lo0 (hd1,1)&#96;&#96;&#x2F;aa&#96;&#96;.iso<br>  &#96;&#96;linux (lo0)&#96;&#96;&#x2F;memdisk<br>  &#96;&#96;initrd (lo0)&#96;&#96;&#x2F;abc&#96;&#96;.img<br>  &#96;&#96;要删除某一回放设备，可以使用-d参数：<br>  &#96;&#96;loopback -d lo0<br>5. &#96;&#96;set<br>  &#96;&#96;使用&#96;&#96;set&#96;&#96;可以设置变量的值<br>  &#96;&#96;set&#96; &#96;root&#x3D;<br>  &#96;&#96;set&#96; &#96;timeout&#x3D;<br>  &#96;&#96;需要调用变量的值时，使用$&#123;AA&#125;，如&#96;&#96;set&#96; &#96;root&#x3D;(hd1,1)<br>  &#96;&#96;则$&#123;root&#125;&#x3D;(hd1,1)<br>6. pager<br>  &#96;&#96;分页显示。<br>  &#96;&#96;set&#96; &#96;pager&#x3D;1<br>  &#96;&#96;满页时暂停，按space继续<br>  &#96;&#96;set&#96; &#96;pager&#x3D;0<br>  &#96;&#96;取消分页<br>7. linux<br>  &#96;&#96;linux取代grub中的kernel<br></code></pre></td></tr></table></figure>
+
+<p> CentOS 7的/boot/grub2/grub.conf官方建议是不要随便修改的，一般都是在grub.d文件下生成新的启动目录，再重新生成</p>
+<p>默认启动的修改可通过/boot/grub2/grubenv文件修改</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs plain">[root@localhost grub2]&#96;&#96;# vim grubenv<br></code></pre></td></tr></table></figure>
+
+
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs plain"># GRUB Environment Block<br>saved_entry&#x3D;CentOS Linux (3.10.0-327.el7.x86_64) 7 (Core)<br>#########################################################<br></code></pre></td></tr></table></figure>
+
+<p>可以进入/etc/grub.d下查看</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs plain">[root@localhost grub.d]&#96;&#96;# ls<br>00_header 01_users 20_linux_xen   30_os-prober 41_custom<br>00_tuned  10_linux 20_ppc_terminfo 40_custom   README<br></code></pre></td></tr></table></figure>
+
+<p>进入README可以查看grub.d中文件的说明</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs plain">[root@localhost grub.d]&#96;&#96;# cat README<br></code></pre></td></tr></table></figure>
+
+
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs plain">All executable files &#96;&#96;in&#96; &#96;this directory are processed &#96;&#96;in&#96; &#96;shell expansion order.<br></code></pre></td></tr></table></figure>
+
+
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs plain">&#96;&#96;00_*: Reserved &#96;&#96;for&#96; &#96;00_header.<br>&#96;&#96;10_*: Native boot entries.<br>&#96;&#96;20_*: Third party apps (e.g. memtest86+).<br></code></pre></td></tr></table></figure>
+
+
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs plain">The number namespace &#96;&#96;in&#96;&#96;-between is configurable by system installer and&#96;&#96;&#x2F;or<br>administrator. For example, you can add an entry to boot another OS as<br>01_otheros, 11_otheros, etc, depending on the position you want it to occupy &#96;&#96;in<br>the menu; and &#96;&#96;then&#96; &#96;adjust the default setting via &#96;&#96;&#x2F;etc&#x2F;default&#x2F;grub&#96;&#96;.<br>#00 _ *:为00 _header保留<br>#10 _ *:本机引导条目<br>#20 _ *:第三方应用程序(例如memtest86)<br></code></pre></td></tr></table></figure>
+
+<h2 id="五、进入kernel"><a href="#五、进入kernel" class="headerlink" title="五、进入kernel"></a>五、进入kernel</h2><p>  在GRUB中选择对应的kernel进入，然后kernel会对自身进行初始化</p>
+<p>  探测可识别到的所有硬件设备。</p>
+<p>  加载硬件驱动程序。</p>
+<p>  以只读方式挂载根文件系统。</p>
+<p>  运行用户空间的第一个应用程序，在CentOS 6上是init，在CentOS 7上是Systemd</p>
+<p>  内核组成部分：</p>
+<p>​    kernel: 内核核心，一般为bzImage，通常在/boot目录下,名称为vmlinuz-VERSION-RELEASE；</p>
+<p>​    kernel object: 内核对象，一般放置于/lib/modules/VERSION-RELEASE/</p>
+<h2 id="六、运行init"><a href="#六、运行init" class="headerlink" title="六、运行init"></a>六、运行init</h2><p>  CentOS 6上init所在的位置是在/sbin/init，init共分为7个级别</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs plain">#0：关机<br>#1：单用户模式(root, 无须登录), single, 维护模式；<br>#2: 多用户模式，会启动网络功能，但不会启动NFS；维护模式；<br>#3：多用户模式，正常模式；文本界面；<br>#4：预留级别；可同3级别；<br>#5：多用户模式，正常模式；图形界面；<br>#6：重启<br></code></pre></td></tr></table></figure>
+
+<p>例如你要关机可直接输入init 0进行关机操作</p>
+<p>[root@localhost sbin]# init 0</p>
+<p>如果要查看当前系统运行的init级别可使用runlevel或者who -r</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs plain">[root@localhost sbin]&#96;&#96;# runlevel <br>N 5<br>[root@localhost sbin]&#96;&#96;# who -r<br>     &#96;&#96;运行级别 5 2016-04-10 18:25<br></code></pre></td></tr></table></figure>
+
+<p>init的配置文件在/etc/inittab</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs plain">[root@localhost sbin]&#96;&#96;# vim &#x2F;etc&#x2F;inittab<br></code></pre></td></tr></table></figure>
+
+
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><code class="hljs plain"># inittab is only used by upstart for the default runlevel.<br>#<br># ADDING OTHER CONFIGURATION HERE WILL HAVE NO EFFECT ON YOUR SYSTEM.<br>#<br># System initialization is started by &#x2F;etc&#x2F;init&#x2F;rcS.conf<br>#<br># Individual runlevels are started by &#x2F;etc&#x2F;init&#x2F;rc.conf<br>#<br># Ctrl-Alt-Delete is handled by &#x2F;etc&#x2F;init&#x2F;control-alt-delete.conf<br>#<br># Terminal gettys are handled by &#x2F;etc&#x2F;init&#x2F;tty.conf and &#x2F;etc&#x2F;init&#x2F;serial.conf,<br># with configuration in &#x2F;etc&#x2F;sysconfig&#x2F;init.<br>#<br># For information on how to write upstart event handlers, or how<br># upstart works, see init(5), init(8), and initctl(8).<br>#<br># Default runlevel. The runlevels used are:<br>#  0 - halt (Do NOT set initdefault to this)<br>#  1 - Single user mode<br>#  2 - Multiuser, without NFS (The same as 3, if you do not have networking)<br>#  3 - Full multiuser mode<br>#  4 - unused<br>#  5 - X11<br>#  6 - reboot (Do NOT set initdefault to this)<br># <br>id&#96;&#96;:5:initdefault:<br>#这里定义的默认运行级别为5<br></code></pre></td></tr></table></figure>
+
+<p> 配置文件中的格式是：id:runlevel:action:process</p>
+<p>  此配置文件每行定义一个级别</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs plain">id&#96;&#96;：指入口标识符，它是一个字符串，对于getty或mingetty等其他login程序项，要求&#96;&#96;id&#96;&#96;与&#96;&#96;tty&#96;&#96;的编号相同，否则getty程序将不能正常工作。<br>runlevel：init的系统运行级别<br>action：是用来定义后面process的运行方式，常用的有下面几种<br>    &#96;&#96;wait: 切换至此级别运行一次；<br>    &#96;&#96;respawn：此process终止，就重新启动之；<br>    &#96;&#96;initdefault：设定默认运行级别；process省略；<br>    &#96;&#96;sysinit：设定系统初始化方式，此处一般为指定&#96;&#96;&#x2F;etc&#x2F;rc&#96;&#96;.d&#96;&#96;&#x2F;rc&#96;&#96;.sysinit<br>process：为具体的执行程序，<br></code></pre></td></tr></table></figure>
+
+<p> 例如设置为l0:5:wait:/etc/rc.d/rc 5</p>
+<p>  /etc/rc.d/rc是一个Shell脚本，它接受5作为参数，去执行/etc /rc.d/rc5.d/目录下的所有的rc启动脚本，/etc/rc.d/rc5.d/目录中的这些启动脚本实际上都是一些链接文件，而不是真正的rc 启动脚本，真正的rc启动脚本实际上都是放在/etc/rc.d/init.d/目录下。而这些rc启动脚本有着类似的用法，它们一般能接受start、stop、restart、status等参数。</p>
+<p>  /etc/rc.d/rc5.d/中的rc启动脚本通常是K或S开头的链接文件。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs plain">#K开头的文件：运行次序是数字越小，越先运行；数字越小的服务，通常为依赖到别的服务；关闭服务。<br>#S开头的文件：运行次序是数字越小，越先运行；数字越小的服务，通常为被依赖到的服务；启动服务。<br>[root@localhost rc5.d]&#96;&#96;# pwd<br>&#x2F;etc&#x2F;rc&#96;&#96;.d&#96;&#96;&#x2F;rc5&#96;&#96;.d<br></code></pre></td></tr></table></figure>
+
+<p>![img](CentOS 6的系统启动流程.assets/854428-20160923172434059-1235638256.png)</p>
+<h2 id="七、运行系统初始化脚本"><a href="#七、运行系统初始化脚本" class="headerlink" title="七、运行系统初始化脚本"></a>七、运行系统初始化脚本</h2><p>  系统初始化脚本对应的文件是/etc/rc.d/rc.sysinit</p>
+<p>  大概就是这个样子，因为太长，省略了很多</p>
+<p><img src="https://raw.githubusercontent.com/ashjian/picBed/master/20200827194039.png" alt="img"></p>
+<h2 id="八、启动系统服务"><a href="#八、启动系统服务" class="headerlink" title="八、启动系统服务"></a>八、启动系统服务</h2><p>  centos6下的系统服务脚本都放在/etc/rc.d/init.d或者/etc/init.d中，可以看到两个文件中的内容是一样的,因为/etc/init.d链接到了/etc/rc.d/init.d中</p>
+<p><img src="https://raw.githubusercontent.com/ashjian/picBed/master/20200827200430.png" alt="img"></p>
+<p>通过chkconfig命令可以查看什么系统级别下开启了哪些服务，以及添加服务到系统中并在指定级别下启动</p>
+<p>  查看chkconfig –list</p>
+<p><img src="https://raw.githubusercontent.com/ashjian/picBed/master/20200827194525.png" alt="img"></p>
+<p>添加chkconfig –add 服务名，在添加的时候需要将对应的服务放入/etc/init.d中，并在服务脚本中加入chkconfig: LLLL nn nn</p>
+<p>  写到LLLL的init级别就是S的，没写得就是K的，第一个nn代表S的数字，第二个nn代表K的数字</p>
+<p>[root@localhost init.d]# chkconfig –add httpd</p>
+<p>删除chkconfig –del 服务名</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs plain">[root@localhost init.d]&#96;&#96;# chkconfig --del httpd<br></code></pre></td></tr></table></figure>
+
+<p>【注意】：正常级别下，最后启动一个服务S99local没有链接至/etc/rc.d/init.d一个服务脚本，而是指向了/etc/rc.d/rc.local脚本；因此，不便或不需写为服务脚本放置于/etc/rc.d/init.d/目录，且又想开机时自动运行的命令，可直接放置于/etc/rc.d/rc.local文件中。</p>
+<h2 id="九、打印登录提示符"><a href="#九、打印登录提示符" class="headerlink" title="九、打印登录提示符"></a>九、打印登录提示符</h2><p>  系统在启动完服务后会打印登录提示符，然后输入账号密码，进入对应的命令行界面或图形界面。</p>
+<h2 id="十、总结"><a href="#十、总结" class="headerlink" title="十、总结"></a>十、总结</h2><p>  系统的启动流程总的来说分成以下几个步骤：</p>
+<p>  1、加电自检</p>
+<p>  2、按照BIOS中设置的Boot Sequence查找有bootloader程序的设备</p>
+<p>  3、加载MBR中的bootloader程序GRUB</p>
+<p>  4、进入GRUB设置的默认kernel</p>
+<p>  5、kernel初始化</p>
+<p>  6、运行init程序</p>
+<p>  7、运行系统初始化脚本</p>
+<p>  8、启动对应服务</p>
+<p>  9、打印登录提示符</p>
+
+      
+    </div>
+    
+    
+    
+
+     <!-- 文章末尾统一添加“本文结束”标记 -->
+    <div>
+      
+        <div>
+    
+        <div style="text-align:center;color: #555;font-size:24px;"><-------------The End-------------></div>
+    
+</div>
+
+      
+    </div>
+    
+
+    
+      <div>
+        <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+  <div>坚持原创分享，你的支持就是我最大的动力！</div>
+  <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+    <span>打赏</span>
+  </button>
+  <div id="QR" style="display: none;">
+
+    
+      <div id="wechat" style="display: inline-block">
+        <img id="wechat_qr" src="/uploads/weixin_cash_code.png" alt="StarDustLoong 微信支付"/>
+        <p>微信支付</p>
+      </div>
+    
+
+    
+      <div id="alipay" style="display: inline-block">
+        <img id="alipay_qr" src="/uploads/alipay_cash_code.png" alt="StarDustLoong 支付宝"/>
+        <p>支付宝</p>
+      </div>
+    
+
+    
+
+  </div>
+</div>
+
+      </div>
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/%E5%90%AF%E5%8A%A8%E6%B5%81%E7%A8%8B/" rel="tag"># 启动流程</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/%E7%B3%BB%E7%BB%9F%E5%90%AF%E5%8A%A8%E5%92%8C%E5%86%85%E6%A0%B8%E7%AE%A1%E7%90%86/" rel="next" title="系统启动和内核管理">
+                <i class="fa fa-chevron-left"></i> 系统启动和内核管理
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/%E6%96%87%E6%9C%AC%E5%A4%84%E7%90%86%E4%B9%8Bawk/" rel="prev" title="文本处理之awk">
+                文本处理之awk <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+    </div>
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/uploads/avatar.png"
+                alt="StarDustLoong" />
+            
+              <p class="site-author-name" itemprop="name">StarDustLoong</p>
+              <p class="site-description motion-element" itemprop="description">人类如风一般的自由</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">2409</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">12</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">146</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+	   
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/StarDustLoong" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:13671474528@163.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://www.zhihu.com/people/ashjian-ar15" target="_blank" title="知乎">
+                      
+                        <i class="fa fa-fw fa-globe"></i>知乎</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://me.csdn.net/ashjian" target="_blank" title="CSDN">
+                      
+                        <i class="fa fa-fw fa-codiepie"></i>CSDN</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+            <div class="links-of-blogroll motion-element links-of-blogroll-inline">
+              <div class="links-of-blogroll-title">
+                <i class="fa  fa-fw fa-link"></i>
+                Links
+              </div>
+              <ul class="links-of-blogroll-list">
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="http://mp.weixin.qq.com/user1" title="OpenInfo" target="_blank">OpenInfo</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="http://mp.weixin.qq.com/user2" title="stormzhang" target="_blank">stormzhang</a>
+                  </li>
+                
+              </ul>
+            </div>
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#一、POST加电自检"><span class="nav-number">1.</span> <span class="nav-text">一、POST加电自检</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#二、引导加载次序Boot-Sequence"><span class="nav-number">2.</span> <span class="nav-text">二、引导加载次序Boot Sequence</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#三、引导加载器bootloader"><span class="nav-number">3.</span> <span class="nav-text">三、引导加载器bootloader</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#四、引导加载器程序GRUB"><span class="nav-number">4.</span> <span class="nav-text">四、引导加载器程序GRUB</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1、grub-legacy"><span class="nav-number">4.1.</span> <span class="nav-text">1、grub legacy</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#"><span class="nav-number">4.2.</span> <span class="nav-text"></span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2、GRUB2"><span class="nav-number">4.3.</span> <span class="nav-text">2、GRUB2</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#五、进入kernel"><span class="nav-number">5.</span> <span class="nav-text">五、进入kernel</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#六、运行init"><span class="nav-number">6.</span> <span class="nav-text">六、运行init</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#七、运行系统初始化脚本"><span class="nav-number">7.</span> <span class="nav-text">七、运行系统初始化脚本</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#八、启动系统服务"><span class="nav-number">8.</span> <span class="nav-text">八、启动系统服务</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#九、打印登录提示符"><span class="nav-number">9.</span> <span class="nav-text">九、打印登录提示符</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#十、总结"><span class="nav-number">10.</span> <span class="nav-text">十、总结</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">StarDustLoong</span>
+
+  
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-area-chart"></i>
+    </span>
+    
+      <span class="post-meta-item-text">本站总字数&#58;</span>
+    
+    <span title="本站总字数">635.5k</span>
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Pisces</a> v5.1.4</div>
+
+
+
+
+#<!-- 百度自动推送 -->
+#<script>
+#(function(){
+#    var bp = document.createElement('script');
+#    var curProtocol = window.location.protocol.split(':')[0];
+#    if (curProtocol === 'https') {
+#        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+#    }
+#    else {
+#        bp.src = 'http://push.ashjian.baidu.com/push.js';
+#    }
+#    var s = document.getElementsByTagName("script")[0];
+#    s.parentNode.insertBefore(bp, s);
+#})();
+#</script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aplayer/dist/APlayer.min.css">
+
+<script src="https://cdn.jsdelivr.net/npm/aplayer/dist/APlayer.min.js"></script>
+<!-- require MetingJS -->
+
+<script src="https://cdn.jsdelivr.net/npm/meting@2.0.1/dist/Meting.min.js"></script>
+<div> 
+<meting-js  
+    server="netease" 
+    type="playlist"  
+    id="5281251057" 
+    fixed="true"  
+    autoplay="false" 
+    loop="all" 
+    order="random"
+    preload="auto" 
+    list-folded="ture" 
+    list-max-height="500px" 
+    lrc-type="1">
+</meting-js>	 
+</div>
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv">
+      本站访客数
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+      人次
+    </span>
+  
+
+  
+    <span class="site-pv">
+      本站总访问量
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+      次
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+  <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+  <script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+  
+  <script type="text/javascript">
+    var GUEST = ['nick','mail','link'];
+    var guest = 'nick,mail,link';
+    guest = guest.split(',').filter(item=>{
+      return GUEST.indexOf(item)>-1;
+    });
+    new Valine({
+        el: '#comments' ,
+        verify: false,
+        notify: false,
+        appId: 'Gp5xxuBGmRxC9yeJHf5wlLpN-gzGzoHsz',
+        appKey: 'wo0eDJonJrnuUrCCCU7EnH1n',
+        placeholder: '欢迎评论',
+        avatar:'mm',
+        guest_info:guest,
+        pageSize:'20' || 10,
+    });
+  </script>
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"jsonPath":"/live2dw/assets/dsr50_lifu_normal.model.json"},"display":{"position":"right","width":700,"height":800,"hOffset":-250,"vOffset":-150},"mobile":{"show":true,"scale":0.7},"log":false});</script></body>
+</html>

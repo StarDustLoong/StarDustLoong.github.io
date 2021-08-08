@@ -1,0 +1,1482 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="磁盘存储," />
+
+
+
+
+  
+
+
+  <link rel="alternate" href="/atom.xml" title="" type="application/atom+xml" />
+
+
+
+
+
+
+<meta name="description" content="ector）。 MBR机制：Master Boot Record（主引导记录）占用空间为512bytes：  bootloader（一段程序，引导加载器的程序）加载指定操作系统的内核：446bytes fat：64bytes，每16个bytes存放一个分区信息，最多只有4个分区。 55 AA：MBR有效性标记，2bytes  GPT机制：大于2T的磁盘机制GPT全称是GUID Partition">
+<meta property="og:type" content="article">
+<meta property="og:title" content="01-磁盘分区">
+<meta property="og:url" content="http://www.ashjian.xyz/01-%E7%A3%81%E7%9B%98%E5%88%86%E5%8C%BA/index.html">
+<meta property="og:site_name">
+<meta property="og:description" content="ector）。 MBR机制：Master Boot Record（主引导记录）占用空间为512bytes：  bootloader（一段程序，引导加载器的程序）加载指定操作系统的内核：446bytes fat：64bytes，每16个bytes存放一个分区信息，最多只有4个分区。 55 AA：MBR有效性标记，2bytes  GPT机制：大于2T的磁盘机制GPT全称是GUID Partition">
+<meta property="article:published_time" content="2020-08-26T12:45:45.000Z">
+<meta property="article:modified_time" content="2021-03-26T10:02:16.279Z">
+<meta property="article:author" content="StarDustLoong">
+<meta property="article:tag" content="磁盘存储">
+<meta name="twitter:card" content="summary">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://www.ashjian.xyz/01-磁盘分区/"/>
+
+
+
+
+
+  <title>01-磁盘分区 | </title>
+  
+
+
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?d7bf52f45e24a0e6f2951901a7a97864";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+<meta name="generator" content="Hexo 4.2.1"></head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title"></span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off"
+             placeholder="搜索..." spellcheck="false"
+             type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://www.ashjian.xyz/01-%E7%A3%81%E7%9B%98%E5%88%86%E5%8C%BA/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="StarDustLoong">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/uploads/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">01-磁盘分区</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-08-26T20:45:45+08:00">
+                2020-08-26
+              </time>
+            
+
+            
+              <span class="post-meta-divider">|</span>
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-check-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">更新于&#58;</span>
+              
+              <time title="更新于" itemprop="dateModified" datetime="2021-03-26T18:02:16+08:00">
+                2021-03-26
+              </time>
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/linux/" itemprop="url" rel="index">
+                    <span itemprop="name">linux</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/01-%E7%A3%81%E7%9B%98%E5%88%86%E5%8C%BA/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/01-%E7%A3%81%E7%9B%98%E5%88%86%E5%8C%BA/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  3.2k
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  14
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+      
+      
+
+      
+        <p>ector）。</p>
+<p><strong>MBR机制</strong>：Master Boot Record（主引导记录）<br>占用空间为<code>512bytes</code>：</p>
+<ul>
+<li><code>bootloader</code>（一段程序，引导加载器的程序）加载指定操作系统的内核：<code>446bytes</code></li>
+<li><code>fat</code>：<code>64bytes</code>，每16个bytes存放一个分区信息，最多只有4个分区。</li>
+<li><code>55 AA</code>：MBR有效性标记，<code>2bytes</code></li>
+</ul>
+<p><strong>GPT机制</strong>：大于2T的磁盘机制<br>GPT全称是<code>GUID Partition Table</code>，<strong>GUID</strong>指的是<strong>全球统一标识符</strong>（<strong>Globals Unique Identifiers</strong>）。</p>
+<p>GPT分区需要硬件有UEFI接口。</p>
+<hr>
+<h3 id="硬盘接口类型"><a href="#硬盘接口类型" class="headerlink" title="硬盘接口类型"></a>硬盘接口类型</h3><ul>
+<li><p><del><strong>IDE（ATA）</strong></del>：并口，每个控制器可接两块硬盘，早期PC机用的比较多，现在已经淘汰。<code>133MB/s</code></p>
+</li>
+<li><p><strong>SCSI（Small computer System Interface）</strong>：并口，可以接 N多块硬盘。转速高，寿命长，早期的服务器用的很多。<code>320MB/s</code>，目前面临淘汰。</p>
+</li>
+<li><p><strong>SAS （Serial Attached SCS）</strong>：串行SCSI，可以与SATA兼容。<code>600MB/s</code></p>
+<blockquote>
+<p>现在的x86服务器上，主流就是SAS口，可以支持SATA口的硬盘，也可支持SAS口的硬盘。</p>
+</blockquote>
+</li>
+<li><p><strong>SATA（Serial ATA）</strong>：串行ATA口。目前很多台式机的机械硬盘是此类接口。</p>
+<ul>
+<li>SATA1：<code>150MB/s</code></li>
+<li>SATA2：<code>300MB/s</code></li>
+<li>SATA3：<code>600MB/s</code></li>
+</ul>
+</li>
+<li><p><strong>mSATA（mini-SATA）</strong>：mini SATA口。好多笔记本的SSD用mini-SATA口，目前最新版是<strong>M.2</strong></p>
+<ul>
+<li>mSATA</li>
+<li>M.2(mini-SATA 2)：socket3类型最高支持<code>4GB/s</code>。</li>
+</ul>
+</li>
+<li><p><strong>PCI-e（PCI-express）</strong>：台式机的SSD，还有部分笔记本（比如苹果Macbook），用的是PCI-e，此接口比mSATA要快，最高支持<code>8GB/s</code></p>
+</li>
+<li><p><strong>USB（Universal Serial Bus）</strong>：u盘、移动硬盘。</p>
+<ul>
+<li>USB2.0：<code>60MB/s</code></li>
+<li>USB3.0：<code>500MB/s</code></li>
+<li>USB3.1（也叫type-c）：<code>1.2GB/s</code></li>
+</ul>
+</li>
+</ul>
+<hr>
+<h2 id="查看分区（查）"><a href="#查看分区（查）" class="headerlink" title="查看分区（查）"></a>查看分区（查）</h2><h3 id="df查看磁盘状态"><a href="#df查看磁盘状态" class="headerlink" title="df查看磁盘状态"></a><code>df</code>查看磁盘状态</h3><p>df：disk free</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs plain">* &#96;-h&#96;：human readable，人类可读<br>* &#96;-T&#96;：print type，输出格式。<br>[root@yulongjun ~]# df -hT<br>Filesystem     Type   Size  Used Avail Use% Mounted on<br>&#x2F;dev&#x2F;sda2      ext4    50G  5.2G   42G  11% &#x2F;<br>tmpfs          tmpfs  3.9G     0  3.9G   0% &#x2F;dev&#x2F;shm<br>&#x2F;dev&#x2F;sda1      ext4   190M   39M  142M  22% &#x2F;boot<br></code></pre></td></tr></table></figure>
+
+<h3 id="fdisk-l-列出所有磁盘信息。"><a href="#fdisk-l-列出所有磁盘信息。" class="headerlink" title="fdisk -l 列出所有磁盘信息。"></a><code>fdisk -l</code> 列出所有磁盘信息。</h3><p>Id：</p>
+<ul>
+<li>83：Linux可以使用的文件系统。</li>
+<li>8e：指的是逻辑卷（logical volume）</li>
+</ul>
+<p>常见的几种文件格式：<br>基本：<code>ext3</code>（CentOS 5默认）， <code>ext4</code>（CentOS 6默认），<code>xfs</code>（CentOS 7 默认）<br>光盘：<code>iso9660</code><br>可移动U盘：<code>fat32</code>（文件最大不能超过4G）， <code>exfat</code><br>windows：<code>ntfs</code>（linux可编译安装ntfs-3g来识别）</p>
+<h2 id="创建分区（增）"><a href="#创建分区（增）" class="headerlink" title="创建分区（增）"></a>创建分区（增）</h2><p><code>fdisk /dev/sda</code>进入管理sda磁盘</p>
+<p>常用的几个：</p>
+<blockquote>
+<p><code>m</code>：menu，列出帮助菜单<br><code>d</code>：delete，删除<br><code>n</code>：new，新建<br><code>p</code>：print，列出<br><code>t</code>：调整分区ID<br><code>l</code>：list，列出内核支持的分区ID<br>83 Linux（linux基础分区）<br>5 extend（扩展分区）<br>8e LVM（逻辑卷管理）<br>ee GPT（2T以上硬盘）<br>w：write，保存退出<br>q：quit，不保存退出</p>
+</blockquote>
+<p>new新分区的时候，如果是加主分区，只能加到第四个。如果想要更多的分区，可以把第四个加为扩展分区。然后再在扩展分区上创建分区。</p>
+<hr>
+<h2 id="删除分区（删）"><a href="#删除分区（删）" class="headerlink" title="删除分区（删）"></a>删除分区（删）</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs plain">fdisk &#x2F;dev&#x2F;sda<br><br>d #进入删除模式<br><br># 输入要删除的分区号<br><br>w #保存退出<br></code></pre></td></tr></table></figure>
+
+<hr>
+<h2 id="修改分区格式（改）"><a href="#修改分区格式（改）" class="headerlink" title="修改分区格式（改）"></a>修改分区格式（改）</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><code class="hljs plain">fdisk &#x2F;dev&#x2F;sda<br><br>t # 进入修改模式<br><br># 输入要修改的分区<br><br>L # 列出可以修改的格式<br><br># 输入要修改的格式的代码<br><br>w # 保存退出<br><br># 然后用到上面让内核识别的两个命令：<br>kpartx -af &#x2F;dev&#x2F;sda  # 强制添加分区到内核中<br>partx -a &#x2F;dev&#x2F;sda    # 再添加一次<br><br># 上述命令多次都不成功，只能重启了<br></code></pre></td></tr></table></figure>
+
+<hr>
+<h2 id="通知内核识别新分区"><a href="#通知内核识别新分区" class="headerlink" title="通知内核识别新分区"></a>通知内核识别新分区</h2><p>CentOS 5，7：<code>partprobe</code></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs plain">parprobe &#x2F;dev&#x2F;sda<br></code></pre></td></tr></table></figure>
+
+<p>CentOS 6 ：<code>partx</code>，<code>kpartx</code></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs plain">kpartx -l &#x2F;dev&#x2F;sda   # 列出sda中可重新加载到内核的分区<br>kpartx -af &#x2F;dev&#x2F;sda  # 强制添加分区到内核中<br>partx -a &#x2F;dev&#x2F;sda    # 再添加一次<br></code></pre></td></tr></table></figure>
+
+<p>CentOS 6 有时候不管用，只能重启系统(目前版本6.9，这个bug还没有修复。)，不过对于新硬盘，进行创建操作的时候，CentOS6不会有这个问题。</p>
+<p>CentOS 5 和 7 使用<code>partprobe</code>即可，无bug。</p>
+<hr>
+<h2 id="创建文件系统"><a href="#创建文件系统" class="headerlink" title="创建文件系统"></a>创建文件系统</h2><ol>
+<li><p><code>mkfs -t FSTYPE /dev/DEVICE</code></p>
+</li>
+<li><p><code>mkfs.FSTYPE /dev/DEVICE</code></p>
+</li>
+<li><p><code>mkswap /dev/DEVICE</code> 创建交换分区。</p>
+</li>
+<li><pre><code>mke2fs
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><code class="hljs plain"><br>更加精细的操作<br><br>- &#96;-t&#96;：ext2, ext3, ext4, xfs<br>- &#96;-L&#96;：label，指定卷标名<br>- &#96;-b&#96;：block size ，（1024、2048、4096）默认是4k（4096）<br>- &#96;-i #&#96;: 为数据空间中每多少个字节创建一个inode；此大 小不应该小于block的大小<br>- &#96;-N #&#96;：指定分区中创建多少个inode<br>- &#96;-I #&#96; 一个inode记录占用的磁盘空间大小，128—4096<br>- &#96;-m #&#96;: 默认5%,为管理人员预留空间占总空间的百分比<br>- &#96;-O FEATURE[,...]&#96;：启用指定特性<br>- &#96;-O ^FEATURE&#96;：关闭指定特性<br>- &#96;-o&#96;: 调整文件系统的默认挂载选项，&#96;–o acl&#96;<br></code></pre></td></tr></table></figure>
+mkfs.ext2 -O has_journal /dev/sda5
+# 上面虽然指定的格式是ext2，但是启动journal特性，所以就变成了ext3了。
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs plain"><br>&gt; acl权限：&#96;xfs&#96;创建的默认就带&#96;acl&#96;权限，&#96;ext&#96;系列的格式的需要手工指定。<br><br>卷标的操作：<br>&#96;e2label &#x2F;dev&#x2F;DEVICE&#96;：查看卷标。<br>&#96;e2label &#x2F;dev&#x2F;DEVICE LABEL_NAME&#96;：修改卷标。<br><br>示例：<br></code></pre></td></tr></table></figure>
+mkfs -t ext4 /dev/sda5
+mkfs.ext4 /dev/sda5
+mke2fs.ext4 -t ext4 -L DB /dev/sda5
+mkswap /dev/sda6
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs plain"><br>## 查看磁盘分区的类型和uuid<br><br>在Linux里，设备名是有可能变动的，比如我们添加一块IDE的磁盘，会变成sda，系统原来的sda会变成sdb，这样，我们就不能用设备名来唯一表示设备，这时候我们就用到UUID。<br></code></pre></td></tr></table></figure>
+blkid /dev/DEVICE
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs plain"><br>- UUID 设备唯一标识<br>- TYPE 文件系统类型<br></code></pre></td></tr></table></figure>
+blkid /dev/sda5
+</code></pre></li>
+</ol>
+<p>/dev/sda5 UUID=”XXXXXXXX” TYPE=”ext4”</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><code class="hljs plain"><br>## 检测和修复文件系统<br><br>检测修复**ext**类型的文件系统<br>&#96;fsck DEVICE&#96; ：file system check ,文件系统检测<br>&#96;fsck -t ext4 &#x2F;dev&#x2F;sda5&#96;检测文件系统错误<br>&#96;fsck -r DEVICE&#96;:交互式检测文件系统<br>&#96;fsck -y DEVICE&#96;：不用交互，一路确认检测文件系统。<br><br>检测修复**xfs**类型的文件系统，要用另外一个命令：<br>&#96;xfs_check -y DEVICE&#96;<br><br>&gt; tips：&#96;xfs_check&#96;命令需要安装&#96;xfsprogs&#96;包<br><br>## 挂载<br><br>挂载的本质就是调用&#96;blkid&#96;查看设备UUID，然后查找到设备，进行挂载。<br><br>### (1)手动挂载<br><br>**挂载交换分区**：<br>&#96;swapon &#x2F;dev&#x2F;sda6&#96;启用指定的交换分区<br>&#96;swapon -a&#96;启用所有的交换分区<br>&#96;swapon -s&#96; 显示交换分区的挂载情况<br>**卸载交换分区**：<br>&#96;swapoff &#x2F;dev&#x2F;sda6&#96;关闭指定的交换分区<br>&#96;swapoff -a&#96; 关闭所有的临时交换分区<br><br>**挂载普通分区**：<br>&#96;mount [-t FILETYPE] [-o option] &#x2F;dev&#x2F;DEVICE DIRECTORY&#96;<br>参数详解：<br><br>**卸载普通分区**：<br>&#96;umount &#x2F;dev&#x2F;DEVICE&#96; 或者&#96;umount &#x2F;DIRECTORY&#96;，具体参数情况，见文章最后一节：**附2：mount命令详解**<br><br>**查看挂载信息**：<br>&#96;mount&#96;<br><br>示例：<br></code></pre></td></tr></table></figure>
+<p>mount -t ext4  /dev/sda5  /u01</p>
+<p>mount -t iso9660  -o loop xxx.iso /media</p>
+<p>mount</p>
+<p>umount /dev/sda5</p>
+<p>unmount /media</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs plain"><br><br><br>### (2)永久挂载<br><br>修改&#96;&#x2F;etc&#x2F;fstab&#96;配置文件。<br>&#96;fstab&#96;：file system table<br></code></pre></td></tr></table></figure>
+<p>[root❄CentOS6 ~]☭ cat /etc/fstab </p>
+<p>#</p>
+<h1 id="etc-fstab"><a href="#etc-fstab" class="headerlink" title="/etc/fstab"></a>/etc/fstab</h1><h1 id="Created-by-anaconda-on-Wed-May-17-01-52-09-2017"><a href="#Created-by-anaconda-on-Wed-May-17-01-52-09-2017" class="headerlink" title="Created by anaconda on Wed May 17 01:52:09 2017"></a>Created by anaconda on Wed May 17 01:52:09 2017</h1><p>#</p>
+<h1 id="Accessible-filesystems-by-reference-are-maintained-under-‘-dev-disk’"><a href="#Accessible-filesystems-by-reference-are-maintained-under-‘-dev-disk’" class="headerlink" title="Accessible filesystems, by reference, are maintained under ‘/dev/disk’"></a>Accessible filesystems, by reference, are maintained under ‘/dev/disk’</h1><h1 id="See-man-pages-fstab-5-findfs-8-mount-8-and-or-blkid-8-for-more-info"><a href="#See-man-pages-fstab-5-findfs-8-mount-8-and-or-blkid-8-for-more-info" class="headerlink" title="See man pages fstab(5), findfs(8), mount(8) and/or blkid(8) for more info"></a>See man pages fstab(5), findfs(8), mount(8) and/or blkid(8) for more info</h1><p>#<br>UUID=964e8f82-ef35-4b1e-ae3f-9a95e36b5ee2 /                       ext4    defaults        1 1<br>UUID=899d5f64-7a0c-4aba-b77f-a94f9c6df085 /app                    ext4    defaults        1 2<br>UUID=ce69275d-68f5-46c7-975b-785e653d3d79 /boot                   ext4    defaults        1 2<br>UUID=3aa122ef-cf5f-4198-81a7-48b799c9d914 swap                    swap    defaults        0 0<br>tmpfs                   /dev/shm                tmpfs   defaults        0 0<br>devpts                  /dev/pts                devpts  gid=5,mode=620  0 0<br>sysfs                   /sys                    sysfs   defaults        0 0<br>proc                    /proc                   proc    defaults        0 0<br>/dev/sr0        /media            iso9660 defaults    0 0</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><code class="hljs plain"><br>字段从左到右含义：<br><br>- 要挂载的设备<br><br>  ：<br><br>  - 设备文件&#96;&#x2F;dev&#x2F;sda&#96;、&#96;&#x2F;dev&#x2F;sr0&#96;<br>  - 卷名&#96;LABEL&#x3D;&quot;ladel&quot;&#96;<br>  - UUID&#96;UUID&#x3D;xxx&#96;<br><br>- **挂载点**：挂载在那个目录下面。有的文件系统没有挂载点 ，例如&#96;swap&#96;，挂载点为&#96;swap&#96;。<br><br>- **文件系统类型**：&#96;ext2,3,4&#96;、&#96;xfs&#96;、&#96;iso9660&#96;<br><br>- 挂载选项<br><br>  ：多个选项间使用逗号分隔<br><br>  - &#96;loop&#96;：loop设备<br>  - &#96;ro&#96;：只读（默认rw）<br>  - &#96;pri&#x3D;xxx&#96;：priority，优先级，默认都是&#96;-1&#96;，你可以写&#96;0~65535&#96;，数值越大，优先级越高。<br><br>- **转储频率**：<br>  &#96;0&#96;：从不备份（CentOS7 采用xfs，默认从不备份）<br>  &#96;1&#96;：每日备份（6 采用ext4，默认是1）<br>  &#96;2&#96;：每隔一天备份（很少使用）<br><br>- **自检次序**：<br>  &#96;1&#96;：首先自检，通常只能被&#x2F;使用<br>  &#96;2-9&#96;：顺序<br>  &#96;0&#96;：从不自检（默认从不自检）<br><br>&#x2F;etc&#x2F;fstab里写挂载的几个特殊例子：<br></code></pre></td></tr></table></figure>
+<p>#目录挂目录<br>/boot /mnt/boot none bind 0 0</p>
+<h1 id="loop文件挂目录"><a href="#loop文件挂目录" class="headerlink" title="loop文件挂目录"></a>loop文件挂目录</h1><p>/app/partfile /mnt/part loop 0 0<br>#windows共享挂目录<br>//winsvr_url/share_file /mnt/win cifs 0 0</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs plain"><br>&gt; 实验：将swap分区迁移到高速磁盘上，优化性能，原swap不删除，作为次swap。(提示：利用pritory优先级）<br></code></pre></td></tr></table></figure>
+<h1 id="TODO"><a href="#TODO" class="headerlink" title="TODO"></a>TODO</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><code class="hljs plain"><br>------<br><br>## 卸载<br><br>- 查看挂载情况:<br>  &#96;findmnt MOUNT_POINT&#96;<br>- 查看正在访问指定文件系统的进程：<br>  &#96;lsof MOUNT_POINT&#96;或&#96;fuser -v MOUNT_POINT&#96;<br>- 终止所有在正访问指定的文件系统的进程：<br>  &#96;fuser -km MOUNT_POINT&#96;<br>- 卸载：<br>  &#96;umount DEVICE&#96;<br>  &#96;umount MOUNT_POINT&#96;<br><br>------<br><br>## 附1：其他常用命令<br><br>### findmnt<br><br>&#96;findmnt &#x2F;DEVICE&#96;或者&#96;findmnt PATH&#96;<br>查找某个设备是否挂载，或者某个路径是否为挂载点。<br></code></pre></td></tr></table></figure>
+<p>[root❄centos7 ~]☭ findmnt /dev/sdb5<br>[root❄centos7 ~]☭ echo $?<br>1</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs plain"><br>查看&#x2F;mnt&#x2F;sdb5是否是挂载点，如果不是，就把&#x2F;dev&#x2F;sdb5挂载在&#x2F;mnt&#x2F;sdb5上。<br></code></pre></td></tr></table></figure>
+<p>findmnt /mnt/sdb5 &gt;&gt; /dev/null || mount /dev/sdb5 /mnt/sdb5</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs plain"><br>### findfs<br></code></pre></td></tr></table></figure>
+<p>findfs LABEL=xxxxx<code></code>findfs UUID=xxxxx</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs plain"><br>查找&#96;dir&#96;对应的&#96;uuid&#96;的挂载磁盘<br></code></pre></td></tr></table></figure>
+<p>[root❄centos7 ~]☭ dir=/;findfs <code>egrep &quot;$dir[[:space:]]+&quot; /etc/fstab | cut -d&quot; &quot; -f1</code><br>/dev/sda2</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><code class="hljs plain"><br><br><br>&gt; tips: 一个设备可以挂载到不同的挂载点。<br>&gt; 不同的设备，可以挂载到同一个挂载点，最后一个挂载的设备生效。<br><br>------<br><br>\##附2：mount命令详解<br><br>**参数解析：**<br><br>&gt; **device**：指明要挂载的设备；<br><br>- 设备文件：例如&#96;&#x2F;dev&#x2F;sda5&#96;<br>- 卷标：&#96;-L &#39;LABEL&#39;&#96;, 例如 &#96;-L &#39;MYDATA&#39;&#96;<br>- &#96;UUID, -U &#39;UUID&#39;&#96;：例如 &#96;-U &#39;0c50523c-43f1-45e7-85c0-a126711d406e&#39;&#96;<br>- 伪文件系统名称：proc, sysfs, devtmpfs, configfs<br><br>&gt; **dir**：挂载点<br><br>事先存在；建议使用空目录<br><br>进程正在使用中的设备无法被卸载<br><br>&gt; **-t vsftype**<br><br>指定要挂载的设备上的文件系统类型<br><br>&gt; **-fnrsvw**：<br><br>- &#96;-r&#96;: readonly，只读挂载<br>- &#96;-w&#96;: read and write, 读写挂载<br>- &#96;-n&#96;: 不更新&#x2F;etc&#x2F;mtab，mount不可见(可以用&#96;cat &#x2F;proc&#x2F;mounts&#96;看到挂载）<br>- &#96;-a&#96;：自动挂载所有支持自动挂载的设备(定义在了&#x2F;etc&#x2F;fstab 文件中，且挂载选项中有auto功能)<br>- &#96;-L &#39;LABEL&#39;&#96;: 以卷标指定挂载设备<br>- &#96;-U &#39;UUID&#39;&#96;: 以UUID指定要挂载的设备<br>- &#96;-B, --bind&#96;: **绑定目录到另一个目录上**<br></code></pre></td></tr></table></figure>
+<p>mount -B /var/ftp/pub /var/www/html/</p>
+<h1 id="这样可以实现同一份数据，在两个地方。"><a href="#这样可以实现同一份数据，在两个地方。" class="headerlink" title="这样可以实现同一份数据，在两个地方。"></a>这样可以实现同一份数据，在两个地方。</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><code class="hljs plain"><br>- 查看内核追踪到的已挂载的所有设备：&#96;cat &#x2F;proc&#x2F;mounts&#96;<br><br>&gt; **-o options**：(挂载文件系统的选项)，多个选项使用逗号分隔<br><br>- &#96;async&#96;：异步模式<br>- &#96;sync&#96;：同步模式,内存更改时，同时写磁盘<br>- &#96;atime&#x2F;noatime&#96;：包含目录和文件的访问时间戳<br>- &#96;diratime&#x2F;nodiratime&#96;：目录的访问时间戳<br>- &#96;auto&#x2F;noauto&#96;：是否支持自动挂载,是否支持-a选项<br>- &#96;exec&#x2F;noexec&#96;：是否支持将文件系统上运行应用程序<br>- &#96;dev&#x2F;nodev&#96;：是否支持在此文件系统上使用设备文件<br>- &#96;suid&#x2F;nosuid&#96;：是否支持suid和sgid权限<br>- **&#96;remount&#96;：重新挂载**<br>- **&#96;ro&#96;：只读**<br>- **&#96;rw&#96;：读写**<br>- &#96;user&#x2F;nouser&#96;：是否允许普通用户挂载此设备，默认管理员才能挂载<br>- &#96;acl&#96;：启用此文件系统上的acl功能<br>- &#96;Defaults&#96;：相当于&#96;rw, nosuid, dev, exec, auto, nouser, async&#96;<br><br>### 附3：loop特殊设备<br><br>CentOS 6 默认只支持8个loop设备，7没有限制(每增加一个，control会去生成一个）:<br></code></pre></td></tr></table></figure>
+<p>[root❄CentOS6 ~]☭ ls /dev/loop*<br>/dev/loop0  /dev/loop2  /dev/loop4  /dev/loop6<br>/dev/loop1  /dev/loop3  /dev/loop5  /dev/loop7<br>[root❄centos7 ~]☭ ll /dev/loop*<br>crw-rw—- 1 root disk 10, 237 Jun 14 10:17 /dev/loop-control</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs plain"><br>要想让6支持更多，要更改内核参数,kernel那一行，最后面加上&#96;max_loop&#x3D;数量&#96;参数<br></code></pre></td></tr></table></figure>
+<p>…<br>kernel /vmlinuz-2.6.32-696.el6.x86_64 ro root=UUID=964e8f82-ef35-4b1e-ae3f-9a95e36b5ee2 rd_NO_LUKS rd_NO_LVM LANG=en_US.UTF-8 rd_NO_MD SYSFONT=latarcyrheb-sun16 crashkernel=auto  KEYBOARDTYPE=pc KEYTABLE=us rd_NO_DM rhgb quiet max_loop=100<br>…</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs plain"><br>**&#96;losetup&#96;命令**<br><br>指定loop号挂载，可以不用按顺序挂载<br><br>&#96;losetup -a&#96; ：显示系统挂载的loop设备(CentOS 7 不用加&#96;-a&#96;)<br>&#96;losetup LOOP-DEVICE LOOP-FILE&#96;：关联loop文件到指定的loop设备上<br></code></pre></td></tr></table></figure>
+<p>losetup  /dev/loop9 /app/partfile9 #关联loop文件到指定的/dev/loop设备上<br>mount /dev/loop9 /mnt/part9 # 把关联的设备挂载到目录上</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs plain"><br>挂载Windows共享文件：<br></code></pre></td></tr></table></figure>
+<p>mkdir /mnt/win</p>
+<p>mount -o username=test,password=magedu //192.168.8.1/winshare /mnt/win</p>
+<pre><code>
+</code></pre>
+      
+    </div>
+    
+    
+    
+
+     <!-- 文章末尾统一添加“本文结束”标记 -->
+    <div>
+      
+        <div>
+    
+        <div style="text-align:center;color: #555;font-size:24px;"><-------------The End-------------></div>
+    
+</div>
+
+      
+    </div>
+    
+
+    
+      <div>
+        <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+  <div>坚持原创分享，你的支持就是我最大的动力！</div>
+  <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+    <span>打赏</span>
+  </button>
+  <div id="QR" style="display: none;">
+
+    
+      <div id="wechat" style="display: inline-block">
+        <img id="wechat_qr" src="/uploads/weixin_cash_code.png" alt="StarDustLoong 微信支付"/>
+        <p>微信支付</p>
+      </div>
+    
+
+    
+      <div id="alipay" style="display: inline-block">
+        <img id="alipay_qr" src="/uploads/alipay_cash_code.png" alt="StarDustLoong 支付宝"/>
+        <p>支付宝</p>
+      </div>
+    
+
+    
+
+  </div>
+</div>
+
+      </div>
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/%E7%A3%81%E7%9B%98%E5%AD%98%E5%82%A8/" rel="tag"># 磁盘存储</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/%E7%A1%AC%E7%9B%98%E6%9C%BA%E5%88%B6/" rel="next" title="### 硬盘机制">
+                <i class="fa fa-chevron-left"></i> ### 硬盘机制
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/02-%E7%A3%81%E7%9B%98%E9%98%B5%E5%88%97%EF%BC%88RAID%EF%BC%89/" rel="prev" title="02-磁盘阵列（RAID）">
+                02-磁盘阵列（RAID） <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+    </div>
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/uploads/avatar.png"
+                alt="StarDustLoong" />
+            
+              <p class="site-author-name" itemprop="name">StarDustLoong</p>
+              <p class="site-description motion-element" itemprop="description">人类如风一般的自由</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">2409</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">12</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">146</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+	   
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/StarDustLoong" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:13671474528@163.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://www.zhihu.com/people/ashjian-ar15" target="_blank" title="知乎">
+                      
+                        <i class="fa fa-fw fa-globe"></i>知乎</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://me.csdn.net/ashjian" target="_blank" title="CSDN">
+                      
+                        <i class="fa fa-fw fa-codiepie"></i>CSDN</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+            <div class="links-of-blogroll motion-element links-of-blogroll-inline">
+              <div class="links-of-blogroll-title">
+                <i class="fa  fa-fw fa-link"></i>
+                Links
+              </div>
+              <ul class="links-of-blogroll-list">
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="http://mp.weixin.qq.com/user1" title="OpenInfo" target="_blank">OpenInfo</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="http://mp.weixin.qq.com/user2" title="stormzhang" target="_blank">stormzhang</a>
+                  </li>
+                
+              </ul>
+            </div>
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#硬盘接口类型"><span class="nav-number">1.</span> <span class="nav-text">硬盘接口类型</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#查看分区（查）"><span class="nav-number"></span> <span class="nav-text">查看分区（查）</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#df查看磁盘状态"><span class="nav-number">1.</span> <span class="nav-text">df查看磁盘状态</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#fdisk-l-列出所有磁盘信息。"><span class="nav-number">2.</span> <span class="nav-text">fdisk -l 列出所有磁盘信息。</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#创建分区（增）"><span class="nav-number"></span> <span class="nav-text">创建分区（增）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#删除分区（删）"><span class="nav-number"></span> <span class="nav-text">删除分区（删）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#修改分区格式（改）"><span class="nav-number"></span> <span class="nav-text">修改分区格式（改）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#通知内核识别新分区"><span class="nav-number"></span> <span class="nav-text">通知内核识别新分区</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#创建文件系统"><span class="nav-number"></span> <span class="nav-text">创建文件系统</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#etc-fstab"><span class="nav-number"></span> <span class="nav-text">&#x2F;etc&#x2F;fstab</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Created-by-anaconda-on-Wed-May-17-01-52-09-2017"><span class="nav-number"></span> <span class="nav-text">Created by anaconda on Wed May 17 01:52:09 2017</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Accessible-filesystems-by-reference-are-maintained-under-‘-dev-disk’"><span class="nav-number"></span> <span class="nav-text">Accessible filesystems, by reference, are maintained under ‘&#x2F;dev&#x2F;disk’</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#See-man-pages-fstab-5-findfs-8-mount-8-and-or-blkid-8-for-more-info"><span class="nav-number"></span> <span class="nav-text">See man pages fstab(5), findfs(8), mount(8) and&#x2F;or blkid(8) for more info</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#loop文件挂目录"><span class="nav-number"></span> <span class="nav-text">loop文件挂目录</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#TODO"><span class="nav-number"></span> <span class="nav-text">TODO</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#这样可以实现同一份数据，在两个地方。"><span class="nav-number"></span> <span class="nav-text">这样可以实现同一份数据，在两个地方。</span></a></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">StarDustLoong</span>
+
+  
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-area-chart"></i>
+    </span>
+    
+      <span class="post-meta-item-text">本站总字数&#58;</span>
+    
+    <span title="本站总字数">635.5k</span>
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Pisces</a> v5.1.4</div>
+
+
+
+
+#<!-- 百度自动推送 -->
+#<script>
+#(function(){
+#    var bp = document.createElement('script');
+#    var curProtocol = window.location.protocol.split(':')[0];
+#    if (curProtocol === 'https') {
+#        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+#    }
+#    else {
+#        bp.src = 'http://push.ashjian.baidu.com/push.js';
+#    }
+#    var s = document.getElementsByTagName("script")[0];
+#    s.parentNode.insertBefore(bp, s);
+#})();
+#</script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aplayer/dist/APlayer.min.css">
+
+<script src="https://cdn.jsdelivr.net/npm/aplayer/dist/APlayer.min.js"></script>
+<!-- require MetingJS -->
+
+<script src="https://cdn.jsdelivr.net/npm/meting@2.0.1/dist/Meting.min.js"></script>
+<div> 
+<meting-js  
+    server="netease" 
+    type="playlist"  
+    id="5281251057" 
+    fixed="true"  
+    autoplay="false" 
+    loop="all" 
+    order="random"
+    preload="auto" 
+    list-folded="ture" 
+    list-max-height="500px" 
+    lrc-type="1">
+</meting-js>	 
+</div>
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv">
+      本站访客数
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+      人次
+    </span>
+  
+
+  
+    <span class="site-pv">
+      本站总访问量
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+      次
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+  <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+  <script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+  
+  <script type="text/javascript">
+    var GUEST = ['nick','mail','link'];
+    var guest = 'nick,mail,link';
+    guest = guest.split(',').filter(item=>{
+      return GUEST.indexOf(item)>-1;
+    });
+    new Valine({
+        el: '#comments' ,
+        verify: false,
+        notify: false,
+        appId: 'Gp5xxuBGmRxC9yeJHf5wlLpN-gzGzoHsz',
+        appKey: 'wo0eDJonJrnuUrCCCU7EnH1n',
+        placeholder: '欢迎评论',
+        avatar:'mm',
+        guest_info:guest,
+        pageSize:'20' || 10,
+    });
+  </script>
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"jsonPath":"/live2dw/assets/dsr50_lifu_normal.model.json"},"display":{"position":"right","width":700,"height":800,"hOffset":-250,"vOffset":-150},"mobile":{"show":true,"scale":0.7},"log":false});</script></body>
+</html>

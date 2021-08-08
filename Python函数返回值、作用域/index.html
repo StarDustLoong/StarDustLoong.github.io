@@ -1,0 +1,1615 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="python函数的返回值和作用域," />
+
+
+
+
+  
+
+
+  <link rel="alternate" href="/atom.xml" title="" type="application/atom+xml" />
+
+
+
+
+
+
+<meta name="description" content="函数的返回值 举例 12345def showplus(x):	print(x)	return x + 1	showplus(5)  举例 123456def showplus(x):	print(x)	return x + 1	print(x+1) # 会执行吗？ #语句错误，下列不会执行showplus(5)  多条return语句 1234567def guess(x):	if x &gt;">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Python函数返回值、作用域">
+<meta property="og:url" content="http://www.ashjian.xyz/Python%E5%87%BD%E6%95%B0%E8%BF%94%E5%9B%9E%E5%80%BC%E3%80%81%E4%BD%9C%E7%94%A8%E5%9F%9F/index.html">
+<meta property="og:site_name">
+<meta property="og:description" content="函数的返回值 举例 12345def showplus(x):	print(x)	return x + 1	showplus(5)  举例 123456def showplus(x):	print(x)	return x + 1	print(x+1) # 会执行吗？ #语句错误，下列不会执行showplus(5)  多条return语句 1234567def guess(x):	if x &gt;">
+<meta property="og:image" content="https://raw.githubusercontent.com/ashjian/picBed02/main/20210427130955.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/ashjian/picBed02/main/20210427130956.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/ashjian/picBed02/main/20210427130957.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/ashjian/picBed02/main/20210427130958.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/ashjian/picBed02/main/20210427130959.png">
+<meta property="article:published_time" content="2021-05-24T05:37:56.955Z">
+<meta property="article:modified_time" content="2021-06-17T03:51:48.600Z">
+<meta property="article:author" content="StarDustLoong">
+<meta property="article:tag" content="python函数的返回值和作用域">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://raw.githubusercontent.com/ashjian/picBed02/main/20210427130955.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://www.ashjian.xyz/Python函数返回值、作用域/"/>
+
+
+
+
+
+  <title>Python函数返回值、作用域 | </title>
+  
+
+
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?d7bf52f45e24a0e6f2951901a7a97864";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+<meta name="generator" content="Hexo 4.2.1"></head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title"></span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off"
+             placeholder="搜索..." spellcheck="false"
+             type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://www.ashjian.xyz/Python%E5%87%BD%E6%95%B0%E8%BF%94%E5%9B%9E%E5%80%BC%E3%80%81%E4%BD%9C%E7%94%A8%E5%9F%9F/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="StarDustLoong">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/uploads/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Python函数返回值、作用域</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2021-05-24T13:37:56+08:00">
+                2021-05-24
+              </time>
+            
+
+            
+              <span class="post-meta-divider">|</span>
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-check-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">更新于&#58;</span>
+              
+              <time title="更新于" itemprop="dateModified" datetime="2021-06-17T11:51:48+08:00">
+                2021-06-17
+              </time>
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/python/" itemprop="url" rel="index">
+                    <span itemprop="name">python</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/Python%E5%87%BD%E6%95%B0%E8%BF%94%E5%9B%9E%E5%80%BC%E3%80%81%E4%BD%9C%E7%94%A8%E5%9F%9F/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/Python%E5%87%BD%E6%95%B0%E8%BF%94%E5%9B%9E%E5%80%BC%E3%80%81%E4%BD%9C%E7%94%A8%E5%9F%9F/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  3.1k
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  12
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+      
+      
+
+      
+        <h2 id="函数的返回值"><a href="#函数的返回值" class="headerlink" title="函数的返回值"></a>函数的返回值</h2><ul>
+<li><p>举例</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs plain">def showplus(x):<br>	print(x)<br>	return x + 1<br>	<br>showplus(5)<br></code></pre></td></tr></table></figure>
+</li>
+<li><p>举例</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs plain">def showplus(x):<br>	print(x)<br>	return x + 1<br>	<br>print(x+1) # 会执行吗？ #语句错误，下列不会执行<br>showplus(5)<br></code></pre></td></tr></table></figure>
+</li>
+<li><p>多条return语句</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs plain">def guess(x):<br>	if x &gt; 3:<br>		return &quot;&gt; 3&quot;<br>	else:<br>		return &quot;&lt;&#x3D; 3&quot;<br>		<br>print(guess(10))<br></code></pre></td></tr></table></figure>
+</li>
+<li><p>return可以执行多次吗？</p>
+</li>
+<li><p>多条return语句</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs plain">def showplus(x):<br>	print(x)<br>	return x + 1<br>	return x + 2<br>	<br>showplus(5)<br></code></pre></td></tr></table></figure>
+</li>
+<li><p>举例</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs plain">def fn(x):<br>	for i in range(x):<br>		if i &gt; 3:<br>			return i<br>		else:<br>			print(&quot;&#123;&#125; is not greater than 3&quot;.format(x))<br>			<br>print(fn(5)) # 打印什么？<br>print(fn(3)) # 打印什么？<br></code></pre></td></tr></table></figure>
+
+
+
+</li>
+</ul>
+<ul>
+<li><p>总结</p>
+<ul>
+<li>Python函数使用return语句返回“返回值”</li>
+<li>所有函数都有返回值，如果没有return语句，隐式调用return None</li>
+<li>return 语句并不一定是函数的语句块的最后一条语句</li>
+<li>一个函数可以存在多个return语句，但是只有一条可以被执行。如果没有一条return语句被执<br>行到，隐式调用return None</li>
+<li>如果有必要，可以显示调用return None，可以简写为return</li>
+<li>如果函数执行了return语句，函数就会返回，当前被执行的return语句之后的其它语句就不会<br>被执行了</li>
+<li>作用：结束函数调用、返回值</li>
+</ul>
+</li>
+<li><p>返回多个值</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs plain">def showlist():<br>	return [1, 3, 5]<br>showlist函数是返回了多个值吗？<br><br>def showlist():<br>	return 1, 3, 5<br>这次showlist函数是否返回了多个值呢？<br></code></pre></td></tr></table></figure>
+
+<ul>
+<li><p>函数不能同时返回多个值</p>
+</li>
+<li><p>return [1, 3, 5] 是指明返回一个列表，是一个列表对象</p>
+</li>
+<li><p>return 1, 3, 5 看似返回多个值，隐式的被python封装成了一个元组</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs plain">def showlist():<br>	return 1, 3, 5<br>x, y, z &#x3D; showlist() # 使用解构提取更为方便<br></code></pre></td></tr></table></figure>
+
+</li>
+</ul>
+</li>
+</ul>
+<h2 id="函数嵌套"><a href="#函数嵌套" class="headerlink" title="函数嵌套"></a>函数嵌套</h2><ul>
+<li><p>函数嵌套</p>
+<ul>
+<li>在一个函数中定义了另外一个函数</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs plain">def outer():<br>	def inner():<br>		print(&quot;inner&quot;)<br>	print(&quot;outer&quot;)<br>	inner()<br>outer()<br>inner() #这里调用错误，无法找到<br></code></pre></td></tr></table></figure>
+
+<ul>
+<li>函数有可见范围，这就是作用域的概念</li>
+<li>内部函数不能在外部直接使用，会抛NameError异常，因为它不可见</li>
+</ul>
+</li>
+</ul>
+<h2 id="作用域"><a href="#作用域" class="headerlink" title="作用域"></a>作用域</h2><ul>
+<li><p>作用域<br>一个标识符的可见范围，这就是标识符的作用域。一般常说的是变量的作用域<br>举例，对比下面上下2个函数</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><code class="hljs plain">x &#x3D; 5 <br>def foo():<br>	print(x) <br>foo() <br><br><br>x &#x3D; 5<br>def foo(): <br>	x +&#x3D; 1  #抛出错误，未定义就使用，既是函数外部的x是不可见的<br>	print(x)	<br>foo() <br><br>x到底可见还是不可见？<br></code></pre></td></tr></table></figure>
+</li>
+<li><p>全局作用域</p>
+<ul>
+<li>在整个程序运行环境中都可见</li>
+</ul>
+</li>
+<li><p>局部作用域</p>
+<ul>
+<li>在函数、类等内部可见</li>
+<li>局部变量使用范围不能超过其所在的局部作用域</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs plain">def fn1():<br>	x &#x3D; 1 # 局部作用域，在fn1内<br>	<br>def fn2():<br>	print(x) # x可见吗<br>	<br>print(x) # x可见吗<br></code></pre></td></tr></table></figure>
+
+
+
+
+</li>
+</ul>
+<ul>
+<li><p>嵌套结构</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><code class="hljs plain">def outer1(): #<br>	o &#x3D; 65<br>	def inner():<br>		print(&quot;inner &#123;&#125;&quot;.format(o))<br>		print(chr(o))<br>	print(&quot;outer &#123;&#125;&quot;.format(o))<br>	inner()<br>	<br>outer1()<br><br><br>def outer2(): #<br>	o &#x3D; 65<br>	def inner():<br>		o &#x3D; 97<br>		print(&quot;inner &#123;&#125;&quot;.format(o))<br>		print(chr(o))<br>	print(&quot;outer &#123;&#125;&quot;.format(o))<br>	inner()<br>	<br>outer2()<br><br>上下代码中变量o的差别<br></code></pre></td></tr></table></figure>
+
+
+
+</li>
+</ul>
+<ul>
+<li><p>从嵌套结构例子看出</p>
+<ul>
+<li><p>外层变量作用域在内层作用域可见</p>
+</li>
+<li><p>内层作用域inner中，如果定义了o=97，相当于当前作用域中重新定义了一个新的变量o，但是<br>这个o并没有覆盖外层作用域outer中的o</p>
+</li>
+<li><p>再看下面代码</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs plain">x &#x3D; 5<br>def foo():<br>	y &#x3D; x + 1 # 报错吗<br>	x +&#x3D; 1 # 报错，报什么错？为什么？换成x&#x3D;1还有错吗？<br>print(x) # 为什么它不报错<br><br>foo()<br></code></pre></td></tr></table></figure>
+
+</li>
+</ul>
+</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs plain">x &#x3D; 5<br>def foo():<br>	x +&#x3D; 1<br></code></pre></td></tr></table></figure>
+
+<p><img src="https://raw.githubusercontent.com/ashjian/picBed02/main/20210427130955.png" alt="image-20210405160453444">相当于</p>
+<ul>
+<li>x += 1 其实是x = x + 1</li>
+<li>相当于在foo内部定义一个局部变量x，那么foo内部所有x都是这个局部变量x了</li>
+<li>但是这个x还没有完成赋值，就被右边拿来做加1操作了</li>
+<li>如何解决这个问题？</li>
+</ul>
+<ul>
+<li><p>全局变量global</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs plain">x &#x3D; 5<br>def foo():<br>	global x<br>	x +&#x3D; 1<br></code></pre></td></tr></table></figure>
+
+<ul>
+<li>使用global关键字的变量，将foo内的x声明为使用外部的全局作用域中定义的x</li>
+<li>全局作用域中必须有x的定义</li>
+<li>如果全局作用域中没有x定义会怎样？</li>
+</ul>
+</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs plain">#x &#x3D; 5<br>def foo():<br>	global x<br>	x &#x3D; 10 #使用全局作用域的变量，重新赋值<br>	x +&#x3D; 1 # 报错吗？ 不报错<br>	print(x) # 打印什么？ 打印11<br>foo()<br>print(x) # 打印什么？ 打印11<br></code></pre></td></tr></table></figure>
+
+<p># 做这些实验建议不要使用ipython、jupyter，因为它会上下文中有x定义，可能测试不出效果</p>
+<ul>
+<li>使用global关键字的变量，将foo内的x声明为使用外部的全局作用域中定义的x</li>
+<li>但是，x = 10 赋值即定义，在内部作用域为一个外部作用域的变量x赋值，不是在内部作用域定义一<br>个新变量，所以x+=1不会报错。注意，这里x的作用域还是全局的</li>
+</ul>
+<ul>
+<li>global总结<ul>
+<li>x+=1这种是特殊形式产生的错误的原因？先引用后赋值，而python动态语言是赋值才算定义，<br>才能被引用。解决办法，在这条语句前增加x=0之类的赋值语句，或者使用global 告诉内部作<br>用域，去全局作用域查找变量定义</li>
+<li><strong>内部作用域使用x = 5之类的赋值语句会重新定义局部作用域使用的变量x，但是，一旦这个作</strong><br><strong>用域中使用global声明x为全局的，那么x=5相当于在为全局作用域的变量x赋值</strong></li>
+<li>global使用原则<ul>
+<li>外部作用域变量会内部作用域可见，但也不要在这个内部的局部作用域中直接使用，因为<br>函数的目的就是为了封装，尽量与外界隔离</li>
+<li>如果函数需要使用外部全局变量，请使用函数的形参传参解决</li>
+<li>一句话：不用global。学习它就是为了深入理解变量作用域</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h2 id="闭包"><a href="#闭包" class="headerlink" title="闭包"></a>闭包</h2><ul>
+<li>自由变量：未在本地作用域中定义的变量。例如定义在内层函数外的外层函数的作用域中的变量</li>
+<li>闭包：就是一个概念，出现在嵌套函数中，指的是内层函数引用到了外层函数的自由变量，就形成<br>了闭包。很多语言都有这个概念，最熟悉就是JavaScript</li>
+<li>先看下面一段代码</li>
+</ul>
+<p><img src="https://raw.githubusercontent.com/ashjian/picBed02/main/20210427130956.png" alt="image-20210405160647905"></p>
+<ul>
+<li>代码解析<ul>
+<li>第4行会报错吗？为什么<ul>
+<li>不会报错，c已经在counter函数中定义过了。而且inc中的使用方式是为c的元素修改值，而不是重新定义变量</li>
+</ul>
+</li>
+<li>第8行打印什么结果？<ul>
+<li>打印1 2</li>
+</ul>
+</li>
+<li>第10行打印什么结果？<ul>
+<li>打印3</li>
+<li>第9行的c和counter中的c不一样，而inc引用的是自由变量正式counter的变量c</li>
+</ul>
+</li>
+<li>这是Python2中实现闭包的方式，Python3还可以使用nonlocal关键字</li>
+</ul>
+</li>
+<li>下面这段代码会报错吗？为什么？</li>
+<li>使用global能否解决？</li>
+</ul>
+<p><img src="https://raw.githubusercontent.com/ashjian/picBed02/main/20210427130957.png" alt="image-20210405160751136"></p>
+<ul>
+<li>使用global可以解决，但是这使用的是全局变量，而不是闭包</li>
+<li>如果要对普通变量的闭包，Python3中可以使用nonlocal</li>
+</ul>
+<h2 id="nonlocal关键字"><a href="#nonlocal关键字" class="headerlink" title="nonlocal关键字"></a>nonlocal关键字</h2><ul>
+<li>使用了nonlocal关键字，将变量标记为不在本地作用域定义，而在<strong>上级的某一级</strong>局部作用域中定义，但<strong>不能是全局作用域中</strong>定义</li>
+</ul>
+<p><img src="https://raw.githubusercontent.com/ashjian/picBed02/main/20210427130958.png" alt="image-20210405160820968"></p>
+<p><img src="https://raw.githubusercontent.com/ashjian/picBed02/main/20210427130959.png" alt="image-20210405160835984"></p>
+<ul>
+<li>count 是外层函数的局部变量，被内部函数引用</li>
+<li>内部函数使用nonlocal关键字声明count变量在上级作用域而非本地作用域中定义</li>
+<li>左边代码可以正常使用，且形成闭包</li>
+<li>右边代码不能正常运行，变量a 不能在全局作用域中</li>
+</ul>
+<h2 id="默认值的作用域"><a href="#默认值的作用域" class="headerlink" title="默认值的作用域"></a>默认值的作用域</h2><ul>
+<li><pre><code>def foo(xyz=1): 
+    print(xyz)
+foo() # 打印什么？
+foo() # 打印什么？
+print(xyz) # 打印什么？
+
+def foo(xyz=[]):
+    xyz.append(1)
+    print(xyz)
+foo() # 打印什么？
+foo() # 打印什么？
+print(xyz) # 打印什么？
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs plain"><br><br></code></pre></td></tr></table></figure>
+def foo(xyz=[]):
+xyz.append(1)
+print(xyz)
+foo() # [1]
+foo() # [1,1]
+print(xyz) # NameError ，当前作用域没有xyz变量
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs plain"><br>- 为什么第二次调用foo函数打印的是[1,1]？<br>  - 因为函数也是对象，python把函数的默认值放在了属性中，这个属性就伴随着这个函数对象的<br>    整个生命周期<br>  - 查看foo.\__defaults__属性<br><br>- 运行这个例子<br></code></pre></td></tr></table></figure>
+def foo(xyz=[], u=&apos;abc&apos;, z=123):
+    xyz.append(1)
+    return xyz
+print(foo(), id(foo))
+print(foo.__defaults__)
+print(foo(), id(foo))
+print(foo.__defaults__)
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs plain"><br>- 函数地址并没有变，就是说函数这个对象的没有变，调用它，它的属性__defaults__中使用元组保存<br>  默认值<br><br>- xyz默认值是引用类型，引用类型的元素变动，并不是元组的变化<br><br>- 非引用类型例子<br></code></pre></td></tr></table></figure>
+def foo(w, u=&apos;abc&apos;, z=123):
+    u = &apos;xyz&apos;  #defaults属性保存为元组的是缺省值&apos;abc&apos;等对象，而不是u变量标识，所以u能
+    z = 789    #重新赋值
+    print(w, u, z)
+
+print(foo.__defaults__)
+foo(&apos;magedu&apos;)
+print(foo.__defaults__)
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs plain"><br>- 属性__defaults__中使用元组保存所有位置参数默认值，它不会因为在函数体内使用了它而发生改变<br><br>- 举例<br></code></pre></td></tr></table></figure>
+def foo(w, u=&apos;abc&apos;, *, z=123, zz=[456]):
+    u = &apos;xyz&apos;
+    z = 789
+    zz.append(1)
+    print(w, u, z, zz)
+
+print(foo.__defaults__)
+foo(&apos;magedu&apos;)
+print(foo.__kwdefaults__)
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs plain"><br>- 属性\__defaults__中使用元组保存所有位置参数默认值<br><br>- 属性\__kwdefaults__中使用字典保存所有keyword-only参数的默认值<br><br>- 使用可变类型作为默认值，就可能修改这个默认值<br>- 有时候这个特性是好的，有的时候这种特性是不好的，有副作用<br>- 如何做到按需改变呢？看下面的2种方法<br></code></pre></td></tr></table></figure>
+def foo(xyz=[], u=&apos;abc&apos;, z=123):
+  xyz = xyz[:] # 影子拷贝 产生新的对象的浅拷贝
+  xyz.append(1)
+  print(xyz)
+</code></pre></li>
+</ul>
+<p>foo()<br>print(foo.<strong>defaults</strong>)<br>foo()<br>print(foo.<strong>defaults</strong>)<br>foo([10])<br>print(foo.<strong>defaults</strong>)<br>foo([10,5])<br>print(foo.<strong>defaults</strong>)</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs plain"><br>- 1、函数体内，不改变默认值<br>  - xyz都是传入参数或者默认参数的副本，如果就想修改原参数，无能为力<br></code></pre></td></tr></table></figure>
+<p>def foo(xyz=None, u=’abc’, z=123):<br>    if xyz is None:<br>    xyz = []<br>    xyz.append(1)<br>    print(xyz)</p>
+<p>foo()<br>print(foo.<strong>defaults</strong>)<br>foo()<br>print(foo.<strong>defaults</strong>)<br>foo([10])<br>print(foo.<strong>defaults</strong>)<br>foo([10,5])<br>print(foo.<strong>defaults</strong>)</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><code class="hljs plain"><br>- 2、使用不可变类型默认值<br>  - 如果使用缺省值None就创建一个列表<br>  - 如果传入一个列表，就修改这个列表<br><br>- 第一种方法<br>  - 使用影子拷贝创建一个新的对象，永远不能改变传入的参数<br>- 第二种方法<br>  - 通过值的判断就可以灵活的选择创建或者修改传入对象<br>  - 这种方式灵活，应用广泛<br>  - 很多函数的定义，都可以看到使用None这个不可变的值作为默认参数，可以说这是一种惯用法<br><br>## 变量名解析原则LEGB<br><br>- Local，本地作用域、局部作用域的local命名空间。函数调用时创建，调用结束消亡<br>- Enclosing，Python2.2时引入了嵌套函数，实现了闭包，这个就是嵌套函数的外部函数的命名空间<br>- Global，全局作用域，即一个模块的命名空间。模块被import时创建，解释器退出时消亡<br>- Build-in，内置模块的命名空间，生命周期从python解释器启动时创建到解释器退出时消亡。例如print(open)，print和open都是内置的变量<br>- 所以一个名词的查找顺序就是LEGB<br><br>![image-20210405161056337](https:&#x2F;&#x2F;raw.githubusercontent.com&#x2F;ashjian&#x2F;picBed02&#x2F;main&#x2F;20210427131000.png)<br><br>## 函数的销毁<br><br>- 全局函数<br></code></pre></td></tr></table></figure>
+<p>  def foo(xyz=[], u=’abc’, z=123):<br>      xyz.append(1)<br>      return xyz<br>  print(foo(), id(foo), foo.<strong>defaults</strong>)</p>
+<p>  def foo(xyz=[], u=’abc’, z=123): #重新定义的函数对象也不是原来那个了<br>      xyz.append(1)<br>      return xyz<br>  print(foo(), id(foo), foo.<strong>defaults</strong>)</p>
+<p>  del foo<br>  print(foo(), id(foo), foo.<strong>defaults</strong>)<br>  <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs plain"><br>- 全局函数销毁<br>  - 重新定义同名函数<br>  - del 语句删除函数对象  <br>  - 程序结束时<br><br>- 局部函数<br></code></pre></td></tr></table></figure><br>  def foo(xyz=[], u=’abc’, z=123):<br>      xyz.append(1)<br>      def inner(a=10):<br>          pass<br>      print(inner)<br>      def inner(a=100):<br>          print(xyz)<br>      print(inner)<br>      return inner</p>
+<p>  bar = foo()<br>  print(id(foo),id(bar), foo.<strong>defaults</strong>, bar.<strong>defaults</strong>)<br>  del bar<br>  print(id(foo),id(bar), foo.<strong>defaults</strong>, bar.<strong>defaults</strong>)</p>
+<p>  ```</p>
+<ul>
+<li>局部函数销毁<ul>
+<li>重新在上级作用域定义同名函数</li>
+<li>del 语句删除函数名称，函数对象的引用计数减1</li>
+<li>上级作用域销毁时</li>
+</ul>
+</li>
+</ul>
+
+      
+    </div>
+    
+    
+    
+
+     <!-- 文章末尾统一添加“本文结束”标记 -->
+    <div>
+      
+        <div>
+    
+        <div style="text-align:center;color: #555;font-size:24px;"><-------------The End-------------></div>
+    
+</div>
+
+      
+    </div>
+    
+
+    
+      <div>
+        <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+  <div>坚持原创分享，你的支持就是我最大的动力！</div>
+  <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+    <span>打赏</span>
+  </button>
+  <div id="QR" style="display: none;">
+
+    
+      <div id="wechat" style="display: inline-block">
+        <img id="wechat_qr" src="/uploads/weixin_cash_code.png" alt="StarDustLoong 微信支付"/>
+        <p>微信支付</p>
+      </div>
+    
+
+    
+      <div id="alipay" style="display: inline-block">
+        <img id="alipay_qr" src="/uploads/alipay_cash_code.png" alt="StarDustLoong 支付宝"/>
+        <p>支付宝</p>
+      </div>
+    
+
+    
+
+  </div>
+</div>
+
+      </div>
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/python%E5%87%BD%E6%95%B0%E7%9A%84%E8%BF%94%E5%9B%9E%E5%80%BC%E5%92%8C%E4%BD%9C%E7%94%A8%E5%9F%9F/" rel="tag"># python函数的返回值和作用域</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/Python%E5%87%BD%E6%95%B0%E3%80%81%E5%8F%82%E6%95%B0%E5%8F%8A%E5%8F%82%E6%95%B0%E8%A7%A3%E6%9E%84/" rel="next" title="Python函数、参数及参数解构">
+                <i class="fa fa-chevron-left"></i> Python函数、参数及参数解构
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/Python%E5%8C%BF%E5%90%8D%E5%87%BD%E6%95%B0/" rel="prev" title="Python匿名函数">
+                Python匿名函数 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+    </div>
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/uploads/avatar.png"
+                alt="StarDustLoong" />
+            
+              <p class="site-author-name" itemprop="name">StarDustLoong</p>
+              <p class="site-description motion-element" itemprop="description">人类如风一般的自由</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">2409</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">12</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">146</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+	   
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/StarDustLoong" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:13671474528@163.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://www.zhihu.com/people/ashjian-ar15" target="_blank" title="知乎">
+                      
+                        <i class="fa fa-fw fa-globe"></i>知乎</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://me.csdn.net/ashjian" target="_blank" title="CSDN">
+                      
+                        <i class="fa fa-fw fa-codiepie"></i>CSDN</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+            <div class="links-of-blogroll motion-element links-of-blogroll-inline">
+              <div class="links-of-blogroll-title">
+                <i class="fa  fa-fw fa-link"></i>
+                Links
+              </div>
+              <ul class="links-of-blogroll-list">
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="http://mp.weixin.qq.com/user1" title="OpenInfo" target="_blank">OpenInfo</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="http://mp.weixin.qq.com/user2" title="stormzhang" target="_blank">stormzhang</a>
+                  </li>
+                
+              </ul>
+            </div>
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#函数的返回值"><span class="nav-number">1.</span> <span class="nav-text">函数的返回值</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#函数嵌套"><span class="nav-number">2.</span> <span class="nav-text">函数嵌套</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#作用域"><span class="nav-number">3.</span> <span class="nav-text">作用域</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#闭包"><span class="nav-number">4.</span> <span class="nav-text">闭包</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#nonlocal关键字"><span class="nav-number">5.</span> <span class="nav-text">nonlocal关键字</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#默认值的作用域"><span class="nav-number">6.</span> <span class="nav-text">默认值的作用域</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">StarDustLoong</span>
+
+  
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-area-chart"></i>
+    </span>
+    
+      <span class="post-meta-item-text">本站总字数&#58;</span>
+    
+    <span title="本站总字数">635.5k</span>
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Pisces</a> v5.1.4</div>
+
+
+
+
+#<!-- 百度自动推送 -->
+#<script>
+#(function(){
+#    var bp = document.createElement('script');
+#    var curProtocol = window.location.protocol.split(':')[0];
+#    if (curProtocol === 'https') {
+#        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+#    }
+#    else {
+#        bp.src = 'http://push.ashjian.baidu.com/push.js';
+#    }
+#    var s = document.getElementsByTagName("script")[0];
+#    s.parentNode.insertBefore(bp, s);
+#})();
+#</script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aplayer/dist/APlayer.min.css">
+
+<script src="https://cdn.jsdelivr.net/npm/aplayer/dist/APlayer.min.js"></script>
+<!-- require MetingJS -->
+
+<script src="https://cdn.jsdelivr.net/npm/meting@2.0.1/dist/Meting.min.js"></script>
+<div> 
+<meting-js  
+    server="netease" 
+    type="playlist"  
+    id="5281251057" 
+    fixed="true"  
+    autoplay="false" 
+    loop="all" 
+    order="random"
+    preload="auto" 
+    list-folded="ture" 
+    list-max-height="500px" 
+    lrc-type="1">
+</meting-js>	 
+</div>
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv">
+      本站访客数
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+      人次
+    </span>
+  
+
+  
+    <span class="site-pv">
+      本站总访问量
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+      次
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+  <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+  <script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+  
+  <script type="text/javascript">
+    var GUEST = ['nick','mail','link'];
+    var guest = 'nick,mail,link';
+    guest = guest.split(',').filter(item=>{
+      return GUEST.indexOf(item)>-1;
+    });
+    new Valine({
+        el: '#comments' ,
+        verify: false,
+        notify: false,
+        appId: 'Gp5xxuBGmRxC9yeJHf5wlLpN-gzGzoHsz',
+        appKey: 'wo0eDJonJrnuUrCCCU7EnH1n',
+        placeholder: '欢迎评论',
+        avatar:'mm',
+        guest_info:guest,
+        pageSize:'20' || 10,
+    });
+  </script>
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"jsonPath":"/live2dw/assets/dsr50_lifu_normal.model.json"},"display":{"position":"right","width":700,"height":800,"hOffset":-250,"vOffset":-150},"mobile":{"show":true,"scale":0.7},"log":false});</script></body>
+</html>
