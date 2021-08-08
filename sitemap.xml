@@ -2,6 +2,76 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>http://www.ashjian.xyz/Python%20--%20asyncio%E5%BA%93/</loc>
+    
+    <lastmod>2021-08-05T05:02:36.688Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://www.ashjian.xyz/python%20--%20%E7%BD%91%E7%BB%9C%E7%BC%96%E7%A8%8B(TCP%E7%BC%96%E7%A8%8B)/</loc>
+    
+    <lastmod>2021-08-05T04:41:48.305Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://www.ashjian.xyz/Socket%E7%BD%91%E7%BB%9C%E7%BC%96%E7%A8%8B-TCP%E7%BC%96%E7%A8%8B/</loc>
+    
+    <lastmod>2021-08-05T04:29:03.920Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://www.ashjian.xyz/python%20--%20%E7%BD%91%E7%BB%9C%E7%BC%96%E7%A8%8B(UDP%E7%BC%96%E7%A8%8B)/</loc>
+    
+    <lastmod>2021-08-05T03:44:10.522Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://www.ashjian.xyz/Socket%E7%BD%91%E7%BB%9C%E7%BC%96%E7%A8%8B-UDP%E7%BC%96%E7%A8%8B/</loc>
+    
+    <lastmod>2021-08-05T03:42:02.534Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://www.ashjian.xyz/Socket%E7%BD%91%E7%BB%9C%E7%BC%96%E7%A8%8B-IO%E5%A4%9A%E7%A7%8D%E6%A6%82%E5%BF%B5/</loc>
+    
+    <lastmod>2021-08-05T03:35:29.769Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://www.ashjian.xyz/Socket%E7%BD%91%E7%BB%9C%E7%BC%96%E7%A8%8B-Python%E4%B8%ADIO%E5%A4%9A%E8%B7%AF%E5%A4%8D%E7%94%A8/</loc>
+    
+    <lastmod>2021-08-05T03:26:25.200Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://www.ashjian.xyz/Socket%E7%BD%91%E7%BB%9C%E7%BC%96%E7%A8%8B-socketserver%E6%A8%A1%E5%9D%97%E7%BD%91%E7%BB%9C%E6%9C%8D%E5%8A%A1%E7%BC%96%E7%A8%8B%E6%A1%86%E6%9E%B6/</loc>
+    
+    <lastmod>2021-08-05T02:39:21.524Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://www.ashjian.xyz/Socket%E7%BD%91%E7%BB%9C%E7%BC%96%E7%A8%8B-SocketServer%E7%BC%96%E7%A8%8B/</loc>
+    
+    <lastmod>2021-08-05T02:38:42.468Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://www.ashjian.xyz/Tcp%E7%BC%96%E7%A8%8B%E7%BB%83%E4%B9%A0/</loc>
+    
+    <lastmod>2021-08-05T01:56:25.146Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>http://www.ashjian.xyz/PNME-79/</loc>
     
     <lastmod>2021-07-29T09:20:21.701Z</lastmod>
