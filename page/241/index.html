@@ -311,7 +311,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://www.ashjian.xyz/02-%E4%BD%8D%E7%BD%AE%E5%8F%98%E9%87%8F%E5%92%8C%E9%80%80%E5%87%BA%E7%A0%81/">
+    <link itemprop="mainEntityOfPage" href="http://www.ashjian.xyz/02-Zabbix-Agent-%E5%AE%89%E8%A3%85%E6%8C%87%E5%8D%97%E5%92%8CZabbix-Server%E8%AE%BE%E7%BD%AE%E8%87%AA%E5%8A%A8%E5%8F%91%E7%8E%B0/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="StarDustLoong">
@@ -330,7 +330,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/02-%E4%BD%8D%E7%BD%AE%E5%8F%98%E9%87%8F%E5%92%8C%E9%80%80%E5%87%BA%E7%A0%81/" itemprop="url">02-位置变量和退出码</a></h1>
+                <a class="post-title-link" href="/02-Zabbix-Agent-%E5%AE%89%E8%A3%85%E6%8C%87%E5%8D%97%E5%92%8CZabbix-Server%E8%AE%BE%E7%BD%AE%E8%87%AA%E5%8A%A8%E5%8F%91%E7%8E%B0/" itemprop="url">02-Zabbix-Agent 安装指南和Zabbix-Server设置自动发现</a></h1>
         
 
         <div class="post-meta">
@@ -342,8 +342,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-08-21T14:23:22+08:00">
-                2020-08-21
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-12-03T15:55:04+08:00">
+                2020-12-03
               </time>
             
 
@@ -358,34 +358,12 @@
               
                 <span class="post-meta-item-text">更新于&#58;</span>
               
-              <time title="更新于" itemprop="dateModified" datetime="2021-03-26T18:02:19+08:00">
+              <time title="更新于" itemprop="dateModified" datetime="2021-03-26T18:02:12+08:00">
                 2021-03-26
               </time>
             
           </span>
 
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/linux/" itemprop="url" rel="index">
-                    <span itemprop="name">linux</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
           
 
           
@@ -395,8 +373,8 @@
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/02-%E4%BD%8D%E7%BD%AE%E5%8F%98%E9%87%8F%E5%92%8C%E9%80%80%E5%87%BA%E7%A0%81/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count valine-comment-count" data-xid="/02-%E4%BD%8D%E7%BD%AE%E5%8F%98%E9%87%8F%E5%92%8C%E9%80%80%E5%87%BA%E7%A0%81/" itemprop="commentCount"></span>
+                <a href="/02-Zabbix-Agent-%E5%AE%89%E8%A3%85%E6%8C%87%E5%8D%97%E5%92%8CZabbix-Server%E8%AE%BE%E7%BD%AE%E8%87%AA%E5%8A%A8%E5%8F%91%E7%8E%B0/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/02-Zabbix-Agent-%E5%AE%89%E8%A3%85%E6%8C%87%E5%8D%97%E5%92%8CZabbix-Server%E8%AE%BE%E7%BD%AE%E8%87%AA%E5%8A%A8%E5%8F%91%E7%8E%B0/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -418,7 +396,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  750
+                  564
                 </span>
               
 
@@ -434,7 +412,7 @@
                   <span class="post-meta-item-text">阅读时长 &asymp;</span>
                 
                 <span title="阅读时长">
-                  3
+                  2
                 </span>
               
             </div>
@@ -456,16 +434,13 @@
       
         
           
-          位置变量位置变量：在脚本代码中调用通过命令行传递给脚本的参数
-
-$1, $2, ...$9, ${10}：对应脚本后参数的位置，超过两位数后要加花括号。
-$0: 脚本本身（绝对路径）
-
-1234567#!&#x2F;bin&#x2F;bashecho The script name is &#96;
+          Zabbix Agent分为两种模式，被动模式（Passive)和主动模式（
+我们实验在node1.yulongjun.com 和node2.yulongjun.com上分别配置Zabbix Agent。
+yum 安装 Zabbix Agent123rpm -ivh http:&#x2F;&#x2F
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/02-%E4%BD%8D%E7%BD%AE%E5%8F%98%E9%87%8F%E5%92%8C%E9%80%80%E5%87%BA%E7%A0%81/#more" rel="contents">
+            <a class="btn" href="/02-Zabbix-Agent-%E5%AE%89%E8%A3%85%E6%8C%87%E5%8D%97%E5%92%8CZabbix-Server%E8%AE%BE%E7%BD%AE%E8%87%AA%E5%8A%A8%E5%8F%91%E7%8E%B0/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -520,7 +495,7 @@ $0: 脚本本身（绝对路径）
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://www.ashjian.xyz/01-%E5%85%A8%E5%B1%80%E5%8F%98%E9%87%8F%E5%92%8C%E5%B1%80%E9%83%A8%E5%8F%98%E9%87%8F/">
+    <link itemprop="mainEntityOfPage" href="http://www.ashjian.xyz/01-Zabbix-Server%E5%AE%89%E8%A3%85%E6%8C%87%E5%8D%97/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="StarDustLoong">
@@ -539,7 +514,7 @@ $0: 脚本本身（绝对路径）
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/01-%E5%85%A8%E5%B1%80%E5%8F%98%E9%87%8F%E5%92%8C%E5%B1%80%E9%83%A8%E5%8F%98%E9%87%8F/" itemprop="url">01-全局变量和局部变量</a></h1>
+                <a class="post-title-link" href="/01-Zabbix-Server%E5%AE%89%E8%A3%85%E6%8C%87%E5%8D%97/" itemprop="url">01-Zabbix-Server安装指南</a></h1>
         
 
         <div class="post-meta">
@@ -551,8 +526,8 @@ $0: 脚本本身（绝对路径）
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-08-21T14:08:43+08:00">
-                2020-08-21
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-12-03T15:55:03+08:00">
+                2020-12-03
               </time>
             
 
@@ -567,34 +542,12 @@ $0: 脚本本身（绝对路径）
               
                 <span class="post-meta-item-text">更新于&#58;</span>
               
-              <time title="更新于" itemprop="dateModified" datetime="2021-03-26T18:02:14+08:00">
+              <time title="更新于" itemprop="dateModified" datetime="2021-03-26T18:02:04+08:00">
                 2021-03-26
               </time>
             
           </span>
 
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/linux/" itemprop="url" rel="index">
-                    <span itemprop="name">linux</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
           
 
           
@@ -604,8 +557,8 @@ $0: 脚本本身（绝对路径）
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/01-%E5%85%A8%E5%B1%80%E5%8F%98%E9%87%8F%E5%92%8C%E5%B1%80%E9%83%A8%E5%8F%98%E9%87%8F/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count valine-comment-count" data-xid="/01-%E5%85%A8%E5%B1%80%E5%8F%98%E9%87%8F%E5%92%8C%E5%B1%80%E9%83%A8%E5%8F%98%E9%87%8F/" itemprop="commentCount"></span>
+                <a href="/01-Zabbix-Server%E5%AE%89%E8%A3%85%E6%8C%87%E5%8D%97/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/01-Zabbix-Server%E5%AE%89%E8%A3%85%E6%8C%87%E5%8D%97/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -627,7 +580,7 @@ $0: 脚本本身（绝对路径）
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  942
+                  1.4k
                 </span>
               
 
@@ -643,7 +596,7 @@ $0: 脚本本身（绝对路径）
                   <span class="post-meta-item-text">阅读时长 &asymp;</span>
                 
                 <span title="阅读时长">
-                  4
+                  5
                 </span>
               
             </div>
@@ -665,17 +618,12 @@ $0: 脚本本身（绝对路径）
       
         
           
-          
-全局变量对于shell会话和所有生成的子shell都是可见的。局部变量则只对创建它们的 shell可见。
-
-
-全局变量（global variables）用printenv就可以打印全局变量，里面会包括系统生成的全局环境变量和用户自定义的环境变量。
-下面列出部分CentOS的全局环境变量：
-123
+          安装 Zabbix 的 yum 仓库在所有机器上安装zabbix的yum仓库文件：
+1rpm -ivh http:&#x2F;&#x2F;repo.zabbix.com&#x2F;zabbix&#x2F;3.4&#x2F;rhel&#x2F;7&#x2F;x86_64&#x2F;zabbix-rel
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/01-%E5%85%A8%E5%B1%80%E5%8F%98%E9%87%8F%E5%92%8C%E5%B1%80%E9%83%A8%E5%8F%98%E9%87%8F/#more" rel="contents">
+            <a class="btn" href="/01-Zabbix-Server%E5%AE%89%E8%A3%85%E6%8C%87%E5%8D%97/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -730,7 +678,7 @@ $0: 脚本本身（绝对路径）
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://www.ashjian.xyz/%E8%BA%AB%E4%BB%BD%E4%B8%8D%E5%90%8C%EF%BC%8C%E5%BF%83%E6%80%80%E4%B8%8D%E5%90%8C/">
+    <link itemprop="mainEntityOfPage" href="http://www.ashjian.xyz/05-INSERT%E3%80%81DELETE%E3%80%81UPDATE%E8%AF%AD%E5%8F%A5/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="StarDustLoong">
@@ -749,7 +697,7 @@ $0: 脚本本身（绝对路径）
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/%E8%BA%AB%E4%BB%BD%E4%B8%8D%E5%90%8C%EF%BC%8C%E5%BF%83%E6%80%80%E4%B8%8D%E5%90%8C/" itemprop="url">身份不同，心怀不同</a></h1>
+                <a class="post-title-link" href="/05-INSERT%E3%80%81DELETE%E3%80%81UPDATE%E8%AF%AD%E5%8F%A5/" itemprop="url">05-INSERT、DELETE、UPDATE语句</a></h1>
         
 
         <div class="post-meta">
@@ -761,8 +709,8 @@ $0: 脚本本身（绝对路径）
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-08-21T11:00:19+08:00">
-                2020-08-21
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-12-03T15:05:54+08:00">
+                2020-12-03
               </time>
             
 
@@ -777,34 +725,12 @@ $0: 脚本本身（绝对路径）
               
                 <span class="post-meta-item-text">更新于&#58;</span>
               
-              <time title="更新于" itemprop="dateModified" datetime="2021-03-26T18:02:25+08:00">
+              <time title="更新于" itemprop="dateModified" datetime="2021-03-26T18:02:13+08:00">
                 2021-03-26
               </time>
             
           </span>
 
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E6%9D%82%E8%B0%88/" itemprop="url" rel="index">
-                    <span itemprop="name">杂谈</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
           
 
           
@@ -814,8 +740,8 @@ $0: 脚本本身（绝对路径）
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/%E8%BA%AB%E4%BB%BD%E4%B8%8D%E5%90%8C%EF%BC%8C%E5%BF%83%E6%80%80%E4%B8%8D%E5%90%8C/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count valine-comment-count" data-xid="/%E8%BA%AB%E4%BB%BD%E4%B8%8D%E5%90%8C%EF%BC%8C%E5%BF%83%E6%80%80%E4%B8%8D%E5%90%8C/" itemprop="commentCount"></span>
+                <a href="/05-INSERT%E3%80%81DELETE%E3%80%81UPDATE%E8%AF%AD%E5%8F%A5/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/05-INSERT%E3%80%81DELETE%E3%80%81UPDATE%E8%AF%AD%E5%8F%A5/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -837,7 +763,7 @@ $0: 脚本本身（绝对路径）
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  125
+                  405
                 </span>
               
 
@@ -875,12 +801,16 @@ $0: 脚本本身（绝对路径）
       
         
           
-          一个做游戏设计突然脑光，灵感来了，打电话給远方的老大，巴拉巴拉地说这角色设计应该怎样。这时如果老大和懂皇这类高级人物在一起，高谈金融经济影响世界等高格局的事情，就可能不爽，你这小格局的东西就别打扰高格局的事情。游戏设计工作就是很可能和这些不在同一个格局的上级打交道的。
+          INSERT1INSERT INTO &lt;表名&gt; (列名1, 列名2, ...) Values (value1, value2, ...);
 
-          
+省略列名不写，就得写每一列的数据：
+12INSERT INTO &lt;表名&gt;Values (value1, value2, ...);
+
+
+          ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/%E8%BA%AB%E4%BB%BD%E4%B8%8D%E5%90%8C%EF%BC%8C%E5%BF%83%E6%80%80%E4%B8%8D%E5%90%8C/#more" rel="contents">
+            <a class="btn" href="/05-INSERT%E3%80%81DELETE%E3%80%81UPDATE%E8%AF%AD%E5%8F%A5/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -935,7 +865,7 @@ $0: 脚本本身（绝对路径）
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://www.ashjian.xyz/%E8%B5%B0%E4%BA%86%E7%9A%84%E4%BA%BA%E5%B0%B1%E5%83%8F%E7%85%A7%E7%89%87%E6%8C%82%E5%9C%A8%E5%A2%99%E4%B8%8A/">
+    <link itemprop="mainEntityOfPage" href="http://www.ashjian.xyz/04-SELECT%E8%AF%AD%E5%8F%A5/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="StarDustLoong">
@@ -954,7 +884,7 @@ $0: 脚本本身（绝对路径）
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/%E8%B5%B0%E4%BA%86%E7%9A%84%E4%BA%BA%E5%B0%B1%E5%83%8F%E7%85%A7%E7%89%87%E6%8C%82%E5%9C%A8%E5%A2%99%E4%B8%8A/" itemprop="url">走了的人就像照片挂在墙上</a></h1>
+                <a class="post-title-link" href="/04-SELECT%E8%AF%AD%E5%8F%A5/" itemprop="url">04-SELECT语句</a></h1>
         
 
         <div class="post-meta">
@@ -966,8 +896,8 @@ $0: 脚本本身（绝对路径）
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-08-20T23:56:27+08:00">
-                2020-08-20
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-12-03T15:05:53+08:00">
+                2020-12-03
               </time>
             
 
@@ -982,7 +912,7 @@ $0: 脚本本身（绝对路径）
               
                 <span class="post-meta-item-text">更新于&#58;</span>
               
-              <time title="更新于" itemprop="dateModified" datetime="2021-03-26T18:02:09+08:00">
+              <time title="更新于" itemprop="dateModified" datetime="2021-03-26T18:02:23+08:00">
                 2021-03-26
               </time>
             
@@ -997,8 +927,755 @@ $0: 脚本本身（绝对路径）
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/%E8%B5%B0%E4%BA%86%E7%9A%84%E4%BA%BA%E5%B0%B1%E5%83%8F%E7%85%A7%E7%89%87%E6%8C%82%E5%9C%A8%E5%A2%99%E4%B8%8A/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count valine-comment-count" data-xid="/%E8%B5%B0%E4%BA%86%E7%9A%84%E4%BA%BA%E5%B0%B1%E5%83%8F%E7%85%A7%E7%89%87%E6%8C%82%E5%9C%A8%E5%A2%99%E4%B8%8A/" itemprop="commentCount"></span>
+                <a href="/04-SELECT%E8%AF%AD%E5%8F%A5/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/04-SELECT%E8%AF%AD%E5%8F%A5/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  651
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  2
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+      
+      
+
+      
+        
+          
+          可以看《SQL基础教程（第2版）》第二章，这本书是2017年5月出的最新版。
+第二章内容：
+
+
+（下面内容请忽略，笔者已会SQL语句，下面内容是查漏补缺写的笔记）
+
+聚合函数(Group Function)
+count()
+sum()
+max()
+min()
+
+GROUP BY使用 GROUP BY
+          ...
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/04-SELECT%E8%AF%AD%E5%8F%A5/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+    
+    
+    
+
+     <!-- 文章末尾统一添加“本文结束”标记 -->
+    <div>
+      
+    </div>
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://www.ashjian.xyz/03-SQL%E8%AF%AD%E5%8F%A5%E7%AE%80%E5%8D%95%E7%A4%BA%E4%BE%8B/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="StarDustLoong">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/uploads/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/03-SQL%E8%AF%AD%E5%8F%A5%E7%AE%80%E5%8D%95%E7%A4%BA%E4%BE%8B/" itemprop="url">03-SQL语句简单示例</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-12-03T15:05:52+08:00">
+                2020-12-03
+              </time>
+            
+
+            
+              <span class="post-meta-divider">|</span>
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-check-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">更新于&#58;</span>
+              
+              <time title="更新于" itemprop="dateModified" datetime="2021-03-26T18:02:17+08:00">
+                2021-03-26
+              </time>
+            
+          </span>
+
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/03-SQL%E8%AF%AD%E5%8F%A5%E7%AE%80%E5%8D%95%E7%A4%BA%E4%BE%8B/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/03-SQL%E8%AF%AD%E5%8F%A5%E7%AE%80%E5%8D%95%E7%A4%BA%E4%BE%8B/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  708
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  3
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+      
+      
+
+      
+        
+          
+          简单的几个示例演示一下。
+创建1. 数据库的创建（ CREATE DATABASE 语句）1CREATE DATABASE &lt;数据库名称&gt; ;
+
+2. 表的创建（CREATE TABLE 语句）12345678CREATE TABLE &lt;表名&gt;(&lt;列名1&gt; &lt
+          ...
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/03-SQL%E8%AF%AD%E5%8F%A5%E7%AE%80%E5%8D%95%E7%A4%BA%E4%BE%8B/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+    
+    
+    
+
+     <!-- 文章末尾统一添加“本文结束”标记 -->
+    <div>
+      
+    </div>
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://www.ashjian.xyz/02-MariaDB%E5%AE%89%E8%A3%85/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="StarDustLoong">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/uploads/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/02-MariaDB%E5%AE%89%E8%A3%85/" itemprop="url">02-MariaDB安装</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-12-03T15:05:51+08:00">
+                2020-12-03
+              </time>
+            
+
+            
+              <span class="post-meta-divider">|</span>
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-check-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">更新于&#58;</span>
+              
+              <time title="更新于" itemprop="dateModified" datetime="2021-03-26T18:02:13+08:00">
+                2021-03-26
+              </time>
+            
+          </span>
+
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/02-MariaDB%E5%AE%89%E8%A3%85/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/02-MariaDB%E5%AE%89%E8%A3%85/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  211
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  1
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+      
+      
+
+      
+        
+          
+          CentOS7中，iso镜像里就带有MariaDB，因此通过yum安装mariaDB就可以了，但是版本不是最新的。
+如果想要在6或7上安装最新的MariaDB，可以设置yum generator来找到yum repo地址，来安装：
+yum generator：https://downloads.ma
+          ...
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/02-MariaDB%E5%AE%89%E8%A3%85/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+    
+    
+    
+
+     <!-- 文章末尾统一添加“本文结束”标记 -->
+    <div>
+      
+    </div>
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://www.ashjian.xyz/01-%E6%95%B0%E6%8D%AE%E5%BA%93%E5%92%8CSQL%E7%AE%80%E4%BB%8B/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="StarDustLoong">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/uploads/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/01-%E6%95%B0%E6%8D%AE%E5%BA%93%E5%92%8CSQL%E7%AE%80%E4%BB%8B/" itemprop="url">01-数据库和SQL简介</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-12-03T15:05:50+08:00">
+                2020-12-03
+              </time>
+            
+
+            
+              <span class="post-meta-divider">|</span>
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-check-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">更新于&#58;</span>
+              
+              <time title="更新于" itemprop="dateModified" datetime="2021-03-26T18:02:06+08:00">
+                2021-03-26
+              </time>
+            
+          </span>
+
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/01-%E6%95%B0%E6%8D%AE%E5%BA%93%E5%92%8CSQL%E7%AE%80%E4%BB%8B/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/01-%E6%95%B0%E6%8D%AE%E5%BA%93%E5%92%8CSQL%E7%AE%80%E4%BB%8B/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  432
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  1
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+      
+      
+
+      
+        
+          
+          现在比较流行的数据库分为以下几种：
+
+Relational DBMS：如Oracle，MySQL/MariaDB，SQL Server，DB2。Document Store：如MongoDB，Amazon DynamoDB。Key-Value Store：如Redis。Search Engine：如
+          ...
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/01-%E6%95%B0%E6%8D%AE%E5%BA%93%E5%92%8CSQL%E7%AE%80%E4%BB%8B/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+    
+    
+    
+
+     <!-- 文章末尾统一添加“本文结束”标记 -->
+    <div>
+      
+    </div>
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://www.ashjian.xyz/05-%E5%8F%8C%E7%BD%91%E7%BB%9C%E5%8F%8C%E6%B4%BB%E6%A8%A1%E5%BC%8F%E7%9A%84Keepalived-Nginx%E9%85%8D%E7%BD%AE/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="StarDustLoong">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/uploads/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/05-%E5%8F%8C%E7%BD%91%E7%BB%9C%E5%8F%8C%E6%B4%BB%E6%A8%A1%E5%BC%8F%E7%9A%84Keepalived-Nginx%E9%85%8D%E7%BD%AE/" itemprop="url">05-双网络双活模式的Keepalived+Nginx配置</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-12-03T14:09:10+08:00">
+                2020-12-03
+              </time>
+            
+
+            
+              <span class="post-meta-divider">|</span>
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-check-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">更新于&#58;</span>
+              
+              <time title="更新于" itemprop="dateModified" datetime="2021-03-26T18:02:14+08:00">
+                2021-03-26
+              </time>
+            
+          </span>
+
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/05-%E5%8F%8C%E7%BD%91%E7%BB%9C%E5%8F%8C%E6%B4%BB%E6%A8%A1%E5%BC%8F%E7%9A%84Keepalived-Nginx%E9%85%8D%E7%BD%AE/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/05-%E5%8F%8C%E7%BD%91%E7%BB%9C%E5%8F%8C%E6%B4%BB%E6%A8%A1%E5%BC%8F%E7%9A%84Keepalived-Nginx%E9%85%8D%E7%BD%AE/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -1062,7 +1739,7 @@ $0: 脚本本身（绝对路径）
           
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/%E8%B5%B0%E4%BA%86%E7%9A%84%E4%BA%BA%E5%B0%B1%E5%83%8F%E7%85%A7%E7%89%87%E6%8C%82%E5%9C%A8%E5%A2%99%E4%B8%8A/#more" rel="contents">
+            <a class="btn" href="/05-%E5%8F%8C%E7%BD%91%E7%BB%9C%E5%8F%8C%E6%B4%BB%E6%A8%A1%E5%BC%8F%E7%9A%84Keepalived-Nginx%E9%85%8D%E7%BD%AE/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -1117,7 +1794,7 @@ $0: 脚本本身（绝对路径）
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://www.ashjian.xyz/03-%E6%96%87%E6%9C%AC%E5%A4%84%E7%90%86%E7%BB%83%E4%B9%A0%E9%A2%98/">
+    <link itemprop="mainEntityOfPage" href="http://www.ashjian.xyz/04-%E5%8D%95%E7%BD%91%E7%BB%9C%E5%8F%8C%E6%B4%BB%E6%A8%A1%E5%BC%8F%E7%9A%84Keepalived-LVS-DR%E9%85%8D%E7%BD%AE/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="StarDustLoong">
@@ -1136,7 +1813,7 @@ $0: 脚本本身（绝对路径）
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/03-%E6%96%87%E6%9C%AC%E5%A4%84%E7%90%86%E7%BB%83%E4%B9%A0%E9%A2%98/" itemprop="url">03-文本处理练习题</a></h1>
+                <a class="post-title-link" href="/04-%E5%8D%95%E7%BD%91%E7%BB%9C%E5%8F%8C%E6%B4%BB%E6%A8%A1%E5%BC%8F%E7%9A%84Keepalived-LVS-DR%E9%85%8D%E7%BD%AE/" itemprop="url">04-单网络双活模式的Keepalived+LVS-DR配置</a></h1>
         
 
         <div class="post-meta">
@@ -1148,426 +1825,8 @@ $0: 脚本本身（绝对路径）
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-08-20T15:30:15+08:00">
-                2020-08-20
-              </time>
-            
-
-            
-              <span class="post-meta-divider">|</span>
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-check-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">更新于&#58;</span>
-              
-              <time title="更新于" itemprop="dateModified" datetime="2021-03-26T18:02:21+08:00">
-                2021-03-26
-              </time>
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/linux/" itemprop="url" rel="index">
-                    <span itemprop="name">linux</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-              <span class="post-comments-count">
-                <span class="post-meta-divider">|</span>
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-comment-o"></i>
-                </span>
-                <a href="/03-%E6%96%87%E6%9C%AC%E5%A4%84%E7%90%86%E7%BB%83%E4%B9%A0%E9%A2%98/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count valine-comment-count" data-xid="/03-%E6%96%87%E6%9C%AC%E5%A4%84%E7%90%86%E7%BB%83%E4%B9%A0%E9%A2%98/" itemprop="commentCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-          
-
-          
-
-          
-            <div class="post-wordcount">
-              
-                
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-file-word-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">字数统计&#58;</span>
-                
-                <span title="字数统计">
-                  927
-                </span>
-              
-
-              
-                <span class="post-meta-divider">|</span>
-              
-
-              
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-clock-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
-                
-                <span title="阅读时长">
-                  4
-                </span>
-              
-            </div>
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-      
-      
-
-      
-        
-          
-          grep练习题1、显示/proc/meminfo文件中以大小s开头的行(要求：使用两 种方法)
-12345678# 第一种：grep &quot;^[Ss] &#x2F;proc&#x2F;meminfo# 第二种：grep -i &quot;^s&quot; &#x2F;proc&#x2F;mem
-          ...
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/03-%E6%96%87%E6%9C%AC%E5%A4%84%E7%90%86%E7%BB%83%E4%B9%A0%E9%A2%98/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-    
-    
-    
-
-     <!-- 文章末尾统一添加“本文结束”标记 -->
-    <div>
-      
-    </div>
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://www.ashjian.xyz/02-%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F-RegExp/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="StarDustLoong">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/uploads/avatar.png">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/02-%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F-RegExp/" itemprop="url">02-正则表达式(RegExp)</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-08-20T15:08:38+08:00">
-                2020-08-20
-              </time>
-            
-
-            
-              <span class="post-meta-divider">|</span>
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-check-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">更新于&#58;</span>
-              
-              <time title="更新于" itemprop="dateModified" datetime="2021-03-26T18:02:04+08:00">
-                2021-03-26
-              </time>
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/linux/" itemprop="url" rel="index">
-                    <span itemprop="name">linux</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-              <span class="post-comments-count">
-                <span class="post-meta-divider">|</span>
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-comment-o"></i>
-                </span>
-                <a href="/02-%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F-RegExp/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count valine-comment-count" data-xid="/02-%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F-RegExp/" itemprop="commentCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-          
-
-          
-
-          
-            <div class="post-wordcount">
-              
-                
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-file-word-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">字数统计&#58;</span>
-                
-                <span title="字数统计">
-                  762
-                </span>
-              
-
-              
-                <span class="post-meta-divider">|</span>
-              
-
-              
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-clock-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
-                
-                <span title="阅读时长">
-                  2
-                </span>
-              
-            </div>
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-      
-      
-
-      
-        
-          
-          Regular Expression，正则表达式，简写为RegExp。
-
-BRE ：Basic RegExp，基本正则表达式
-ERE ：Extend RegExp，扩展正则表达式
-PCRE ：Perl Compatible RegExp，Perl兼容的正则表达式
-
-
-基本正则表达式字符匹配
-
-. 匹
-          ...
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/02-%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F-RegExp/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-    
-    
-    
-
-     <!-- 文章末尾统一添加“本文结束”标记 -->
-    <div>
-      
-    </div>
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://www.ashjian.xyz/01-%E6%96%87%E6%9C%AC%E5%A4%84%E7%90%86%E5%B7%A5%E5%85%B7/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="StarDustLoong">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/uploads/avatar.png">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/01-%E6%96%87%E6%9C%AC%E5%A4%84%E7%90%86%E5%B7%A5%E5%85%B7/" itemprop="url">01-文本处理工具</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-08-20T15:07:03+08:00">
-                2020-08-20
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-12-03T14:09:09+08:00">
+                2020-12-03
               </time>
             
 
@@ -1589,28 +1848,6 @@ PCRE ：Perl Compatible RegExp，Perl兼容的正则表达式
           </span>
 
           
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/linux/" itemprop="url" rel="index">
-                    <span itemprop="name">linux</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
 
           
             
@@ -1619,8 +1856,8 @@ PCRE ：Perl Compatible RegExp，Perl兼容的正则表达式
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/01-%E6%96%87%E6%9C%AC%E5%A4%84%E7%90%86%E5%B7%A5%E5%85%B7/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count valine-comment-count" data-xid="/01-%E6%96%87%E6%9C%AC%E5%A4%84%E7%90%86%E5%B7%A5%E5%85%B7/" itemprop="commentCount"></span>
+                <a href="/04-%E5%8D%95%E7%BD%91%E7%BB%9C%E5%8F%8C%E6%B4%BB%E6%A8%A1%E5%BC%8F%E7%9A%84Keepalived-LVS-DR%E9%85%8D%E7%BD%AE/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/04-%E5%8D%95%E7%BD%91%E7%BB%9C%E5%8F%8C%E6%B4%BB%E6%A8%A1%E5%BC%8F%E7%9A%84Keepalived-LVS-DR%E9%85%8D%E7%BD%AE/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -1642,224 +1879,7 @@ PCRE ：Perl Compatible RegExp，Perl兼容的正则表达式
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  2.1k
-                </span>
-              
-
-              
-                <span class="post-meta-divider">|</span>
-              
-
-              
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-clock-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
-                
-                <span title="阅读时长">
-                  9
-                </span>
-              
-            </div>
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-      
-      
-
-      
-        
-          
-          
-文件查看cat查看文件，从第一行到最后一行全部显示。
-参数：
-
-
--E: 显示行结束符$
--A：显示不可打印字符，通常查看脚本是否有多加空格tab回车之类的。
--n：对显示出的每一行进行编号
--s：显示行号，压缩连续的空行，只显示一行空行
--b ：空行不加行号，等同于nl命令
-
-
-示例：
-1234
-          ...
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/01-%E6%96%87%E6%9C%AC%E5%A4%84%E7%90%86%E5%B7%A5%E5%85%B7/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-    
-    
-    
-
-     <!-- 文章末尾统一添加“本文结束”标记 -->
-    <div>
-      
-    </div>
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://www.ashjian.xyz/04-%E6%9D%83%E9%99%90%E5%92%8CACL%E7%BB%83%E4%B9%A0%E9%A2%98/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="StarDustLoong">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/uploads/avatar.png">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/04-%E6%9D%83%E9%99%90%E5%92%8CACL%E7%BB%83%E4%B9%A0%E9%A2%98/" itemprop="url">04-权限和ACL练习题</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-08-19T22:58:29+08:00">
-                2020-08-19
-              </time>
-            
-
-            
-              <span class="post-meta-divider">|</span>
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-check-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">更新于&#58;</span>
-              
-              <time title="更新于" itemprop="dateModified" datetime="2021-03-26T18:02:19+08:00">
-                2021-03-26
-              </time>
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/linux/" itemprop="url" rel="index">
-                    <span itemprop="name">linux</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-              <span class="post-comments-count">
-                <span class="post-meta-divider">|</span>
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-comment-o"></i>
-                </span>
-                <a href="/04-%E6%9D%83%E9%99%90%E5%92%8CACL%E7%BB%83%E4%B9%A0%E9%A2%98/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count valine-comment-count" data-xid="/04-%E6%9D%83%E9%99%90%E5%92%8CACL%E7%BB%83%E4%B9%A0%E9%A2%98/" itemprop="commentCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-          
-
-          
-
-          
-            <div class="post-wordcount">
-              
-                
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-file-word-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">字数统计&#58;</span>
-                
-                <span title="字数统计">
-                  328
+                  0
                 </span>
               
 
@@ -1897,13 +1917,11 @@ PCRE ：Perl Compatible RegExp，Perl兼容的正则表达式
       
         
           
-          1、在/testdir/dir里创建的新文件自动属于g1组，组 g2的成员如：alice能对这些新文件有读写权限，组g3 的成员如：tom只能对新文件有读权限，其它用户（不 属于g1,g2,g3）不能访问这个文件夹。
-前期准备：
-1234567[root@ashjian ~]# echo g&#12
-          ...
+          
+          
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/04-%E6%9D%83%E9%99%90%E5%92%8CACL%E7%BB%83%E4%B9%A0%E9%A2%98/#more" rel="contents">
+            <a class="btn" href="/04-%E5%8D%95%E7%BD%91%E7%BB%9C%E5%8F%8C%E6%B4%BB%E6%A8%A1%E5%BC%8F%E7%9A%84Keepalived-LVS-DR%E9%85%8D%E7%BD%AE/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -1958,7 +1976,7 @@ PCRE ：Perl Compatible RegExp，Perl兼容的正则表达式
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://www.ashjian.xyz/03-%E8%AE%BF%E9%97%AE%E6%8E%A7%E5%88%B6%E5%88%97%E8%A1%A8%EF%BC%88ACL%EF%BC%89/">
+    <link itemprop="mainEntityOfPage" href="http://www.ashjian.xyz/03-Keepalived%E5%90%84%E7%A7%8D%E6%A8%A1%E5%BC%8F%E9%85%8D%E7%BD%AE/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="StarDustLoong">
@@ -1977,7 +1995,7 @@ PCRE ：Perl Compatible RegExp，Perl兼容的正则表达式
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/03-%E8%AE%BF%E9%97%AE%E6%8E%A7%E5%88%B6%E5%88%97%E8%A1%A8%EF%BC%88ACL%EF%BC%89/" itemprop="url">03-访问控制列表（ACL）</a></h1>
+                <a class="post-title-link" href="/03-Keepalived%E5%90%84%E7%A7%8D%E6%A8%A1%E5%BC%8F%E9%85%8D%E7%BD%AE/" itemprop="url">03-Keepalived各种模式配置</a></h1>
         
 
         <div class="post-meta">
@@ -1989,8 +2007,8 @@ PCRE ：Perl Compatible RegExp，Perl兼容的正则表达式
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-08-19T22:56:44+08:00">
-                2020-08-19
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-12-03T14:09:08+08:00">
+                2020-12-03
               </time>
             
 
@@ -2005,34 +2023,12 @@ PCRE ：Perl Compatible RegExp，Perl兼容的正则表达式
               
                 <span class="post-meta-item-text">更新于&#58;</span>
               
-              <time title="更新于" itemprop="dateModified" datetime="2021-03-26T18:02:17+08:00">
+              <time title="更新于" itemprop="dateModified" datetime="2021-03-26T18:02:13+08:00">
                 2021-03-26
               </time>
             
           </span>
 
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/linux/" itemprop="url" rel="index">
-                    <span itemprop="name">linux</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
           
 
           
@@ -2042,8 +2038,8 @@ PCRE ：Perl Compatible RegExp，Perl兼容的正则表达式
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/03-%E8%AE%BF%E9%97%AE%E6%8E%A7%E5%88%B6%E5%88%97%E8%A1%A8%EF%BC%88ACL%EF%BC%89/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count valine-comment-count" data-xid="/03-%E8%AE%BF%E9%97%AE%E6%8E%A7%E5%88%B6%E5%88%97%E8%A1%A8%EF%BC%88ACL%EF%BC%89/" itemprop="commentCount"></span>
+                <a href="/03-Keepalived%E5%90%84%E7%A7%8D%E6%A8%A1%E5%BC%8F%E9%85%8D%E7%BD%AE/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/03-Keepalived%E5%90%84%E7%A7%8D%E6%A8%A1%E5%BC%8F%E9%85%8D%E7%BD%AE/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -2065,7 +2061,7 @@ PCRE ：Perl Compatible RegExp，Perl兼容的正则表达式
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  1.4k
+                  2.8k
                 </span>
               
 
@@ -2081,7 +2077,7 @@ PCRE ：Perl Compatible RegExp，Perl兼容的正则表达式
                   <span class="post-meta-item-text">阅读时长 &asymp;</span>
                 
                 <span title="阅读时长">
-                  6
+                  16
                 </span>
               
             </div>
@@ -2103,218 +2099,16 @@ PCRE ：Perl Compatible RegExp，Perl兼容的正则表达式
       
         
           
-          ACL：Access Control List 访问控制列表
-除了文件原本的权限位设置，可以自定义用户访问控制。
-CentOS 7 默认创建的xfs和ext4文件系统具有ACL功能
-CentOS 7 之前版本，系统安装时候创建的文件系统有ACL功能，默认手工创建的ext4文件系统无ACL功 能，需手
+          
+
+由于图片花费很长时间制作，本文图片转载或使用请务必加上原文链接，图片中的作者信息也请勿删除，谢谢！
+
+下面仅仅是Keepalived配置里只关于Keepalived部分的相关的配置。从最简单的单网络单主模式，一直到双网络同步漂移的双主模式。
+单网络的Master-Backup主备模式（单主模式）
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/03-%E8%AE%BF%E9%97%AE%E6%8E%A7%E5%88%B6%E5%88%97%E8%A1%A8%EF%BC%88ACL%EF%BC%89/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-    
-    
-    
-
-     <!-- 文章末尾统一添加“本文结束”标记 -->
-    <div>
-      
-    </div>
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://www.ashjian.xyz/02-%E7%89%B9%E6%AE%8A%E6%9D%83%E9%99%90/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="StarDustLoong">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/uploads/avatar.png">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/02-%E7%89%B9%E6%AE%8A%E6%9D%83%E9%99%90/" itemprop="url">02-特殊权限</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-08-19T22:00:01+08:00">
-                2020-08-19
-              </time>
-            
-
-            
-              <span class="post-meta-divider">|</span>
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-check-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">更新于&#58;</span>
-              
-              <time title="更新于" itemprop="dateModified" datetime="2021-03-26T18:02:24+08:00">
-                2021-03-26
-              </time>
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/linux/" itemprop="url" rel="index">
-                    <span itemprop="name">linux</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-              <span class="post-comments-count">
-                <span class="post-meta-divider">|</span>
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-comment-o"></i>
-                </span>
-                <a href="/02-%E7%89%B9%E6%AE%8A%E6%9D%83%E9%99%90/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count valine-comment-count" data-xid="/02-%E7%89%B9%E6%AE%8A%E6%9D%83%E9%99%90/" itemprop="commentCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-          
-
-          
-
-          
-            <div class="post-wordcount">
-              
-                
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-file-word-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">字数统计&#58;</span>
-                
-                <span title="字数统计">
-                  129
-                </span>
-              
-
-              
-                <span class="post-meta-divider">|</span>
-              
-
-              
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-clock-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
-                
-                <span title="阅读时长">
-                  1
-                </span>
-              
-            </div>
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-      
-      
-
-      
-        
-          
-          [root@ashjian app]#touch file1[root@ashjian app]#chattr +i file1[root@ashjian app]#lsattr file1—-i———– file1[root@ashjian app]#echo “yulongjun” &gt; f
-          ...
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/02-%E7%89%B9%E6%AE%8A%E6%9D%83%E9%99%90/#more" rel="contents">
+            <a class="btn" href="/03-Keepalived%E5%90%84%E7%A7%8D%E6%A8%A1%E5%BC%8F%E9%85%8D%E7%BD%AE/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -2360,7 +2154,7 @@ CentOS 7 之前版本，系统安装时候创建的文件系统有ACL功能，�
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/page/240/">&lt;</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/240/">240</a><span class="page-number current">241</span><a class="page-number" href="/page/242/">242</a><span class="space">&hellip;</span><a class="page-number" href="/page/245/">245</a><a class="extend next" rel="next" href="/page/242/">&gt;</a>
+    <a class="extend prev" rel="prev" href="/page/240/">&lt;</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/240/">240</a><span class="page-number current">241</span><a class="page-number" href="/page/242/">242</a><span class="space">&hellip;</span><a class="page-number" href="/page/256/">256</a><a class="extend next" rel="next" href="/page/242/">&gt;</a>
   </nav>
 
 
@@ -2410,7 +2204,7 @@ CentOS 7 之前版本，系统安装时候创建的文件系统有ACL功能，�
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">2447</span>
+                  <span class="site-state-item-count">2557</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -2539,7 +2333,7 @@ CentOS 7 之前版本，系统安装时候创建的文件系统有ACL功能，�
     
       <span class="post-meta-item-text">本站总字数&#58;</span>
     
-    <span title="本站总字数">658.3k</span>
+    <span title="本站总字数">662.6k</span>
   
 </div>
 
