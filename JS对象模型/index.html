@@ -1,0 +1,1450 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="python的ES6," />
+
+
+
+
+  
+
+
+  <link rel="alternate" href="/atom.xml" title="" type="application/atom+xml" />
+
+
+
+
+
+
+<meta name="description" content="JavaScript 是一种基于原型（Prototype）的面向对象语言，而不是基于类的面向对象语言C++、Java有类Class和实例Instance的概念，类是一类事物的抽象，而实例则是类的实体 JS是基于原型的语言，它只有原型对象的概念。原型对象就是一个模板，新的对象从这个模板构建从而获取最初的属性。任何对象在运行时可以动态的增加属性。而且，任何一个对象都可以作为另一个对象的原型，这样后者就">
+<meta property="og:type" content="article">
+<meta property="og:title" content="JS对象模型">
+<meta property="og:url" content="http://www.ashjian.xyz/JS%E5%AF%B9%E8%B1%A1%E6%A8%A1%E5%9E%8B/index.html">
+<meta property="og:site_name">
+<meta property="og:description" content="JavaScript 是一种基于原型（Prototype）的面向对象语言，而不是基于类的面向对象语言C++、Java有类Class和实例Instance的概念，类是一类事物的抽象，而实例则是类的实体 JS是基于原型的语言，它只有原型对象的概念。原型对象就是一个模板，新的对象从这个模板构建从而获取最初的属性。任何对象在运行时可以动态的增加属性。而且，任何一个对象都可以作为另一个对象的原型，这样后者就">
+<meta property="article:published_time" content="2021-09-15T15:33:36.980Z">
+<meta property="article:modified_time" content="2021-09-12T10:26:02.272Z">
+<meta property="article:author" content="StarDustLoong">
+<meta property="article:tag" content="python的ES6">
+<meta name="twitter:card" content="summary">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://www.ashjian.xyz/JS对象模型/"/>
+
+
+
+
+
+  <title>JS对象模型 | </title>
+  
+
+
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?d7bf52f45e24a0e6f2951901a7a97864";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+<meta name="generator" content="Hexo 4.2.1"></head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title"></span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off"
+             placeholder="搜索..." spellcheck="false"
+             type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://www.ashjian.xyz/JS%E5%AF%B9%E8%B1%A1%E6%A8%A1%E5%9E%8B/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="StarDustLoong">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/uploads/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">JS对象模型</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2021-09-15T23:33:36+08:00">
+                2021-09-15
+              </time>
+            
+
+            
+              <span class="post-meta-divider">|</span>
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-check-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">更新于&#58;</span>
+              
+              <time title="更新于" itemprop="dateModified" datetime="2021-09-12T18:26:02+08:00">
+                2021-09-12
+              </time>
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/python/" itemprop="url" rel="index">
+                    <span itemprop="name">python</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/JS%E5%AF%B9%E8%B1%A1%E6%A8%A1%E5%9E%8B/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/JS%E5%AF%B9%E8%B1%A1%E6%A8%A1%E5%9E%8B/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  2.6k
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  12
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+      
+      
+
+      
+        <p>JavaScript 是一种基于原型（Prototype）的面向对象语言，而不是基于类的面向对象语言<br>C++、Java有类Class和实例Instance的概念，类是一类事物的抽象，而实例则是类的实体</p>
+<p>JS是基于原型的语言，它只有原型对象的概念。原型对象就是一个模板，新的对象从这个模板构建从而获取最初的属性。任何对象在运行时可以动态的增加属性。而且，任何一个对象都可以作为另一个对象的原型，这样后者就可以共享前者的属性</p>
+<h1 id="定义类"><a href="#定义类" class="headerlink" title="定义类"></a>定义类</h1><h2 id="字面式声明方式"><a href="#字面式声明方式" class="headerlink" title="字面式声明方式"></a>字面式声明方式</h2><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><code class="hljs json">var obj = &#123;<br>    property_1: value_1, // property_# may be an identifier...  <br>    property_2: value_2, // or a number...<br>    ...,<br>    "property n": value_n // or a string<br>&#125;;<br><br>var obj = &#123;<br>    x: 1,<br>    1: 'abc',<br>    'y': '123'<br>&#125;<br>for (let s in obj)<br>    console.log(s, typeof (s));<br></code></pre></td></tr></table></figure>
+
+<p>这种方法也称作字面值创建对象<br>Js 1.2开始支持</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><code class="hljs json">let a = 1, b = 2<br>let obj = &#123; a, b &#125;<br>let obj1 = &#123; a: a, 'b': b &#125; // 引号可以省<br><br>console.log(obj) // &#123; a: 1, b: 2 &#125;<br>console.log(obj1) // &#123; a: 1, b: 2 &#125;<br>let c = 'pro1'<br>let d = &#123;<br>    c: 1000, // 注意这个c是'c'，不是上面的变量c<br>    [c]: 2000 // 如果要用c变量，就要把c用中括号括起来<br>&#125;<br>let a = 1, b = 2<br></code></pre></td></tr></table></figure>
+
+<p>对象的键key只能是字符串类型，最后都会被转换成字符串</p>
+<h2 id="ES6之前——构造器"><a href="#ES6之前——构造器" class="headerlink" title="ES6之前——构造器"></a>ES6之前——构造器</h2><p>1、定义一个函数（构造器）对象，函数名首字母大写<br>2、使用this定义属性<br>3、使用new和构造器创建一个新对象</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-comment">// 定义类，构造器</span><br><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">Point</span>(<span class="hljs-params">x, y</span>) </span>&#123;<br>    <span class="hljs-keyword">this</span>.x = x;<br>    <span class="hljs-keyword">this</span>.y = y;<br>    <span class="hljs-keyword">this</span>.show = <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> &#123; <span class="hljs-built_in">console</span>.log(<span class="hljs-keyword">this</span>, <span class="hljs-keyword">this</span>.x, <span class="hljs-keyword">this</span>.y) &#125;;<br>    <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'Point~~~~~~~~'</span>);<br>&#125;<br><br><span class="hljs-built_in">console</span>.log(Point);<br>p1 = <span class="hljs-keyword">new</span> Point(<span class="hljs-number">4</span>, <span class="hljs-number">5</span>);<br><span class="hljs-built_in">console</span>.log(p1);<br><span class="hljs-built_in">console</span>.log(<span class="hljs-string">'----------------'</span>);<br><span class="hljs-comment">// 继承</span><br><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">Point3D</span>(<span class="hljs-params">x, y, z</span>) </span>&#123;<br>    Point.call(<span class="hljs-keyword">this</span>, x, y); <span class="hljs-comment">// "继承"    </span><br>    <span class="hljs-keyword">this</span>.z = z;<br>    <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'Point3D~~~~~~~~'</span>);<br>&#125;<br><br><span class="hljs-built_in">console</span>.log(Point3D);<br>p2 = <span class="hljs-keyword">new</span> Point3D(<span class="hljs-number">14</span>, <span class="hljs-number">15</span>, <span class="hljs-number">16</span>);<br><span class="hljs-built_in">console</span>.log(p2);<br>p2.show();<br><br><span class="hljs-comment">/* 执行结果</span><br><span class="hljs-comment">[Function: Point]</span><br><span class="hljs-comment">Point~~~~~~~~</span><br><span class="hljs-comment">Point &#123; x: 4, y: 5, show: [Function] &#125;</span><br><span class="hljs-comment">----------------</span><br><span class="hljs-comment">[Function: Point3D]</span><br><span class="hljs-comment">Point~~~~~~~~</span><br><span class="hljs-comment">Point3D~~~~~~~~</span><br><span class="hljs-comment">Point3D &#123; x: 14, y: 15, show: [Function], z: 16 &#125;</span><br><span class="hljs-comment">Point3D &#123; x: 14, y: 15, show: [Function], z: 16 &#125; 14 15</span><br><span class="hljs-comment">*/</span><br></code></pre></td></tr></table></figure>
+
+<p>new 构建一个新的通用对象，new操作符会将新对象的this值传递给Point3D构造器函数，函数为这个对象创建z属性。<br>从上句话知道，new后得到一个对象，使用这个对象的this来调用构造器，那么如何执行“基类”的构造器方法呢？<br>使用Point3D对象的this来执行Point的构造器，所以使用call方法，传入子类的this。<br>最终，构造完成后，将对象赋给p2。</p>
+<p><strong>注意：如果不使用new关键字，就是一次普通的函数调用，this不代表实例。</strong></p>
+<h2 id="ES6中的class"><a href="#ES6中的class" class="headerlink" title="ES6中的class"></a>ES6中的class</h2><p>从ES6开始，新提供了class关键字，使得创建对象更加简单、清晰</p>
+<ol>
+<li><p>类定义使用class关键字。创建的本质上还是函数，是一个特殊的函数</p>
+</li>
+<li><p>一个类只能拥有一个名为constructor的构造器方法。如果没有显式的定义一个构造方法，则会添加一个默认的constuctor方法</p>
+</li>
+<li><p>继承使用extends关键字</p>
+</li>
+<li><p>一个构造器可以使用super关键字来调用一个父类的构造函数</p>
+</li>
+<li><p>类没有私有属性</p>
+</li>
+</ol>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><code class="hljs json"><span class="hljs-comment">// 基类定义</span><br>class Point &#123;<br>    constructor(x, y) /*构造器*/ &#123;<br>        this.x = x;<br>        this.y = y;<br>    &#125;<br>    show() /*方法*/ &#123;<br>        console.log(this, this.x, this.y);<br>    &#125;<br>&#125;<br><br>let p1 = new Point(10, 11)<br>p1.show()<br><span class="hljs-comment">// 继承</span><br>class Point3D extends Point &#123;<br>    constructor(x, y, z) &#123;<br>        super(x, y);<br>        this.z = z;<br>    &#125;<br>&#125;<br><br>let p2 = new Point3D(20, 21, 22);<br>p2.show()<br><br><span class="hljs-comment">/* 执行结果</span><br><span class="hljs-comment">Point &#123; x: 10, y: 11 &#125; 10 11</span><br><span class="hljs-comment">Point3D &#123; x: 20, y: 21, z: 22 &#125; 20 21</span><br><span class="hljs-comment">*/</span><br></code></pre></td></tr></table></figure>
+
+<h3 id="重写方法"><a href="#重写方法" class="headerlink" title="重写方法"></a>重写方法</h3><p>子类Point3D的show方法，需要重写</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><code class="hljs json"><span class="hljs-comment">// 基类定义</span><br>class Point &#123;<br>    constructor(x, y) /*构造器*/ &#123;<br>        this.x = x;<br>        this.y = y;<br>    &#125;<br>    show() /*方法*/ &#123;<br>        console.log(this, this.x, this.y);<br>    &#125;<br>&#125;<br><br>let p1 = new Point(10, 11)<br>p1.show()<br><br><span class="hljs-comment">// 继承</span><br>class Point3D extends Point &#123;<br>    constructor(x, y, z) &#123;<br>        super(x, y);<br>        this.z = z;<br>    &#125;<br><br>    show() &#123; // 重写<br>        console.log(this, this.x, this.y, this.z);<br>    &#125;<br>&#125;<br><br>let p2 = new Point3D(20, 21, 22);<br>p2.show();<br><br><span class="hljs-comment">/* 执行结果</span><br><span class="hljs-comment">Point &#123; x: 10, y: 11 &#125; 10 11</span><br><span class="hljs-comment">Point3D &#123; x: 20, y: 21, z: 22 &#125; 20 21 22</span><br><span class="hljs-comment">*/</span><br></code></pre></td></tr></table></figure>
+
+<p>子类中直接重写父类的方法即可<br>如果需要使用父类的方法，使用super.method()的 方式调用</p>
+<ul>
+<li><strong>使用箭头函数重写上面的方法</strong></li>
+</ul>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><code class="hljs json"><span class="hljs-comment">// 基类定义</span><br><span class="hljs-comment">// 基类定义</span><br>class Point &#123;<br>    constructor(x, y) /*构造器*/ &#123;<br>        this.x = x;<br>        this.y = y;<br>        <span class="hljs-comment">//this.show = function () &#123;console.log(this,this.x,this.y)&#125;;</span><br>        this.show = () =&gt; console.log('Point');<br>    &#125;<br>&#125;<br><br><span class="hljs-comment">// 继承</span><br>class Point3D extends Point &#123;<br>    constructor(x, y, z) &#123;<br>        super(x, y);<br>        this.z = z;<br>        this.show = () =&gt; console.log('Point3D');<br>    &#125;<br>&#125;<br><br>let p2 = new Point3D(20, 21, 22);<br>p2.show(); // Point3D<br></code></pre></td></tr></table></figure>
+
+<p>从运行结果来看，箭头函数也支持子类的覆盖</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><code class="hljs json"><span class="hljs-comment">// 基类定义</span><br>class Point &#123;<br>    constructor(x, y) /*构造器*/ &#123;<br>        this.x = x;<br>        this.y = y;<br>        this.show = () =&gt; console.log('Point');<br>    &#125;<br>    <span class="hljs-comment">// show() /*方法*/ &#123;     </span><br>    <span class="hljs-comment">// console.log(this,this.x,this.y);     </span><br>    <span class="hljs-comment">// &#125;</span><br>&#125;<br><br><span class="hljs-comment">// 继承</span><br>class Point3D extends Point &#123;<br>    constructor(x, y, z) &#123;<br>        super(x, y);<br>        this.z = z;<br>        <span class="hljs-comment">//this.show = () =&gt; console.log('Point3D');</span><br>    &#125;<br>    show() &#123; // 重写<br>        console.log('Point3D');<br>    &#125;<br>&#125;<br><br>let p2 = new Point3D(20, 21, 22);<br>p2.show(); // Point<br></code></pre></td></tr></table></figure>
+
+<p>上例优先使用了父类的属性show</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><code class="hljs json"><span class="hljs-comment">// 基类定义</span><br>class Point &#123;<br>    constructor(x, y) /*构造器*/ &#123;<br>        this.x = x;<br>        this.y = y;<br>        <span class="hljs-comment">//this.show = () =&gt; console.log('Point');</span><br>    &#125;<br>    show() /*方法*/ &#123;<br>        console.log(this, this.x, this.y);<br>    &#125;<br>&#125;<br><br><span class="hljs-comment">// 继承</span><br>class Point3D extends Point &#123;<br>    constructor(x, y, z) &#123;<br>        super(x, y);<br>        this.z = z;<br>        this.show = () =&gt; console.log('Point3D');<br>    &#125;<br>&#125;<br><br>let p2 = new Point3D(20, 21, 22);<br>p2.show(); // Point3D<br></code></pre></td></tr></table></figure>
+
+<p>优先使用了子类的属性</p>
+<p><strong>总结</strong></p>
+<ul>
+<li>父类、子类使用同一种方式类定义属性或者方法，子类覆盖父类</li>
+<li>访问同名属性或方法时，优先使用属性</li>
+</ul>
+<h3 id="静态属性"><a href="#静态属性" class="headerlink" title="静态属性"></a>静态属性</h3><p>静态属性目前还没有得到很好的支持</p>
+<h3 id="静态方法"><a href="#静态方法" class="headerlink" title="静态方法"></a>静态方法</h3><p>在方法名前加上<code>static</code>，就是静态方法</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Add</span> </span>&#123;<br>    <span class="hljs-keyword">constructor</span>(x, y) &#123;<br>        <span class="hljs-keyword">this</span>.x = x;<br>        <span class="hljs-keyword">this</span>.y = y;<br>    &#125;<br>    <span class="hljs-keyword">static</span> print() &#123;<br>        <span class="hljs-built_in">console</span>.log(<span class="hljs-keyword">this</span>.x); <span class="hljs-comment">// ? this是什么</span><br>    &#125;<br>&#125;<br><br>add = <span class="hljs-keyword">new</span> Add(<span class="hljs-number">40</span>, <span class="hljs-number">50</span>);<br><span class="hljs-built_in">console</span>.log(Add);<br>Add.print();<br><span class="hljs-comment">//add.print(); // 实例不能访问直接访问静态方法，和C++、Java一致</span><br>add.constructor.print(); <span class="hljs-comment">// 实例可以通过constructor访问静态方法</span><br><br><span class="hljs-comment">/* 执行结果</span><br><span class="hljs-comment">[Function: Add]</span><br><span class="hljs-comment">undefined</span><br><span class="hljs-comment">undefined</span><br><span class="hljs-comment">*/</span><br></code></pre></td></tr></table></figure>
+
+<p>静态方法中的this是Add类，而不是Add的实例</p>
+<ul>
+<li><strong>注意：</strong><br>静态的概念和Python的静态不同，相当于Python中的类变量</li>
+</ul>
+<h2 id="this的坑"><a href="#this的坑" class="headerlink" title="this的坑"></a>this的坑</h2><p>虽然<code>Js</code>和 <code>C++</code> 、<code>Java</code>一样有<strong>this</strong>，但是<code>Js</code>的表现是不同的。<br>原因在于， <code>C++</code> 、<code>Java</code>是静态编译型语言，<strong>this</strong>是编译期绑定，而<code>Js</code>是动态语言，运行期绑定</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-keyword">var</span> school = &#123;<br>    name: <span class="hljs-string">'js'</span>,<br>    getNameFunc: <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>&#123;<br>        <span class="hljs-built_in">console</span>.log(<span class="hljs-keyword">this</span>.name);<br>        <span class="hljs-built_in">console</span>.log(<span class="hljs-keyword">this</span>);<br>        <span class="hljs-keyword">return</span> <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>&#123;<br>            <span class="hljs-built_in">console</span>.log(<span class="hljs-keyword">this</span> === global); <span class="hljs-comment">// this是否是global对象    </span><br>            <span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>.name;<br>        &#125;;<br>    &#125;<br>&#125;;<br><br><span class="hljs-built_in">console</span>.log(school.getNameFunc()());<br><br><span class="hljs-comment">/* 运行结果</span><br><span class="hljs-comment">js</span><br><span class="hljs-comment">&#123; name: 'js', getNameFunc: [Function: getNameFunc] &#125;</span><br><span class="hljs-comment">true</span><br><span class="hljs-comment">undefined</span><br><span class="hljs-comment">*/</span><br></code></pre></td></tr></table></figure>
+
+<p>函数执行时，会开启新的执行上下文环境ExecutionContext</p>
+<p>创建this属性，但是this是什么就要看函数是怎么调用的了</p>
+<ol>
+<li><code>myFunction(1,2,3)</code>，普通函数调用方式，this指向全局对象。全局对象是nodejs的global或者浏览器中的windows</li>
+<li><code>myObject.myFunction(1,2,3)</code>，对象方法的调用方式，this指向包含该方法的对象</li>
+<li><strong>call</strong>、<code>apply、</code><strong>bind</strong>方法调用时，要看第一个参数是谁</li>
+</ol>
+<p><strong>分析上例</strong></p>
+<ul>
+<li><p>js 和 <code>{ name: &#39;js&#39;, getNameFunc: [Function: getNameFunc] }</code> 很好理解</p>
+</li>
+<li><p>第三行打印的true，是 <code>console.log(this == global)</code> 执行的结果，说明当前是global，因为调用这个返回的函数是直接调用的，这就是个普通函数调用，所以this是全局对象</p>
+</li>
+<li><p>第四行undefined，就是因为this是global，没有name属性</p>
+</li>
+</ul>
+<p>这就是函数调用的时候，调用方式不同，this对应的对象不同，它已经不是C++、Java的指向实例本身了<br>this的问题，这是历史遗留问题，新版只能保留且兼容了<br>而我们在使用时，有时候需要明确的让this必须是我们期望的对象，如何解决这个问题呢？</p>
+<h3 id="1-显式传入"><a href="#1-显式传入" class="headerlink" title="1 显式传入"></a>1 显式传入</h3><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-keyword">var</span> school = &#123;<br>    name: <span class="hljs-string">'js'</span>,<br>    getNameFunc: <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>&#123;<br>        <span class="hljs-built_in">console</span>.log(<span class="hljs-keyword">this</span>.name);<br>        <span class="hljs-built_in">console</span>.log(<span class="hljs-keyword">this</span>);<br>        <span class="hljs-keyword">return</span> <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">that</span>) </span>&#123;<br>            <span class="hljs-built_in">console</span>.log(<span class="hljs-keyword">this</span> == global); <span class="hljs-comment">// this是否是global对象    </span><br>            <span class="hljs-keyword">return</span> that.name;<br>        &#125;;<br>    &#125;<br>&#125;<br><span class="hljs-built_in">console</span>.log(school.getNameFunc()(school));<br><br>    <span class="hljs-comment">/* 运行结果</span><br><span class="hljs-comment">js</span><br><span class="hljs-comment">&#123; name: 'js', getNameFunc: [Function: getNameFunc] &#125;</span><br><span class="hljs-comment">true</span><br><span class="hljs-comment">js</span><br><span class="hljs-comment">*/</span><br></code></pre></td></tr></table></figure>
+
+<p>通过主动传入对象，这样就避开了this的问题</p>
+<h3 id="2、-ES3（ES-262第三版）引入了apply、call方法"><a href="#2、-ES3（ES-262第三版）引入了apply、call方法" class="headerlink" title="2、 ES3（ES-262第三版）引入了apply、call方法"></a>2、 ES3（ES-262第三版）引入了apply、call方法</h3><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><code class="hljs json">var school = &#123;<br>    name : 'js',   <br>    getNameFunc : function () &#123;   <br>    console.log(this.name);   <br>    console.log(this);   <br>    return function () &#123;    <br>    console.log(this == global); // this是否是global对象    <br>    return this.name;<br>     &#125;;<br>     &#125;<br>    &#125;<br>    console.log(school.getNameFunc().call(school)); // call方法显式传入this对应的对象<br><br><span class="hljs-comment">/* 运行结果</span><br><span class="hljs-comment">js</span><br><span class="hljs-comment">&#123; name: 'js', getNameFunc: [Function: getNameFunc] &#125;</span><br><span class="hljs-comment">false</span><br><span class="hljs-comment">js</span><br><span class="hljs-comment">*/</span><br>var school = &#123;<br></code></pre></td></tr></table></figure>
+
+<p><code>apply</code>、<code>call</code>方法都是函数对象的方法，第一参数都是传入对象引入的<br><code>apply</code>传其他参数需要使用数组<br><code>call</code>传其他参数需要使用可变参数收集</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><code class="hljs plain">function Point(x, y) &#123;<br>    this.x &#x3D; x;<br>    this.y &#x3D; y;<br>    console.log(this &#x3D;&#x3D;&#x3D; global);<br>    console.log(&#39;Point ~~~~&#39;);<br>&#125;<br><br>p1 &#x3D; Point(4, 5);<br>console.log(p1); &#x2F;&#x2F; undefined<br><br>console.log(&#39;~~~~~~~~~~~~~~~~&#39;)<br><br>p2 &#x3D; new Object();<br>console.log(p2); &#x2F;&#x2F; &#123;&#125;<br><br>p3 &#x3D; Point.call(p2, 10, 11);<br>&#x2F;&#x2F; p3 &#x3D; Point.apply(p2, [11, 13]);<br>console.log(p3); &#x2F;&#x2F; undefined<br>console.log(p2); &#x2F;&#x2F; &#123; x: 10, y: 11 &#125;<br><br>&#x2F;* 执行结果<br>true<br>Point ~~~~<br>undefined<br>~~~~~~~~~~~~~~~~<br>&#123;&#125;<br>false<br>Point ~~~~<br>undefined<br>&#123; x: 10, y: 11 &#125;<br>*&#x2F;<br></code></pre></td></tr></table></figure>
+
+<h3 id="3、ES5-引入了bind方法"><a href="#3、ES5-引入了bind方法" class="headerlink" title="3、ES5 引入了bind方法"></a>3、ES5 引入了bind方法</h3><p>bind方法来设置函数的this值</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-keyword">var</span> school = &#123;<br>    name: <span class="hljs-string">'js'</span>,<br>    getNameFunc: <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>&#123;<br>        <span class="hljs-built_in">console</span>.log(<span class="hljs-keyword">this</span>.name); <span class="hljs-comment">// </span><br>        <span class="hljs-built_in">console</span>.log(<span class="hljs-keyword">this</span>); <br>        <span class="hljs-keyword">return</span> <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>&#123;<br>            <span class="hljs-built_in">console</span>.log(<span class="hljs-keyword">this</span> == global); <span class="hljs-comment">// this是否是global对象   </span><br>            <span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>.name;<br>        &#125;;<br>    &#125;<br>&#125;<br><br><span class="hljs-built_in">console</span>.log(school.getNameFunc().bind(school)); <span class="hljs-comment">// bind方法绑定</span><br><br><span class="hljs-comment">/* 执行结果</span><br><span class="hljs-comment">js</span><br><span class="hljs-comment">&#123; name: 'js', getNameFunc: [Function: getNameFunc] &#125;</span><br><span class="hljs-comment">[Function: bound ]</span><br><span class="hljs-comment">*/</span><br></code></pre></td></tr></table></figure>
+
+<p>只打印了三行，说明哪里有问题，问题出在<code>bind方法</code>用错了</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><code class="hljs json">var school = &#123;<br>    name: 'js',<br>    getNameFunc: function () &#123;<br>        console.log(this.name); // <br>        console.log(this); <br>        return function () &#123;<br>            console.log(this == global); // this是否是global对象   <br>            return this.name;<br>        &#125;;<br>    &#125;<br>&#125;<br><br>var func = school.getNameFunc();<br>console.log(func);<br><br>var boundfunc = func.bind(school); // bind绑定后返回新的函数<br>console.log(boundfunc);<br>console.log(boundfunc());<br><br><br><span class="hljs-comment">/* 执行结果</span><br><span class="hljs-comment">js</span><br><span class="hljs-comment">&#123; name: 'js', getNameFunc: [Function: getNameFunc] &#125;</span><br><span class="hljs-comment">[Function]</span><br><span class="hljs-comment">[Function: bound ]</span><br><span class="hljs-comment">false</span><br><span class="hljs-comment">js</span><br><span class="hljs-comment">*/</span><br></code></pre></td></tr></table></figure>
+
+<p>apply、call方法，参数不同，调用时传入this<br>bind方法是为函数先绑定this，调用时直接用</p>
+<h3 id="4、ES6引入支持this的箭头函数"><a href="#4、ES6引入支持this的箭头函数" class="headerlink" title="4、ES6引入支持this的箭头函数"></a>4、ES6引入支持this的箭头函数</h3><p>ES6 新技术，就不需要兼容this问题</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-keyword">var</span> school = &#123;<br>    name: <span class="hljs-string">'js'</span>,<br>    getNameFunc: <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>&#123;<br>        <span class="hljs-built_in">console</span>.log(<span class="hljs-keyword">this</span>.name);<br>        <span class="hljs-built_in">console</span>.log(<span class="hljs-keyword">this</span>);<br>        <span class="hljs-keyword">return</span> <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> &#123;<br>            <span class="hljs-built_in">console</span>.log(<span class="hljs-keyword">this</span> == global); <span class="hljs-comment">// this是否是global对象</span><br>            <span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>.name;<br>        &#125;;<br>    &#125;<br>&#125;<br><span class="hljs-built_in">console</span>.log(school.getNameFunc()());<br><br><span class="hljs-comment">/* 运行结果</span><br><span class="hljs-comment">js</span><br><span class="hljs-comment">&#123; name: 'js', getNameFunc: [Function: getNameFunc] &#125;</span><br><span class="hljs-comment">false</span><br><span class="hljs-comment">js</span><br><span class="hljs-comment"> */</span><br></code></pre></td></tr></table></figure>
+
+<ul>
+<li>ES6 新的定义方式如下</li>
+</ul>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><code class="hljs json">class school &#123;<br>    constructor() &#123;<br>        this.name = 'js';<br>    &#125;<br>    getNameFunc() &#123;<br>        console.log(this.name);<br>        console.log(this, typeof (this));<br>        return () =&gt; &#123;<br>            console.log(this == global); // this是否是global对象    <br>            return this.name;<br>        &#125;;<br>    &#125;<br>&#125;<br>console.log(new school().getNameFunc()());<br><br><span class="hljs-comment">/* 执行结果</span><br><span class="hljs-comment">js</span><br><span class="hljs-comment">school &#123; name: 'js' &#125; 'object'</span><br><span class="hljs-comment">false</span><br><span class="hljs-comment">js</span><br><span class="hljs-comment">*/</span><br></code></pre></td></tr></table></figure>
+
+<p>以上解决this问题的方法，<strong>bind方法最常用</strong></p>
+
+      
+    </div>
+    
+    
+    
+
+     <!-- 文章末尾统一添加“本文结束”标记 -->
+    <div>
+      
+        <div>
+    
+        <div style="text-align:center;color: #555;font-size:24px;"><-------------The End-------------></div>
+    
+</div>
+
+      
+    </div>
+    
+
+    
+      <div>
+        <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+  <div>坚持原创分享，你的支持就是我最大的动力！</div>
+  <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+    <span>打赏</span>
+  </button>
+  <div id="QR" style="display: none;">
+
+    
+      <div id="wechat" style="display: inline-block">
+        <img id="wechat_qr" src="/uploads/weixin_cash_code.png" alt="StarDustLoong 微信支付"/>
+        <p>微信支付</p>
+      </div>
+    
+
+    
+      <div id="alipay" style="display: inline-block">
+        <img id="alipay_qr" src="/uploads/alipay_cash_code.png" alt="StarDustLoong 支付宝"/>
+        <p>支付宝</p>
+      </div>
+    
+
+    
+
+  </div>
+</div>
+
+      </div>
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/python%E7%9A%84ES6/" rel="tag"># python的ES6</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/JS%20-%E8%A7%A3%E6%9E%84%E5%8F%8A%E6%95%B0%E7%BB%84%E5%AF%B9%E8%B1%A1%E6%93%8D%E4%BD%9C/" rel="next" title="JS -解构及数组对象操作">
+                <i class="fa fa-chevron-left"></i> JS -解构及数组对象操作
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/JS%E8%AF%AD%E6%B3%95%20--%20%E5%87%BD%E6%95%B0%E5%8F%8A%E5%BC%82%E5%B8%B8/" rel="prev" title="JS语法 -- 函数及异常">
+                JS语法 -- 函数及异常 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+    </div>
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/uploads/avatar.png"
+                alt="StarDustLoong" />
+            
+              <p class="site-author-name" itemprop="name">StarDustLoong</p>
+              <p class="site-description motion-element" itemprop="description">人类如风一般的自由</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">2842</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">13</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">160</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+	   
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/StarDustLoong" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:13671474528@163.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://www.zhihu.com/people/ashjian-ar15" target="_blank" title="知乎">
+                      
+                        <i class="fa fa-fw fa-globe"></i>知乎</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://me.csdn.net/ashjian" target="_blank" title="CSDN">
+                      
+                        <i class="fa fa-fw fa-codiepie"></i>CSDN</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+            <div class="links-of-blogroll motion-element links-of-blogroll-inline">
+              <div class="links-of-blogroll-title">
+                <i class="fa  fa-fw fa-link"></i>
+                Links
+              </div>
+              <ul class="links-of-blogroll-list">
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="http://mp.weixin.qq.com/user1" title="OpenInfo" target="_blank">OpenInfo</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="http://mp.weixin.qq.com/user2" title="stormzhang" target="_blank">stormzhang</a>
+                  </li>
+                
+              </ul>
+            </div>
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#定义类"><span class="nav-number">1.</span> <span class="nav-text">定义类</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#字面式声明方式"><span class="nav-number">1.1.</span> <span class="nav-text">字面式声明方式</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#ES6之前——构造器"><span class="nav-number">1.2.</span> <span class="nav-text">ES6之前——构造器</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#ES6中的class"><span class="nav-number">1.3.</span> <span class="nav-text">ES6中的class</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#重写方法"><span class="nav-number">1.3.1.</span> <span class="nav-text">重写方法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#静态属性"><span class="nav-number">1.3.2.</span> <span class="nav-text">静态属性</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#静态方法"><span class="nav-number">1.3.3.</span> <span class="nav-text">静态方法</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#this的坑"><span class="nav-number">1.4.</span> <span class="nav-text">this的坑</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-显式传入"><span class="nav-number">1.4.1.</span> <span class="nav-text">1 显式传入</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2、-ES3（ES-262第三版）引入了apply、call方法"><span class="nav-number">1.4.2.</span> <span class="nav-text">2、 ES3（ES-262第三版）引入了apply、call方法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3、ES5-引入了bind方法"><span class="nav-number">1.4.3.</span> <span class="nav-text">3、ES5 引入了bind方法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4、ES6引入支持this的箭头函数"><span class="nav-number">1.4.4.</span> <span class="nav-text">4、ES6引入支持this的箭头函数</span></a></li></ol></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">StarDustLoong</span>
+
+  
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-area-chart"></i>
+    </span>
+    
+      <span class="post-meta-item-text">本站总字数&#58;</span>
+    
+    <span title="本站总字数">769.8k</span>
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Pisces</a> v5.1.4</div>
+
+
+
+
+#<!-- 百度自动推送 -->
+#<script>
+#(function(){
+#    var bp = document.createElement('script');
+#    var curProtocol = window.location.protocol.split(':')[0];
+#    if (curProtocol === 'https') {
+#        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+#    }
+#    else {
+#        bp.src = 'http://push.ashjian.baidu.com/push.js';
+#    }
+#    var s = document.getElementsByTagName("script")[0];
+#    s.parentNode.insertBefore(bp, s);
+#})();
+#</script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aplayer/dist/APlayer.min.css">
+
+<script src="https://cdn.jsdelivr.net/npm/aplayer/dist/APlayer.min.js"></script>
+<!-- require MetingJS -->
+
+<script src="https://cdn.jsdelivr.net/npm/meting@2.0.1/dist/Meting.min.js"></script>
+<div> 
+<meting-js  
+    server="netease" 
+    type="playlist"  
+    id="5281251057" 
+    fixed="true"  
+    autoplay="false" 
+    loop="all" 
+    order="random"
+    preload="auto" 
+    list-folded="ture" 
+    list-max-height="500px" 
+    lrc-type="1">
+</meting-js>	 
+</div>
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv">
+      本站访客数
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+      人次
+    </span>
+  
+
+  
+    <span class="site-pv">
+      本站总访问量
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+      次
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+  <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+  <script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+  
+  <script type="text/javascript">
+    var GUEST = ['nick','mail','link'];
+    var guest = 'nick,mail,link';
+    guest = guest.split(',').filter(item=>{
+      return GUEST.indexOf(item)>-1;
+    });
+    new Valine({
+        el: '#comments' ,
+        verify: false,
+        notify: false,
+        appId: 'Gp5xxuBGmRxC9yeJHf5wlLpN-gzGzoHsz',
+        appKey: 'wo0eDJonJrnuUrCCCU7EnH1n',
+        placeholder: '欢迎评论',
+        avatar:'mm',
+        guest_info:guest,
+        pageSize:'20' || 10,
+    });
+  </script>
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"jsonPath":"/live2dw/assets/dsr50_lifu_normal.model.json"},"display":{"position":"right","width":700,"height":800,"hOffset":-250,"vOffset":-150},"mobile":{"show":true,"scale":0.7},"log":false});</script></body>
+</html>

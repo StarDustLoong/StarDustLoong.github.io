@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="Hexo, NexT" />
+  <meta name="keywords" content="nginx," />
 
 
 
@@ -85,24 +85,22 @@
 
 <meta name="description" content="ngx_http_core_module,规定了一些http功能相关的核心配置。 与套接字相关配置1、server设置虚拟服务器全局配置 配置一个虚拟主机的全局配置 12345server &amp;#123;listen address[:PORT]|PORT;server_name SERVER_NAME;root &#x2F;PATH&#x2F;TO&#x2F;DOCUMENT_ROOT;&amp;#125">
 <meta property="og:type" content="article">
-<meta property="og:title" content="05-ngx_http_core_module详解">
+<meta property="og:title" content="05-ngx-http-core-module详解">
 <meta property="og:url" content="http://www.ashjian.xyz/05-ngx-http-core-module%E8%AF%A6%E8%A7%A3/index.html">
 <meta property="og:site_name">
 <meta property="og:description" content="ngx_http_core_module,规定了一些http功能相关的核心配置。 与套接字相关配置1、server设置虚拟服务器全局配置 配置一个虚拟主机的全局配置 12345server &amp;#123;listen address[:PORT]|PORT;server_name SERVER_NAME;root &#x2F;PATH&#x2F;TO&#x2F;DOCUMENT_ROOT;&amp;#125">
-<meta property="og:image" content="http://www.ashjian.xyz/05-ngx-http-core-module%E8%AF%A6%E8%A7%A3/05-ngx_http_core_module%E8%AF%A6%E8%A7%A3.assets/15034948621371.jpg">
-<meta property="og:image" content="https://raw.githubusercontent.com/ashjian/picBed/master/20201130221731.jpg">
-<meta property="og:image" content="https://raw.githubusercontent.com/ashjian/picBed/master/20201130221748.jpg">
-<meta property="og:image" content="https://raw.githubusercontent.com/ashjian/picBed/master/20201130221754.jpg">
+<meta property="og:image" content="https://gitee.com/ashjian/picBed/raw/master/20210913184228.jpg">
+<meta property="og:image" content="https://gitee.com/ashjian/picBed/raw/master/20210916001901.jpg">
+<meta property="og:image" content="https://gitee.com/ashjian/picBed/raw/master/20210916002029.jpg">
+<meta property="og:image" content="https://gitee.com/ashjian/picBed/raw/master/20210916002119.jpg">
 <meta property="og:image" content="https://raw.githubusercontent.com/ashjian/picBed/master/20201130221801.jpg">
 <meta property="og:image" content="https://raw.githubusercontent.com/ashjian/picBed/master/20201130221808.jpg">
-<meta property="article:published_time" content="2020-12-03T04:16:10.000Z">
-<meta property="article:modified_time" content="2021-03-26T10:02:24.332Z">
+<meta property="article:published_time" content="2021-09-13T10:46:38.672Z">
+<meta property="article:modified_time" content="2021-09-15T16:48:26.138Z">
 <meta property="article:author" content="StarDustLoong">
-<meta property="article:tag" content="linux">
-<meta property="article:tag" content="python">
-<meta property="article:tag" content="运维">
+<meta property="article:tag" content="nginx">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="http://www.ashjian.xyz/05-ngx-http-core-module%E8%AF%A6%E8%A7%A3/05-ngx_http_core_module%E8%AF%A6%E8%A7%A3.assets/15034948621371.jpg">
+<meta name="twitter:image" content="https://gitee.com/ashjian/picBed/raw/master/20210913184228.jpg">
 
 
 
@@ -138,7 +136,7 @@
 
 
 
-  <title>05-ngx_http_core_module详解 | </title>
+  <title>05-ngx-http-core-module详解 | </title>
   
 
 
@@ -336,7 +334,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">05-ngx_http_core_module详解</h1>
+          <h1 class="post-title" itemprop="name headline">05-ngx-http-core-module详解</h1>
         
 
         <div class="post-meta">
@@ -348,8 +346,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-12-03T12:16:10+08:00">
-                2020-12-03
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2021-09-13T18:46:38+08:00">
+                2021-09-13
               </time>
             
 
@@ -364,12 +362,34 @@
               
                 <span class="post-meta-item-text">更新于&#58;</span>
               
-              <time title="更新于" itemprop="dateModified" datetime="2021-03-26T18:02:24+08:00">
-                2021-03-26
+              <time title="更新于" itemprop="dateModified" datetime="2021-09-16T00:48:26+08:00">
+                2021-09-16
               </time>
             
           </span>
 
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/DevOps/" itemprop="url" rel="index">
+                    <span itemprop="name">DevOps</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
           
 
           
@@ -402,7 +422,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  7.2k
+                  3.5k
                 </span>
               
 
@@ -418,7 +438,7 @@
                   <span class="post-meta-item-text">阅读时长 &asymp;</span>
                 
                 <span title="阅读时长">
-                  32
+                  15
                 </span>
               
             </div>
@@ -439,11 +459,11 @@
 
       
         <p>ngx_http_core_module,规定了一些http功能相关的核心配置。</p>
-<h2 id="与套接字相关配置"><a href="#与套接字相关配置" class="headerlink" title="与套接字相关配置"></a>与套接字相关配置</h2><h3 id="1、server设置虚拟服务器全局配置"><a href="#1、server设置虚拟服务器全局配置" class="headerlink" title="1、server设置虚拟服务器全局配置"></a>1、<code>server</code>设置虚拟服务器全局配置</h3><p><a href="http://www.yulongjun.com/images/15034948621371.jpg" target="_blank" rel="noopener"><img src="05-ngx_http_core_module%E8%AF%A6%E8%A7%A3.assets/15034948621371.jpg" alt="img"></a></p>
+<h2 id="与套接字相关配置"><a href="#与套接字相关配置" class="headerlink" title="与套接字相关配置"></a>与套接字相关配置</h2><h3 id="1、server设置虚拟服务器全局配置"><a href="#1、server设置虚拟服务器全局配置" class="headerlink" title="1、server设置虚拟服务器全局配置"></a>1、<code>server</code>设置虚拟服务器全局配置</h3><p><img src="https://gitee.com/ashjian/picBed/raw/master/20210913184228.jpg" alt="img"></p>
 <p>配置一个虚拟主机的全局配置</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs plain">server &#123;<br>listen address[:PORT]|PORT;<br>server_name SERVER_NAME;<br>root &#x2F;PATH&#x2F;TO&#x2F;DOCUMENT_ROOT;<br>&#125;<br></code></pre></td></tr></table></figure>
 
-<h3 id="2、listen设置监听端口和IP"><a href="#2、listen设置监听端口和IP" class="headerlink" title="2、listen设置监听端口和IP"></a>2、<code>listen</code>设置监听端口和IP</h3><p><a href="http://www.yulongjun.com/images/15034948189199.jpg" target="_blank" rel="noopener"><img src="https://raw.githubusercontent.com/ashjian/picBed/master/20201130221731.jpg" alt="img"></a></p>
+<h3 id="2、listen设置监听端口和IP"><a href="#2、listen设置监听端口和IP" class="headerlink" title="2、listen设置监听端口和IP"></a>2、<code>listen</code>设置监听端口和IP</h3><p><img src="https://gitee.com/ashjian/picBed/raw/master/20210916001901.jpg" alt="15034948189199"></p>
 <ul>
 <li><code>default_server</code>：设定为默认虚拟主机</li>
 <li><code>ssl</code>：限制仅能够通过ssl连接提供服务</li>
@@ -457,63 +477,64 @@
 <p>例如：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs plain">listen 192.168.0.100:8000; # 监听192.168.0.100的8000端口<br>listen 192.168.0.100;  # 监听192.168.0.100，不写端口则默认为80端口<br>listen 8000;  # 监听本地8000端口<br>listen *:8000;  # 同上<br>listen localhost:8000;  # 同上<br>listen [::]:8000;  # 监听本地的ipv6的8000端口<br>listen [::1];  # 监听本地的ipv6地址，不写端口则默认为80<br></code></pre></td></tr></table></figure>
 
-<h3 id="3、server-name设置虚拟服务器名字"><a href="#3、server-name设置虚拟服务器名字" class="headerlink" title="3、server_name设置虚拟服务器名字"></a>3、<code>server_name</code>设置虚拟服务器名字</h3><p><a href="http://www.yulongjun.com/images/15034949217884.jpg" target="_blank" rel="noopener"><img src="https://raw.githubusercontent.com/ashjian/picBed/master/20201130221748.jpg" alt="img"></a></p>
+<h3 id="3、server-name设置虚拟服务器名字"><a href="#3、server-name设置虚拟服务器名字" class="headerlink" title="3、server_name设置虚拟服务器名字"></a>3、<code>server_name</code>设置虚拟服务器名字</h3><p><img src="https://gitee.com/ashjian/picBed/raw/master/20210916002029.jpg" alt="15034949217884"></p>
 <ul>
 <li>虚拟主机的主机名称后可跟多个由空白字符分隔的字符串。</li>
 <li>支持*通配任意长度的任意字符</li>
 </ul>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs plain">server_name *.yulongjun.com www.yulongjun.*<br></code></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs plain">server_name *.ashjian.com www.ashjian.*<br></code></pre></td></tr></table></figure>
 
 <p>支持~起始的字符做正则表达式模式匹配</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs plain">server_name ~^www\d+\.yulongjun\.com$<br></code></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs plain">server_name ~^www\d+\.ashjian\.com$<br></code></pre></td></tr></table></figure>
 
 <blockquote>
 <p>\d 表示 [0-9]</p>
 </blockquote>
 <p>匹配机制:</p>
 <ol>
-<li>首先是字符串精确匹配 如:<code>www.yulongjun.com</code></li>
-<li>左侧<em>通配符 如:`</em>.yulongjun.com`</li>
-<li>侧<em>通配符 如:`<a href="http://www.yulongjun" target="_blank" rel="noopener">www.yulongjun</a>.</em>`</li>
-<li>正则表达式 如: <code>~^.*\.yulongjun\.com$</code></li>
+<li>首先是字符串精确匹配 如:<code>www.ashjian.com</code></li>
+<li>左侧<em>通配符 如:`</em>.ashjian.com`</li>
+<li>侧<em>通配符 如:`<a href="http://www.ashjian" target="_blank" rel="noopener">www.ashjian</a>.</em>`</li>
+<li>正则表达式 如: <code>~^.*\.ashjian\.com$</code></li>
 <li>都没写，则匹配<code>default_server</code></li>
 </ol>
-<h3 id="4、tcp-nodelay-on-off"><a href="#4、tcp-nodelay-on-off" class="headerlink" title="4、tcp_nodelay on | off;"></a>4、<code>tcp_nodelay on | off;</code></h3><p><a href="http://www.yulongjun.com/images/15034959000906.jpg" target="_blank" rel="noopener"><img src="https://raw.githubusercontent.com/ashjian/picBed/master/20201130221754.jpg" alt="img"></a></p>
+<h3 id="4、tcp-nodelay-on-off"><a href="#4、tcp-nodelay-on-off" class="headerlink" title="4、tcp_nodelay on | off;"></a>4、<code>tcp_nodelay on | off;</code></h3><p><img src="https://gitee.com/ashjian/picBed/raw/master/20210916002119.jpg" alt="15034959000906"></p>
 <p>在keepalived模式下的连接是否启用<code>TCP_NODELAY</code>选项。off时，延迟发送，合并多个请求后再发送 默认On时，不延迟发送。</p>
-<h3 id="5、sendfile-零拷贝是否开启"><a href="#5、sendfile-零拷贝是否开启" class="headerlink" title="5、sendfile 零拷贝是否开启"></a>5、<code>sendfile</code> 零拷贝是否开启</h3><p><a href="http://www.yulongjun.com/images/15034959526228.jpg" target="_blank" rel="noopener"><img src="https://raw.githubusercontent.com/ashjian/picBed/master/20201130221801.jpg" alt="img"></a></p>
+<h3 id="5、sendfile-零拷贝是否开启"><a href="#5、sendfile-零拷贝是否开启" class="headerlink" title="5、sendfile 零拷贝是否开启"></a>5、<code>sendfile</code> 零拷贝是否开启</h3><p><a href="http://www.ashjian.com/images/15034959526228.jpg" target="_blank" rel="noopener"><img src="https://raw.githubusercontent.com/ashjian/picBed/master/20201130221801.jpg" alt="img"></a></p>
 <p>是否启用<code>sendfile</code>零拷贝功能，即在内核中封装报文直接发送。默认Off。</p>
 <hr>
-<h2 id="定义路径相关的配置"><a href="#定义路径相关的配置" class="headerlink" title="定义路径相关的配置"></a>定义路径相关的配置</h2><h3 id="1、root"><a href="#1、root" class="headerlink" title="1、root"></a>1、<code>root</code></h3><p><a href="http://www.yulongjun.com/images/15034969060891.jpg" target="_blank" rel="noopener"><img src="https://raw.githubusercontent.com/ashjian/picBed/master/20201130221808.jpg" alt="img"></a></p>
+<h2 id="定义路径相关的配置"><a href="#定义路径相关的配置" class="headerlink" title="定义路径相关的配置"></a>定义路径相关的配置</h2><h3 id="1、root"><a href="#1、root" class="headerlink" title="1、root"></a>1、<code>root</code></h3><p><img src="https://raw.githubusercontent.com/ashjian/picBed/master/20201130221808.jpg" alt="img"></p>
 <p>设置web资源的路径映射;用于指明请求的URL所对应的文档 的目录路径，可用于http, server, location, if in location</p>
-<p>```<br>server { …<br>root /data/www/vhost1;<br>}</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs plain">&gt; 例如：网络上&#96;http:&#x2F;&#x2F;www.yulongjun.com&#x2F;images&#x2F;logo.jpg&#96;,实际是服务器上的&#96;&#x2F;data&#x2F;www&#x2F;vhosts&#x2F;images&#x2F;logo.jpg&#96;### 2、&#96;location&#96;![](&#x2F;images&#x2F;15034969496035.jpg)<br>在一个server中location配置段可存在多个，用于实现从uri到 文件系统的路径映射;ngnix会根据用户请求的URI来检查定义的所有 location，并找出一个最佳匹配，而后应用其配置<br><br>示例:<br></code></pre></td></tr></table></figure>
-<p>server {…<br>    server_name <a href="http://www.yulongjun.com" target="_blank" rel="noopener">www.yulongjun.com</a>;     location /images/ {<br>        root /data/imgs/;<br>    } }</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs plain"><br><br><br>&gt; 例如：网络上的&#96;http:&#x2F;&#x2F;www.yulongjun.com&#x2F;images&#x2F;logo.jpg&#96;，实际是服务器上的&#96;&#x2F;data&#x2F;imgs&#x2F;images&#x2F;logo.jpg&#96;<br><br>**&#96;&#x3D;&#96;：对URI做精确匹配。**<br></code></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs plain">server &#123; <br>	root &#x2F;data&#x2F;www&#x2F;vhost1;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs plain">&gt; 例如：网络上&#96;http:&#x2F;&#x2F;www.ashjian.com&#x2F;images&#x2F;logo.jpg&#96;,实际是服务器上的&#96;&#x2F;data&#x2F;www&#x2F;vhosts&#x2F;images&#x2F;logo.jpg&#96;### 2、&#96;location&#96;![](&#x2F;images&#x2F;15034969496035.jpg)<br>在一个server中location配置段可存在多个，用于实现从uri到 文件系统的路径映射;ngnix会根据用户请求的URI来检查定义的所有 location，并找出一个最佳匹配，而后应用其配置<br><br>示例:<br></code></pre></td></tr></table></figure>
+<p>server {…<br>    server_name <a href="http://www.ashjian.com" target="_blank" rel="noopener">www.ashjian.com</a>;     location /images/ {<br>        root /data/imgs/;<br>    } }</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs plain"><br><br><br>&gt; 例如：网络上的&#96;http:&#x2F;&#x2F;www.ashjian.com&#x2F;images&#x2F;logo.jpg&#96;，实际是服务器上的&#96;&#x2F;data&#x2F;imgs&#x2F;images&#x2F;logo.jpg&#96;<br><br>**&#96;&#x3D;&#96;：对URI做精确匹配。**<br></code></pre></td></tr></table></figure>
 <p>location = / {<br>…<br>}</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs plain"><br>&gt; 可以匹配&#96;http:&#x2F;&#x2F;www.yulongjun.com&#x2F;&#96; ，不能匹配&#96;http:&#x2F;&#x2F;www.yulongjun.com&#x2F;index.html&#96;<br><br>- **&#96;~&#96;：对URI做正则表达式模式匹配，区分字符大小写**<br>- **&#96;~\*&#96;：对URI做正则表达式模式匹配，不区分字符大小写**<br>- **&#96;^~&#96;：对URI的最左边部分做匹配检查，不区分字符大小写**<br>- **&#96;不带符号&#96;：匹配起始于此uri的所有的uri**<br><br>**匹配优先级**：&#96;&#x3D;&#96;&gt;&#96;^~&#96;&gt; &#96;～&#96;&gt; &#96;～*&#96;&gt;&#96;不带符号&#96;。<br><br>示例：<br></code></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs plain"><br>&gt; 可以匹配&#96;http:&#x2F;&#x2F;www.ashjian.com&#x2F;&#96; ，不能匹配&#96;http:&#x2F;&#x2F;www.ashjian.com&#x2F;index.html&#96;<br><br>- **&#96;~&#96;：对URI做正则表达式模式匹配，区分字符大小写**<br>- **&#96;~\*&#96;：对URI做正则表达式模式匹配，不区分字符大小写**<br>- **&#96;^~&#96;：对URI的最左边部分做匹配检查，不区分字符大小写**<br>- **&#96;不带符号&#96;：匹配起始于此uri的所有的uri**<br><br>**匹配优先级**：&#96;&#x3D;&#96;&gt;&#96;^~&#96;&gt; &#96;～&#96;&gt; &#96;～*&#96;&gt;&#96;不带符号&#96;。<br><br>示例：<br></code></pre></td></tr></table></figure>
 <p>root /vhosts/www/htdocs/</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs plain"><br>&gt;<br></code></pre></td></tr></table></figure>
 <blockquote>
-<p><a href="http://www.yulongjun.com/index.html" target="_blank" rel="noopener">http://www.yulongjun.com/index.html</a></p>
+<p><a href="http://www.ashjian.com/index.html" target="_blank" rel="noopener">http://www.ashjian.com/index.html</a></p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs plain"><br>–&gt; &#96;&#x2F;vhosts&#x2F;www&#x2F;htdocs&#x2F;index.html&#96; <br></code></pre></td></tr></table></figure>
 <p>server {<br>    root /vhosts/www/htdocs/<br>    location /admin/ {<br>       root /webapps/app1/data/<br>    }<br>}</p>
 </blockquote>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs plain"><br>&gt;<br></code></pre></td></tr></table></figure>
 <blockquote>
-<p><a href="http://www.yulongjun.com/admin/index.html`–&gt;`/webapps/app1/data/admin/index.html" target="_blank" rel="noopener">http://www.yulongjun.com/admin/index.html`–&gt;`/webapps/app1/data/admin/index.html</a></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs plain"><br>### 3、&#96;alias PATH;&#96;<br><br>[![img](05-ngx_http_core_module详解.assets&#x2F;15034969755802.jpg)](http:&#x2F;&#x2F;www.yulongjun.com&#x2F;images&#x2F;15034969755802.jpg)<br><br>路径别名，文档映射的另一种机制；仅能用于location上下文<br><br>示例： <br></code></pre></td></tr></table></figure>
+<p><a href="http://www.ashjian.com/admin/index.html`–&gt;`/webapps/app1/data/admin/index.html" target="_blank" rel="noopener">http://www.ashjian.com/admin/index.html`–&gt;`/webapps/app1/data/admin/index.html</a></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs plain"><br>### 3、&#96;alias PATH;&#96;<br><br>[![img](https:&#x2F;&#x2F;gitee.com&#x2F;ashjian&#x2F;picBed&#x2F;raw&#x2F;master&#x2F;20210916002738.jpg)](http:&#x2F;&#x2F;www.ashjian.com&#x2F;images&#x2F;15034969755802.jpg)<br><br>路径别名，文档映射的另一种机制；仅能用于location上下文<br><br>示例： <br></code></pre></td></tr></table></figure>
 <p>location /bbs/ {<br>    alias /web/forum/;<br>}</p>
 </blockquote>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs plain"><br>&gt;<br></code></pre></td></tr></table></figure>
 <blockquote>
-<p><a href="http://www.yulongjun.com/bbs/index.php`–&gt;" target="_blank" rel="noopener">http://www.yulongjun.com/bbs/index.php`–&gt;</a> `/web/forum/index.html</p>
+<p><a href="http://www.ashjian.com/bbs/index.php`–&gt;" target="_blank" rel="noopener">http://www.ashjian.com/bbs/index.php`–&gt;</a> `/web/forum/index.html</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs plain"><br>相比之下，root是这样的： <br></code></pre></td></tr></table></figure>
 <p>location /bbs/ {<br>    root /web/forum/;<br>}</p>
 </blockquote>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs plain"><br>&gt;<br></code></pre></td></tr></table></figure>
 <blockquote>
-<p><a href="http://www.yulongjun.com/bbs/index.php`–&gt;" target="_blank" rel="noopener">http://www.yulongjun.com/bbs/index.php`–&gt;</a> `/web/forum/bbs/index.html</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><code class="hljs plain"><br>注意：location中使用&#96;root&#96;指令和&#96;alias&#96;指令的意义不同<br><br>(a) root，给定的路径对应于location中的&#96;&#x2F;uri&#x2F;&#96;**左**侧的&#96;&#x2F;&#96;<br><br>(b) alias，给定的路径对应于location中的&#96;&#x2F;uri&#x2F;&#96;**右**侧的&#96;&#x2F;&#96;<br><br>### 4、&#96;index file&#96;<br><br>[![img](https:&#x2F;&#x2F;raw.githubusercontent.com&#x2F;ashjian&#x2F;picBed&#x2F;master&#x2F;20201130221826.jpg)](http:&#x2F;&#x2F;www.yulongjun.com&#x2F;images&#x2F;15034971105980.jpg)<br>指定默认网页资源，注意,这个是在&#96;ngx_http_index_module&#96;模块。<br><br>### 5、&#96;error_page&#96; 错误页404<br><br>[![img](https:&#x2F;&#x2F;raw.githubusercontent.com&#x2F;ashjian&#x2F;picBed&#x2F;master&#x2F;20201130221834.jpg)](http:&#x2F;&#x2F;www.yulongjun.com&#x2F;images&#x2F;15034978784852.jpg) <br></code></pre></td></tr></table></figure>
+<p><a href="http://www.ashjian.com/bbs/index.php`–&gt;" target="_blank" rel="noopener">http://www.ashjian.com/bbs/index.php`–&gt;</a> `/web/forum/bbs/index.html</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><code class="hljs plain"><br>注意：location中使用&#96;root&#96;指令和&#96;alias&#96;指令的意义不同<br><br>(a) root，给定的路径对应于location中的&#96;&#x2F;uri&#x2F;&#96;**左**侧的&#96;&#x2F;&#96;<br><br>(b) alias，给定的路径对应于location中的&#96;&#x2F;uri&#x2F;&#96;**右**侧的&#96;&#x2F;&#96;<br><br>### 4、&#96;index file&#96;<br><br>[![img](https:&#x2F;&#x2F;raw.githubusercontent.com&#x2F;ashjian&#x2F;picBed&#x2F;master&#x2F;20201130221826.jpg)](http:&#x2F;&#x2F;www.ashjian.com&#x2F;images&#x2F;15034971105980.jpg)<br>指定默认网页资源，注意,这个是在&#96;ngx_http_index_module&#96;模块。<br><br>### 5、&#96;error_page&#96; 错误页404<br><br>[![img](https:&#x2F;&#x2F;raw.githubusercontent.com&#x2F;ashjian&#x2F;picBed&#x2F;master&#x2F;20201130221834.jpg)](http:&#x2F;&#x2F;www.ashjian.com&#x2F;images&#x2F;15034978784852.jpg) <br></code></pre></td></tr></table></figure>
 <p>error_page 404 /404.html;<br>error_page 500 502 503 504 /50x.html;</p>
 </blockquote>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs plain"><br>这将导致内部重定向到*uri* 客户端请求方法指定的内部重定向更改为“GET”（对于除“GET”和“HEAD” 之外的所有方法）。<br><br>此外，可以使用*&#x3D;response*语法将响应代码更改为另一个，例如：<br></code></pre></td></tr></table></figure>
@@ -525,7 +546,7 @@
 <p>location @fallback {<br>    proxy_pass http：//后端;</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs plain"><br>&gt; 如果*uri*处理导致错误，则将最后发生的错误的状态代码返回给客户端。<br><br>还可以使用URL重定向进行错误处理：<br></code></pre></td></tr></table></figure>
 <p>error_page 403 <a href="http://example.com/forbidden.html" target="_blank" rel="noopener">http://example.com/forbidden.html</a>;<br>error_page 404 = 301 <a href="http://example.com/notfound.html" target="_blank" rel="noopener">http://example.com/notfound.html</a>;</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs plain"><br>&gt; 在这种情况下，默认情况下，将响应代码302返回给客户端。它只能更改为重定向状态代码之一（301,302,303,307和308）。<br>&gt; 当且仅当没有error_page 在当前级别上定义指令时，这些指令才能从上一级继承 。<br><br>### 6、try_files<br><br>[![img](https:&#x2F;&#x2F;raw.githubusercontent.com&#x2F;ashjian&#x2F;picBed&#x2F;master&#x2F;20201130221844.jpg)](http:&#x2F;&#x2F;www.yulongjun.com&#x2F;images&#x2F;15034979377926.jpg)<br><br>以指定的顺序检查文件的存在，并使用第一个找到的文件进行请求处理; 该处理在当前上下文中执行。文件的路径是*file*根据根和别名指令的参数 构建的 。可以通过在名称末尾指定斜杠来检查目录的存在，例如“ *$uri&#x2F;*”。如果没有找到任何文件，则会*uri*进行最后一个参数中指定的内部重定向 。例如：<br></code></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs plain"><br>&gt; 在这种情况下，默认情况下，将响应代码302返回给客户端。它只能更改为重定向状态代码之一（301,302,303,307和308）。<br>&gt; 当且仅当没有error_page 在当前级别上定义指令时，这些指令才能从上一级继承 。<br><br>### 6、try_files<br><br>[![img](https:&#x2F;&#x2F;raw.githubusercontent.com&#x2F;ashjian&#x2F;picBed&#x2F;master&#x2F;20201130221844.jpg)](http:&#x2F;&#x2F;www.ashjian.com&#x2F;images&#x2F;15034979377926.jpg)<br><br>以指定的顺序检查文件的存在，并使用第一个找到的文件进行请求处理; 该处理在当前上下文中执行。文件的路径是*file*根据根和别名指令的参数 构建的 。可以通过在名称末尾指定斜杠来检查目录的存在，例如“ *$uri&#x2F;*”。如果没有找到任何文件，则会*uri*进行最后一个参数中指定的内部重定向 。例如：<br></code></pre></td></tr></table></figure>
 <p>location /images/ {<br>    try_files $uri /images/default.gif;<br>}</p>
 <p>location = /images/default.gif {<br>    expires 30s;<br>}</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs plain"><br>最后一个参数也可以指向一个命名的位置，如下面的例子所示。从0.7.51版本开始，最后一个参数也可以是 *code*：<br></code></pre></td></tr></table></figure>
@@ -565,115 +586,18 @@ fastcgi_param SCRIPT_FILENAME /path/to$fastcgi_script_name;
 <p>location @wordpress {<br>    fastcgi_pass …;</p>
 <pre><code>fastcgi_param SCRIPT_FILENAME /path/to/index.php;
 ... other fastcgi_param&apos;s</code></pre><p>}</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><code class="hljs plain"><br>------<br><br>## 定义客户端请求的相关配置<br><br>### 1、&#96;keepalive_timeout&#96;设定长连接的超时时长<br><br>[![img](https:&#x2F;&#x2F;raw.githubusercontent.com&#x2F;ashjian&#x2F;picBed&#x2F;master&#x2F;20201130221853.jpg)](http:&#x2F;&#x2F;www.yulongjun.com&#x2F;images&#x2F;15034986592949.jpg)<br><br>第一个参数设置保持连接的超时时长，0表示禁止长连接。默认为75s，推荐120s<br><br>可选的第二个参数在“Keep-Alive：timeout &#x3D; time”响应头域中设置一个值。两个参数可能不同。<br><br>Mozilla和Konqueror可以识别 &#96;Keep-Alive：timeout &#x3D; time&#96;头域。MSIE在大约60秒内自行关闭保持连接。<br><br>### 2、&#96;keepalive_requests&#96;长连接允许请求的资源的最大数量<br><br>[![img](https:&#x2F;&#x2F;raw.githubusercontent.com&#x2F;ashjian&#x2F;picBed&#x2F;master&#x2F;20201130221858.jpg)](http:&#x2F;&#x2F;www.yulongjun.com&#x2F;images&#x2F;15034986843839.jpg)<br><br>在一次长连接上所允许请求的资源的最大数量。默认为100<br><br>### 3、&#96;keepalive_disable&#96;对哪种浏览器禁用长连接<br><br>[![img](https:&#x2F;&#x2F;raw.githubusercontent.com&#x2F;ashjian&#x2F;picBed&#x2F;master&#x2F;20201130221904.jpg)](http:&#x2F;&#x2F;www.yulongjun.com&#x2F;images&#x2F;15034987149301.jpg)<br><br>### 4、&#96;send_timeout&#96;设置用于向客户端发送响应的超时时间<br><br>[![img](https:&#x2F;&#x2F;raw.githubusercontent.com&#x2F;ashjian&#x2F;picBed&#x2F;master&#x2F;20201130221917.jpg)](http:&#x2F;&#x2F;www.yulongjun.com&#x2F;images&#x2F;15034987424203.jpg)<br><br>设置用于向客户端发送响应的超时时间。超时仅在两个连续的写入操作之间设置，而不是传输整个响应。如果客户端在这段时间内没有收到任何内容，则连接被关闭。<br><br>### 5、&#96;client_body_buffer_size&#96;<br><br>[![img](https:&#x2F;&#x2F;raw.githubusercontent.com&#x2F;ashjian&#x2F;picBed&#x2F;master&#x2F;20201130221932.jpg)](http:&#x2F;&#x2F;www.yulongjun.com&#x2F;images&#x2F;15034997030744.jpg)<br><br>设置读取客户端请求体的缓冲区大小。如果请求体大于缓冲区，则整个身体或仅将其部分写入 临时文件。默认情况下，缓冲区大小等于两个内存页面。这是x86上的8K，其他32位平台和x86-64。其他64位平台通常为16K。<br><br>### 6、&#96;client_body_temp_path&#96;<br><br>定义用于存储持有客户机请求主体的临时文件的目录。最多可以在指定目录下使用三级子目录层次结构。例如，在以下配置中：<br></code></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><code class="hljs plain"><br>------<br><br>## 定义客户端请求的相关配置<br><br>### 1、&#96;keepalive_timeout&#96;设定长连接的超时时长<br><br>[![img](https:&#x2F;&#x2F;raw.githubusercontent.com&#x2F;ashjian&#x2F;picBed&#x2F;master&#x2F;20201130221853.jpg)](http:&#x2F;&#x2F;www.ashjian.com&#x2F;images&#x2F;15034986592949.jpg)<br><br>第一个参数设置保持连接的超时时长，0表示禁止长连接。默认为75s，推荐120s<br><br>可选的第二个参数在“Keep-Alive：timeout &#x3D; time”响应头域中设置一个值。两个参数可能不同。<br><br>Mozilla和Konqueror可以识别 &#96;Keep-Alive：timeout &#x3D; time&#96;头域。MSIE在大约60秒内自行关闭保持连接。<br><br>### 2、&#96;keepalive_requests&#96;长连接允许请求的资源的最大数量<br><br>[![img](https:&#x2F;&#x2F;raw.githubusercontent.com&#x2F;ashjian&#x2F;picBed&#x2F;master&#x2F;20201130221858.jpg)](http:&#x2F;&#x2F;www.ashjian.com&#x2F;images&#x2F;15034986843839.jpg)<br><br>在一次长连接上所允许请求的资源的最大数量。默认为100<br><br>### 3、&#96;keepalive_disable&#96;对哪种浏览器禁用长连接<br><br>[![img](https:&#x2F;&#x2F;raw.githubusercontent.com&#x2F;ashjian&#x2F;picBed&#x2F;master&#x2F;20201130221904.jpg)](http:&#x2F;&#x2F;www.ashjian.com&#x2F;images&#x2F;15034987149301.jpg)<br><br>### 4、&#96;send_timeout&#96;设置用于向客户端发送响应的超时时间<br><br>[![img](https:&#x2F;&#x2F;raw.githubusercontent.com&#x2F;ashjian&#x2F;picBed&#x2F;master&#x2F;20201130221917.jpg)](http:&#x2F;&#x2F;www.ashjian.com&#x2F;images&#x2F;15034987424203.jpg)<br><br>设置用于向客户端发送响应的超时时间。超时仅在两个连续的写入操作之间设置，而不是传输整个响应。如果客户端在这段时间内没有收到任何内容，则连接被关闭。<br><br>### 5、&#96;client_body_buffer_size&#96;<br><br>[![img](https:&#x2F;&#x2F;raw.githubusercontent.com&#x2F;ashjian&#x2F;picBed&#x2F;master&#x2F;20201130221932.jpg)](http:&#x2F;&#x2F;www.ashjian.com&#x2F;images&#x2F;15034997030744.jpg)<br><br>设置读取客户端请求体的缓冲区大小。如果请求体大于缓冲区，则整个身体或仅将其部分写入 临时文件。默认情况下，缓冲区大小等于两个内存页面。这是x86上的8K，其他32位平台和x86-64。其他64位平台通常为16K。<br><br>### 6、&#96;client_body_temp_path&#96;<br><br>定义用于存储持有客户机请求主体的临时文件的目录。最多可以在指定目录下使用三级子目录层次结构。例如，在以下配置中：<br></code></pre></td></tr></table></figure>
 <p>client_body_temp_path /spool/nginx/client_temp 1 2;</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs plain"><br>临时文件hash：<br><br>85c9d32c3526a1bbb3996525ec80b3e0f7aa83dd<br></code></pre></td></tr></table></figure>
 <p>ls /spool/nginx/client_temp/d/3d/a83/<br>85c9d32c3526a1bbb3996525ec80b3e0f7aa83dd</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><code class="hljs plain"><br>我们可以看到就是逐级从右边截取hash值<br><br>目录名为16进制的数字；<br><br>1 1级目录占1位16进制，即2^4&#x3D;16个目录 0-f<br><br>2 2级目录占2位16进制，即2^8&#x3D;256个目录 00-ff<br><br>2 3级目录占2位16进制，即2^8&#x3D;256个目录 00-ff<br><br>------<br><br>## 对客户端进行限制的相关配置<br><br>### 1、&#96;limit_rate&#96;<br><br>[![img](https:&#x2F;&#x2F;raw.githubusercontent.com&#x2F;ashjian&#x2F;picBed&#x2F;master&#x2F;20201130221939.jpg)](http:&#x2F;&#x2F;www.yulongjun.com&#x2F;images&#x2F;15042666972847.jpg)<br><br>限制响应给客户端的传输速率，单位是bytes&#x2F;second<br><br>默认值0表示无限制<br><br>### 19、&#96;limit_except&#96;<br><br>[![img](https:&#x2F;&#x2F;raw.githubusercontent.com&#x2F;ashjian&#x2F;picBed&#x2F;master&#x2F;20201130221945.jpg)](http:&#x2F;&#x2F;www.yulongjun.com&#x2F;images&#x2F;15042667307350.jpg)<br><br>限制客户端使用除了指定的请求方法之外的其它方法，只能用在location上下文。<br><br>**&#96;Method&#96;**:GET, HEAD, POST, PUT, DELETE<br><br>MKCOL, COPY, MOVE, OPTIONS, PROPFIND,<br><br>PROPPATCH, LOCK, UNLOCK, PATCH<br></code></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><code class="hljs plain"><br>我们可以看到就是逐级从右边截取hash值<br><br>目录名为16进制的数字；<br><br>1 1级目录占1位16进制，即2^4&#x3D;16个目录 0-f<br><br>2 2级目录占2位16进制，即2^8&#x3D;256个目录 00-ff<br><br>2 3级目录占2位16进制，即2^8&#x3D;256个目录 00-ff<br><br>------<br><br>## 对客户端进行限制的相关配置<br><br>### 1、&#96;limit_rate&#96;<br><br>[![img](https:&#x2F;&#x2F;raw.githubusercontent.com&#x2F;ashjian&#x2F;picBed&#x2F;master&#x2F;20201130221939.jpg)](http:&#x2F;&#x2F;www.ashjian.com&#x2F;images&#x2F;15042666972847.jpg)<br><br>限制响应给客户端的传输速率，单位是bytes&#x2F;second<br><br>默认值0表示无限制<br><br>### 19、&#96;limit_except&#96;<br><br>[![img](https:&#x2F;&#x2F;raw.githubusercontent.com&#x2F;ashjian&#x2F;picBed&#x2F;master&#x2F;20201130221945.jpg)](http:&#x2F;&#x2F;www.ashjian.com&#x2F;images&#x2F;15042667307350.jpg)<br><br>限制客户端使用除了指定的请求方法之外的其它方法，只能用在location上下文。<br><br>**&#96;Method&#96;**:GET, HEAD, POST, PUT, DELETE<br><br>MKCOL, COPY, MOVE, OPTIONS, PROPFIND,<br><br>PROPPATCH, LOCK, UNLOCK, PATCH<br></code></pre></td></tr></table></figure>
 <p>limit_except GET HEAD POST {<br>    deny 192.168.111.200<br>    allow 192.168.111.0/24;<br>    deny all;<br>}</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br></pre></td><td class="code"><pre><code class="hljs plain"><br>表示除了GET、HEAD、POST方法其他方法都限制，主机范围为：禁止192.168.111.200、允许192.168.111.0&#x2F;24、禁止所有。即仅允许192.168.111.0网段访问，但是禁止192.168.111.200的地址访问。<br><br>------<br><br>## 文件操作优化的配置<br><br>### 1. &#96;aio&#96;<br><br>[![img](https:&#x2F;&#x2F;raw.githubusercontent.com&#x2F;ashjian&#x2F;picBed&#x2F;master&#x2F;20201130222535.jpg)](http:&#x2F;&#x2F;www.yulongjun.com&#x2F;images&#x2F;15035371542671.jpg)<br><br>是否启用Linux的aio功能。<br><br>### 2. &#96;directio&#96;<br><br>[![img](05-ngx_http_core_module详解.assets&#x2F;15035371833381.jpg)](http:&#x2F;&#x2F;www.yulongjun.com&#x2F;images&#x2F;15035371833381.jpg)<br><br>是否同步写磁盘，在Linux主机启用O_DIRECT标记，意味文件大于等于给定的大小时使用，例如&#96;directio 4m&#96;<br><br>### 3. &#96;open_file_cache&#96;<br><br>[![img](https:&#x2F;&#x2F;raw.githubusercontent.com&#x2F;ashjian&#x2F;picBed&#x2F;master&#x2F;20201130222542.jpg)](http:&#x2F;&#x2F;www.yulongjun.com&#x2F;images&#x2F;15035372196986.jpg)<br><br>nginx可以缓存以下三种信息：<br><br>1. 文件元数据：文件的描述符、文件大小和最近一次的修改时间<br>2. 打开的目录结构<br>3. 没有找到的或者没有权限访问的文件的相关信息<br><br>&#96;max&#x3D;N&#96;：可缓存的缓存项上限；达到上限后会使用LRU算法实现管理。<br>&#96;inactive&#x3D;time&#96;：缓存项的非活动时长，在此处指定的时长内未被命中的或命中的次数少于&#96;open_file_cache_min_uses&#96;指令所指定的次数的缓存项 即为非活动项，将被删除。<br><br>### 4. &#96;open_file_cache_errors&#96;<br><br>[![img](https:&#x2F;&#x2F;raw.githubusercontent.com&#x2F;ashjian&#x2F;picBed&#x2F;master&#x2F;20201130222607.jpg)](http:&#x2F;&#x2F;www.yulongjun.com&#x2F;images&#x2F;15035373075583.jpg)<br><br>是否缓存查找时发生错误的文件一类的信息。<br><br>### 5. &#96;open_file_cache_min_uses&#96;<br><br>[![img](https:&#x2F;&#x2F;raw.githubusercontent.com&#x2F;ashjian&#x2F;picBed&#x2F;master&#x2F;20201130222613.jpg)](http:&#x2F;&#x2F;www.yulongjun.com&#x2F;images&#x2F;15035373927696.jpg)<br><br>open_file_cache指令的inactive参数指定的时长内，至少被命中此处指定的次数方可被归类为活动项。<br><br>### 6. &#96;open_file_cache_valid&#96;<br><br>[![img](https:&#x2F;&#x2F;raw.githubusercontent.com&#x2F;ashjian&#x2F;picBed&#x2F;master&#x2F;20201130230601.jpg)](http:&#x2F;&#x2F;www.yulongjun.com&#x2F;images&#x2F;15035374264499.jpg)<br><br>缓存项有效性的检查频率。<br><br>综上来个例子：<br></code></pre></td></tr></table></figure>
-<p>aio                      on;<br>directio                 4m;<br>open_file_cache          max=1000 inactive=20s;<br>open_file_cache_valid    30s;<br>open_file_cache_min_uses 2;<br>open_file_cache_errors   on;</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br></pre></td><td class="code"><pre><code class="hljs plain"><br>------<br><br>&gt; 其他模块暂时没时间写，有时间再写。可以去查看[官方文档](http:&#x2F;&#x2F;nginx.org&#x2F;en&#x2F;docs&#x2F;)的&#96;Module reference&#96;(模块参考），用的比较多的是[NGINX主配置文件](http:&#x2F;&#x2F;www.yulongjun.com&#x2F;linux&#x2F;20170821-03-nginx-main-config&#x2F;)里讲到的那些模块，这里再次列出来。<br><br>- 核心模块：<br><br>  - **core module**<br><br>- 常用的标准模块：<br><br>  - HTTP modules<br><br>    ：<br><br>    - **&#96;ngx_http_core_modules&#96;** http核心功能模块（重要）<br>    - **&#96;ngx_http_ssl_module&#96;** http信道加密模块（重要）<br>    - **&#96;ngx_http_upstream_module&#96;** http定义服务器组模块（重要）<br>    - **&#96;ngx_http_fastcgi|uWSGI|SCGI_module&#96;** http web api接口模块（重要）<br>    - **&#96;ngx_http_proxy_module&#96;** http反向代理模块（重要）<br>    - **&#96;ngx_http_gzip_module&#96;** http gzip压缩传输模块（次一级）<br>    - **&#96;ngx_http_log_module&#96;** http日志模块（次一级）<br>    - **&#96;ngx_http_referer_module&#96;**http防盗链模块（次一级）<br>    - **&#96;ngx_http_rewrite_module&#96;** http重定向模块（次一级）<br>    - **&#96;ngx_http_access_module&#96;** http权限控制模块<br>    - **&#96;ngx_http_auth_basic_module&#96;** http认证模块<br>    - **&#96;ngx_http_stub_status_module&#96;** http状态模块<br>    - **&#96;ngx_http_headers_module&#96;** http首部信息模块<br><br>  - Mail modules<br><br>    ：<br><br>    - 用的少<br><br>  - Stream modules<br><br>    ：<br><br>    - **&#96;ngx_stream_core_module&#96;** http的伪四层负载均衡模块ngx_http_core_module,规定了一些http功能相关的核心配置。<br><br>## 与套接字相关配置<br><br>### 1、&#96;server&#96;设置虚拟服务器全局配置<br><br>[![img](05-ngx_http_core_module详解.assets&#x2F;15034948621371.jpg)](http:&#x2F;&#x2F;www.yulongjun.com&#x2F;images&#x2F;15034948621371.jpg)<br><br>配置一个虚拟主机的全局配置<br></code></pre></td></tr></table></figure>
-<p>server {<br>listen address[:PORT]|PORT;<br>server_name SERVER_NAME;<br>root /PATH/TO/DOCUMENT_ROOT;<br>}</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><code class="hljs plain"><br>### 2、&#96;listen&#96;设置监听端口和IP<br><br>[![img](https:&#x2F;&#x2F;raw.githubusercontent.com&#x2F;ashjian&#x2F;picBed&#x2F;master&#x2F;20201130221731.jpg)](http:&#x2F;&#x2F;www.yulongjun.com&#x2F;images&#x2F;15034948189199.jpg)<br><br>- &#96;default_server&#96;：设定为默认虚拟主机<br>- &#96;ssl&#96;：限制仅能够通过ssl连接提供服务<br>- &#96;backlog&#x3D;NUMBER&#96; 设置调用中限制挂起连接队列的最大长度的backlog参数 listen()。默认情况下， backlog在FreeBSD，DragonFly BSD和macOS上设置为-1，在其他平台上设置为511。<br>- &#96;rcvbuf&#x3D;SIZE&#96; 设置所监听端口的接收缓存大小（SO_RCVBUF选项）<br>- &#96;sndbuf&#x3D;SIZE&#96; 设置所监听端口的发送缓存大小（SO_SNDBUF选项）<br><br>&gt; 注意：<br>&gt; (1) **基于port**：&#96;listen PORT&#96;<br>&gt; 指令监听在不同的端口<br>&gt; (2) **基于hostname**：&#96;server_name&#96;<br>&gt; 指令指向不同的主机名<br>&gt; (3) **基于ip的虚拟主机**<br>&gt; &#96;listen IP:PORT&#96;&gt; IP 地址不同<br><br>例如：<br></code></pre></td></tr></table></figure>
-<p>listen 192.168.0.100:8000; # 监听192.168.0.100的8000端口<br>listen 192.168.0.100;  # 监听192.168.0.100，不写端口则默认为80端口<br>listen 8000;  # 监听本地8000端口<br>listen *:8000;  # 同上<br>listen localhost:8000;  # 同上<br>listen [::]:8000;  # 监听本地的ipv6的8000端口<br>listen [::1];  # 监听本地的ipv6地址，不写端口则默认为80</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs plain"><br>### 3、&#96;server_name&#96;设置虚拟服务器名字<br><br>[![img](https:&#x2F;&#x2F;raw.githubusercontent.com&#x2F;ashjian&#x2F;picBed&#x2F;master&#x2F;20201130221748.jpg)](http:&#x2F;&#x2F;www.yulongjun.com&#x2F;images&#x2F;15034949217884.jpg)<br><br>- 虚拟主机的主机名称后可跟多个由空白字符分隔的字符串。<br>- 支持*通配任意长度的任意字符<br></code></pre></td></tr></table></figure>
-<p>server_name <em>.yulongjun.com <a href="http://www.yulongjun" target="_blank" rel="noopener">www.yulongjun</a>.</em></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs plain"><br>支持~起始的字符做正则表达式模式匹配<br></code></pre></td></tr></table></figure>
-<p>server_name ~^www\d+.yulongjun.com$</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><code class="hljs plain"><br>&gt; \d 表示 [0-9]<br><br>匹配机制:<br><br>1. 首先是字符串精确匹配 如:&#96;www.yulongjun.com&#96;<br>2. 左侧*通配符 如:&#96;*.yulongjun.com&#96;<br>3. 侧*通配符 如:&#96;www.yulongjun.*&#96;<br>4. 正则表达式 如: &#96;~^.*\.yulongjun\.com$&#96;<br>5. 都没写，则匹配&#96;default_server&#96;<br><br>### 4、&#96;tcp_nodelay on | off;&#96;<br><br>[![img](https:&#x2F;&#x2F;raw.githubusercontent.com&#x2F;ashjian&#x2F;picBed&#x2F;master&#x2F;20201130221754.jpg)](http:&#x2F;&#x2F;www.yulongjun.com&#x2F;images&#x2F;15034959000906.jpg)<br><br>在keepalived模式下的连接是否启用&#96;TCP_NODELAY&#96;选项。off时，延迟发送，合并多个请求后再发送 默认On时，不延迟发送。<br><br>### 5、&#96;sendfile&#96; 零拷贝是否开启<br><br>[![img](https:&#x2F;&#x2F;raw.githubusercontent.com&#x2F;ashjian&#x2F;picBed&#x2F;master&#x2F;20201130221801.jpg)](http:&#x2F;&#x2F;www.yulongjun.com&#x2F;images&#x2F;15034959526228.jpg)<br><br>是否启用&#96;sendfile&#96;零拷贝功能，即在内核中封装报文直接发送。默认Off。<br><br>------<br><br>## 定义路径相关的配置<br><br>### 1、&#96;root&#96;<br><br>[![img](https:&#x2F;&#x2F;raw.githubusercontent.com&#x2F;ashjian&#x2F;picBed&#x2F;master&#x2F;20201130221808.jpg)](http:&#x2F;&#x2F;www.yulongjun.com&#x2F;images&#x2F;15034969060891.jpg)<br><br>设置web资源的路径映射;用于指明请求的URL所对应的文档 的目录路径，可用于http, server, location, if in location<br><br>\<br></code></pre></td></tr></table></figure>
-<p>server { …<br>root /data/www/vhost1;<br>}</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs plain">&gt; 例如：网络上&#96;http:&#x2F;&#x2F;www.yulongjun.com&#x2F;images&#x2F;logo.jpg&#96;,实际是服务器上的&#96;&#x2F;data&#x2F;www&#x2F;vhosts&#x2F;images&#x2F;logo.jpg&#96;### 2、&#96;location&#96;![](&#x2F;images&#x2F;15034969496035.jpg)<br>在一个server中location配置段可存在多个，用于实现从uri到 文件系统的路径映射;ngnix会根据用户请求的URI来检查定义的所有 location，并找出一个最佳匹配，而后应用其配置<br><br>示例:<br></code></pre></td></tr></table></figure>
-<p>server {…<br>    server_name <a href="http://www.yulongjun.com" target="_blank" rel="noopener">www.yulongjun.com</a>;     location /images/ {<br>        root /data/imgs/;<br>    } }</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs plain"><br><br><br>&gt; 例如：网络上的&#96;http:&#x2F;&#x2F;www.yulongjun.com&#x2F;images&#x2F;logo.jpg&#96;，实际是服务器上的&#96;&#x2F;data&#x2F;imgs&#x2F;images&#x2F;logo.jpg&#96;<br><br>**&#96;&#x3D;&#96;：对URI做精确匹配。**<br></code></pre></td></tr></table></figure>
-<p>location = / {<br>…<br>}</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs plain"><br>&gt; 可以匹配&#96;http:&#x2F;&#x2F;www.yulongjun.com&#x2F;&#96; ，不能匹配&#96;http:&#x2F;&#x2F;www.yulongjun.com&#x2F;index.html&#96;<br><br>- **&#96;~&#96;：对URI做正则表达式模式匹配，区分字符大小写**<br>- **&#96;~\*&#96;：对URI做正则表达式模式匹配，不区分字符大小写**<br>- **&#96;^~&#96;：对URI的最左边部分做匹配检查，不区分字符大小写**<br>- **&#96;不带符号&#96;：匹配起始于此uri的所有的uri**<br><br>**匹配优先级**：&#96;&#x3D;&#96;&gt;&#96;^~&#96;&gt; &#96;～&#96;&gt; &#96;～*&#96;&gt;&#96;不带符号&#96;。<br><br>示例：<br></code></pre></td></tr></table></figure>
-<p>root /vhosts/www/htdocs/</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs plain"><br>&gt;<br></code></pre></td></tr></table></figure>
-<blockquote>
-<p><a href="http://www.yulongjun.com/index.html" target="_blank" rel="noopener">http://www.yulongjun.com/index.html</a></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs plain"><br>–&gt; &#96;&#x2F;vhosts&#x2F;www&#x2F;htdocs&#x2F;index.html&#96; <br></code></pre></td></tr></table></figure>
-<p>server {<br>    root /vhosts/www/htdocs/<br>    location /admin/ {<br>       root /webapps/app1/data/<br>    }<br>}</p>
-</blockquote>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs plain"><br>&gt;<br></code></pre></td></tr></table></figure>
-<blockquote>
-<p><a href="http://www.yulongjun.com/admin/index.html`–&gt;`/webapps/app1/data/admin/index.html" target="_blank" rel="noopener">http://www.yulongjun.com/admin/index.html`–&gt;`/webapps/app1/data/admin/index.html</a></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs plain"><br>### 3、&#96;alias PATH;&#96;<br><br>[![img](05-ngx_http_core_module详解.assets&#x2F;15034969755802.jpg)](http:&#x2F;&#x2F;www.yulongjun.com&#x2F;images&#x2F;15034969755802.jpg)<br><br>路径别名，文档映射的另一种机制；仅能用于location上下文<br><br>示例： <br></code></pre></td></tr></table></figure>
-<p>location /bbs/ {<br>    alias /web/forum/;<br>}</p>
-</blockquote>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs plain"><br>&gt;<br></code></pre></td></tr></table></figure>
-<blockquote>
-<p><a href="http://www.yulongjun.com/bbs/index.php`–&gt;" target="_blank" rel="noopener">http://www.yulongjun.com/bbs/index.php`–&gt;</a> `/web/forum/index.html</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs plain"><br>相比之下，root是这样的： <br></code></pre></td></tr></table></figure>
-<p>location /bbs/ {<br>    root /web/forum/;<br>}</p>
-</blockquote>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs plain"><br>&gt;<br></code></pre></td></tr></table></figure>
-<blockquote>
-<p><a href="http://www.yulongjun.com/bbs/index.php`–&gt;" target="_blank" rel="noopener">http://www.yulongjun.com/bbs/index.php`–&gt;</a> `/web/forum/bbs/index.html</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><code class="hljs plain"><br>注意：location中使用&#96;root&#96;指令和&#96;alias&#96;指令的意义不同<br><br>(a) root，给定的路径对应于location中的&#96;&#x2F;uri&#x2F;&#96;**左**侧的&#96;&#x2F;&#96;<br><br>(b) alias，给定的路径对应于location中的&#96;&#x2F;uri&#x2F;&#96;**右**侧的&#96;&#x2F;&#96;<br><br>### 4、&#96;index file&#96;<br><br>[![img](https:&#x2F;&#x2F;raw.githubusercontent.com&#x2F;ashjian&#x2F;picBed&#x2F;master&#x2F;20201130221826.jpg)](http:&#x2F;&#x2F;www.yulongjun.com&#x2F;images&#x2F;15034971105980.jpg)<br>指定默认网页资源，注意,这个是在&#96;ngx_http_index_module&#96;模块。<br><br>### 5、&#96;error_page&#96; 错误页404<br><br>[![img](https:&#x2F;&#x2F;raw.githubusercontent.com&#x2F;ashjian&#x2F;picBed&#x2F;master&#x2F;20201130221834.jpg)](http:&#x2F;&#x2F;www.yulongjun.com&#x2F;images&#x2F;15034978784852.jpg) <br></code></pre></td></tr></table></figure>
-<p>error_page 404 /404.html;<br>error_page 500 502 503 504 /50x.html;</p>
-</blockquote>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs plain"><br>这将导致内部重定向到*uri* 客户端请求方法指定的内部重定向更改为“GET”（对于除“GET”和“HEAD” 之外的所有方法）。<br><br>此外，可以使用*&#x3D;response*语法将响应代码更改为另一个，例如：<br></code></pre></td></tr></table></figure>
-<p>error_page 404 = 200 /empty.gif;</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs plain"><br>如果代理服务器或&#96;FastCGI&#x2F;uwsgi&#x2F;SCGI&#96;服务器处理错误响应，并且服务器可能返回不同的响应代码（例如200、302、401或404），则可以使用返回的代码进行响应：<br></code></pre></td></tr></table></figure>
-<p>error_page 404 = /404.php;</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs plain"><br>如果在内部重定向期间不需要更改URI和方法，则可以将错误处理传递到命名位置：<br></code></pre></td></tr></table></figure>
-<p>location / {<br>    error_page 404 = @fallback;<br>} </p>
-<p>location @fallback {<br>    proxy_pass http：//后端;</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs plain"><br>&gt; 如果*uri*处理导致错误，则将最后发生的错误的状态代码返回给客户端。<br><br>还可以使用URL重定向进行错误处理：<br></code></pre></td></tr></table></figure>
-<p>error_page 403 <a href="http://example.com/forbidden.html" target="_blank" rel="noopener">http://example.com/forbidden.html</a>;<br>error_page 404 = 301 <a href="http://example.com/notfound.html" target="_blank" rel="noopener">http://example.com/notfound.html</a>;</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs plain"><br>&gt; 在这种情况下，默认情况下，将响应代码302返回给客户端。它只能更改为重定向状态代码之一（301,302,303,307和308）。<br>&gt; 当且仅当没有error_page 在当前级别上定义指令时，这些指令才能从上一级继承 。<br><br>### 6、try_files<br><br>[![img](https:&#x2F;&#x2F;raw.githubusercontent.com&#x2F;ashjian&#x2F;picBed&#x2F;master&#x2F;20201130221844.jpg)](http:&#x2F;&#x2F;www.yulongjun.com&#x2F;images&#x2F;15034979377926.jpg)<br><br>以指定的顺序检查文件的存在，并使用第一个找到的文件进行请求处理; 该处理在当前上下文中执行。文件的路径是*file*根据根和别名指令的参数 构建的 。可以通过在名称末尾指定斜杠来检查目录的存在，例如“ *$uri&#x2F;*”。如果没有找到任何文件，则会*uri*进行最后一个参数中指定的内部重定向 。例如：<br></code></pre></td></tr></table></figure>
-<p>location /images/ {<br>    try_files $uri /images/default.gif;<br>}</p>
-<p>location = /images/default.gif {<br>    expires 30s;<br>}</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs plain"><br>最后一个参数也可以指向一个命名的位置，如下面的例子所示。从0.7.51版本开始，最后一个参数也可以是 *code*：<br></code></pre></td></tr></table></figure>
-<p>location / {<br>    try_files $uri $uri/index.html $uri.html =404;<br>}</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs plain"><br>&#96;Drupal&#x2F;FastCGI&#96;示例：<br></code></pre></td></tr></table></figure>
-<p>location / {<br>    try_files $uri $uri/ @drupal;<br>}</p>
-<p>location ~ .php$ {<br>    try_files $uri @drupal;</p>
-<pre><code>fastcgi_pass ...;
-
-fastcgi_param SCRIPT_FILENAME /path/to$fastcgi_script_name;
-fastcgi_param SCRIPT_NAME     $fastcgi_script_name;
-fastcgi_param QUERY_STRING    $args;
-
-... other fastcgi_param&apos;s</code></pre><p>}</p>
-<p>location @drupal {<br>    fastcgi_pass …;</p>
-<pre><code>fastcgi_param SCRIPT_FILENAME /path/to/index.php;
-fastcgi_param SCRIPT_NAME     /index.php;
-fastcgi_param QUERY_STRING    q=$uri&amp;$args;
-
-... other fastcgi_param&apos;s</code></pre><p>}</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs plain"><br>在上面的例子中，<br></code></pre></td></tr></table></figure>
-<p>location / {<br>    try_files $uri $uri/ @drupal;<br>}</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs plain"><br>该*try_files*指令相当于下面两端代码的结合：<br></code></pre></td></tr></table></figure>
-<p>location / {<br>    error_page 404 = @drupal;<br>    log_not_found off;<br>}<br>location ~ .php$ {<br>    try_files $uri @drupal;</p>
-<pre><code>fastcgi_pass ...;
-
-fastcgi_param SCRIPT_FILENAME /path/to$fastcgi_script_name;
-
-...</code></pre><p>}</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs plain"><br>*try_files* 在将请求传递给FastCGI服务器之前检查PHP文件的存在。<br><br>Wordpress和Joomla的示例：<br></code></pre></td></tr></table></figure>
-<p>location / {<br>    try_files $uri $uri/ @wordpress;<br>}</p>
-<p>location ~ .php$ {<br>    try_files $uri @wordpress;</p>
-<pre><code>fastcgi_pass ...;
-
-fastcgi_param SCRIPT_FILENAME /path/to$fastcgi_script_name;
-... other fastcgi_param&apos;s</code></pre><p>}</p>
-<p>location @wordpress {<br>    fastcgi_pass …;</p>
-<pre><code>fastcgi_param SCRIPT_FILENAME /path/to/index.php;
-... other fastcgi_param&apos;s</code></pre><p>}</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><code class="hljs plain"><br>------<br><br>## 定义客户端请求的相关配置<br><br>### 1、&#96;keepalive_timeout&#96;设定长连接的超时时长<br><br>[![img](https:&#x2F;&#x2F;raw.githubusercontent.com&#x2F;ashjian&#x2F;picBed&#x2F;master&#x2F;20201130221853.jpg)](http:&#x2F;&#x2F;www.yulongjun.com&#x2F;images&#x2F;15034986592949.jpg)<br><br>第一个参数设置保持连接的超时时长，0表示禁止长连接。默认为75s，推荐120s<br><br>可选的第二个参数在“Keep-Alive：timeout &#x3D; time”响应头域中设置一个值。两个参数可能不同。<br><br>Mozilla和Konqueror可以识别 &#96;Keep-Alive：timeout &#x3D; time&#96;头域。MSIE在大约60秒内自行关闭保持连接。<br><br>### 2、&#96;keepalive_requests&#96;长连接允许请求的资源的最大数量<br><br>[![img](https:&#x2F;&#x2F;raw.githubusercontent.com&#x2F;ashjian&#x2F;picBed&#x2F;master&#x2F;20201130221858.jpg)](http:&#x2F;&#x2F;www.yulongjun.com&#x2F;images&#x2F;15034986843839.jpg)<br><br>在一次长连接上所允许请求的资源的最大数量。默认为100<br><br>### 3、&#96;keepalive_disable&#96;对哪种浏览器禁用长连接<br><br>[![img](https:&#x2F;&#x2F;raw.githubusercontent.com&#x2F;ashjian&#x2F;picBed&#x2F;master&#x2F;20201130221904.jpg)](http:&#x2F;&#x2F;www.yulongjun.com&#x2F;images&#x2F;15034987149301.jpg)<br><br>### 4、&#96;send_timeout&#96;设置用于向客户端发送响应的超时时间<br><br>[![img](https:&#x2F;&#x2F;raw.githubusercontent.com&#x2F;ashjian&#x2F;picBed&#x2F;master&#x2F;20201130221917.jpg)](http:&#x2F;&#x2F;www.yulongjun.com&#x2F;images&#x2F;15034987424203.jpg)<br><br>设置用于向客户端发送响应的超时时间。超时仅在两个连续的写入操作之间设置，而不是传输整个响应。如果客户端在这段时间内没有收到任何内容，则连接被关闭。<br><br>### 5、&#96;client_body_buffer_size&#96;<br><br>[![img](https:&#x2F;&#x2F;raw.githubusercontent.com&#x2F;ashjian&#x2F;picBed&#x2F;master&#x2F;20201130221932.jpg)](http:&#x2F;&#x2F;www.yulongjun.com&#x2F;images&#x2F;15034997030744.jpg)<br><br>设置读取客户端请求体的缓冲区大小。如果请求体大于缓冲区，则整个身体或仅将其部分写入 临时文件。默认情况下，缓冲区大小等于两个内存页面。这是x86上的8K，其他32位平台和x86-64。其他64位平台通常为16K。<br><br>### 6、&#96;client_body_temp_path&#96;<br><br>定义用于存储持有客户机请求主体的临时文件的目录。最多可以在指定目录下使用三级子目录层次结构。例如，在以下配置中：<br></code></pre></td></tr></table></figure>
-<p>client_body_temp_path /spool/nginx/client_temp 1 2;</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs plain"><br>临时文件hash：<br><br>85c9d32c3526a1bbb3996525ec80b3e0f7aa83dd<br></code></pre></td></tr></table></figure>
-<p>ls /spool/nginx/client_temp/d/3d/a83/<br>85c9d32c3526a1bbb3996525ec80b3e0f7aa83dd</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><code class="hljs plain"><br>我们可以看到就是逐级从右边截取hash值<br><br>目录名为16进制的数字；<br><br>1 1级目录占1位16进制，即2^4&#x3D;16个目录 0-f<br><br>2 2级目录占2位16进制，即2^8&#x3D;256个目录 00-ff<br><br>2 3级目录占2位16进制，即2^8&#x3D;256个目录 00-ff<br><br>------<br><br>## 对客户端进行限制的相关配置<br><br>### 1、&#96;limit_rate&#96;<br><br>[![img](https:&#x2F;&#x2F;raw.githubusercontent.com&#x2F;ashjian&#x2F;picBed&#x2F;master&#x2F;20201130221939.jpg)](http:&#x2F;&#x2F;www.yulongjun.com&#x2F;images&#x2F;15042666972847.jpg)<br><br>限制响应给客户端的传输速率，单位是bytes&#x2F;second<br><br>默认值0表示无限制<br><br>### 19、&#96;limit_except&#96;<br><br>[![img](https:&#x2F;&#x2F;raw.githubusercontent.com&#x2F;ashjian&#x2F;picBed&#x2F;master&#x2F;20201130221945.jpg)](http:&#x2F;&#x2F;www.yulongjun.com&#x2F;images&#x2F;15042667307350.jpg)<br><br>限制客户端使用除了指定的请求方法之外的其它方法，只能用在location上下文。<br><br>**&#96;Method&#96;**:GET, HEAD, POST, PUT, DELETE<br><br>MKCOL, COPY, MOVE, OPTIONS, PROPFIND,<br><br>PROPPATCH, LOCK, UNLOCK, PATCH<br></code></pre></td></tr></table></figure>
-<p>limit_except GET HEAD POST {<br>    deny 192.168.111.200<br>    allow 192.168.111.0/24;<br>    deny all;<br>}</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br></pre></td><td class="code"><pre><code class="hljs plain"><br>表示除了GET、HEAD、POST方法其他方法都限制，主机范围为：禁止192.168.111.200、允许192.168.111.0&#x2F;24、禁止所有。即仅允许192.168.111.0网段访问，但是禁止192.168.111.200的地址访问。<br><br>------<br><br>## 文件操作优化的配置<br><br>### 1. &#96;aio&#96;<br><br>[![img](https:&#x2F;&#x2F;raw.githubusercontent.com&#x2F;ashjian&#x2F;picBed&#x2F;master&#x2F;20201130222535.jpg)](http:&#x2F;&#x2F;www.yulongjun.com&#x2F;images&#x2F;15035371542671.jpg)<br><br>是否启用Linux的aio功能。<br><br>### 2. &#96;directio&#96;<br><br>[![img](05-ngx_http_core_module详解.assets&#x2F;15035371833381.jpg)](http:&#x2F;&#x2F;www.yulongjun.com&#x2F;images&#x2F;15035371833381.jpg)<br><br>是否同步写磁盘，在Linux主机启用O_DIRECT标记，意味文件大于等于给定的大小时使用，例如&#96;directio 4m&#96;<br><br>### 3. &#96;open_file_cache&#96;<br><br>[![img](https:&#x2F;&#x2F;raw.githubusercontent.com&#x2F;ashjian&#x2F;picBed&#x2F;master&#x2F;20201130222542.jpg)](http:&#x2F;&#x2F;www.yulongjun.com&#x2F;images&#x2F;15035372196986.jpg)<br><br>nginx可以缓存以下三种信息：<br><br>1. 文件元数据：文件的描述符、文件大小和最近一次的修改时间<br>2. 打开的目录结构<br>3. 没有找到的或者没有权限访问的文件的相关信息<br><br>&#96;max&#x3D;N&#96;：可缓存的缓存项上限；达到上限后会使用LRU算法实现管理。<br>&#96;inactive&#x3D;time&#96;：缓存项的非活动时长，在此处指定的时长内未被命中的或命中的次数少于&#96;open_file_cache_min_uses&#96;指令所指定的次数的缓存项 即为非活动项，将被删除。<br><br>### 4. &#96;open_file_cache_errors&#96;<br><br>[![img](https:&#x2F;&#x2F;raw.githubusercontent.com&#x2F;ashjian&#x2F;picBed&#x2F;master&#x2F;20201130222607.jpg)](http:&#x2F;&#x2F;www.yulongjun.com&#x2F;images&#x2F;15035373075583.jpg)<br><br>是否缓存查找时发生错误的文件一类的信息。<br><br>### 5. &#96;open_file_cache_min_uses&#96;<br><br>[![img](https:&#x2F;&#x2F;raw.githubusercontent.com&#x2F;ashjian&#x2F;picBed&#x2F;master&#x2F;20201130222613.jpg)](http:&#x2F;&#x2F;www.yulongjun.com&#x2F;images&#x2F;15035373927696.jpg)<br><br>open_file_cache指令的inactive参数指定的时长内，至少被命中此处指定的次数方可被归类为活动项。<br><br>### 6. &#96;open_file_cache_valid&#96;<br><br>[![img](https:&#x2F;&#x2F;raw.githubusercontent.com&#x2F;ashjian&#x2F;picBed&#x2F;master&#x2F;20201130230601.jpg)](http:&#x2F;&#x2F;www.yulongjun.com&#x2F;images&#x2F;15035374264499.jpg)<br><br>缓存项有效性的检查频率。<br><br>综上来个例子：<br></code></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br></pre></td><td class="code"><pre><code class="hljs plain"><br>表示除了GET、HEAD、POST方法其他方法都限制，主机范围为：禁止192.168.111.200、允许192.168.111.0&#x2F;24、禁止所有。即仅允许192.168.111.0网段访问，但是禁止192.168.111.200的地址访问。<br><br>------<br><br>## 文件操作优化的配置<br><br>### 1. &#96;aio&#96;<br><br>[![img](https:&#x2F;&#x2F;raw.githubusercontent.com&#x2F;ashjian&#x2F;picBed&#x2F;master&#x2F;20201130222535.jpg)](http:&#x2F;&#x2F;www.ashjian.com&#x2F;images&#x2F;15035371542671.jpg)<br><br>是否启用Linux的aio功能。<br><br>### 2. &#96;directio&#96;<br><br>[![img](05-ngx_http_core_module详解.assets&#x2F;15035371833381.jpg)](http:&#x2F;&#x2F;www.ashjian.com&#x2F;images&#x2F;15035371833381.jpg)<br><br>是否同步写磁盘，在Linux主机启用O_DIRECT标记，意味文件大于等于给定的大小时使用，例如&#96;directio 4m&#96;<br><br>### 3. &#96;open_file_cache&#96;<br><br>[![img](https:&#x2F;&#x2F;raw.githubusercontent.com&#x2F;ashjian&#x2F;picBed&#x2F;master&#x2F;20201130222542.jpg)](http:&#x2F;&#x2F;www.ashjian.com&#x2F;images&#x2F;15035372196986.jpg)<br><br>nginx可以缓存以下三种信息：<br><br>1. 文件元数据：文件的描述符、文件大小和最近一次的修改时间<br>2. 打开的目录结构<br>3. 没有找到的或者没有权限访问的文件的相关信息<br><br>&#96;max&#x3D;N&#96;：可缓存的缓存项上限；达到上限后会使用LRU算法实现管理。<br>&#96;inactive&#x3D;time&#96;：缓存项的非活动时长，在此处指定的时长内未被命中的或命中的次数少于&#96;open_file_cache_min_uses&#96;指令所指定的次数的缓存项 即为非活动项，将被删除。<br><br>### 4. &#96;open_file_cache_errors&#96;<br><br>[![img](https:&#x2F;&#x2F;raw.githubusercontent.com&#x2F;ashjian&#x2F;picBed&#x2F;master&#x2F;20201130222607.jpg)](http:&#x2F;&#x2F;www.ashjian.com&#x2F;images&#x2F;15035373075583.jpg)<br><br>是否缓存查找时发生错误的文件一类的信息。<br><br>### 5. &#96;open_file_cache_min_uses&#96;<br><br>[![img](https:&#x2F;&#x2F;raw.githubusercontent.com&#x2F;ashjian&#x2F;picBed&#x2F;master&#x2F;20201130222613.jpg)](http:&#x2F;&#x2F;www.ashjian.com&#x2F;images&#x2F;15035373927696.jpg)<br><br>open_file_cache指令的inactive参数指定的时长内，至少被命中此处指定的次数方可被归类为活动项。<br><br>### 6. &#96;open_file_cache_valid&#96;<br><br>[![img](https:&#x2F;&#x2F;raw.githubusercontent.com&#x2F;ashjian&#x2F;picBed&#x2F;master&#x2F;20201130230601.jpg)](http:&#x2F;&#x2F;www.ashjian.com&#x2F;images&#x2F;15035374264499.jpg)<br><br>缓存项有效性的检查频率。<br><br>综上来个例子：<br></code></pre></td></tr></table></figure>
 <p>aio                      on;<br>directio                 4m;<br>open_file_cache          max=1000 inactive=20s;<br>open_file_cache_valid    30s;<br>open_file_cache_min_uses 2;<br>open_file_cache_errors   on;</p>
 <p>```</p>
 <hr>
 <blockquote>
-<p>其他模块暂时没时间写，有时间再写。可以去查看<a href="http://nginx.org/en/docs/" target="_blank" rel="noopener">官方文档</a>的<code>Module reference</code>(模块参考），用的比较多的是<a href="http://www.yulongjun.com/linux/20170821-03-nginx-main-config/" target="_blank" rel="noopener">NGINX主配置文件</a>里讲到的那些模块，这里再次列出来。</p>
+<p>其他模块暂时没时间写，有时间再写。可以去查看<a href="http://nginx.org/en/docs/" target="_blank" rel="noopener">官方文档</a>的<code>Module reference</code>(模块参考），用的比较多的是<a href="http://www.ashjian.com/linux/20170821-03-nginx-main-config/" target="_blank" rel="noopener">NGINX主配置文件</a>里讲到的那些模块，这里再次列出来。</p>
 </blockquote>
 <ul>
 <li><p>核心模块：</p>
@@ -771,6 +695,12 @@ fastcgi_param SCRIPT_FILENAME /path/to$fastcgi_script_name;
 
     <footer class="post-footer">
       
+        <div class="post-tags">
+          
+            <a href="/tags/nginx/" rel="tag"># nginx</a>
+          
+        </div>
+      
 
       
       
@@ -780,8 +710,8 @@ fastcgi_param SCRIPT_FILENAME /path/to$fastcgi_script_name;
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/04-Nginx%E7%9A%84%E9%BB%98%E8%AE%A4http%E9%85%8D%E7%BD%AE%E9%80%89%E9%A1%B9/" rel="next" title="04-Nginx的默认http配置选项">
-                <i class="fa fa-chevron-left"></i> 04-Nginx的默认http配置选项
+              <a href="/%E5%85%B3%E7%B3%BB%E6%A8%A1%E5%9E%8B%E5%92%8CSQL/" rel="next" title="关系模型和SQL">
+                <i class="fa fa-chevron-left"></i> 关系模型和SQL
               </a>
             
           </div>
@@ -790,8 +720,8 @@ fastcgi_param SCRIPT_FILENAME /path/to$fastcgi_script_name;
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/06-Nginx%E7%9A%84HTTP%E7%9B%B8%E5%85%B3%E7%9A%84%E6%9D%82%E9%A1%B9%E6%A8%A1%E5%9D%97/" rel="prev" title="06-Nginx的HTTP相关的杂项模块">
-                06-Nginx的HTTP相关的杂项模块 <i class="fa fa-chevron-right"></i>
+              <a href="/OVA%E7%B4%AB%E9%99%BD%E8%8A%B1%E3%81%AE%E6%95%A3%E3%83%AB%E9%A0%83%E3%81%AB(%E5%B0%8F)/" rel="prev" title="OVA紫陽花の散ル頃に(小)">
+                OVA紫陽花の散ル頃に(小) <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -876,7 +806,7 @@ fastcgi_param SCRIPT_FILENAME /path/to$fastcgi_script_name;
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">2557</span>
+                  <span class="site-state-item-count">2842</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -887,7 +817,7 @@ fastcgi_param SCRIPT_FILENAME /path/to$fastcgi_script_name;
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">12</span>
+                  <span class="site-state-item-count">13</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -898,7 +828,7 @@ fastcgi_param SCRIPT_FILENAME /path/to$fastcgi_script_name;
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">147</span>
+                  <span class="site-state-item-count">160</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
@@ -1021,7 +951,7 @@ fastcgi_param SCRIPT_FILENAME /path/to$fastcgi_script_name;
     
       <span class="post-meta-item-text">本站总字数&#58;</span>
     
-    <span title="本站总字数">662.6k</span>
+    <span title="本站总字数">769.8k</span>
   
 </div>
 

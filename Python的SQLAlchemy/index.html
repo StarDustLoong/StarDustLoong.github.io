@@ -1,0 +1,1478 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="python的SQLAlchemy," />
+
+
+
+
+  
+
+
+  <link rel="alternate" href="/atom.xml" title="" type="application/atom+xml" />
+
+
+
+
+
+
+<meta name="description" content="SQLAlchemySQLAlchemy是一个ORM框架大量使用了元编程 安装$ pip install sqlalchemy 文档官方文档http:&#x2F;&#x2F;docs.sqlalchemy.org&#x2F;en&#x2F;latest&#x2F;查看版本 12import sqlalchemyprint(sqlalchemy.__version__)  开发SQLAlchemy内部使用了连接池 创建连接数据库连接的事情，交给引擎">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Python的SQLAlchemy">
+<meta property="og:url" content="http://www.ashjian.xyz/Python%E7%9A%84SQLAlchemy/index.html">
+<meta property="og:site_name">
+<meta property="og:description" content="SQLAlchemySQLAlchemy是一个ORM框架大量使用了元编程 安装$ pip install sqlalchemy 文档官方文档http:&#x2F;&#x2F;docs.sqlalchemy.org&#x2F;en&#x2F;latest&#x2F;查看版本 12import sqlalchemyprint(sqlalchemy.__version__)  开发SQLAlchemy内部使用了连接池 创建连接数据库连接的事情，交给引擎">
+<meta property="og:image" content="https://gitee.com/ashjian/picBed/raw/master/20210909222949.jpg">
+<meta property="article:published_time" content="2021-09-09T14:41:24.993Z">
+<meta property="article:modified_time" content="2021-09-09T14:30:03.997Z">
+<meta property="article:author" content="StarDustLoong">
+<meta property="article:tag" content="python的SQLAlchemy">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://gitee.com/ashjian/picBed/raw/master/20210909222949.jpg">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://www.ashjian.xyz/Python的SQLAlchemy/"/>
+
+
+
+
+
+  <title>Python的SQLAlchemy | </title>
+  
+
+
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?d7bf52f45e24a0e6f2951901a7a97864";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+<meta name="generator" content="Hexo 4.2.1"></head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title"></span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off"
+             placeholder="搜索..." spellcheck="false"
+             type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://www.ashjian.xyz/Python%E7%9A%84SQLAlchemy/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="StarDustLoong">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/uploads/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Python的SQLAlchemy</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2021-09-09T22:41:24+08:00">
+                2021-09-09
+              </time>
+            
+
+            
+              <span class="post-meta-divider">|</span>
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-check-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">更新于&#58;</span>
+              
+              <time title="更新于" itemprop="dateModified" datetime="2021-09-09T22:30:03+08:00">
+                2021-09-09
+              </time>
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/python/" itemprop="url" rel="index">
+                    <span itemprop="name">python</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/Python%E7%9A%84SQLAlchemy/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/Python%E7%9A%84SQLAlchemy/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  4.7k
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  23
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+      
+      
+
+      
+        <h2 id="SQLAlchemy"><a href="#SQLAlchemy" class="headerlink" title="SQLAlchemy"></a>SQLAlchemy</h2><p>SQLAlchemy是一个ORM框架<br>大量使用了元编程</p>
+<h3 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h3><p>$ pip install sqlalchemy</p>
+<h3 id="文档"><a href="#文档" class="headerlink" title="文档"></a>文档</h3><p>官方文档<br><a href="http://docs.sqlalchemy.org/en/latest/" target="_blank" rel="noopener">http://docs.sqlalchemy.org/en/latest/</a><br>查看版本</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs plain">import sqlalchemy<br>print(sqlalchemy.__version__)<br></code></pre></td></tr></table></figure>
+
+<h3 id="开发"><a href="#开发" class="headerlink" title="开发"></a>开发</h3><p>SQLAlchemy内部使用了连接池</p>
+<h3 id="创建连接"><a href="#创建连接" class="headerlink" title="创建连接"></a>创建连接</h3><p>数据库连接的事情，交给引擎</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><code class="hljs plain">mysqldb的连接<br>mysql+mysqldb:&#x2F;&#x2F;&lt;user&gt;:&lt;password&gt;@&lt;host&gt;[:&lt;port&gt;]&#x2F;&lt;dbname&gt;<br>engine &#x3D; sqlalchemy.create_engine(&quot;mysql+mysqldb:&#x2F;&#x2F;wayne:wayne@127.0.0.1:3306&#x2F;magedu&quot;)<br><br>pymysql的连接<br>mysql+pymysql:&#x2F;&#x2F;&lt;username&gt;:&lt;password&gt;@&lt;host&gt;&#x2F;&lt;dbname&gt;[?&lt;options&gt;]<br>engine &#x3D; sqlalchemy.create_engine(&quot;mysql+pymysql:&#x2F;&#x2F;wayne:wayne@127.0.0.1:3306&#x2F;magedu&quot;)<br>engine &#x3D; sqlalchemy.create_engine(&quot;mysql+pymysql:&#x2F;&#x2F;wayne:wayne@127.0.0.1:3306&#x2F;magedu&quot;,<br>echo&#x3D;True)<br><br>echo&#x3D;True<br>引擎是否打印执行的语句，调试的时候打开很方便。<br></code></pre></td></tr></table></figure>
+
+<h3 id="Declare-a-Mapping创建映射"><a href="#Declare-a-Mapping创建映射" class="headerlink" title="Declare a Mapping创建映射"></a>Declare a Mapping创建映射</h3><h4 id="创建基类"><a href="#创建基类" class="headerlink" title="创建基类"></a>创建基类</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs plain">from sqlalchemy.ext.declarative import declarative_base<br># 创建基类，便于实体类继承<br>Base &#x3D; declarative_base()<br></code></pre></td></tr></table></figure>
+
+<h4 id="创建实体类"><a href="#创建实体类" class="headerlink" title="创建实体类"></a>创建实体类</h4><p>student表</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs plain">CREATE TABLE student (<br>	id INTEGER NOT NULL AUTO_INCREMENT,<br>	name VARCHAR(64) NOT NULL,<br>	age INTEGER,<br>	PRIMARY KEY (id)<br>)<br></code></pre></td></tr></table></figure>
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><code class="hljs plain"># 创建实体类<br>class Student(Base):<br>	# 指定表名<br>	__tablename__ &#x3D; &#39;student&#39;<br>	# 定义属性对应字段<br>	id &#x3D; Column(Integer, primary_key&#x3D;True)<br>	name &#x3D; Column(String(64))<br>	age &#x3D; Column(Integer)<br>	# 第一参数是字段名，如果和属性名不一致，一定要指定<br>	# age &#x3D; Column(&#39;age&#39;, Integer)<br>	<br>	def __repr__(self):<br>		return &quot;&#123;&#125; id&#x3D;&#123;&#125; name&#x3D;&#123;&#125; age&#x3D;&#123;&#125;&quot;.format(self.__class__.__name__, self.id, self.name, self.age)<br></code></pre></td></tr></table></figure>
+
+<p>__tablename__ 指定表名<br>Column类指定对应的字段，必须指定<br>实例化</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs plain">s &#x3D; Student(name&#x3D;&#39;tom&#39;)<br>print(s.name)<br>s.age &#x3D; 20<br>print(s.age)<br></code></pre></td></tr></table></figure>
+
+<h4 id="创建表"><a href="#创建表" class="headerlink" title="创建表"></a>创建表</h4><p>可以使用SQLAlchemy来创建、删除表</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs plain"># 删除继承自Base的所有表<br>Base.metadata.drop_all(engine)<br># 创建继承自Base的所有表<br>Base.metadata.create_all(engine)<br></code></pre></td></tr></table></figure>
+
+<p>生产环境很少这样创建表，都是系统上线的时候由脚本生成。<br>生成环境很少删除表，宁可废弃都不能删除。</p>
+<h4 id="创建会话session"><a href="#创建会话session" class="headerlink" title="创建会话session"></a>创建会话session</h4><p>在一个会话中操作数据库，会话建立在连接上，连接被引擎管理。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs plain"># 创建session<br>Session &#x3D; sessionmaker(bind&#x3D;engine) # 返回类<br>session &#x3D; Session() # 实例化<br></code></pre></td></tr></table></figure>
+
+<p>session对象线程不安全。所以不同线程使用不用的session对象。<br>Session类和engine都是线程安全的，有一个就行了。</p>
+<h4 id="CRUD操作"><a href="#CRUD操作" class="headerlink" title="CRUD操作"></a>CRUD操作</h4><p>增</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br></pre></td><td class="code"><pre><code class="hljs plain">import sqlalchemy<br>from sqlalchemy.ext.declarative import declarative_base<br>from sqlalchemy import Column, Integer, String<br>from sqlalchemy.orm import sessionmaker<br><br>host &#x3D; &#39;192.168.142.140&#39;<br>user &#x3D; &#39;wayne&#39;<br>password &#x3D; &#39;wayne&#39;<br>port &#x3D; 3306<br>database &#x3D; &#39;test&#39;<br><br>conn_str &#x3D; &quot;mysql+pymysql:&#x2F;&#x2F;&#123;&#125;:&#123;&#125;@&#123;&#125;:&#123;&#125;&#x2F;&#123;&#125;&quot;.format(user, password, host, port, database)<br><br>engine &#x3D; sqlalchemy.create_engine(conn_str, echo&#x3D;True)<br><br># 创建基类<br>Base &#x3D; declarative_base()<br><br># 创建实体类<br>class Student(Base):<br>	# 指定表名<br>	__tablename__ &#x3D; &#39;student&#39;<br>	# 定义属性对应字段<br>	id &#x3D; Column(Integer, primary_key&#x3D;True)<br>	name &#x3D; Column(String(64), nullable&#x3D;False)<br>	age &#x3D; Column(Integer)<br>	# 第一参数是字段名，如果和属性名不一致，一定要指定<br>	# age &#x3D; Column(&#39;age&#39;, Integer)<br>	<br>	def __repr__(self):<br>		return &quot;&#123;&#125; id&#x3D;&#123;&#125; name&#x3D;&#123;&#125; age&#x3D;&#123;&#125;&quot;.format(<br>			self.__class__.__name__, self.id, self.name, self.age)<br>			<br>s &#x3D; Student(name&#x3D;&#39;tom&#39;) # 构造的时候传入<br>print(s.name)<br>s.age &#x3D; 20 # 属性赋值<br>print(s.age)<br><br># # 删除继承自Base的所有表<br># Base.metadata.drop_all(engine)<br># # 创建继承自Base的所有表<br># Base.metadata.create_all(engine)<br><br># 创建session<br>Session &#x3D; sessionmaker(bind&#x3D;engine)<br>session &#x3D; Session()<br><br>session.add(s)<br>print(s)<br>session.commit()<br>print(s)<br>print(&#39;~~~~~~~~~~~~~&#39;)<br><br>try:<br>	session.add_all([s])<br>	print(s)<br>	session.commit() # 提交能够成功吗<br>	print(s)<br>except:<br>	session.rollback()<br>	raise<br></code></pre></td></tr></table></figure>
+
+<p>add_all()方法不会提交成功的，不是因为它不对，而是s，s成功提交后，s的主键就有了值，所以，只要s没有修改<br>过，就认为没有改动。如下，s变化了，就可以提交修改了。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs plain">s.name &#x3D; &#39;jerry&#39; # 修改<br>session.add_all([s])<br></code></pre></td></tr></table></figure>
+
+<p>s主键没有值，就是新增；主键有值，就是找到主键对应的记录修改。</p>
+<h4 id="简单查询"><a href="#简单查询" class="headerlink" title="简单查询"></a>简单查询</h4><p>使用query()方法，返回一个Query对象</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs plain">students &#x3D; session.query(Student) # 无条件<br>for student in students:<br>	print(student)<br>print(&#39;~~~~~~~~~~~~~&#39;)<br><br>student &#x3D; session.query(Student).get(2) # 通过主键查询<br>print(student)<br></code></pre></td></tr></table></figure>
+
+<p>query方法将实体类传入，返回类的对象可迭代对象，这时候并不查询。迭代它就执行SQL来查询数据库，封装数<br>据到指定类的实例。<br>get方法使用主键查询，返回一条传入类的一个实例。</p>
+<h4 id="改"><a href="#改" class="headerlink" title="改"></a>改</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs plain">student &#x3D; session.query(Student).get(2)<br>print(student)<br>student.name &#x3D; &#39;sam&#39;<br>student.age &#x3D; 30<br>print(student)<br>session.add(student)<br>session.commit()<br></code></pre></td></tr></table></figure>
+
+<p>先查回来，修改后，再提交更改。</p>
+<h4 id="删除"><a href="#删除" class="headerlink" title="删除"></a>删除</h4><p>先看下数据库，表中有</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs plain">1 tom 20<br>2 sam 30<br>3 jerry 20<br>4 ben 20<br>5 ben 20<br></code></pre></td></tr></table></figure>
+
+<p>编写如下程序来删除数据，会发生什么？</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs plain">try:<br>	student &#x3D; Student(id&#x3D;2, name&#x3D;&quot;sam&quot;, age&#x3D;30)<br>	<br>	session.delete(student)<br>	session.commit()<br>except Exception as e:<br>	session.rollback()<br>	print(&#39;~~~~~~~~&#39;)<br>	print(e)<br></code></pre></td></tr></table></figure>
+
+<p>会产生一个异常</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs plain">Instance &#39;&lt;Student at 0x3e654e0&gt;&#39; is not persisted 未持久的异常！<br></code></pre></td></tr></table></figure>
+
+<h4 id="状态"><a href="#状态" class="headerlink" title="状态**"></a>状态**</h4><p>每一个实体，都有一个状态属性_sa_instance_state，其类型是sqlalchemy.orm.state.InstanceState，可以使用<br>sqlalchemy.inspect(entity)函数查看状态。<br>常见的状态值有transient、pending、persistent、deleted、detached。</p>
+<table>
+<thead>
+<tr>
+<th>状态</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>transient</td>
+<td>实体类尚未加入到session中，同时并没有保存到数据库中</td>
+</tr>
+<tr>
+<td>pending</td>
+<td>transient的实体被add()到session中，状态切换到pending，但它还没有flush到数据库中</td>
+</tr>
+<tr>
+<td>persistent</td>
+<td>session中的实体对象对应着数据库中的真实记录。pending状态在提交成功后可以变成persistent状态，或者查询成功返回的实体也是persistent状态</td>
+</tr>
+<tr>
+<td>deleted</td>
+<td>实体被删除且已经flush但未commit完成。事务提交成功了，实体变成detached，事务失败，返回persistent状态</td>
+</tr>
+<tr>
+<td>detached</td>
+<td>删除成功的实体进入这个状态</td>
+</tr>
+</tbody></table>
+<p>新建一个实体，状态是transient临时的。<br>一旦add()后从transient变成pending状态。<br>成功commit()后从pending变成persistent状态。<br>成功查询返回的实体对象，也是persistent状态。</p>
+<p>persistent状态的实体，修改依然是persistent状态。</p>
+<p>persistent状态的实体，删除后，flush后但没有commit，就变成deteled状态，成功提交，变为detached状态，<br>提交失败，还原到persistent状态。flush方法，主动把改变应用到数据库中去。</p>
+<p>删除、修改操作，需要对应一个真实的记录，所以要求实体对象是persistent状态。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br></pre></td><td class="code"><pre><code class="hljs plain">import sqlalchemy<br>from sqlalchemy import create_engine, Column, Integer, String<br>from sqlalchemy.ext.declarative import declarative_base<br>from sqlalchemy.orm import sessionmaker<br><br>connstr &#x3D; &quot;&#123;&#125;:&#x2F;&#x2F;&#123;&#125;:&#123;&#125;@&#123;&#125;:&#123;&#125;&#x2F;&#123;&#125;&quot;.format(<br>	&#39;mysql+pymysql&#39;, &#39;wayne&#39;, &#39;wayne&#39;,<br>	&#39;192.168.142.140&#39;, 3306, &#39;test&#39;<br>)<br><br>engine &#x3D; create_engine(connstr, echo&#x3D;True)<br><br>Base &#x3D; declarative_base()<br><br># 创建实体类<br>class Student(Base):<br>	# 指定表名<br>	__tablename__ &#x3D; &#39;student&#39;<br>	# 定义属性对应字段<br>	id &#x3D; Column(Integer, primary_key&#x3D;True, autoincrement&#x3D;True)<br>	name &#x3D; Column(String(64), nullable&#x3D;False)<br>	age &#x3D; Column(Integer)<br>	# 第一参数是字段名，如果和属性名不一致，则一定要指定<br>	# age &#x3D; Column(&#39;age&#39;, Integer)<br>	<br>	def __repr__(self):<br>		return &quot;&#123;&#125; id&#x3D;&#123;&#125; name&#x3D;&#123;&#125; age&#x3D;&#123;&#125;&quot;.format(<br>		self.__class__.__name__, self.id, self.name, self.age)<br>Session &#x3D; sessionmaker(bind&#x3D;engine)<br>session &#x3D; Session()<br><br>from sqlalchemy.orm.state import InstanceState<br><br>def getstate(entity, i):<br>	insp &#x3D; sqlalchemy.inspect(entity)<br>	state &#x3D; &quot;sessionid&#x3D;&#123;&#125;, attached&#x3D;&#123;&#125;\ntransient&#x3D;&#123;&#125;, persistent&#x3D;&#123;&#125;\npending&#x3D;&#123;&#125;, 	deleted&#x3D;&#123;&#125;,<br>	detached&#x3D;&#123;&#125;&quot;.format(<br>	insp.session_id,<br>	insp._attached,<br>	insp.transient,<br>	insp.persistent,<br>	insp.pending,<br>	insp.deleted,<br>	insp.detached<br>	)<br>	print(i, state)<br>	print(insp.key)<br>	print(&#39;-&#39;*30)<br>	<br>student &#x3D; session.query(Student).get(2)<br>getstate(student, 1) # persistent<br><br>try:<br>	student &#x3D; Student(id&#x3D;2, name&#x3D;&quot;sam&quot;, age&#x3D;30)<br>	getstate(student, 2) # transit<br>	student &#x3D; Student(name&#x3D;&quot;sammy&quot;, age&#x3D;30)<br>	getstate(student, 3) # transit<br>	session.add(student) # add后变成pending<br>	getstate(student, 4) # pending<br>	# session.delete(student) # 删除的前提是persistent，否则抛异常<br>	# getstate(student, 5)<br>	session.commit()<br>	getstate(student, 6) # persistent<br>except Exception as e:<br>	session.rollback()<br>	print(&#39;~~~~~~~~&#39;)<br>	print(e)<br>	<br># 运行结果<br>1 sessionid&#x3D;1, attached&#x3D;True<br>transient&#x3D;False, persistent&#x3D;True<br>pending&#x3D;False, deleted&#x3D;False, detached&#x3D;False<br>(&lt;class &#39;__main__.Student&#39;&gt;, (2,))<br>------------------------------<br>2 sessionid&#x3D;None, attached&#x3D;False<br>transient&#x3D;True, persistent&#x3D;False<br>pending&#x3D;False, deleted&#x3D;False, detached&#x3D;False<br>None<br>------------------------------<br>3 sessionid&#x3D;None, attached&#x3D;False<br>transient&#x3D;True, persistent&#x3D;False<br>pending&#x3D;False, deleted&#x3D;False, detached&#x3D;False<br>None<br>------------------------------<br>4 sessionid&#x3D;1, attached&#x3D;True<br>transient&#x3D;False, persistent&#x3D;False<br>pending&#x3D;True, deleted&#x3D;False, detached&#x3D;False<br>None<br>------------------------------<br>sqlalchemy.engine.base.Engine COMMIT<br>6 sessionid&#x3D;1, attached&#x3D;True<br>transient&#x3D;False, persistent&#x3D;True<br>pending&#x3D;False, deleted&#x3D;False, detached&#x3D;False<br>(&lt;class &#39;__main__.Student&#39;&gt;, (3,))<br>student &#x3D; session.query(Student).get(2)<br>getstate(student, 10) # persistent<br><br>try:<br>	session.delete(student) # 删除的前提是persistent<br>	getstate(student, 11) # persistent<br>	session.flush()<br>	getstate(student, 12) # deleted<br>	session.commit()<br>	getstate(student, 13) # persistent<br>except Exception as e:<br>	session.rollback()<br>	print(&#39;~~~~~~~~&#39;)<br>	print(e)<br>	<br># 运行结果<br>10 sessionid&#x3D;1, attached&#x3D;True<br>transient&#x3D;False, persistent&#x3D;True<br>pending&#x3D;False, deleted&#x3D;False, detached&#x3D;False<br>(&lt;class &#39;__main__.Student&#39;&gt;, (2,))<br>------------------------------<br>11 sessionid&#x3D;1, attached&#x3D;True<br>transient&#x3D;False, persistent&#x3D;True<br>pending&#x3D;False, deleted&#x3D;False, detached&#x3D;False<br>(&lt;class &#39;__main__.Student&#39;&gt;, (2,))<br>------------------------------<br>sqlalchemy.engine.base.Engine DELETE FROM student WHERE student.id &#x3D; %(id)s<br>sqlalchemy.engine.base.Engine &#123;&#39;id&#39;: 2&#125;<br>12 sessionid&#x3D;1, attached&#x3D;True<br>transient&#x3D;False, persistent&#x3D;False<br>pending&#x3D;False, deleted&#x3D;True, detached&#x3D;False<br>(&lt;class &#39;__main__.Student&#39;&gt;, (2,))<br>------------------------------<br>sqlalchemy.engine.base.Engine COMMIT<br>13 sessionid&#x3D;None, attached&#x3D;False<br>transient&#x3D;False, persistent&#x3D;False<br>pending&#x3D;False, deleted&#x3D;False, detached&#x3D;True<br>(&lt;class &#39;__main__.Student&#39;&gt;, (2,))<br>------------------------------<br></code></pre></td></tr></table></figure>
+
+<p>复杂查询<br>实体类</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br></pre></td><td class="code"><pre><code class="hljs plain">from sqlalchemy.ext.declarative import declarative_base<br>from sqlalchemy import Column, Integer, String, Date, Enum, ForeignKey, create_engine<br>from sqlalchemy.orm import sessionmaker<br>import enum<br><br>Base &#x3D; declarative_base()<br><br>connstr &#x3D; &quot;&#123;&#125;:&#x2F;&#x2F;&#123;&#125;:&#123;&#125;@&#123;&#125;:&#123;&#125;&#x2F;&#123;&#125;&quot;.format(<br>	&#39;mysql+pymysql&#39;, &#39;wayne&#39;, &#39;wayne&#39;,<br>	&#39;192.168.142.140&#39;, 3306, &#39;test&#39;<br>)<br><br>engine &#x3D; create_engine(connstr, echo&#x3D;True)<br>Session &#x3D; sessionmaker(bind&#x3D;engine)<br>session &#x3D; Session()<br><br>class MyEnum(enum.Enum):<br>	M &#x3D; &#39;M&#39;<br>	F &#x3D; &#39;F&#39;<br>	<br>class Employee(Base):<br>	# 指定表名<br>	__tablename__ &#x3D; &#39;employees&#39;<br>	<br>	# 定义属性对应字段<br>	emp_no &#x3D; Column(Integer, primary_key&#x3D;True)<br>	birth_date &#x3D; Column(Date, nullable&#x3D;False)<br>	first_name &#x3D; Column(String(14), nullable&#x3D;False)<br>	last_name &#x3D; Column(String(16), nullable&#x3D;False)<br>	gender &#x3D; Column(Enum(MyEnum), nullable&#x3D;False)<br>	hire_date &#x3D; Column(Date, nullable&#x3D;False)<br>	<br>	def __repr__(self):<br>		return &quot;&#123;&#125; no&#x3D;&#123;&#125; name&#x3D;&#123;&#125; &#123;&#125; gender&#x3D;&#123;&#125;&quot;.format(<br>		self.__class__.__name__, self.emp_no, self.first_name, self.last_name,<br>		self.gender.value<br>		)<br>		<br># 打印函数<br>def show(emps):<br>	for x in emps:<br>		print(x)<br>	print(&#39;~~~~~~~~~~~~~~~&#39;,end&#x3D;&#39;\n\n&#39;)<br>	<br># 简单条件查询<br>emps &#x3D; session.query(Employee).filter(Employee.emp_no &gt; 10015)<br>show(emps)<br><br># 与或非<br>from sqlalchemy import or_, and_, not_<br><br># AND 条件<br>emps &#x3D; session.query(Employee).filter(Employee.emp_no &gt; 10015).filter(Employee.gender &#x3D;&#x3D;<br>MyEnum.F)<br>show(emps)<br><br>emps &#x3D; session.query(Employee).filter(and_(Employee.emp_no &gt; 10015, Employee.gender &#x3D;&#x3D;<br>MyEnum.M))<br>show(emps)<br><br># &amp; 一定要注意&amp;符号两边表达式都要加括号<br>emps &#x3D; session.query(Employee).filter((Employee.emp_no &gt; 10015) &amp; (Employee.gender &#x3D;&#x3D; MyEnum.M))<br>show(emps)<br><br># OR 条件<br>emps &#x3D; session.query(Employee).filter((Employee.emp_no &gt; 10018) | (Employee.emp_no &lt; 10003))<br>show(emps)<br>emps &#x3D; session.query(Employee).filter(or_(Employee.emp_no &gt; 10018, Employee.emp_no &lt; 10003))<br>show(emps)<br><br># Not<br>emps &#x3D; session.query(Employee).filter(not_(Employee.emp_no &lt; 10018))<br>show(emps)<br><br># 一定注意要加括号<br>emps &#x3D; session.query(Employee).filter(~(Employee.emp_no &lt; 10018))<br>show(emps)<br><br># 总之，与或非的运算符&amp;、|、~，一定要在表达式上加上括号<br># in<br>emplist &#x3D; [10010, 10015, 10018]<br>emps &#x3D; session.query(Employee).filter(Employee.emp_no.in_(emplist))<br>show(emps)<br><br># not in<br>emps &#x3D; session.query(Employee).filter(~Employee.emp_no.in_(emplist))<br>show(emps)<br><br># like<br>emps &#x3D; session.query(Employee).filter(Employee.last_name.like(&#39;P%&#39;))<br>show(emps)<br></code></pre></td></tr></table></figure>
+
+
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><code class="hljs plain"># 排序<br># 升序<br>emps &#x3D; session.query(Employee).filter(Employee.emp_no &gt; 10010).order_by(Employee.emp_no)<br>emps &#x3D; session.query(Employee).filter(Employee.emp_no &gt; 10010).order_by(Employee.emp_no.asc())<br>show(emps)<br><br># 降序<br>emps &#x3D; session.query(Employee).filter(Employee.emp_no &gt; 10010).order_by(Employee.emp_no.desc())<br>show(emps)<br><br># 多列排序<br>emps &#x3D; session.query(Employee).filter(Employee.emp_no &gt;<br>10010).order_by(Employee.last_name).order_by(Employee.emp_no.desc())<br>show(emps)<br></code></pre></td></tr></table></figure>
+
+<h4 id="分页"><a href="#分页" class="headerlink" title="分页"></a>分页</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs plain"># 分页<br>emps &#x3D; session.query(Employee).limit(4)<br>show(emps)<br><br>emps &#x3D; session.query(Employee).limit(4).offset(18)<br>show(emps)<br></code></pre></td></tr></table></figure>
+
+<h4 id="消费者方法"><a href="#消费者方法" class="headerlink" title="消费者方法"></a>消费者方法</h4><p>消费者方法调用后，Query对象（可迭代）就转换成了一个容器。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><code class="hljs plain"># 总行数<br>emps &#x3D; session.query(Employee)<br>print(len(list(emps))) # 返回大量的结果集，然后转换list<br>print(emps.count()) # 聚合函数count(*)的查询<br><br># 取所有数据<br>print(emps.all()) # 返回列表，查不到返回空列表<br><br># 取首行<br>print(emps.first()) # 返回首行，查不到返回None<br><br># 有且只能有一行<br>#print(emps.one()) #如果查询结果是多行抛异常<br>print(emps.limit(1).one())<br><br># 删除 delete by query<br>session.query(Employee).filter(Employee.emp_no &gt; 10018).delete()<br>#session.commit() # 提交则删除<br></code></pre></td></tr></table></figure>
+
+<h4 id="聚合、分组"><a href="#聚合、分组" class="headerlink" title="聚合、分组"></a>聚合、分组</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><code class="hljs plain"># 聚合函数<br># count<br>from sqlalchemy import func<br>query &#x3D; session.query(func.count(Employee.emp_no))<br>print(query.one()) # 只能有一行结果<br>print(query.scalar()) # 取one()返回元组的第一个元素<br><br># max&#x2F;min&#x2F;avg<br>print(session.query(func.max(Employee.emp_no)).scalar())<br>print(session.query(func.min(Employee.emp_no)).scalar())<br>print(session.query(func.avg(Employee.emp_no)).scalar())<br><br># 分组<br>print(session.query(Employee.gender，<br>func.count(Employee.emp_no)).group_by(Employee.gender).all())<br></code></pre></td></tr></table></figure>
+
+<h4 id="关联查询"><a href="#关联查询" class="headerlink" title="关联查询"></a>关联查询</h4><p><img src="https://gitee.com/ashjian/picBed/raw/master/20210909222949.jpg" alt="04"></p>
+<p>从语句看出员工、部门之间的关系是多对多关系。<br>先把这些表的Model类和字段属性建立起来。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><code class="hljs plain"># 创建实体类<br>class Employee(Base):<br><br>指定表名<br>__tablename__ &#x3D; &#39;employees&#39;<br># 定义属性对应字段<br>emp_no &#x3D; Column(Integer, primary_key&#x3D;True)<br>birth_date &#x3D; Column(Date, nullable&#x3D;False)<br>first_name &#x3D; Column(String(14), nullable&#x3D;False)<br>last_name &#x3D; Column(String(16), nullable&#x3D;False)<br>gender &#x3D; Column(Enum(MyEnum), nullable&#x3D;False)<br>hire_date &#x3D; Column(Date, nullable&#x3D;False)<br># 第一参数是字段名，如果和属性名不一致，一定要指定<br># age &#x3D; Column(&#39;age&#39;, Integer)<br><br>def __repr__(self):<br>	return &quot;&#123;&#125; no&#x3D;&#123;&#125; name&#x3D;&#123;&#125; &#123;&#125; gender&#x3D;&#123;&#125;&quot;.format(<br>		self.__class__.__name__, self.emp_no, self.first_name, self.last_name,<br>		self.gender.value<br>	)<br>	<br>class Department(Base):<br>	__tablename__ &#x3D; &#39;departments&#39;<br>	dept_no &#x3D; Column(String(4), primary_key&#x3D;True)<br>	dept_name &#x3D; Column(String(40), nullable&#x3D;False, unique&#x3D;True)<br>	<br>	def __repr__(self):<br>		return &quot;&#123;&#125; no&#x3D;&#123;&#125; name&#x3D;&#123;&#125;&quot;.format(<br>			type(self).__name__, self.dept_no, self.dept_name)<br>			<br>class Dept_emp(Base):<br>	__tablename__ &#x3D; &quot;dept_emp&quot;<br>	<br>	emp_no &#x3D; Column(Integer, ForeignKey(&#39;employees.emp_no&#39;,ondelete&#x3D;&#39;CASCADE&#39;),primary_key&#x3D;True)<br>	dept_no &#x3D; Column(String(4), ForeignKey(&#39;departments.dept_no&#39;, ondelete&#x3D;&#39;CASCADE&#39;),primary_key&#x3D;True)<br>	from_date &#x3D; Column(Date, nullable&#x3D;False)<br>	to_date &#x3D; Column(Date, nullable&#x3D;False)<br>	<br>	def __repr__(self):<br>		return &quot;&#123;&#125; empno&#x3D;&#123;&#125; deptno&#x3D;&#123;&#125;&quot;.format(<br>			type(self).__name__, self.emp_no, self.dept_no)<br></code></pre></td></tr></table></figure>
+
+<p>ForeignKey(‘employees.emp_no’, ondelete=’CASCADE’) 定义外键约束</p>
+<p>需求<br>查询10010员工的所在的部门编号<br>1、使用隐式内连接</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs plain"># 查询10010员工所在的部门编号<br>results &#x3D; session.query(Employee, Dept_emp).filter(Employee.emp_no &#x3D;&#x3D;<br>Dept_emp.emp_no).filter(Employee.emp_no &#x3D;&#x3D; 10010).all()<br>show(results)<br><br># 查询结果<br>(Employee no&#x3D;10010 name&#x3D;Duangkaew Piveteau gender&#x3D;F, Dept_emp empno&#x3D;10010 deptno&#x3D;d004)<br>(Employee no&#x3D;10010 name&#x3D;Duangkaew Piveteau gender&#x3D;F, Dept_emp empno&#x3D;10010 deptno&#x3D;d006)<br></code></pre></td></tr></table></figure>
+
+<p>这种方式产生隐式连接的语句</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs plain">SELECT *<br>FROM employees, dept_emp<br>WHERE employees.emp_no &#x3D; dept_emp.emp_no AND employees.emp_no &#x3D; %(emp_no_1)s<br></code></pre></td></tr></table></figure>
+
+<p>2、使用join</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs plain"># 查询10010员工所在的部门编号<br># 第一种写法<br>results &#x3D; session.query(Employee).join(Dept_emp).filter(Employee.emp_no &#x3D;&#x3D; 10010).all()<br><br># 第二种写法<br>results &#x3D; session.query(Employee).join(Dept_emp, Employee.emp_no &#x3D;&#x3D;<br>Dept_emp.emp_no).filter(Employee.emp_no &#x3D;&#x3D; 10010).all()<br><br>print(results)<br></code></pre></td></tr></table></figure>
+
+<p>这两种写法，返回都只有一行数据，为什么？<br>原因在于 query(Employee) 这个只能返回一个实体对象中去，为了解决这个问题，需要修改实体类Employee，<br>增加属性用来存放部门信息<br>sqlalchemy.orm.relationship(实体类名字符串)</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><code class="hljs plain">class Employee(Base):<br>	# 指定表名<br>	__tablename__ &#x3D; &#39;employees&#39;<br>	# 定义属性对应字段<br>	emp_no &#x3D; Column(Integer, primary_key&#x3D;True)<br>	birth_date &#x3D; Column(Date, nullable&#x3D;False)<br>	first_name &#x3D; Column(String(14), nullable&#x3D;False)<br>	last_name &#x3D; Column(String(16), nullable&#x3D;False)<br>	gender &#x3D; Column(Enum(MyEnum), nullable&#x3D;False)<br>	hire_date &#x3D; Column(Date, nullable&#x3D;False)<br><br>	dept_emps &#x3D; relationship(&#39;Dept_emp&#39;) #<br><br>def __repr__(self):<br>	return &quot;&#123;&#125; no&#x3D;&#123;&#125; name&#x3D;&#123;&#125; &#123;&#125; gender&#x3D;&#123;&#125; no&#x3D;&#123;&#125;&quot;.format(<br>		self.__class__.__name__, self.emp_no, self.first_name, self.last_name,<br>		self.gender.value, self.dept_emps<br>	)<br></code></pre></td></tr></table></figure>
+
+<p>查询信息</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><code class="hljs plain"># 查询10010员工所在的部门编号<br># 第一种<br>results &#x3D; session.query(Employee).join(Dept_emp).filter(Employee.emp_no &#x3D;&#x3D;<br>Dept_emp.emp_no).filter(Employee.emp_no &#x3D;&#x3D; 10010)<br><br># 第二种<br>results &#x3D; session.query(Employee).join(Dept_emp, Employee.emp_no &#x3D;&#x3D;<br>Dept_emp.emp_no).filter(Employee.emp_no &#x3D;&#x3D; 10010)<br><br># 第三种<br>results &#x3D; session.query(Employee).join(Dept_emp, (Employee.emp_no &#x3D;&#x3D; Dept_emp.emp_no) &amp;<br>(Employee.emp_no &#x3D;&#x3D; 10010))<br>show(results.all())<br></code></pre></td></tr></table></figure>
+
+<p>第一种方法join(Dept_emp)中没有等值条件，会自动生成一个等值条件，如果后面有filter，哪怕是<br>filter(Employee.emp_no == Dept_emp.emp_no)，这个条件会在where中出现。第一种这种自动增加join的等值<br>条件的方式不好，不要这么写<br>第二种方法在join中增加等值条件，阻止了自动的等值条件的生成。这种方式推荐<br>第三种方法就是第二种，这种方式也可以。<br>再看一个现象</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><code class="hljs plain">class Employee(Base):<br>	# 指定表名<br>	__tablename__ &#x3D; &#39;employees&#39;<br>	# 定义属性对应字段<br>	emp_no &#x3D; Column(Integer, primary_key&#x3D;True)<br>	birth_date &#x3D; Column(Date, nullable&#x3D;False)<br>	first_name &#x3D; Column(String(14), nullable&#x3D;False)<br>	last_name &#x3D; Column(String(16), nullable&#x3D;False)<br>	gender &#x3D; Column(Enum(MyEnum), nullable&#x3D;False)<br>	hire_date &#x3D; Column(Date, nullable&#x3D;False)<br>	dept_emps &#x3D; relationship(&#39;Dept_emp&#39;)<br>	<br>	def __repr__(self):<br>		return &quot;&#123;&#125; no&#x3D;&#123;&#125; name&#x3D;&#123;&#125; &#123;&#125; gender&#x3D;&#123;&#125; no&#x3D;&#123;&#125;&quot;.format(<br>			self.__class__.__name__, self.emp_no, self.first_name, self.last_name,<br>			self.gender.value, self.dept_emps # 修改self.dept_emps为self.emp_no，再看运行结果<br>		)<br></code></pre></td></tr></table></figure>
+
+<p>产生的SQL语句可以看出，不会有查询dept_emp表的语句产生</p>
+<h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><p>在开发中，一般都会采用ORM框架，这样就可以使用对象操作表了。<br>定义表映射的类，使用Column的描述器定义类属性，使用ForeignKey来定义外键约束。<br>如果在一个对象中，想查看其它表对应的对象的内容，就要使用relationship来定义关系。</p>
+<p>是否使用外键？<br>1、力挺派<br>能使数据保证完整性一致性<br>2、嫌弃派<br>开发难度增加，大数据的时候影响插入、修改、删除的效率。<br>在业务层保证数据的一致性。</p>
+<h2 id="完整代码"><a href="#完整代码" class="headerlink" title="完整代码"></a>完整代码</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br></pre></td><td class="code"><pre><code class="hljs plain">import sqlalchemy<br>from sqlalchemy.ext.declarative import declarative_base<br>from sqlalchemy import Column, Integer, String, Date, Enum, ForeignKey<br>from sqlalchemy.orm import sessionmaker, relationship<br><br>host &#x3D; &#39;192.168.142.135&#39;<br>user &#x3D; &#39;wayne&#39;<br>password &#x3D; &#39;wayne&#39;<br>port &#x3D; 3306<br>database &#x3D; &#39;test&#39;<br><br>conn_str &#x3D; &quot;mysql+pymysql:&#x2F;&#x2F;&#123;&#125;:&#123;&#125;@&#123;&#125;:&#123;&#125;&#x2F;&#123;&#125;&quot;.format(<br>	user, password, host, port, database<br>)<br><br>engine &#x3D; sqlalchemy.create_engine(conn_str, echo&#x3D;True)<br><br># 创建基类<br>Base &#x3D; declarative_base()<br><br>import enum<br>class MyEnum(enum.Enum):<br>	M &#x3D; &#39;M&#39;<br>	F &#x3D; &#39;F&#39;<br>	<br># 创建实体类<br>class Employee(Base):<br>	# 指定表名<br>	__tablename__ &#x3D; &#39;employees&#39;<br>	# 定义属性对应字段<br>	emp_no &#x3D; Column(Integer, primary_key&#x3D;True)<br>	birth_date &#x3D; Column(Date, nullable&#x3D;False)<br>	first_name &#x3D; Column(String(14), nullable&#x3D;False)<br>	last_name &#x3D; Column(String(16), nullable&#x3D;False)<br>	gender &#x3D; Column(Enum(MyEnum), nullable&#x3D;False)<br>	hire_date &#x3D; Column(Date, nullable&#x3D;False)<br>	<br>	dept_emps &#x3D; relationship(&#39;Dept_emp&#39;)<br>	<br>	def __repr__(self):<br>		return &quot;&#123;&#125; no&#x3D;&#123;&#125; name&#x3D;&#123;&#125; &#123;&#125; gender&#x3D;&#123;&#125; no&#x3D;&#123;&#125;&quot;.format(<br>			self.__class__.__name__, self.emp_no, self.first_name, self.last_name,<br>			self.gender.value, self.dept_emps # 修改self.dept_emps为self.emp_no，再看运行结果<br>)<br><br>class Department(Base):<br>	__tablename__ &#x3D; &#39;departments&#39;<br>	<br>	dept_no &#x3D; Column(String(4), primary_key&#x3D;True)<br>	dept_name &#x3D; Column(String(40), nullable&#x3D;False, unique&#x3D;True)<br>	<br>	def __repr__(self):<br>		return &quot;&#123;&#125; no&#x3D;&#123;&#125; name&#x3D;&#123;&#125;&quot;.format(<br>			type(self).__name__, self.dept_no, self.dept_name)<br>			<br>class Dept_emp(Base):<br>	__tablename__ &#x3D; &quot;dept_emp&quot;<br>	<br>	emp_no &#x3D; Column(Integer, ForeignKey(&#39;employees.emp_no&#39;,<br>	ondelete&#x3D;&#39;CASCADE&#39;),primary_key&#x3D;True)<br>	dept_no &#x3D; Column(String(4), ForeignKey(&#39;departments.dept_no&#39;, 	ondelete&#x3D;&#39;CASCADE&#39;),primary_key&#x3D;True)<br>	from_date &#x3D; Column(Date, nullable&#x3D;False)<br>	to_date &#x3D; Column(Date, nullable&#x3D;False)<br>	<br>	def __repr__(self):<br>		return &quot;&#123;&#125; empno&#x3D;&#123;&#125; deptno&#x3D;&#123;&#125;&quot;.format(<br>			type(self).__name__, self.emp_no, self.dept_no)<br>			<br># # 删除继承自Base的所有表<br># Base.metadata.drop_all(engine)<br># # 创建继承自Base的所有表<br># Base.metadata.create_all(engine)<br><br># 创建session<br>Session &#x3D; sessionmaker(bind&#x3D;engine)<br>session &#x3D; Session()<br><br>def show(emps):<br>	for x in emps:<br>		print(x)<br>	print(&#39;~~~~~~~~~~~~~~~&#39;,end&#x3D;&#39;\n\n&#39;)<br># 查询10010员工所在的部门编号<br>results &#x3D; session.query(Employee).join(Dept_emp, Employee.emp_no &#x3D;&#x3D;<br>Dept_emp.emp_no).filter(Employee.emp_no &#x3D;&#x3D; 10010)<br>show(results.all())<br></code></pre></td></tr></table></figure>
+
+
+      
+    </div>
+    
+    
+    
+
+     <!-- 文章末尾统一添加“本文结束”标记 -->
+    <div>
+      
+        <div>
+    
+        <div style="text-align:center;color: #555;font-size:24px;"><-------------The End-------------></div>
+    
+</div>
+
+      
+    </div>
+    
+
+    
+      <div>
+        <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+  <div>坚持原创分享，你的支持就是我最大的动力！</div>
+  <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+    <span>打赏</span>
+  </button>
+  <div id="QR" style="display: none;">
+
+    
+      <div id="wechat" style="display: inline-block">
+        <img id="wechat_qr" src="/uploads/weixin_cash_code.png" alt="StarDustLoong 微信支付"/>
+        <p>微信支付</p>
+      </div>
+    
+
+    
+      <div id="alipay" style="display: inline-block">
+        <img id="alipay_qr" src="/uploads/alipay_cash_code.png" alt="StarDustLoong 支付宝"/>
+        <p>支付宝</p>
+      </div>
+    
+
+    
+
+  </div>
+</div>
+
+      </div>
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/python%E7%9A%84SQLAlchemy/" rel="tag"># python的SQLAlchemy</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/Python%E7%9A%84pymysq/" rel="next" title="Python的pymysq">
+                <i class="fa fa-chevron-left"></i> Python的pymysq
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/Python%E7%9A%84SQLAlchemy%E7%BB%83%E4%B9%A0/" rel="prev" title="Python的SQLAlchemy练习">
+                Python的SQLAlchemy练习 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+    </div>
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/uploads/avatar.png"
+                alt="StarDustLoong" />
+            
+              <p class="site-author-name" itemprop="name">StarDustLoong</p>
+              <p class="site-description motion-element" itemprop="description">人类如风一般的自由</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">2842</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">13</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">160</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+	   
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/StarDustLoong" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:13671474528@163.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://www.zhihu.com/people/ashjian-ar15" target="_blank" title="知乎">
+                      
+                        <i class="fa fa-fw fa-globe"></i>知乎</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://me.csdn.net/ashjian" target="_blank" title="CSDN">
+                      
+                        <i class="fa fa-fw fa-codiepie"></i>CSDN</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+            <div class="links-of-blogroll motion-element links-of-blogroll-inline">
+              <div class="links-of-blogroll-title">
+                <i class="fa  fa-fw fa-link"></i>
+                Links
+              </div>
+              <ul class="links-of-blogroll-list">
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="http://mp.weixin.qq.com/user1" title="OpenInfo" target="_blank">OpenInfo</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="http://mp.weixin.qq.com/user2" title="stormzhang" target="_blank">stormzhang</a>
+                  </li>
+                
+              </ul>
+            </div>
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#SQLAlchemy"><span class="nav-number">1.</span> <span class="nav-text">SQLAlchemy</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#安装"><span class="nav-number">1.1.</span> <span class="nav-text">安装</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#文档"><span class="nav-number">1.2.</span> <span class="nav-text">文档</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#开发"><span class="nav-number">1.3.</span> <span class="nav-text">开发</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#创建连接"><span class="nav-number">1.4.</span> <span class="nav-text">创建连接</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Declare-a-Mapping创建映射"><span class="nav-number">1.5.</span> <span class="nav-text">Declare a Mapping创建映射</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#创建基类"><span class="nav-number">1.5.1.</span> <span class="nav-text">创建基类</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#创建实体类"><span class="nav-number">1.5.2.</span> <span class="nav-text">创建实体类</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#创建表"><span class="nav-number">1.5.3.</span> <span class="nav-text">创建表</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#创建会话session"><span class="nav-number">1.5.4.</span> <span class="nav-text">创建会话session</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#CRUD操作"><span class="nav-number">1.5.5.</span> <span class="nav-text">CRUD操作</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#简单查询"><span class="nav-number">1.5.6.</span> <span class="nav-text">简单查询</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#改"><span class="nav-number">1.5.7.</span> <span class="nav-text">改</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#删除"><span class="nav-number">1.5.8.</span> <span class="nav-text">删除</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#状态"><span class="nav-number">1.5.9.</span> <span class="nav-text">状态**</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#分页"><span class="nav-number">1.5.10.</span> <span class="nav-text">分页</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#消费者方法"><span class="nav-number">1.5.11.</span> <span class="nav-text">消费者方法</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#聚合、分组"><span class="nav-number">1.5.12.</span> <span class="nav-text">聚合、分组</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#关联查询"><span class="nav-number">1.5.13.</span> <span class="nav-text">关联查询</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#总结"><span class="nav-number">1.6.</span> <span class="nav-text">总结</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#完整代码"><span class="nav-number">2.</span> <span class="nav-text">完整代码</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">StarDustLoong</span>
+
+  
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-area-chart"></i>
+    </span>
+    
+      <span class="post-meta-item-text">本站总字数&#58;</span>
+    
+    <span title="本站总字数">769.8k</span>
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Pisces</a> v5.1.4</div>
+
+
+
+
+#<!-- 百度自动推送 -->
+#<script>
+#(function(){
+#    var bp = document.createElement('script');
+#    var curProtocol = window.location.protocol.split(':')[0];
+#    if (curProtocol === 'https') {
+#        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+#    }
+#    else {
+#        bp.src = 'http://push.ashjian.baidu.com/push.js';
+#    }
+#    var s = document.getElementsByTagName("script")[0];
+#    s.parentNode.insertBefore(bp, s);
+#})();
+#</script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aplayer/dist/APlayer.min.css">
+
+<script src="https://cdn.jsdelivr.net/npm/aplayer/dist/APlayer.min.js"></script>
+<!-- require MetingJS -->
+
+<script src="https://cdn.jsdelivr.net/npm/meting@2.0.1/dist/Meting.min.js"></script>
+<div> 
+<meting-js  
+    server="netease" 
+    type="playlist"  
+    id="5281251057" 
+    fixed="true"  
+    autoplay="false" 
+    loop="all" 
+    order="random"
+    preload="auto" 
+    list-folded="ture" 
+    list-max-height="500px" 
+    lrc-type="1">
+</meting-js>	 
+</div>
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv">
+      本站访客数
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+      人次
+    </span>
+  
+
+  
+    <span class="site-pv">
+      本站总访问量
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+      次
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+  <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+  <script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+  
+  <script type="text/javascript">
+    var GUEST = ['nick','mail','link'];
+    var guest = 'nick,mail,link';
+    guest = guest.split(',').filter(item=>{
+      return GUEST.indexOf(item)>-1;
+    });
+    new Valine({
+        el: '#comments' ,
+        verify: false,
+        notify: false,
+        appId: 'Gp5xxuBGmRxC9yeJHf5wlLpN-gzGzoHsz',
+        appKey: 'wo0eDJonJrnuUrCCCU7EnH1n',
+        placeholder: '欢迎评论',
+        avatar:'mm',
+        guest_info:guest,
+        pageSize:'20' || 10,
+    });
+  </script>
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"jsonPath":"/live2dw/assets/dsr50_lifu_normal.model.json"},"display":{"position":"right","width":700,"height":800,"hOffset":-250,"vOffset":-150},"mobile":{"show":true,"scale":0.7},"log":false});</script></body>
+</html>

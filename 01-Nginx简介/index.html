@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="Hexo, NexT" />
+  <meta name="keywords" content="nginx," />
 
 
 
@@ -89,19 +89,17 @@
 <meta property="og:url" content="http://www.ashjian.xyz/01-Nginx%E7%AE%80%E4%BB%8B/index.html">
 <meta property="og:site_name">
 <meta property="og:description" content="Nginx （是engine x的缩写） 是一个HTTP server（HTTP服务器）和HTTP reverse proxy server（HTTP反向代理服务器），一个mail proxy server（邮件代理服务器）, 一个 通用 TCP&#x2F;UDP proxy server（TCP&#x2F;UDP反向代理服务器）。 Nginx工作在OSI模型的七层，也可以提供伪四层负载均衡。 Nginx是一个sca">
-<meta property="og:image" content="https://raw.githubusercontent.com/ashjian/picBed/master/20201130210416.jpg">
-<meta property="og:image" content="http://www.ashjian.xyz/01-Nginx%E7%AE%80%E4%BB%8B/01-Nginx%E7%AE%80%E4%BB%8B.assets/15033346303394.jpg">
-<meta property="og:image" content="https://raw.githubusercontent.com/ashjian/picBed/master/20201130210427.jpg">
-<meta property="og:image" content="http://www.ashjian.xyz/01-Nginx%E7%AE%80%E4%BB%8B/01-Nginx%E7%AE%80%E4%BB%8B.assets/15033359966742.jpg">
-<meta property="og:image" content="https://raw.githubusercontent.com/ashjian/picBed/master/20201130210434.jpg">
-<meta property="article:published_time" content="2020-12-03T04:16:06.000Z">
-<meta property="article:modified_time" content="2021-03-26T10:02:05.309Z">
+<meta property="og:image" content="https://gitee.com/ashjian/picBed/raw/master/20210915234554.jpg">
+<meta property="og:image" content="https://gitee.com/ashjian/picBed/raw/master/20210913175345.jpg">
+<meta property="og:image" content="https://gitee.com/ashjian/picBed/raw/master/20210916000739.jpg">
+<meta property="og:image" content="https://gitee.com/ashjian/picBed/raw/master/20210913175305.jpg">
+<meta property="og:image" content="https://gitee.com/ashjian/picBed/raw/master/20210913175329.jpg">
+<meta property="article:published_time" content="2021-05-24T05:37:53.228Z">
+<meta property="article:modified_time" content="2021-09-15T16:10:56.093Z">
 <meta property="article:author" content="StarDustLoong">
-<meta property="article:tag" content="linux">
-<meta property="article:tag" content="python">
-<meta property="article:tag" content="运维">
+<meta property="article:tag" content="nginx">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://raw.githubusercontent.com/ashjian/picBed/master/20201130210416.jpg">
+<meta name="twitter:image" content="https://gitee.com/ashjian/picBed/raw/master/20210915234554.jpg">
 
 
 
@@ -347,8 +345,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-12-03T12:16:06+08:00">
-                2020-12-03
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2021-05-24T13:37:53+08:00">
+                2021-05-24
               </time>
             
 
@@ -363,12 +361,34 @@
               
                 <span class="post-meta-item-text">更新于&#58;</span>
               
-              <time title="更新于" itemprop="dateModified" datetime="2021-03-26T18:02:05+08:00">
-                2021-03-26
+              <time title="更新于" itemprop="dateModified" datetime="2021-09-16T00:10:56+08:00">
+                2021-09-16
               </time>
             
           </span>
 
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/DevOps/" itemprop="url" rel="index">
+                    <span itemprop="name">DevOps</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
           
 
           
@@ -442,13 +462,14 @@
 <p>Nginx是一个<code>scalable event-driven（asynchronous）architecture</code>，即<strong>可伸缩的事件驱动型（异步）架构</strong>。</p>
 <p>国内的基于Nginx的二次开发版本：</p>
 <ul>
-<li><a href="http://tengine.taobao.org/" target="_blank" rel="noopener">Tengine</a></li>
+<li><p><a href="http://tengine.taobao.org/" target="_blank" rel="noopener">Tengine</a></p>
+<p><img src="https://gitee.com/ashjian/picBed/raw/master/20210915234554.jpg" alt="img"></p>
+</li>
 </ul>
-<p><a href="http://www.yulongjun.com/images/15033346509889.jpg" target="_blank" rel="noopener"><img src="https://raw.githubusercontent.com/ashjian/picBed/master/20201130210416.jpg" alt="img"></a></p>
 <ul>
 <li><a href="https://openresty.org/cn/" target="_blank" rel="noopener">OpenResty</a></li>
 </ul>
-<p><a href="http://www.yulongjun.com/images/15033346303394.jpg" target="_blank" rel="noopener"><img src="01-Nginx%E7%AE%80%E4%BB%8B.assets/15033346303394.jpg" alt="img"></a></p>
+<p><img src="https://gitee.com/ashjian/picBed/raw/master/20210913175345.jpg" alt="img">)(<a href="http://www.ashjian.com/images/15033346303394.jpg" target="_blank" rel="noopener">http://www.ashjian.com/images/15033346303394.jpg</a>)</p>
 <p>Nginx三大核心功能：</p>
 <ul>
 <li><code>http</code><ul>
@@ -469,8 +490,8 @@
 <h2 id="HTTP的几个概念术语"><a href="#HTTP的几个概念术语" class="headerlink" title="HTTP的几个概念术语"></a>HTTP的几个概念术语</h2><h3 id="URI"><a href="#URI" class="headerlink" title="URI"></a>URI</h3><p>统一资源定位符（Uniform Resource Identifier）</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs plain">scheme:[&#x2F;&#x2F;[user[:password]@]host[:port]][&#x2F;path][?query][#fragment]<br></code></pre></td></tr></table></figure>
 
-<p>例子：<br><a href="http://www.yulongjun.com/images/15033355483183.jpg" target="_blank" rel="noopener"><img src="https://raw.githubusercontent.com/ashjian/picBed/master/20201130210427.jpg" alt="img"></a></p>
-<p><strong>fragment</strong>,可以通过访问下面网站来实验：<br><a href="http://www.yulongjun.com/images/15033359966742.jpg" target="_blank" rel="noopener"><img src="01-Nginx%E7%AE%80%E4%BB%8B.assets/15033359966742.jpg" alt="img"></a></p>
+<p>例子：<br><img src="https://gitee.com/ashjian/picBed/raw/master/20210916000739.jpg" alt="15033355483183"></p>
+<p><strong>fragment</strong>,可以通过访问下面网站来实验：<br><img src="https://gitee.com/ashjian/picBed/raw/master/20210913175305.jpg" alt="img"></p>
 <h3 id="PV、UV"><a href="#PV、UV" class="headerlink" title="PV、UV"></a>PV、UV</h3><p><strong>PV</strong>: Page View<br><strong>UV</strong>: User View</p>
 <h3 id="http事务："><a href="#http事务：" class="headerlink" title="http事务："></a><strong>http事务</strong>：</h3><p>request&lt;–&gt;response</p>
 <p><strong><code>Headers</code></strong>:</p>
@@ -478,7 +499,7 @@
 <li>通用头部（General Headers）</li>
 <li>请求头部（Response Headers）</li>
 <li>回应头部（Request Headers）</li>
-<li><a href="http://www.yulongjun.com/images/15033367804680.jpg" target="_blank" rel="noopener"><img src="https://raw.githubusercontent.com/ashjian/picBed/master/20201130210434.jpg" alt="img"></a></li>
+<li><img src="https://gitee.com/ashjian/picBed/raw/master/20210913175329.jpg" alt="img"></li>
 </ul>
 <h3 id="Method："><a href="#Method：" class="headerlink" title="Method："></a><strong><code>Method</code></strong>：</h3><p><strong>GET/HEAD/POST</strong>(常用）, PUT/DELETE, TRACE, OPTIONS</p>
 <h3 id="常用Status-Code-状态码）："><a href="#常用Status-Code-状态码）：" class="headerlink" title="常用Status Code(状态码）："></a>常用<strong><code>Status Code</code></strong>(状态码）：</h3><ul>
@@ -580,6 +601,12 @@
 
     <footer class="post-footer">
       
+        <div class="post-tags">
+          
+            <a href="/tags/nginx/" rel="tag"># nginx</a>
+          
+        </div>
+      
 
       
       
@@ -589,8 +616,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/LVS%E7%9A%84%E5%8E%9F%E7%90%86-%E5%B7%A5%E4%BD%9C%E6%A8%A1%E5%BC%8F/" rel="next" title="LVS的原理-工作模式">
-                <i class="fa fa-chevron-left"></i> LVS的原理-工作模式
+              <a href="/hello-world/" rel="next" title="Hello World">
+                <i class="fa fa-chevron-left"></i> Hello World
               </a>
             
           </div>
@@ -599,8 +626,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/02-IO%E6%A8%A1%E5%9E%8B/" rel="prev" title="02-IO模型">
-                02-IO模型 <i class="fa fa-chevron-right"></i>
+              <a href="/01-%E5%8F%98%E9%87%8F/" rel="prev" title="01-变量">
+                01-变量 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -685,7 +712,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">2557</span>
+                  <span class="site-state-item-count">2842</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -696,7 +723,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">12</span>
+                  <span class="site-state-item-count">13</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -707,7 +734,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">147</span>
+                  <span class="site-state-item-count">160</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
@@ -830,7 +857,7 @@
     
       <span class="post-meta-item-text">本站总字数&#58;</span>
     
-    <span title="本站总字数">662.6k</span>
+    <span title="本站总字数">769.8k</span>
   
 </div>
 

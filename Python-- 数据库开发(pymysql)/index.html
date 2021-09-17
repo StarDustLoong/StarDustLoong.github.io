@@ -1,0 +1,1568 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="python数据库," />
+
+
+
+
+  
+
+
+  <link rel="alternate" href="/atom.xml" title="" type="application/atom+xml" />
+
+
+
+
+
+
+<meta name="description" content="驱动MySQL基于TCP协议之上开发，但是网络连接后，传输的数据必须遵循MySQL的协议封装好MySQL协议的包，就是驱动程序 MySQL的驱动  MySQLdb最有名的库。对MySQL的C Client封装实现，支持Python 2，不更新了，不支持Python3  MySQL官方ConnectorMysql官网 https:&#x2F;&#x2F;dev.mysql.com&#x2F;downloads&#x2F;connector">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Python-- 数据库开发(pymysql)">
+<meta property="og:url" content="http://www.ashjian.xyz/Python--%20%E6%95%B0%E6%8D%AE%E5%BA%93%E5%BC%80%E5%8F%91(pymysql)/index.html">
+<meta property="og:site_name">
+<meta property="og:description" content="驱动MySQL基于TCP协议之上开发，但是网络连接后，传输的数据必须遵循MySQL的协议封装好MySQL协议的包，就是驱动程序 MySQL的驱动  MySQLdb最有名的库。对MySQL的C Client封装实现，支持Python 2，不更新了，不支持Python3  MySQL官方ConnectorMysql官网 https:&#x2F;&#x2F;dev.mysql.com&#x2F;downloads&#x2F;connector">
+<meta property="og:image" content="https://gitee.com/ashjian/picBed/raw/master/20210909213540.png">
+<meta property="og:image" content="https://gitee.com/ashjian/picBed/raw/master/20210909213546.png">
+<meta property="og:image" content="https://gitee.com/ashjian/picBed/raw/master/20210909213552.png">
+<meta property="og:image" content="https://gitee.com/ashjian/picBed/raw/master/20210909213601.png">
+<meta property="article:published_time" content="2021-09-09T14:41:24.986Z">
+<meta property="article:modified_time" content="2021-09-09T13:36:20.685Z">
+<meta property="article:author" content="StarDustLoong">
+<meta property="article:tag" content="python数据库">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://gitee.com/ashjian/picBed/raw/master/20210909213540.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://www.ashjian.xyz/Python-- 数据库开发(pymysql)/"/>
+
+
+
+
+
+  <title>Python-- 数据库开发(pymysql) | </title>
+  
+
+
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?d7bf52f45e24a0e6f2951901a7a97864";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+<meta name="generator" content="Hexo 4.2.1"></head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title"></span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off"
+             placeholder="搜索..." spellcheck="false"
+             type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://www.ashjian.xyz/Python--%20%E6%95%B0%E6%8D%AE%E5%BA%93%E5%BC%80%E5%8F%91(pymysql)/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="StarDustLoong">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/uploads/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Python-- 数据库开发(pymysql)</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2021-09-09T22:41:24+08:00">
+                2021-09-09
+              </time>
+            
+
+            
+              <span class="post-meta-divider">|</span>
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-check-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">更新于&#58;</span>
+              
+              <time title="更新于" itemprop="dateModified" datetime="2021-09-09T21:36:20+08:00">
+                2021-09-09
+              </time>
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/python/" itemprop="url" rel="index">
+                    <span itemprop="name">python</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/Python--%20%E6%95%B0%E6%8D%AE%E5%BA%93%E5%BC%80%E5%8F%91(pymysql)/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/Python--%20%E6%95%B0%E6%8D%AE%E5%BA%93%E5%BC%80%E5%8F%91(pymysql)/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  3k
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  14
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+      
+      
+
+      
+        <h1 id="驱动"><a href="#驱动" class="headerlink" title="驱动"></a>驱动</h1><p>MySQL基于TCP协议之上开发，但是网络连接后，传输的数据必须遵循MySQL的协议<br>封装好MySQL协议的包，就是驱动程序</p>
+<p>MySQL的驱动</p>
+<ul>
+<li><p>MySQLdb<br>最有名的库。对MySQL的C Client封装实现，支持Python 2，不更新了，不支持Python3</p>
+</li>
+<li><p>MySQL官方Connector<br>Mysql官网 <a href="https://dev.mysql.com/downloads/connector/" target="_blank" rel="noopener">https://dev.mysql.com/downloads/connector/</a></p>
+</li>
+<li><p>pymysql<br>语法兼容MySQLdb，使用Python写的库，支持Python 3</p>
+</li>
+</ul>
+<h1 id="pymysql使用"><a href="#pymysql使用" class="headerlink" title="pymysql使用"></a>pymysql使用</h1><h2 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs plain">$ pip install pymysql<br></code></pre></td></tr></table></figure>
+
+<h2 id="创建数据库和表"><a href="#创建数据库和表" class="headerlink" title="创建数据库和表"></a>创建数据库和表</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs plain">CREATE DATABASE IF NOT EXISTS school;<br>SHOW DATABASES;<br>USE school;<br><br>CREATE TABLE &#96;student&#96; (<br>  &#96;id&#96; int(11) NOT NULL AUTO_INCREMENT,<br>  &#96;name&#96; varchar(30) NOT NULL,<br>  &#96;age&#96; int(11) DEFAULT NULL,<br>  PRIMARY KEY (&#96;id&#96;)<br>) ENGINE&#x3D;InnoDB DEFAULT CHARSET&#x3D;utf8;<br></code></pre></td></tr></table></figure>
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><code class="hljs plain">import pymysql<br><br>IP &#x3D; &#39;192.168.1.6&#39;<br>USERNAME &#x3D; &#39;lqx&#39;<br>PASSWORD &#x3D; &#39;lqx&#39;<br>DBNAME &#x3D;&#39;test&#39;<br>PORT &#x3D; 3306<br><br>conn &#x3D; None<br>currsor &#x3D; None # 对结果集的操作<br>try:<br>    conn &#x3D; pymysql.connect(IP, USERNAME, PASSWORD, DBNAME, PORT)<br>    currsor &#x3D; conn.cursor()<br>    # sql &#x3D; &quot;select * from reg&quot;<br>    sql &#x3D; &quot;CREATE TABLE &#96;student&#96; (&quot; \<br>          &quot;&#96;id&#96; int(11) NOT NULL AUTO_INCREMENT,&quot; \<br>          &quot;&#96;name&#96; varchar(30) NOT NULL,&quot; \<br>          &quot;&#96;age&#96; int(11) DEFAULT NULL,&quot; \<br>          &quot;PRIMARY KEY (&#96;id&#96;)&quot; \<br>          &quot;) ENGINE&#x3D;InnoDB DEFAULT CHARSET&#x3D;utf8;&quot;<br><br>    r &#x3D; currsor.execute(sql)<br>    print(r)<br><br>    conn.commit()<br>except:<br>    conn.rollback()<br>    print(&#39;roll back&#39;)<br>finally:<br>    if currsor:<br>        currsor.close()<br>    if conn:<br>        conn.close()<br></code></pre></td></tr></table></figure>
+
+<h2 id="连接Connect"><a href="#连接Connect" class="headerlink" title="连接Connect"></a>连接Connect</h2><p>首先，必须建立一个传输数据通<strong>加粗样式</strong>道——连接。</p>
+<ul>
+<li><code>pymysql.connect()</code>方法返回的是Connections模块下的Connection类实例</li>
+<li>connect方法传参就是给Connection类的 <code>__init__</code> 提供参数</li>
+</ul>
+<hr>
+<table>
+<thead>
+<tr>
+<th>Connection初始化常用参数</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>host</td>
+<td>主机</td>
+</tr>
+<tr>
+<td>user</td>
+<td>用户名</td>
+</tr>
+<tr>
+<td>password</td>
+<td>密码</td>
+</tr>
+<tr>
+<td>database</td>
+<td>数据库</td>
+</tr>
+<tr>
+<td>port</td>
+<td>端口</td>
+</tr>
+</tbody></table>
+<p><code>Connection.ping()</code>方法，测试数据库服务器是否活着。有一个参数reconnect表示断开与服务器连接是否重连。连接关闭抛出异常</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><code class="hljs plain">import pymysql<br><br>IP &#x3D; &#39;192.168.1.6&#39;<br>USERNAME &#x3D; &#39;lqx&#39;<br>PASSWORD &#x3D; &#39;lqx&#39;<br>DBNAME &#x3D;&#39;test&#39;<br>PORT &#x3D; 3306<br><br>conn &#x3D; None<br>try:<br>    conn &#x3D; pymysql.connect(IP, USERNAME, PASSWORD, DBNAME, PORT)<br>    conn.ping(False) # ping不通则抛异常<br>    print(conn)<br>finally:<br>    if conn:<br>        conn.close()<br><br># 执行结果<br>&lt;pymysql.connections.Connection object at 0x000002370C8996D8&gt;<br></code></pre></td></tr></table></figure>
+
+<h1 id="游标Cursor"><a href="#游标Cursor" class="headerlink" title="游标Cursor"></a>游标Cursor</h1><p>操作数据库，必须使用游标，需要先获取一个游标对象<br><code>Connection.cursor(cursor=None)</code> 方法返回一个新的游标对。</p>
+<p>连接没有关闭前，游标对象可以反复使用</p>
+<p>cursor参数，可以指定一个Cursor类。如果为None，则使用默认Cursor类</p>
+<h2 id="操作数据库"><a href="#操作数据库" class="headerlink" title="操作数据库"></a>操作数据库</h2><p>数据库操作需要使用Cursor类的实例，提供<code>execute()</code> 方法，执行SQL语句，成功返回影响的行数</p>
+<h3 id="新增记录"><a href="#新增记录" class="headerlink" title="新增记录"></a>新增记录</h3><p>使用insert into语句插入数据</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><code class="hljs plain">import pymysql<br><br>IP &#x3D; &#39;192.168.1.6&#39;<br>USERNAME &#x3D; &#39;lqx&#39;<br>PASSWORD &#x3D; &#39;lqx&#39;<br>DBNAME &#x3D;&#39;test&#39;<br>PORT &#x3D; 3306<br><br>conn &#x3D; None<br>currsor &#x3D; None # 对结果集的操作<br>try:<br>    conn &#x3D; pymysql.connect(IP, USERNAME, PASSWORD, DBNAME, PORT)<br>    currsor &#x3D; conn.cursor()<br><br>    sql &#x3D; &quot;insert into student (name,age) values(&#39;tom&#39;, 20)&quot;<br>    r &#x3D; currsor.execute(sql)<br>    print(r)<br><br>    conn.commit()<br>except:<br>    conn.rollback()<br>    print(&#39;roll back&#39;)<br>finally:<br>    if currsor:<br>        currsor.close()<br>    if conn:<br>        conn.close()<br></code></pre></td></tr></table></figure>
+
+<p><img src="https://gitee.com/ashjian/picBed/raw/master/20210909213540.png" alt="在这里插入图片描述"></p>
+<p>提交时需提供<code>commit()</code>方法，原因在于，在Connection类的 <code>__init__</code>方法的注释中有这么一句话<br><code>autocommit: Autocommit mode. None means use server default. (default: False)</code></p>
+<p>一般不用开启自动提交功能，使用手动管理事务</p>
+<h3 id="事务管理"><a href="#事务管理" class="headerlink" title="事务管理"></a>事务管理</h3><p>Connection类有三个方法：</p>
+<ul>
+<li>begin 开始事务</li>
+<li>commit 将变更提交</li>
+<li>rollback 回滚事务</li>
+</ul>
+<h4 id="批量增加数据"><a href="#批量增加数据" class="headerlink" title="批量增加数据"></a>批量增加数据</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><code class="hljs plain">import pymysql<br><br>IP &#x3D; &#39;192.168.1.6&#39;<br>USERNAME &#x3D; &#39;lqx&#39;<br>PASSWORD &#x3D; &#39;lqx&#39;<br>DBNAME &#x3D;&#39;test&#39;<br>PORT &#x3D; 3306<br><br>conn &#x3D; None<br>currsor &#x3D; None # 对结果集的操作<br>try:<br>    conn &#x3D; pymysql.connect(IP, USERNAME, PASSWORD, DBNAME, PORT)<br><br>    currsor &#x3D; conn.cursor()<br>    for i in range(5):<br>        sql &#x3D; &quot;insert into student (name,age) values(&#39;ben&#123;&#125;&#39;, &#123;&#125;)&quot;.format(i,20+i)<br>        r &#x3D; currsor.execute(sql)<br><br>    conn.commit() # 提交<br>except:<br>    conn.rollback() # 回滚<br>    print(&#39;roll back&#39;)<br>finally:<br>    if currsor:<br>        currsor.close()<br>    if conn:<br>        conn.close()<br></code></pre></td></tr></table></figure>
+
+<p><img src="https://gitee.com/ashjian/picBed/raw/master/20210909213546.png" alt="在这里插入图片描述"></p>
+<h3 id="一般流程"><a href="#一般流程" class="headerlink" title="一般流程"></a>一般流程</h3><ul>
+<li>建立连接</li>
+<li>获取游标</li>
+<li>执行SQL</li>
+<li>提交事务</li>
+<li>释放资源</li>
+</ul>
+<h3 id="查询"><a href="#查询" class="headerlink" title="查询"></a>查询</h3><ul>
+<li>Cursor类的获取查询结果集的方法有<code>fetchone()</code>、<code>fetchmany(size=None)</code>、<code>fetchall()</code></li>
+<li>查询会根据Cursor游标移动</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><code class="hljs plain">import pymysql<br><br>IP &#x3D; &#39;192.168.1.6&#39;<br>USERNAME &#x3D; &#39;lqx&#39;<br>PASSWORD &#x3D; &#39;lqx&#39;<br>DBNAME &#x3D;&#39;test&#39;<br>PORT &#x3D; 3306<br><br>conn &#x3D; None<br>currsor &#x3D; None # 对结果集的操作<br>try:<br>    conn &#x3D; pymysql.connect(IP, USERNAME, PASSWORD, DBNAME, PORT)<br>    currsor &#x3D; conn.cursor()<br><br>    sql &#x3D; &#39;select * from student&#39;<br>    rows &#x3D; currsor.execute(sql) # 返回影响的行数<br><br>    print(currsor.fetchone())<br>    print(currsor.fetchone())<br>    print(currsor.rownumber, currsor.rowcount)<br>    print(&#39;1 ~~~~~~~~~~~~&#39;)<br><br>    print(currsor.fetchmany(2))<br>    print(currsor.rownumber, currsor.rowcount)<br>    print(&#39;2 ~~~~~~~~~~~~~&#39;)<br><br>    print(currsor.fetchall())<br>    print(currsor.rownumber, currsor.rowcount)<br><br>    for x in currsor.fetchall():<br>        print(x, &#39;~~~&#39;)<br>    currsor.rownumber &#x3D; 0<br>    for x in currsor.fetchall():<br>        print(x, &#39;&#x3D;&#x3D;&#x3D;&#39;)<br>        <br>finally:<br>    if currsor:<br>        currsor.close()<br>    if conn:<br>        conn.close()<br></code></pre></td></tr></table></figure>
+
+<ul>
+<li>执行结果</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><code class="hljs plain">(1, &#39;tom&#39;, 20)<br>(2, &#39;ben0&#39;, 20)<br>2 6<br>1 ~~~~~~~~~~~~<br>((3, &#39;ben1&#39;, 21), (4, &#39;ben2&#39;, 22))<br>4 6<br>2 ~~~~~~~~~~~~~<br>((5, &#39;ben3&#39;, 23), (6, &#39;ben4&#39;, 24))<br>6 6<br>(1, &#39;tom&#39;, 20) &#x3D;&#x3D;&#x3D;<br>(2, &#39;ben0&#39;, 20) &#x3D;&#x3D;&#x3D;<br>(3, &#39;ben1&#39;, 21) &#x3D;&#x3D;&#x3D;<br>(4, &#39;ben2&#39;, 22) &#x3D;&#x3D;&#x3D;<br>(5, &#39;ben3&#39;, 23) &#x3D;&#x3D;&#x3D;<br>(6, &#39;ben4&#39;, 24) &#x3D;&#x3D;&#x3D;<br><br>Process finished with exit code 0<br></code></pre></td></tr></table></figure>
+
+<table>
+<thead>
+<tr>
+<th>名称</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>fetchone()</td>
+<td>获取结果集的下一行</td>
+</tr>
+<tr>
+<td>fetchmany(size=None)</td>
+<td>size指定返回的行数的行，None则返回空元组</td>
+</tr>
+<tr>
+<td>fetchall()</td>
+<td>返回剩余所有行，如果走到末尾，就返回空元组，否则返回一个元组，其元素是每一行的记录封装的一个元组</td>
+</tr>
+<tr>
+<td>cursor.rownumber</td>
+<td>返回当前行号。可以修改，支持负数。<br/>负向超界，拉到起始位置；正向超界，拉到末位位置</td>
+</tr>
+<tr>
+<td>cursor.rowcount</td>
+<td>返回的总行数</td>
+</tr>
+</tbody></table>
+<p>注意：fetch操作的是结果集，结果集是保存在客户端的，也就是说fetch的时候，查询已经结束了</p>
+<h4 id="先查后改"><a href="#先查后改" class="headerlink" title="先查后改"></a>先查后改</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><code class="hljs plain">import pymysql<br><br>IP &#x3D; &#39;192.168.1.6&#39;<br>USERNAME &#x3D; &#39;lqx&#39;<br>PASSWORD &#x3D; &#39;lqx&#39;<br>DBNAME &#x3D;&#39;test&#39;<br>PORT &#x3D; 3306<br><br>conn &#x3D; None<br>currsor &#x3D; None # 对结果集的操作<br>try:<br>    conn &#x3D; pymysql.connect(IP, USERNAME, PASSWORD, DBNAME, PORT)<br>    currsor &#x3D; conn.cursor()<br><br>    sql &#x3D; &#39;select * from student&#39;<br>    rows &#x3D; currsor.execute(sql) # 返回影响的行数<br>    userid &#x3D; currsor.fetchone()[0]<br>    print(userid)<br>    sql &#x3D; &quot;update student set name&#x3D;&#39;jerry&#39; where id&#x3D;&#39;&#123;&#125;&#39;&quot;.format(userid)<br>    currsor.execute(sql)<br><br>    conn.commit()<br><br>except:<br>    conn.rollback()<br>finally:<br>    if currsor:<br>        currsor.close()<br>    if conn:<br>        conn.close()<br></code></pre></td></tr></table></figure>
+
+<p><img src="https://gitee.com/ashjian/picBed/raw/master/20210909213552.png" alt="在这里插入图片描述"></p>
+<h3 id="带列名查询"><a href="#带列名查询" class="headerlink" title="带列名查询"></a>带列名查询</h3><ul>
+<li>Cursor类有一个Mixin的子类DictCursor</li>
+<li>只需要</li>
+</ul>
+<ol>
+<li>导入<code>from pymysql.cursors import DictCursor</code>库</li>
+<li><code>cursor = conn.cursor(DictCursor)</code> 就可以了</li>
+</ol>
+<ul>
+<li>具体实现</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><code class="hljs plain">import pymysql<br>from pymysql.cursors import DictCursor<br><br>IP &#x3D; &#39;192.168.1.6&#39;<br>USERNAME &#x3D; &#39;lqx&#39;<br>PASSWORD &#x3D; &#39;lqx&#39;<br>DBNAME &#x3D;&#39;test&#39;<br>PORT &#x3D; 3306<br><br>conn &#x3D; None<br>currsor &#x3D; None # 对结果集的操作<br>try:<br>    conn &#x3D; pymysql.connect(IP, USERNAME, PASSWORD, DBNAME, PORT)<br>    currsor &#x3D; conn.cursor(DictCursor)<br><br>    sql &#x3D; &#39;select * from student where id&#x3D;&#123;&#125;&#39;.format(&#39;2&#39;)<br>    currsor.execute(sql)<br>    print(currsor.fetchall())<br><br>except:<br>    conn.rollback()<br>finally:<br>    if currsor:<br>        currsor.close()<br>    if conn:<br>        conn.close()<br><br># 执行结果<br>[&#123;&#39;id&#39;: 2, &#39;name&#39;: &#39;ben0&#39;, &#39;age&#39;: 20&#125;]<br></code></pre></td></tr></table></figure>
+
+<p>返回一行，是一个字典<br>返回多行，放在列表中，元素是字典，代表一行</p>
+<h3 id="SQL注入攻击"><a href="#SQL注入攻击" class="headerlink" title="SQL注入攻击"></a>SQL注入攻击</h3><ul>
+<li>找出用户id为3的用户信息的SQL语句如下</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs plain">SELECT * from student WHERE id &#x3D; 3<br></code></pre></td></tr></table></figure>
+
+<ul>
+<li>现在，要求可以找出某个id对应用户的信息，代码如下</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs plain">userid &#x3D; 5 # 用户id可以变<br>sql &#x3D; &#39;SELECT * from student WHERE id &#x3D; &#123;&#125;&#39;.format(userid)<br></code></pre></td></tr></table></figure>
+
+<ul>
+<li>userid可以变，例如从客户端request请求中获取，直接拼接到查询字符串中<br>如果<code>userid = &#39;5 or 1=1&#39;</code></li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs plain">sql &#x3D; &#39;SELECT * from student WHERE id &#x3D; &#123;&#125;&#39;.format(&#39;5 or 1&#x3D;1&#39;)<br></code></pre></td></tr></table></figure>
+
+<ul>
+<li>运行的结果竟然是返回了全部数据</li>
+</ul>
+<h4 id="SQL注入攻击-1"><a href="#SQL注入攻击-1" class="headerlink" title="SQL注入攻击"></a>SQL注入攻击</h4><ul>
+<li>猜测后台数据库的查询语句使用拼接字符串等方式，从而经过设计为服务端传参，令其拼接出特殊字符串的SQL语句，返回攻击者想要的结果</li>
+<li><strong>永远不要相信客户端传来的数据是规范及安全的！！！</strong></li>
+</ul>
+<h4 id="如何解决注入攻击"><a href="#如何解决注入攻击" class="headerlink" title="如何解决注入攻击"></a>如何解决注入攻击</h4><ul>
+<li><strong>参数化查询</strong></li>
+<li>可以有效防止注入攻击，并提高查询的效率</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs plain">Cursor.execute(query, args&#x3D;None)<br></code></pre></td></tr></table></figure>
+
+<ul>
+<li><code>args</code>，必须是元组、列表或字典。</li>
+<li>如果查询字符串使用<code>%(name)s</code>，就必须使用字典</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><code class="hljs plain">import pymysql<br>from pymysql.cursors import DictCursor<br><br>IP &#x3D; &#39;192.168.1.6&#39;<br>USERNAME &#x3D; &#39;lqx&#39;<br>PASSWORD &#x3D; &#39;lqx&#39;<br>DBNAME &#x3D;&#39;test&#39;<br>PORT &#x3D; 3306<br><br>conn &#x3D; None<br>currsor &#x3D; None # 对结果集的操作<br>try:<br>    conn &#x3D; pymysql.connect(IP, USERNAME, PASSWORD, DBNAME, PORT)<br>    currsor &#x3D; conn.cursor(DictCursor)<br><br>    userid &#x3D; &#39;5 or 1&#x3D;1&#39;<br>    sql &#x3D; &#39;SELECT * from student WHERE id &#x3D; %s&#39;<br>    currsor.execute(sql, (2,)) # 参数化查询<br>    print(currsor.fetchall())<br><br>    currsor.execute(sql, (userid,))<br>    print(currsor.fetchall())<br><br><br>finally:<br>    if currsor:<br>        currsor.close()<br>    if conn:<br>        conn.close()<br></code></pre></td></tr></table></figure>
+
+<p><img src="https://gitee.com/ashjian/picBed/raw/master/20210909213601.png" alt="在这里插入图片描述"></p>
+<ul>
+<li><p>参数化查询为什么提高效率？<br>原因就是——SQL语句缓存</p>
+</li>
+<li><p>数据库服务器一般会对SQL语句编译和缓存，编译只对SQL语句部分，所以参数中就算有SQL指令也不会被当做指令执行</p>
+</li>
+<li><p>编译过程，需要词法分析、语法分析、生成AST、优化、生成执行计划等过程，比较耗费资源</p>
+</li>
+<li><p>服务端会先查找是否对同一条查询语句进行了缓存，如果缓存未失效，则不需要再次编译，从而降低了编译的成本，降低了内存消耗</p>
+</li>
+<li><p>可以认为SQL语句字符串就是一个key，如果使用拼接方案，每次发过去的SQL语句都不一样，都需要编译并缓存</p>
+</li>
+</ul>
+<p>大量查询的时候，首选使用参数化查询，以节省资源</p>
+<p>开发时，应该使用参数化查询<br>注意：这里说的是查询字符串的缓存，不是查询结果的缓存</p>
+<ul>
+<li><strong>批量执行executemany()</strong></li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><code class="hljs plain">import pymysql<br>from pymysql.cursors import DictCursor<br><br>IP &#x3D; &#39;192.168.1.6&#39;<br>USERNAME &#x3D; &#39;lqx&#39;<br>PASSWORD &#x3D; &#39;lqx&#39;<br>DBNAME &#x3D;&#39;test&#39;<br>PORT &#x3D; 3306<br><br>conn &#x3D; None<br>currsor &#x3D; None # 对结果集的操作<br>try:<br>    conn &#x3D; pymysql.connect(IP, USERNAME, PASSWORD, DBNAME, PORT)<br>    currsor &#x3D; conn.cursor()<br><br>    sql &#x3D; &quot;insert into student (name,age) values(%s, %s)&quot;<br>    currsor.executemany(sql, (<br>        (&#39;ben&#123;&#125;&#39;.format(i), 20+i) for i in range(5)<br>    ))<br><br>    conn.commit()<br>except Exception as e:<br>    print(e)<br>    conn.rollback()<br>finally:<br>    if currsor:<br>        currsor.close()<br>    if conn:<br>        conn.close()<br></code></pre></td></tr></table></figure>
+
+<h3 id="上下文支持"><a href="#上下文支持" class="headerlink" title="上下文支持"></a>上下文支持</h3><ul>
+<li>查看连接类和游标类的源码</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><code class="hljs plain"># 连接类<br><br>class Connection(object): <br>	def __enter__(self): <br>		&quot;&quot;&quot;Context manager that returns a Cursor&quot;&quot;&quot; <br>		return self.cursor() <br>		<br>	def __exit__(self, exc, value, traceback):<br>		&quot;&quot;&quot;On successful exit, commit. On exception, rollback&quot;&quot;&quot; <br>		if exc: <br>			self.rollback() <br>		else:<br>			self.commit()<br># 游标类<br>class Cursor(object): <br>	def __enter__(self): <br>		return self<br>		<br>		def __exit__(self, *exc_info): <br>			del exc_info <br>			self.close()<br></code></pre></td></tr></table></figure>
+
+<ul>
+<li>连接类进入上下文的时候会返回一个游标对象，退出时如果没有异常会提交更改</li>
+<li>游标类也使用上下文，在退出时关闭游标对象</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><code class="hljs plain">import pymysql<br><br>IP &#x3D; &#39;192.168.1.6&#39;<br>USERNAME &#x3D; &#39;lqx&#39;<br>PASSWORD &#x3D; &#39;lqx&#39;<br>DBNAME &#x3D;&#39;test&#39;<br>PORT &#x3D; 3306<br><br>conn &#x3D; pymysql.connect(IP, USERNAME, PASSWORD, DBNAME, PORT)<br>try:<br>    with conn.cursor() as cursor:<br>        sql &#x3D; &quot;insert into student (name,age) values(&#39;tom&#39;%s, %s)&quot;<br><br>        r &#x3D; cursor.executemany(sql, ((&quot;&#123;&#125;&quot;.format(i), 20+i) for i in range(2)))<br>        print(r) # 插入行数<br>    with conn as cursor:<br>        cursor.execute(&#39;select * from student&#39;)<br>        print(cursor.fetchall())<br><br>except Exception as e:<br>    print(e)<br>finally:<br>    if conn:<br>        conn.close()<br></code></pre></td></tr></table></figure>
+
+<p>执行结果</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs plain">2<br>((1, &#39;jerry&#39;, 20), (2, &#39;ben0&#39;, 20), (3, &#39;ben1&#39;, 21),\<br> (4, &#39;ben2&#39;, 22), (5, &#39;ben3&#39;, 23), (6, &#39;ben4&#39;, 24),\<br>  (50, &quot;tom&#39;0&quot;, 20), (51, &quot;tom&#39;1&quot;, 21))<br><br>Process finished with exit code 0<br></code></pre></td></tr></table></figure>
+
+<p>换一种写法，使用连接的上下文</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><code class="hljs plain">import pymysql<br><br>IP &#x3D; &#39;192.168.1.6&#39;<br>USERNAME &#x3D; &#39;lqx&#39;<br>PASSWORD &#x3D; &#39;lqx&#39;<br>DBNAME &#x3D;&#39;test&#39;<br>PORT &#x3D; 3306<br><br>conn &#x3D; pymysql.connect(IP, USERNAME, PASSWORD, DBNAME, PORT)<br><br>with conn as cursor:<br>    for i in range(2):<br>        sql &#x3D; &quot;insert into student (name,age) values(&#39;tom&#123;0&#125;&#39;, 20+&#123;0&#125;)&quot;.format(i)<br>        rows &#x3D; cursor.execute(sql)<br><br>cursor.execute(&#39;select * from student&#39;)<br>print(cursor.fetchall())<br><br>cursor.close()<br>conn.close()<br></code></pre></td></tr></table></figure>
+
+<p>conn的with进入是返回一个新的cursor对象，退出时，只是提交或者回滚了事务。并没有关闭cursor和conn。<br>不关闭cursor就可以接着用，省的反复创建它</p>
+<ul>
+<li>如果想关闭cursor对象，这样写</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><code class="hljs plain">import pymysql<br><br>IP &#x3D; &#39;192.168.1.6&#39;<br>USERNAME &#x3D; &#39;lqx&#39;<br>PASSWORD &#x3D; &#39;lqx&#39;<br>DBNAME &#x3D;&#39;test&#39;<br>PORT &#x3D; 3306<br><br>conn &#x3D; pymysql.connect(IP, USERNAME, PASSWORD, DBNAME, PORT)<br><br>with conn as cursor:<br>    with cursor:<br>        sql &#x3D; &quot;select * from student&quot;<br>        cursor.execute(sql)<br>        print(cursor.fetchall())<br><br># 关闭<br>conn.close()<br></code></pre></td></tr></table></figure>
+
+<p>通过上面的实验，我们应该知道，连接应该不需要反反复复创建销毁，应该是多个cursor共享一个conn</p>
+
+      
+    </div>
+    
+    
+    
+
+     <!-- 文章末尾统一添加“本文结束”标记 -->
+    <div>
+      
+        <div>
+    
+        <div style="text-align:center;color: #555;font-size:24px;"><-------------The End-------------></div>
+    
+</div>
+
+      
+    </div>
+    
+
+    
+      <div>
+        <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+  <div>坚持原创分享，你的支持就是我最大的动力！</div>
+  <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+    <span>打赏</span>
+  </button>
+  <div id="QR" style="display: none;">
+
+    
+      <div id="wechat" style="display: inline-block">
+        <img id="wechat_qr" src="/uploads/weixin_cash_code.png" alt="StarDustLoong 微信支付"/>
+        <p>微信支付</p>
+      </div>
+    
+
+    
+      <div id="alipay" style="display: inline-block">
+        <img id="alipay_qr" src="/uploads/alipay_cash_code.png" alt="StarDustLoong 支付宝"/>
+        <p>支付宝</p>
+      </div>
+    
+
+    
+
+  </div>
+</div>
+
+      </div>
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/python%E6%95%B0%E6%8D%AE%E5%BA%93/" rel="tag"># python数据库</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/Python%20--%20%E5%85%83%E7%BC%96%E7%A8%8B/" rel="next" title="Python -- 元编程">
+                <i class="fa fa-chevron-left"></i> Python -- 元编程
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/Python%E7%9A%84ORM%E6%95%B0%E6%8D%AE%E5%BA%93%E7%BB%83%E4%B9%A0/" rel="prev" title="Python的ORM数据库练习">
+                Python的ORM数据库练习 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+    </div>
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/uploads/avatar.png"
+                alt="StarDustLoong" />
+            
+              <p class="site-author-name" itemprop="name">StarDustLoong</p>
+              <p class="site-description motion-element" itemprop="description">人类如风一般的自由</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">2842</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">13</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">160</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+	   
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/StarDustLoong" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:13671474528@163.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://www.zhihu.com/people/ashjian-ar15" target="_blank" title="知乎">
+                      
+                        <i class="fa fa-fw fa-globe"></i>知乎</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://me.csdn.net/ashjian" target="_blank" title="CSDN">
+                      
+                        <i class="fa fa-fw fa-codiepie"></i>CSDN</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+            <div class="links-of-blogroll motion-element links-of-blogroll-inline">
+              <div class="links-of-blogroll-title">
+                <i class="fa  fa-fw fa-link"></i>
+                Links
+              </div>
+              <ul class="links-of-blogroll-list">
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="http://mp.weixin.qq.com/user1" title="OpenInfo" target="_blank">OpenInfo</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="http://mp.weixin.qq.com/user2" title="stormzhang" target="_blank">stormzhang</a>
+                  </li>
+                
+              </ul>
+            </div>
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#驱动"><span class="nav-number">1.</span> <span class="nav-text">驱动</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#pymysql使用"><span class="nav-number">2.</span> <span class="nav-text">pymysql使用</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#安装"><span class="nav-number">2.1.</span> <span class="nav-text">安装</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#创建数据库和表"><span class="nav-number">2.2.</span> <span class="nav-text">创建数据库和表</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#连接Connect"><span class="nav-number">2.3.</span> <span class="nav-text">连接Connect</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#游标Cursor"><span class="nav-number">3.</span> <span class="nav-text">游标Cursor</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#操作数据库"><span class="nav-number">3.1.</span> <span class="nav-text">操作数据库</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#新增记录"><span class="nav-number">3.1.1.</span> <span class="nav-text">新增记录</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#事务管理"><span class="nav-number">3.1.2.</span> <span class="nav-text">事务管理</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#批量增加数据"><span class="nav-number">3.1.2.1.</span> <span class="nav-text">批量增加数据</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#一般流程"><span class="nav-number">3.1.3.</span> <span class="nav-text">一般流程</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#查询"><span class="nav-number">3.1.4.</span> <span class="nav-text">查询</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#先查后改"><span class="nav-number">3.1.4.1.</span> <span class="nav-text">先查后改</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#带列名查询"><span class="nav-number">3.1.5.</span> <span class="nav-text">带列名查询</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#SQL注入攻击"><span class="nav-number">3.1.6.</span> <span class="nav-text">SQL注入攻击</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#SQL注入攻击-1"><span class="nav-number">3.1.6.1.</span> <span class="nav-text">SQL注入攻击</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#如何解决注入攻击"><span class="nav-number">3.1.6.2.</span> <span class="nav-text">如何解决注入攻击</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#上下文支持"><span class="nav-number">3.1.7.</span> <span class="nav-text">上下文支持</span></a></li></ol></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">StarDustLoong</span>
+
+  
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-area-chart"></i>
+    </span>
+    
+      <span class="post-meta-item-text">本站总字数&#58;</span>
+    
+    <span title="本站总字数">769.8k</span>
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Pisces</a> v5.1.4</div>
+
+
+
+
+#<!-- 百度自动推送 -->
+#<script>
+#(function(){
+#    var bp = document.createElement('script');
+#    var curProtocol = window.location.protocol.split(':')[0];
+#    if (curProtocol === 'https') {
+#        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+#    }
+#    else {
+#        bp.src = 'http://push.ashjian.baidu.com/push.js';
+#    }
+#    var s = document.getElementsByTagName("script")[0];
+#    s.parentNode.insertBefore(bp, s);
+#})();
+#</script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aplayer/dist/APlayer.min.css">
+
+<script src="https://cdn.jsdelivr.net/npm/aplayer/dist/APlayer.min.js"></script>
+<!-- require MetingJS -->
+
+<script src="https://cdn.jsdelivr.net/npm/meting@2.0.1/dist/Meting.min.js"></script>
+<div> 
+<meting-js  
+    server="netease" 
+    type="playlist"  
+    id="5281251057" 
+    fixed="true"  
+    autoplay="false" 
+    loop="all" 
+    order="random"
+    preload="auto" 
+    list-folded="ture" 
+    list-max-height="500px" 
+    lrc-type="1">
+</meting-js>	 
+</div>
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv">
+      本站访客数
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+      人次
+    </span>
+  
+
+  
+    <span class="site-pv">
+      本站总访问量
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+      次
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+  <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+  <script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+  
+  <script type="text/javascript">
+    var GUEST = ['nick','mail','link'];
+    var guest = 'nick,mail,link';
+    guest = guest.split(',').filter(item=>{
+      return GUEST.indexOf(item)>-1;
+    });
+    new Valine({
+        el: '#comments' ,
+        verify: false,
+        notify: false,
+        appId: 'Gp5xxuBGmRxC9yeJHf5wlLpN-gzGzoHsz',
+        appKey: 'wo0eDJonJrnuUrCCCU7EnH1n',
+        placeholder: '欢迎评论',
+        avatar:'mm',
+        guest_info:guest,
+        pageSize:'20' || 10,
+    });
+  </script>
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"jsonPath":"/live2dw/assets/dsr50_lifu_normal.model.json"},"display":{"position":"right","width":700,"height":800,"hOffset":-250,"vOffset":-150},"mobile":{"show":true,"scale":0.7},"log":false});</script></body>
+</html>

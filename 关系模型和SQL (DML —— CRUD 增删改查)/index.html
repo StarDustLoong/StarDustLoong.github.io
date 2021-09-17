@@ -1,0 +1,1671 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="python数据库," />
+
+
+
+
+  
+
+
+  <link rel="alternate" href="/atom.xml" title="" type="application/atom+xml" />
+
+
+
+
+
+
+<meta name="description" content="所有操作一定要加条件 Insert语句 向表中插入一行数据，自增字段、缺省值字段、可为空字段可以不写INSERT INTO table_name(col_name,...) VALUES (value1,...);  将select查询的结果插入到表中INSERT INTO table_name SELECT ... ;  如果主键冲突、唯一键冲突就执行update后的设置。这条语句的意思，就是主">
+<meta property="og:type" content="article">
+<meta property="og:title" content="关系模型和SQL (DML —— CRUD 增删改查)">
+<meta property="og:url" content="http://www.ashjian.xyz/%E5%85%B3%E7%B3%BB%E6%A8%A1%E5%9E%8B%E5%92%8CSQL%20(DML%20%E2%80%94%E2%80%94%20CRUD%20%E5%A2%9E%E5%88%A0%E6%94%B9%E6%9F%A5)/index.html">
+<meta property="og:site_name">
+<meta property="og:description" content="所有操作一定要加条件 Insert语句 向表中插入一行数据，自增字段、缺省值字段、可为空字段可以不写INSERT INTO table_name(col_name,...) VALUES (value1,...);  将select查询的结果插入到表中INSERT INTO table_name SELECT ... ;  如果主键冲突、唯一键冲突就执行update后的设置。这条语句的意思，就是主">
+<meta property="og:image" content="https://gitee.com/ashjian/picBed/raw/master/20210828233518.png">
+<meta property="og:image" content="https://gitee.com/ashjian/picBed/raw/master/20210828233519.png">
+<meta property="og:image" content="https://gitee.com/ashjian/picBed/raw/master/20210828233520.png">
+<meta property="og:image" content="https://gitee.com/ashjian/picBed/raw/master/20210828233521.png">
+<meta property="og:image" content="https://gitee.com/ashjian/picBed/raw/master/20210828233522.png">
+<meta property="og:image" content="https://gitee.com/ashjian/picBed/raw/master/20210828233523.png">
+<meta property="og:image" content="https://gitee.com/ashjian/picBed/raw/master/20210828233524.png">
+<meta property="og:image" content="https://gitee.com/ashjian/picBed/raw/master/20210828233525.png">
+<meta property="og:image" content="https://gitee.com/ashjian/picBed/raw/master/20210828233526.png">
+<meta property="og:image" content="https://gitee.com/ashjian/picBed/raw/master/20210828233527.png">
+<meta property="og:image" content="https://gitee.com/ashjian/picBed/raw/master/20210828233528.png">
+<meta property="og:image" content="https://gitee.com/ashjian/picBed/raw/master/20210828233529.png">
+<meta property="og:image" content="https://gitee.com/ashjian/picBed/raw/master/20210828233530.png">
+<meta property="og:image" content="https://gitee.com/ashjian/picBed/raw/master/20210828233531.png">
+<meta property="og:image" content="https://gitee.com/ashjian/picBed/raw/master/20210828233532.png">
+<meta property="og:image" content="https://gitee.com/ashjian/picBed/raw/master/20210828233533.png">
+<meta property="og:image" content="https://gitee.com/ashjian/picBed/raw/master/20210828233534.png">
+<meta property="og:image" content="https://gitee.com/ashjian/picBed/raw/master/20210828233535.png">
+<meta property="og:image" content="https://gitee.com/ashjian/picBed/raw/master/20210828233536.png">
+<meta property="og:image" content="https://gitee.com/ashjian/picBed/raw/master/20210828233537.png">
+<meta property="og:image" content="https://gitee.com/ashjian/picBed/raw/master/20210828233538.png">
+<meta property="og:image" content="https://gitee.com/ashjian/picBed/raw/master/20210828233539.png">
+<meta property="og:image" content="https://gitee.com/ashjian/picBed/raw/master/20210828233540.png">
+<meta property="og:image" content="https://gitee.com/ashjian/picBed/raw/master/20210828233541.png">
+<meta property="og:image" content="https://gitee.com/ashjian/picBed/raw/master/20210828233542.png">
+<meta property="og:image" content="https://gitee.com/ashjian/picBed/raw/master/20210828233543.png">
+<meta property="og:image" content="https://gitee.com/ashjian/picBed/raw/master/20210828233544.png">
+<meta property="og:image" content="https://gitee.com/ashjian/picBed/raw/master/20210828233545.png">
+<meta property="og:image" content="https://gitee.com/ashjian/picBed/raw/master/20210828233546.png">
+<meta property="article:published_time" content="2021-09-09T14:42:50.246Z">
+<meta property="article:modified_time" content="2021-08-28T15:48:59.800Z">
+<meta property="article:author" content="StarDustLoong">
+<meta property="article:tag" content="python数据库">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://gitee.com/ashjian/picBed/raw/master/20210828233518.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://www.ashjian.xyz/关系模型和SQL (DML —— CRUD 增删改查)/"/>
+
+
+
+
+
+  <title>关系模型和SQL (DML —— CRUD 增删改查) | </title>
+  
+
+
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?d7bf52f45e24a0e6f2951901a7a97864";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+<meta name="generator" content="Hexo 4.2.1"></head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title"></span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off"
+             placeholder="搜索..." spellcheck="false"
+             type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://www.ashjian.xyz/%E5%85%B3%E7%B3%BB%E6%A8%A1%E5%9E%8B%E5%92%8CSQL%20(DML%20%E2%80%94%E2%80%94%20CRUD%20%E5%A2%9E%E5%88%A0%E6%94%B9%E6%9F%A5)/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="StarDustLoong">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/uploads/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">关系模型和SQL (DML —— CRUD 增删改查)</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2021-09-09T22:42:50+08:00">
+                2021-09-09
+              </time>
+            
+
+            
+              <span class="post-meta-divider">|</span>
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-check-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">更新于&#58;</span>
+              
+              <time title="更新于" itemprop="dateModified" datetime="2021-08-28T23:48:59+08:00">
+                2021-08-28
+              </time>
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/python/" itemprop="url" rel="index">
+                    <span itemprop="name">python</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/%E5%85%B3%E7%B3%BB%E6%A8%A1%E5%9E%8B%E5%92%8CSQL%20(DML%20%E2%80%94%E2%80%94%20CRUD%20%E5%A2%9E%E5%88%A0%E6%94%B9%E6%9F%A5)/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/%E5%85%B3%E7%B3%BB%E6%A8%A1%E5%9E%8B%E5%92%8CSQL%20(DML%20%E2%80%94%E2%80%94%20CRUD%20%E5%A2%9E%E5%88%A0%E6%94%B9%E6%9F%A5)/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  2.7k
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  12
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+      
+      
+
+      
+        <p><strong>所有操作一定要加条件</strong></p>
+<h1 id="Insert语句"><a href="#Insert语句" class="headerlink" title="Insert语句"></a>Insert语句</h1><ul>
+<li><p>向表中插入一行数据，自增字段、缺省值字段、可为空字段可以不写<br><code>INSERT INTO table_name(col_name,...) VALUES (value1,...);</code></p>
+</li>
+<li><p>将select查询的结果插入到表中<br><code>INSERT INTO table_name SELECT ... ;</code></p>
+</li>
+<li><p>如果主键冲突、唯一键冲突就执行update后的设置。这条语句的意思，就是主键不在新增记录，主键在就更新部分字段</p>
+<p><code>INSERT INTO table_name (col_name1,...) VALUES (value1,...) ON DUPLICATE KEY UPDATE col_name1=value1,...;</code></p>
+</li>
+<li><p>如果主键冲突、唯一键冲突就忽略错误，返回一个警告<br><code>INSERT IGNORE INTO table_name (col_name,...) VALUES (value1,...);</code></p>
+</li>
+</ul>
+<h2 id="例："><a href="#例：" class="headerlink" title="例："></a>例：</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs plain">INSERT INTO reg(loginname, &#96;name&#96;, &#96;password&#96;) <br>VALUES(&#39;tom&#39;, &#39;tom&#39;, &#39;tom&#39;);<br><br>INSERT INTO reg(if, loginname, &#96;name&#96;, &#96;password&#96;) <br>VALUES (5, &#39;tom&#39;, &#39;tom&#39;, &#39;tom&#39;);<br><br>INSERT INTO reg(id, loginname, &#96;name&#96;, &#96;password&#96;) <br>VALUED (1, &#39;tom&#39;, &#39;tom&#39;, &#39;tom&#39;) <br>ON DUPLICATE KEY UPDATE name &#x3D; &#39;jerry&#39;<br></code></pre></td></tr></table></figure>
+
+<h1 id="Update语句"><a href="#Update语句" class="headerlink" title="Update语句"></a>Update语句</h1><ul>
+<li>IFNORE 意义同Insert语句<br><code>UPDATA [IGNORE] tal_name SET col_name1=expr1 [, col_name2=expr2 ...] [WHERE where_definition]</code></li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs plain">-- 例<br>UPDATE reg SET name&#x3D;&#39;tom· WHERE id&#x3D;5;<br></code></pre></td></tr></table></figure>
+
+<ul>
+<li>注意这一句非常<strong>危险</strong>，会更新所有数据</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs plain">UPDATE reg SET name &#x3D;&#39;ben&#39;;<br></code></pre></td></tr></table></figure>
+
+<ul>
+<li>更新一定要加条件</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs plain">UPDATE reg SET name &#x3D; &#39;ben&#39;, password &#x3D; &#39;benpwd&#39; WHRER id &#x3D; 1;<br></code></pre></td></tr></table></figure>
+
+<h1 id="Delete语句"><a href="#Delete语句" class="headerlink" title="Delete语句"></a>Delete语句</h1><ul>
+<li>删除符合条件的记录<br><code>DELETE FROM tal_name [WHERE where_defintion]</code></li>
+<li>删除一定要有条件</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs plain">DELETE FROM reg WHERE id &#x3D;1;<br></code></pre></td></tr></table></figure>
+
+<h1 id="Select语句"><a href="#Select语句" class="headerlink" title="Select语句"></a>Select语句</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><code class="hljs plain">SELECT<br>		[DISTINCT]<br>		select_expr, ...<br>		[FROM table_references<br>		[WHERE where_definition]<br>		[FROUP BY &#123;col_name | expr | position&#125;<br>			[ASC | DESC], ... [WITH ROLLUP]]<br>		[HAVING whrer_definition]<br>		[ORDER BY &#123;col_name | expr | position&#125;<br>			[ASC | DESC], ...]<br>		[LIMIT &#123;[offset,&#125; roe_count | row_count OFFSET offset&#125;]<br>		[FOR UPDATE | LOCK IN SHARE MODE]]<br></code></pre></td></tr></table></figure>
+
+<p>FOR UPDATE会把行进行写锁定，这是<strong>排它锁</strong></p>
+<h2 id="查询"><a href="#查询" class="headerlink" title="查询"></a>查询</h2><ul>
+<li>查询的结果成为结果集recordset</li>
+<li>最简单的查询<br><code>SELECT 1;</code><br><code>SELECT * FROM employees;</code></li>
+<li>字符串合并<br><code>SELECT emp_no, first_name + last_name FROM employees;</code></li>
+</ul>
+<p><strong>执行前</strong></p>
+<p><img src="https://gitee.com/ashjian/picBed/raw/master/20210828233518.png" alt="在这里插入图片描述"></p>
+<p><img src="https://gitee.com/ashjian/picBed/raw/master/20210828233519.png" alt="在这里插入图片描述"></p>
+<h3 id="使用字符串相加函数-CONCAT"><a href="#使用字符串相加函数-CONCAT" class="headerlink" title="使用字符串相加函数 CONCAT"></a>使用字符串相加函数 CONCAT</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs plain">SELECT emp_no, CONCAT(first_name,&#39; &#39;,last_name) FROM employees;<br></code></pre></td></tr></table></figure>
+
+<p><strong>执行后</strong></p>
+<p><img src="https://gitee.com/ashjian/picBed/raw/master/20210828233520.png" alt="在这里插入图片描述"></p>
+<h3 id="AS定义别名，可选。"><a href="#AS定义别名，可选。" class="headerlink" title="AS定义别名，可选。"></a>AS定义别名，可选。</h3><ul>
+<li>写AS是一个好习惯<br><code>SELECT emp_no as en, CONCAT(first_name,&#39; &#39;,last_name) as name FROM employees;</code></li>
+</ul>
+<p><strong>执行后</strong></p>
+<p><img src="https://gitee.com/ashjian/picBed/raw/master/20210828233521.png" alt="在这里插入图片描述"></p>
+<h2 id="Limit子句"><a href="#Limit子句" class="headerlink" title="Limit子句"></a>Limit子句</h2><ul>
+<li>返回5条记录， [1,5]左闭右闭<br><code>SELECT * FROM employees as emp LIMIT 5;</code></li>
+</ul>
+<p><img src="https://gitee.com/ashjian/picBed/raw/master/20210828233522.png" alt="在这里插入图片描述"></p>
+<p>返回5条记录，偏移3条，(3,8]左开右闭<br><code>SELECT * FROM employees as emp LIMIT 3, 5;</code><br>等价于<br><code>SELECT * FROM employees as emp LIMIT 5 offset 3;</code> ，</p>
+<p><img src="https://gitee.com/ashjian/picBed/raw/master/20210828233523.png" alt="在这里插入图片描述"></p>
+<h2 id="Where子句"><a href="#Where子句" class="headerlink" title="Where子句"></a>Where子句</h2><table>
+<thead>
+<tr>
+<th>运算符</th>
+<th>描述符</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>=</td>
+<td>等于</td>
+</tr>
+<tr>
+<td>&lt;&gt;</td>
+<td>不等于</td>
+</tr>
+<tr>
+<td>&gt;、 &lt;、 &gt;=、 &lt;=</td>
+<td>大于、小于、大于等于、小于等于</td>
+</tr>
+<tr>
+<td>BETWEEN</td>
+<td>在某个范围之内，between a and b等价于[a, b]</td>
+</tr>
+<tr>
+<td>LIKE</td>
+<td>字符串模式匹配，%表示任意多个字符，_表示一个字符</td>
+</tr>
+<tr>
+<td>IN</td>
+<td>指定针对某个列的多个可能值</td>
+</tr>
+<tr>
+<td>AND</td>
+<td>与</td>
+</tr>
+<tr>
+<td>OR</td>
+<td>或</td>
+</tr>
+</tbody></table>
+<ul>
+<li>能用键匹配用键</li>
+<li>LIKE 只能使用左前缀，尽量不使用，性能差</li>
+</ul>
+<p>注意：如果很多表达式需要使用AND、OR计算逻辑表达式的值的时候，由于有结合律的问题，建议使用<strong>小括号</strong>来避免产生错误</p>
+<ul>
+<li>查询条件</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs plain">SELECT * FROM employees WHERE emp_no &lt; 10015 and last_name LIKE &#39;P%&#39;;<br>SELECT * FROM employees WHERE emp_no BETWEEN 10010 AND 10015 AND last_name LIKE &#39;P%&#39;;<br>SELECT * FROM employees WHERE emp_no in (10001, 10002, 10010);<br></code></pre></td></tr></table></figure>
+
+<h3 id="EXPLAIN-可判断查询条件性能如何"><a href="#EXPLAIN-可判断查询条件性能如何" class="headerlink" title="EXPLAIN 可判断查询条件性能如何"></a>EXPLAIN 可判断查询条件性能如何</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs plain">EXPLAIN SELECT emp_no AS id, birth_date, concat(FIRST_name, &#39; &#39;, last_name) as name<br>	FROM employees as emp WHERE last_name&#x3D;&#39;Sluis&#39;;<br></code></pre></td></tr></table></figure>
+
+<p><img src="https://gitee.com/ashjian/picBed/raw/master/20210828233524.png" alt="在这里插入图片描述"></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs plain">EXPLAIN SELECT emp_no AS id, birth_date, concat(FIRST_name, &#39; &#39;, last_name) as name<br>	FROM employees as emp WHERE emp_no BETWEEN 10010 and 10015 and last_name&#x3D;&#39;Sluis&#39;;<br></code></pre></td></tr></table></figure>
+
+<p>说明第二个查询条件优于第一个</p>
+<h2 id="ORder-by-子句"><a href="#ORder-by-子句" class="headerlink" title="ORder by 子句"></a>ORder by 子句</h2><p>对查询结果进行排序，可以升序ASC、降序DESC。默认不填为升序</p>
+<p>升序<br><code>SELECT * FROM employees WHERE emp_no in (10001, 10002, 10010) ORDER BY emp_no;</code></p>
+<p><img src="https://gitee.com/ashjian/picBed/raw/master/20210828233525.png" alt="在这里插入图片描述"></p>
+<p>降序<br><code>SELECT * FROM employees WHERE emp_no in (10001, 10002, 10010) ORDER BY emp_no DESC</code></p>
+<p><img src="https://gitee.com/ashjian/picBed/raw/master/20210828233526.png" alt="在这里插入图片描述"></p>
+<ul>
+<li>OROER BY 先执行，在执行 LIMIT</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs plain">SELECT * FROM employees WHERE emp_no in (10001, 10002, 10010) <br> ORDER BY birth_date, emp_no DESC LIMIT 1, 2;<br></code></pre></td></tr></table></figure>
+
+<p><img src="https://gitee.com/ashjian/picBed/raw/master/20210828233527.png" alt="在这里插入图片描述"></p>
+<p>会先按照第一条件进行排序，如果无法区分先后顺序，在使用第二条件进行排序</p>
+<p><img src="https://gitee.com/ashjian/picBed/raw/master/20210828233528.png" alt="在这里插入图片描述"></p>
+<h2 id="DISTINCT"><a href="#DISTINCT" class="headerlink" title="DISTINCT"></a>DISTINCT</h2><p>不返回重复记录</p>
+<ul>
+<li>原表</li>
+</ul>
+<p><img src="https://gitee.com/ashjian/picBed/raw/master/20210828233529.png" alt="在这里插入图片描述"></p>
+<p><code>SELECT DISTINCT dept_no FROM dept_emp;</code><br>执行结果如下</p>
+<p><img src="https://gitee.com/ashjian/picBed/raw/master/20210828233530.png" alt="在这里插入图片描述"></p>
+<p><code>SELECT DISTINCT emp_no FROM dept_emp;</code><br>执行结果如下</p>
+<p><img src="https://gitee.com/ashjian/picBed/raw/master/20210828233531.png" alt="在这里插入图片描述"></p>
+<p><code>SELECT dept_no,emp_no FROM dept_emp;</code><br>会将<code>dept_no</code>与<code>emp_no</code>看成二元祖来筛选</p>
+<p><img src="https://gitee.com/ashjian/picBed/raw/master/20210828233532.png" alt="在这里插入图片描述"></p>
+<h2 id="聚合函数"><a href="#聚合函数" class="headerlink" title="聚合函数"></a>聚合函数</h2><table>
+<thead>
+<tr>
+<th>函数</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>COUNT(expr)</td>
+<td>返回记录中记录的数目，如果指定列，则返回非NULL值的行数</td>
+</tr>
+<tr>
+<td>COUNT(DISTINCT expr,[expr…])</td>
+<td>返回不重复的非NULL值的行数</td>
+</tr>
+<tr>
+<td>AVG([DISTINCT] expr)</td>
+<td>返回平均值，返回不同值的平均值</td>
+</tr>
+<tr>
+<td>MIN(expr), MAX(expr)</td>
+<td>最小值，最大值</td>
+</tr>
+<tr>
+<td>SUM([DISTINCT] expr)</td>
+<td>求和，Distinct返回不同值求和</td>
+</tr>
+</tbody></table>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs plain">SELECT COUNT(*), AVG(emp_no), sum(emp_no), min(emp_no), max(emp_no) FROM employees;<br></code></pre></td></tr></table></figure>
+
+<ul>
+<li>原表</li>
+</ul>
+<p><img src="https://gitee.com/ashjian/picBed/raw/master/20210828233533.png" alt="在这里插入图片描述"></p>
+<p>执行后</p>
+<p><img src="https://gitee.com/ashjian/picBed/raw/master/20210828233534.png" alt="在这里插入图片描述"></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs plain">SELECT emp_no, COUNT( emp_no ), sum( emp_no ), avg( emp_no ) AS sal_avg <br>	FROM employees  WHERE emp_no &gt; 10001 <br>	GROUP BY emp_no HAVING sal_avg &gt; 10005<br>	ORDER BY sal_avg DESC LIMIT 1;<br></code></pre></td></tr></table></figure>
+
+<p><img src="https://gitee.com/ashjian/picBed/raw/master/20210828233535.png" alt="在这里插入图片描述"></p>
+<p>执行顺序 ：HAVING &gt; select &gt; GROUP BY &gt; HAVING &gt; ORDER BY</p>
+<h2 id="分别查询"><a href="#分别查询" class="headerlink" title="分别查询"></a>分别查询</h2><p>使用<code>Group by</code>子句，如果有条件，使用Having子句过滤分组、聚合过的结果</p>
+<ul>
+<li>原表</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><code class="hljs plain">emp_no  salary  from_date   to_date<br>10001	60117	1986-06-26	1987-06-26<br>10001	62102	1987-06-26	1988-06-25<br>10001	66074	1988-06-25	1989-06-25<br>10001	66596	1989-06-25	1990-06-25<br>10001	66961	1990-06-25	1991-06-25<br>10001	71046	1991-06-25	1992-06-24<br>10001	74333	1992-06-24	1993-06-24<br>10001	75286	1993-06-24	1994-06-24<br>10001	75994	1994-06-24	1995-06-24<br>10001	76884	1995-06-24	1996-06-23<br>10001	80013	1996-06-23	1997-06-23<br>10001	81025	1997-06-23	1998-06-23<br>10001	81097	1998-06-23	1999-06-23<br>10001	84917	1999-06-23	2000-06-22<br>10001	85112	2000-06-22	2001-06-22<br>10001	85097	2001-06-22	2002-06-22<br>10001	88958	2002-06-22	9999-01-01<br>10002	65828	1996-08-03	1997-08-03<br>10002	65909	1997-08-03	1998-08-03<br>10002	67534	1998-08-03	1999-08-03<br>10002	69366	1999-08-03	2000-08-02<br>10002	71963	2000-08-02	2001-08-02<br>10002	72527	2001-08-02	9999-01-01<br>10003	40006	1995-12-03	1996-12-02<br>10003	43616	1996-12-02	1997-12-02<br>10003	43466	1997-12-02	1998-12-02<br>10003	43636	1998-12-02	1999-12-02<br>10003	43478	1999-12-02	2000-12-01<br>10003	43699	2000-12-01	2001-12-01<br>10003	43311	2001-12-01	9999-01-01<br>10004	40054	1986-12-01	1987-12-01<br>10004	42283	1987-12-01	1988-11-30<br>10004	42542	1988-11-30	1989-11-30<br>10004	46065	1989-11-30	1990-11-30<br>10004	48271	1990-11-30	1991-11-30<br>10004	50594	1991-11-30	1992-11-29<br>10004	52119	1992-11-29	1993-11-29<br>10004	54693	1993-11-29	1994-11-29<br>10004	58326	1994-11-29	1995-11-29<br>10004	60770	1995-11-29	1996-11-28<br></code></pre></td></tr></table></figure>
+
+<h3 id="聚合所有"><a href="#聚合所有" class="headerlink" title="聚合所有"></a>聚合所有</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs plain">SELECT emp_no, SUM(salary), avg(salary), count(emp_no) from salaries;<br></code></pre></td></tr></table></figure>
+
+<p><img src="https://gitee.com/ashjian/picBed/raw/master/20210828233536.png" alt="在这里插入图片描述"></p>
+<h3 id="聚合被选择的记录"><a href="#聚合被选择的记录" class="headerlink" title="聚合被选择的记录"></a>聚合被选择的记录</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs plain">SELECT emp_no, SUM(salary), avg(salary), count(emp_no) from salaries WHERE emp_no &lt; 10003;<br></code></pre></td></tr></table></figure>
+
+<p><img src="https://gitee.com/ashjian/picBed/raw/master/20210828233537.png" alt="在这里插入图片描述"></p>
+<h3 id="分组"><a href="#分组" class="headerlink" title="分组"></a>分组</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs plain">SELECT emp_no FROM salaries GROUP BY emp_no;<br></code></pre></td></tr></table></figure>
+
+<p><img src="https://gitee.com/ashjian/picBed/raw/master/20210828233538.png" alt="在这里插入图片描述"></p>
+<p><strong>SELECT emp_no FROM salaries WHERE emp_no &lt; 10003 GROUP BY emp_no;</strong></p>
+<p><img src="https://gitee.com/ashjian/picBed/raw/master/20210828233539.png" alt="在这里插入图片描述"></p>
+<h3 id="按照不同emp-no分组，每组分别聚合"><a href="#按照不同emp-no分组，每组分别聚合" class="headerlink" title="按照不同emp_no分组，每组分别聚合"></a>按照不同emp_no分组，每组分别聚合</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs plain">SELECT emp_no, SUM(salary), AVG(salary), count(emp_no) <br>	from salaries WHERE emp_no &lt; 10003 GROUP BY emp_no;<br></code></pre></td></tr></table></figure>
+
+<p><img src="https://gitee.com/ashjian/picBed/raw/master/20210828233540.png" alt="在这里插入图片描述"></p>
+<h3 id="HAVING子句对分组结果过滤"><a href="#HAVING子句对分组结果过滤" class="headerlink" title="HAVING子句对分组结果过滤"></a>HAVING子句对分组结果过滤</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs plain">SELECT emp_no, SUM(salary), AVG(salary), count(emp_no) <br>	from salaries GROUP BY emp_no HAVING AVG(salary) &gt; 45000<br></code></pre></td></tr></table></figure>
+
+<p><img src="https://gitee.com/ashjian/picBed/raw/master/20210828233541.png" alt="在这里插入图片描述"></p>
+<h3 id="使用别名"><a href="#使用别名" class="headerlink" title="使用别名"></a>使用别名</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs python">SELECT emp_no, SUM(salary), AVG(salary) <span class="hljs-keyword">as</span> sal_avg, count(emp_no) <br>	<span class="hljs-keyword">from</span> salaries GROUP BY emp_no HAVING sal_avg &gt; <span class="hljs-number">45000</span><br></code></pre></td></tr></table></figure>
+
+<h3 id="最后对分组过滤后的结果排序"><a href="#最后对分组过滤后的结果排序" class="headerlink" title="最后对分组过滤后的结果排序"></a>最后对分组过滤后的结果排序</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs plain">SELECT emp_no, SUM(salary), AVG(salary) AS sal_avg, COUNT(emp_no) <br>	from salaries GROUP BY emp_no HAVING sal_avg &gt; 60000 ORDER BY sal_avg;<br></code></pre></td></tr></table></figure>
+
+<p><img src="https://gitee.com/ashjian/picBed/raw/master/20210828233542.png" alt="在这里插入图片描述"></p>
+<ul>
+<li>分组是将数据按照指定的字段分组，最终每组只能出来一条记录。这就带来了问题，每一组谁做代表，其实谁做代表都不合适</li>
+<li>如果只投影分组字段、聚合数据，不会有问题，如果投影非分组字段，显示的时候不能确定是组内谁的数据</li>
+<li>分组</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs plain">SELECT emp_no, MAX(salary) FROM salaries; -- 10001 88958<br>SELECT emp_no, MIN(salary) FROM salaries; -- 10001 40006<br></code></pre></td></tr></table></figure>
+
+<p>上例很好的说明了使用了聚合函数，虽然没有显式使用Group By语句，但是其实就是把所有记录当做一组，每组只能出一条，那么一组也只能出一条，所以结果就一条</p>
+<p>但是<code>emp_no</code>就是非分组字段，那么它就要开始覆盖，所以，显示为10001。当求最大值的时候，正好工资表中10001的工资最高，感觉是对的。但是，求最小工资的时候，明明最小工资是10003的40006，由于emp_no不是分组字段，导致最后被覆盖为10001</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs plain">SELECT emp_no, MIN(salary) FROM salaries GROUP BY emp_no;<br></code></pre></td></tr></table></figure>
+
+<ul>
+<li>上句才是正确的语义，按照不同员工emp_no工号分组，每一个人一组，每一个人有多个工资记录，按时每组只能按照人头出一条记录</li>
+<li>单标较为复杂的语句</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><code class="hljs python">SELECT<br>	emp_no,<br>	AVG( salary ) AS avg_sal <br>FROM<br>	salaries <br>WHERE<br>	salary &gt; <span class="hljs-number">70000</span> <br>GROUP BY<br>	emp_no <br>HAVING<br>	avg( salary ) &gt; <span class="hljs-number">50000</span> <br>ORDER BY<br>	avg_sal DESC <br>	LIMIT <span class="hljs-number">1</span>;<br></code></pre></td></tr></table></figure>
+
+<p><img src="https://gitee.com/ashjian/picBed/raw/master/20210828233543.png" alt="在这里插入图片描述"></p>
+<h3 id="子查询"><a href="#子查询" class="headerlink" title="子查询"></a>子查询</h3><ul>
+<li>查询语句可以嵌套，内部查询就是子查询</li>
+<li>子查询必须在一组小括号中</li>
+<li>子查询中不能使用Order by</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs plain">SELECT<br>	* <br>FROM<br>	employees <br>WHERE<br>	emp_no IN ( SELECT emp_no FROM employees WHERE emp_no &gt; 10015 ) <br>ORDER BY<br>	emp_no DESC;<br></code></pre></td></tr></table></figure>
+
+<p><img src="https://gitee.com/ashjian/picBed/raw/master/20210828233544.png" alt="在这里插入图片描述"></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs plain">SELECT<br>	emp.emp_no,<br>	emp.first_name,<br>	gender <br>FROM<br>	( SELECT * FROM employees WHERE emp_no &gt; 10015 ) AS emp <br>WHERE<br>	emp.emp_no &lt; 10019 <br>ORDER BY<br>	emp_no DESC;<br></code></pre></td></tr></table></figure>
+
+<p><img src="https://gitee.com/ashjian/picBed/raw/master/20210828233545.png" alt="在这里插入图片描述"></p>
+<h3 id="连接join"><a href="#连接join" class="headerlink" title="连接join"></a>连接join</h3><h4 id="交叉连接-cross-join"><a href="#交叉连接-cross-join" class="headerlink" title="交叉连接 cross join"></a>交叉连接 cross join</h4><ul>
+<li><p>笛卡尔乘积，全部交叉</p>
+</li>
+<li><p>在MySQL中，CROSS JOIN从语法上说与INNER JOIN等同</p>
+</li>
+<li><p>没有 join 就不能用 on</p>
+</li>
+</ul>
+<p>Join会构建一张<strong>临时表</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs plain">-- 工资40行<br>SELECT * FROM salaries;<br><br>-- 20行<br>SELECT * FROM employees;<br><br>-- 800行<br>SELECT * FROM employees CROSS JOIN salaries;<br><br>-- 隐式连接，800行<br>SELECT * FROM employees, salaries;<br></code></pre></td></tr></table></figure>
+
+<p>注意：salaries和employees并没有直接的关系，做笛卡尔乘积只是为了看的清楚</p>
+<h4 id="内连接-inner-join"><a href="#内连接-inner-join" class="headerlink" title="内连接 inner join"></a>内连接 inner join</h4><ul>
+<li>可省略为join</li>
+<li>等值连接，只选某些field相等的元组（行），使用On限定关联的结果</li>
+<li>自然连接，特殊的等值连接，会去掉重复的列。用的少</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs plain">-- 内连接，笛卡尔乘积 800 行<br>SELECT * FROM employees JOIN salaries;<br>SELECT * FROM employees INNER JOIN salaries;<br><br>-- on等值连接 40行<br>SELECT * FROM employees JOIN salaries ON employees.emp_no &#x3D; salaries.emp_no;<br><br>-- 自然连接，去掉了重复列，且自行使用 employees.emp_no &#x3D; salaries.emp_no的条件<br>SELECT * FROM employees NATURAL JOIN salaries;<br></code></pre></td></tr></table></figure>
+
+<h4 id="外连接-outer-join"><a href="#外连接-outer-join" class="headerlink" title="外连接 outer join"></a>外连接 outer join</h4><ul>
+<li>可以省略为join<br>分为左外连接，即左连接；右外连接，即右连接；全外连接</li>
+</ul>
+<h5 id="左连接"><a href="#左连接" class="headerlink" title="左连接"></a>左连接</h5><p>（56条记录）</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs plain">SELECT * FROM employees LEFT JOIN salaries ON employees.emp_no &#x3D; salaries.emp_no;<br></code></pre></td></tr></table></figure>
+
+<p><img src="https://gitee.com/ashjian/picBed/raw/master/20210828233546.png" alt="在这里插入图片描述"></p>
+<h5 id="右连接"><a href="#右连接" class="headerlink" title="右连接"></a>右连接</h5><p>（40 条记录）</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs plain">SELECT * FROM employees RIGHT JOIN salaries ON employees.emp_no &#x3D; salaries.emp_no;<br></code></pre></td></tr></table></figure>
+
+<ul>
+<li>这个右连接等价于上面的左连接（56条记录）</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs python">SELECT * FROM salaries RIGHT JOIN employees ON employees.emp_no = salaries.emp_no;<br></code></pre></td></tr></table></figure>
+
+<h5 id="左外连接、右外连接"><a href="#左外连接、右外连接" class="headerlink" title="左外连接、右外连接"></a>左外连接、右外连接</h5><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs python">SELECT * FROM employees RIGHT JOIN salaries ON employees.emp_no = salaries.emp_no;<br></code></pre></td></tr></table></figure>
+
+<p>结果是先employees后salaries的字段显示，Right是看表的数据的方向，从salaries往employees看，以salaries为准，它的所有数据都显示</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs plain">SELECT<br>	employees.*<br>FROM<br>	salaries<br>	RIGHT JOIN employees ON employees.emp_no<br>salaries.emp_no <br>WHERE<br>	salaries.emp_no IS NULL<br></code></pre></td></tr></table></figure>
+
+<h5 id="自连接"><a href="#自连接" class="headerlink" title="自连接"></a>自连接</h5><p>表，自己和自己连接</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs plain">select manager.* from emp manager,emp worker where <br>manaer.empno&#x3D;worker.mgr and worker.empno&#x3D;1;<br><br>select manager.* from emp manager inner join emp <br>worker on manaer.empno&#x3D;worker.mgr where worker.empno&#x3D;1;<br></code></pre></td></tr></table></figure>
+
+<h2 id="存储过程、触发器"><a href="#存储过程、触发器" class="headerlink" title="存储过程、触发器"></a>存储过程、触发器</h2><ul>
+<li><p>存储过程（Stored Procedure），数据库系统中，一段完成特定功能的SQL语句。编写成类似函数的方式，可以传参并调用。支持流程控制语句</p>
+</li>
+<li><p>触发器（Trigger），由事件触发的特殊的存储过程，例如insert数据时触发</p>
+</li>
+<li><p>这两种技术，虽然是数据库高级内容，性能不错，但基本很少用了</p>
+</li>
+<li><p>它们移植性差，使用时占用的服务器资源，排错、维护不方便</p>
+</li>
+<li><p>最大的原因，不太建议把逻辑放在数据库中</p>
+</li>
+</ul>
+
+      
+    </div>
+    
+    
+    
+
+     <!-- 文章末尾统一添加“本文结束”标记 -->
+    <div>
+      
+        <div>
+    
+        <div style="text-align:center;color: #555;font-size:24px;"><-------------The End-------------></div>
+    
+</div>
+
+      
+    </div>
+    
+
+    
+      <div>
+        <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+  <div>坚持原创分享，你的支持就是我最大的动力！</div>
+  <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+    <span>打赏</span>
+  </button>
+  <div id="QR" style="display: none;">
+
+    
+      <div id="wechat" style="display: inline-block">
+        <img id="wechat_qr" src="/uploads/weixin_cash_code.png" alt="StarDustLoong 微信支付"/>
+        <p>微信支付</p>
+      </div>
+    
+
+    
+      <div id="alipay" style="display: inline-block">
+        <img id="alipay_qr" src="/uploads/alipay_cash_code.png" alt="StarDustLoong 支付宝"/>
+        <p>支付宝</p>
+      </div>
+    
+
+    
+
+  </div>
+</div>
+
+      </div>
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/python%E6%95%B0%E6%8D%AE%E5%BA%93/" rel="tag"># python数据库</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/%E6%95%B0%E6%8D%AE%E5%BA%93/" rel="next" title="数据库">
+                <i class="fa fa-chevron-left"></i> 数据库
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/%E5%85%B3%E7%B3%BB%E6%A8%A1%E5%9E%8B%E5%92%8CSQL-%20%E4%BA%8B%E5%8A%A1%E3%80%81MySQL%E9%9A%94%E7%A6%BB%E7%BA%A7%E5%88%AB%E4%B8%8E%E5%85%B6%E4%BB%96%E6%A6%82%E5%BF%B5/" rel="prev" title="关系模型和SQL- 事务、MySQL隔离级别与其他概念">
+                关系模型和SQL- 事务、MySQL隔离级别与其他概念 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+    </div>
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/uploads/avatar.png"
+                alt="StarDustLoong" />
+            
+              <p class="site-author-name" itemprop="name">StarDustLoong</p>
+              <p class="site-description motion-element" itemprop="description">人类如风一般的自由</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">2842</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">13</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">160</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+	   
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/StarDustLoong" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:13671474528@163.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://www.zhihu.com/people/ashjian-ar15" target="_blank" title="知乎">
+                      
+                        <i class="fa fa-fw fa-globe"></i>知乎</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://me.csdn.net/ashjian" target="_blank" title="CSDN">
+                      
+                        <i class="fa fa-fw fa-codiepie"></i>CSDN</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+            <div class="links-of-blogroll motion-element links-of-blogroll-inline">
+              <div class="links-of-blogroll-title">
+                <i class="fa  fa-fw fa-link"></i>
+                Links
+              </div>
+              <ul class="links-of-blogroll-list">
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="http://mp.weixin.qq.com/user1" title="OpenInfo" target="_blank">OpenInfo</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="http://mp.weixin.qq.com/user2" title="stormzhang" target="_blank">stormzhang</a>
+                  </li>
+                
+              </ul>
+            </div>
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Insert语句"><span class="nav-number">1.</span> <span class="nav-text">Insert语句</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#例："><span class="nav-number">1.1.</span> <span class="nav-text">例：</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Update语句"><span class="nav-number">2.</span> <span class="nav-text">Update语句</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Delete语句"><span class="nav-number">3.</span> <span class="nav-text">Delete语句</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Select语句"><span class="nav-number">4.</span> <span class="nav-text">Select语句</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#查询"><span class="nav-number">4.1.</span> <span class="nav-text">查询</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#使用字符串相加函数-CONCAT"><span class="nav-number">4.1.1.</span> <span class="nav-text">使用字符串相加函数 CONCAT</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#AS定义别名，可选。"><span class="nav-number">4.1.2.</span> <span class="nav-text">AS定义别名，可选。</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Limit子句"><span class="nav-number">4.2.</span> <span class="nav-text">Limit子句</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Where子句"><span class="nav-number">4.3.</span> <span class="nav-text">Where子句</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#EXPLAIN-可判断查询条件性能如何"><span class="nav-number">4.3.1.</span> <span class="nav-text">EXPLAIN 可判断查询条件性能如何</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#ORder-by-子句"><span class="nav-number">4.4.</span> <span class="nav-text">ORder by 子句</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#DISTINCT"><span class="nav-number">4.5.</span> <span class="nav-text">DISTINCT</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#聚合函数"><span class="nav-number">4.6.</span> <span class="nav-text">聚合函数</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#分别查询"><span class="nav-number">4.7.</span> <span class="nav-text">分别查询</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#聚合所有"><span class="nav-number">4.7.1.</span> <span class="nav-text">聚合所有</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#聚合被选择的记录"><span class="nav-number">4.7.2.</span> <span class="nav-text">聚合被选择的记录</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#分组"><span class="nav-number">4.7.3.</span> <span class="nav-text">分组</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#按照不同emp-no分组，每组分别聚合"><span class="nav-number">4.7.4.</span> <span class="nav-text">按照不同emp_no分组，每组分别聚合</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#HAVING子句对分组结果过滤"><span class="nav-number">4.7.5.</span> <span class="nav-text">HAVING子句对分组结果过滤</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#使用别名"><span class="nav-number">4.7.6.</span> <span class="nav-text">使用别名</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#最后对分组过滤后的结果排序"><span class="nav-number">4.7.7.</span> <span class="nav-text">最后对分组过滤后的结果排序</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#子查询"><span class="nav-number">4.7.8.</span> <span class="nav-text">子查询</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#连接join"><span class="nav-number">4.7.9.</span> <span class="nav-text">连接join</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#交叉连接-cross-join"><span class="nav-number">4.7.9.1.</span> <span class="nav-text">交叉连接 cross join</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#内连接-inner-join"><span class="nav-number">4.7.9.2.</span> <span class="nav-text">内连接 inner join</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#外连接-outer-join"><span class="nav-number">4.7.9.3.</span> <span class="nav-text">外连接 outer join</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#左连接"><span class="nav-number">4.7.9.3.1.</span> <span class="nav-text">左连接</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#右连接"><span class="nav-number">4.7.9.3.2.</span> <span class="nav-text">右连接</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#左外连接、右外连接"><span class="nav-number">4.7.9.3.3.</span> <span class="nav-text">左外连接、右外连接</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#自连接"><span class="nav-number">4.7.9.3.4.</span> <span class="nav-text">自连接</span></a></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#存储过程、触发器"><span class="nav-number">4.8.</span> <span class="nav-text">存储过程、触发器</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">StarDustLoong</span>
+
+  
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-area-chart"></i>
+    </span>
+    
+      <span class="post-meta-item-text">本站总字数&#58;</span>
+    
+    <span title="本站总字数">769.8k</span>
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Pisces</a> v5.1.4</div>
+
+
+
+
+#<!-- 百度自动推送 -->
+#<script>
+#(function(){
+#    var bp = document.createElement('script');
+#    var curProtocol = window.location.protocol.split(':')[0];
+#    if (curProtocol === 'https') {
+#        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+#    }
+#    else {
+#        bp.src = 'http://push.ashjian.baidu.com/push.js';
+#    }
+#    var s = document.getElementsByTagName("script")[0];
+#    s.parentNode.insertBefore(bp, s);
+#})();
+#</script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aplayer/dist/APlayer.min.css">
+
+<script src="https://cdn.jsdelivr.net/npm/aplayer/dist/APlayer.min.js"></script>
+<!-- require MetingJS -->
+
+<script src="https://cdn.jsdelivr.net/npm/meting@2.0.1/dist/Meting.min.js"></script>
+<div> 
+<meting-js  
+    server="netease" 
+    type="playlist"  
+    id="5281251057" 
+    fixed="true"  
+    autoplay="false" 
+    loop="all" 
+    order="random"
+    preload="auto" 
+    list-folded="ture" 
+    list-max-height="500px" 
+    lrc-type="1">
+</meting-js>	 
+</div>
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv">
+      本站访客数
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+      人次
+    </span>
+  
+
+  
+    <span class="site-pv">
+      本站总访问量
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+      次
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+  <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+  <script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+  
+  <script type="text/javascript">
+    var GUEST = ['nick','mail','link'];
+    var guest = 'nick,mail,link';
+    guest = guest.split(',').filter(item=>{
+      return GUEST.indexOf(item)>-1;
+    });
+    new Valine({
+        el: '#comments' ,
+        verify: false,
+        notify: false,
+        appId: 'Gp5xxuBGmRxC9yeJHf5wlLpN-gzGzoHsz',
+        appKey: 'wo0eDJonJrnuUrCCCU7EnH1n',
+        placeholder: '欢迎评论',
+        avatar:'mm',
+        guest_info:guest,
+        pageSize:'20' || 10,
+    });
+  </script>
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"jsonPath":"/live2dw/assets/dsr50_lifu_normal.model.json"},"display":{"position":"right","width":700,"height":800,"hOffset":-250,"vOffset":-150},"mobile":{"show":true,"scale":0.7},"log":false});</script></body>
+</html>
