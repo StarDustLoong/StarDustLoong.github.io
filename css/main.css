@@ -3158,6 +3158,7 @@ body {
   color: #fff;
   background: url("/images/紫阳花博客2.jpg") no-repeat 0px 0px;
   background-size: 100% 100%;
+  opacity: 0;
 }
 .site-subtitle {
   margin-top: 10px;
